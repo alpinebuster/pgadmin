@@ -5,6 +5,7 @@ web/regression
 web/**/tests/
 web/**/*.pyc
 web/**/__pycache__
+web/**/generated
 .DS_Store
 web/pgadmin/messages.pot
 web/pgadmin/translations/??/LC_MESSAGES/messages.po
@@ -12,3 +13,5 @@ Dockerfile
 docs/en_US/_build/**/*
 src-build/**/*
 dist/**/*
+venv
+env
