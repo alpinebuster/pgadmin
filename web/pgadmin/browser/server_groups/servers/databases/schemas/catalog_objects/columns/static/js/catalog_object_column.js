@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import CatalogObjectColumnSchema from './catalog_object_column.ui';
 
 define('pgadmin.node.catalog_object_column', [

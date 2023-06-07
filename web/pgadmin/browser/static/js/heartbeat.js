@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 import getApiInstance from '../../../static/js/api_instance';

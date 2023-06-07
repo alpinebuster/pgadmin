@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import gettext from 'sources/gettext';
 import BaseUISchema from 'sources/SchemaView/base_schema.ui';
 import { isEmptyString } from 'sources/validators';
@@ -223,7 +214,7 @@ class GoogleInstanceSchema extends BaseUISchema {
       }
     ];
   }
-}  
+}
 
 class GoogleStorageSchema extends BaseUISchema {
   constructor() {
@@ -235,22 +226,22 @@ class GoogleStorageSchema extends BaseUISchema {
   get baseFields() {
     return [
       {
-        id: 'storage_type', 
-        label: gettext('Storage type'), 
+        id: 'storage_type',
+        label: gettext('Storage type'),
         type: 'select',
         mode: ['create'],
         noEmpty: true,
         options: [
           {'label': gettext('SSD'), 'value': 'PD_SSD'},
           {'label': gettext('HDD'), 'value': 'PD_HDD'},
-        ], 
+        ],
       },
       {
-        id: 'storage_size', 
-        label: gettext('Storage capacity'), 
+        id: 'storage_size',
+        label: gettext('Storage capacity'),
         type: 'int',
-        mode: ['create'], 
-        noEmpty: true, 
+        mode: ['create'],
+        noEmpty: true,
         deps: ['storage_type'],
         helpMessage: gettext('Size in GB.'),
       }
@@ -445,11 +436,11 @@ class GoogleClusterSchema extends BaseUISchema {
       },
       {}
     );
-    
+
     this.googleStorageDetails = new GoogleStorageSchema(
       {},
       {}
-    );  
+    );
 
     this.googleNetworkDetails = new GoogleNetworkSchema({}, {});
 

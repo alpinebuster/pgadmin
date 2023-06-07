@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import gettext from 'sources/gettext';
 
 import React, { useContext, useState, useEffect } from 'react';
@@ -84,7 +76,7 @@ export function Results() {
         <Box className={classes.label}>{gettext('Difference')}</Box>
       </Box>
       <Box className={classes.sqlContainer}>
-        <Box className={classes.sqldata}> 
+        <Box className={classes.sqldata}>
           <Box className={classes.sqlInput}>
             <InputSQL
               onLable={true}

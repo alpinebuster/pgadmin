@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import { Box, makeStyles } from '@material-ui/core';
 import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -81,7 +73,7 @@ export function ItemView({idx, row, selected, onItemSelect, onItemEnter, onEditC
       onEditComplete(row);
     }
   };
-  
+
   let icon = <DescriptionIcon style={{fontSize: '2.5rem'}} />;
   if(row.file_type == 'dir') {
     icon = <FolderIcon style={{fontSize: '2.5rem'}} />;

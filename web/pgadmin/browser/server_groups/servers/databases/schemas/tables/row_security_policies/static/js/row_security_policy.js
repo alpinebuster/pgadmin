@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import RowSecurityPolicySchema from './row_security_policy.ui';
 import { getNodeListByName } from '../../../../../../../../static/js/node_ajax';
 

@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 // eslint-disable-next-line react/display-name
 import React, { useEffect, useMemo, useState } from 'react';
 import gettext from 'sources/gettext';
@@ -861,7 +853,7 @@ export default function Dashboard({
         controlProps={CustomActiveOnlyHeaderLabel}
       ></InputCheckbox>);
   };
-    
+
   return (
     <>
       {sid && props.serverConnected ? (

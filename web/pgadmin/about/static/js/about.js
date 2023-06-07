@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import React from 'react';
 import gettext from 'sources/gettext';
 import Notify from '../../../static/js/helpers/Notifier';
@@ -43,7 +34,7 @@ class About {
     // Render About component
     Notify.showModal(gettext('About %s', pgAdmin.Browser.utils.app_name), () => {
       return <AboutComponent />;
-    }, { isFullScreen: false, isResizeable: true, showFullScreen: true, 
+    }, { isFullScreen: false, isResizeable: true, showFullScreen: true,
       isFullWidth: true, dialogWidth: dlgWidth, dialogHeight: dlgHeight, minHeight: dlgHeight
     });
   }

@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import jasmineEnzyme from 'jasmine-enzyme';
 import React from 'react';
 import '../helper/enzyme.helper';
@@ -84,7 +75,7 @@ describe('SelectThemes', () => {
       input.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 });
 
       input.simulate('keyDown', { key: 'Enter', keyCode: 13 });
-      
+
       ctrl.setProps({
         value: 'dark',
         onChange: onChange,

@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -133,9 +125,9 @@ export function InputComponent({ label, serverList, databaseList, schemaList, di
 
 InputComponent.propTypes = {
   label: PropTypes.string,
-  serverList: PropTypes.array, 
-  databaseList:PropTypes.array, 
-  schemaList:PropTypes.array, 
+  serverList: PropTypes.array,
+  databaseList:PropTypes.array,
+  schemaList:PropTypes.array,
   diff_type:PropTypes.number,
   selectedSid: PropTypes.number,
   selectedDid: PropTypes.number,

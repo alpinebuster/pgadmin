@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import gettext from 'sources/gettext';
 import BaseUISchema from 'sources/SchemaView/base_schema.ui';
 import _ from 'lodash';
@@ -184,7 +176,7 @@ export default class PublicationSchema extends BaseUISchema {
     this.version=!_.isUndefined(this.node_info['node_info']) && !_.isUndefined(this.node_info['node_info'].version) && this.node_info['node_info'].version;
 
   }
- 
+
   get idAttribute() {
     return 'oid';
   }
@@ -276,10 +268,10 @@ export default class PublicationSchema extends BaseUISchema {
     },{
       id: 'pubschema', label: gettext('Tables in Schema'), type: 'select',
       controlProps: { allowClear: true, multiple: true, creatable: true },
-      options: this.fieldOptions.allSchemas, deps: ['all_table','pubtable'], 
+      options: this.fieldOptions.allSchemas, deps: ['all_table','pubtable'],
       disabled: (state)=>{return obj.isColumn(state) || obj.isAllTable(state);},
       group: this.version < 150000 ? null : gettext('Tables'), mode: ['edit', 'create', 'properties'],
-      min_version: 150000, 
+      min_version: 150000,
     },
     {
       id: 'pubtable_names', label: gettext('Tables'), cell: 'string',
@@ -290,18 +282,18 @@ export default class PublicationSchema extends BaseUISchema {
           options: table,
           controlProps: { allowClear: true, multiple: true, creatable: true },
         };
-      },  
+      },
       group: gettext('Tables'), mode: ['properties'],
       deps: ['all_table'], disabled: obj.isAllTable,
     },
     {
-      id: 'pubtable', label: this.version < 150000 ? gettext('Tables') : gettext(''), 
+      id: 'pubtable', label: this.version < 150000 ? gettext('Tables') : gettext(''),
       type: this.version < 150000 ? 'select' : 'collection',
       controlProps: this.version < 150000 ? { allowClear: true, multiple: true, creatable: true } : null,
       options: this.version < 150000 ? this.fieldOptions.allTables : [],
       group: gettext('Tables'), mode: ['edit', 'create'],
       deps: ['all_table'], disabled: obj.isAllTable, schema: this.version < 150000 ? null : this.paramSchema,
-      uniqueCol: this.version < 150000 ? null : ['table_name'], 
+      uniqueCol: this.version < 150000 ? null : ['table_name'],
       canAdd: this.version < 150000 ? null : (state)=> !obj.isConnected(state),
       canDelete: this.version<150000?null : (state)=> !obj.isConnected(state),
     },

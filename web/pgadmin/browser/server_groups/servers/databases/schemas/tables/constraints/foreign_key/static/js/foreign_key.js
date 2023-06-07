@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import { getNodeForeignKeySchema } from './foreign_key.ui';
 import Notify from '../../../../../../../../../../static/js/helpers/Notifier';
 import _ from 'lodash';

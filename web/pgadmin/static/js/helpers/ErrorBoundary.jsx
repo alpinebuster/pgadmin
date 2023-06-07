@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 /* https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html */
 import React from 'react';
 import CustomPropTypes from '../custom_prop_types';

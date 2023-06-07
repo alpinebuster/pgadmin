@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import React, { useEffect, useRef, useState, useReducer, useMemo } from 'react';
 import { DATA_POINT_SIZE } from 'sources/chartjs';
 import {ChartContainer} from './Dashboard';

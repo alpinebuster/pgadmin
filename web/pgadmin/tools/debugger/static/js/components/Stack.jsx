@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import _ from 'lodash';
 import clsx from 'clsx';
 import gettext from 'sources/gettext';
@@ -44,7 +35,7 @@ export function Stack() {
   const eventBus = React.useContext(DebuggerEventsContext);
   const [stackData, setStackData] = useState([]);
   const [disableFrameSelection, setDisableFrameSelection] = useState(false);
-  
+
   React.useEffect(() => {
     eventBus.registerListener(DEBUGGER_EVENTS.SET_STACK, (stackValues) => {
       setStackData(stackValues);

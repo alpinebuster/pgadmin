@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import { Button, ButtonGroup, makeStyles, Tooltip } from '@material-ui/core';
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';

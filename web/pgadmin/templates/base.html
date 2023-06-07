@@ -24,7 +24,7 @@
     {% set theme = get_theme_css() %}
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename=('js/generated/'+theme[0])) }}" data-theme="{{theme[1]}}"/>
 
-     <!--View specified stylesheets-->
+    <!--View specified stylesheets-->
     {% block css_link %}{% endblock %}
 
     <script type="application/javascript">

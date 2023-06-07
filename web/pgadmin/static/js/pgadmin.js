@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 define([], function() {
   let pgAdmin = window.pgAdmin = window.pgAdmin || {};
 
@@ -54,7 +45,7 @@ define([], function() {
         _o = m(_t)[_e];
       } else {
         if (_n) {
-          _o = _n + 'px'; 
+          _o = _n + 'px';
         } else {
           _o = 'fontSize' === _e ? r(_t, '1em', 'left', 1) + 'px' : _t.currentStyle[_e];
         }

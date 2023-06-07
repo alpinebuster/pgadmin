@@ -1,11 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
 import TriggerFunctionSchema from './trigger_function.ui';
 import { getNodeListByName, getNodeListById, getNodeAjaxOptions } from '../../../../../../../static/js/node_ajax';
 import { getNodeVariableSchema } from '../../../../../static/js/variable.ui';

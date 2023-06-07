@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import FTSTemplateSchema from './fts_template.ui';
 import { getNodeAjaxOptions, getNodeListById } from '../../../../../../../static/js/node_ajax';
 

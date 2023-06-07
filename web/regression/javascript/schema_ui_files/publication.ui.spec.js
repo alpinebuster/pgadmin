@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import PublicationSchema from '../../../pgadmin/browser/server_groups/servers/databases/publications/static/js/publication.ui';
@@ -76,6 +67,6 @@ describe('PublicationSchema', ()=>{
     let status = disabled({pubtable: [],all_table: true});
     expect(status).toBe(true);
   });
-  
+
 });
 

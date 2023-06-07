@@ -1,12 +1,3 @@
-/////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
 import { getNodeAjaxOptions,getNodeListByName } from '../../../../../../static/js/node_ajax';
 import PublicationSchema from './publication.ui';
 
@@ -69,7 +60,7 @@ define('pgadmin.node.publication', [
           data: {action: 'create'},
         }]);
       },
-      
+
       getSchema: function(treeNodeInfo, itemNodeData){
         return new PublicationSchema(
           {
