@@ -19,7 +19,7 @@
 	"forwardPorts": [5050, 5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip install --user -r requirements.txt",
+	"postCreateCommand": "npm install -g yarn && yarn global add tyarn",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
