@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 from pgadmin.browser.server_groups.servers.databases.schemas.tables.utils \
     import BaseTableView
 from pgadmin.browser.server_groups.servers.databases.schemas.utils \

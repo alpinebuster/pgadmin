@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """
     Check if the result-set of a query is editable, A result-set is
     editable if:

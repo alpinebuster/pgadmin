@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 import pgadmin.browser.server_groups.servers.roles.tests.utils as roles_utils
 import pgadmin.browser.server_groups.servers.tablespaces.tests.utils as \
     tablespace_utils

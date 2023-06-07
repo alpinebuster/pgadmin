@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """Add a column to save password option which will be useful when Trust mode
 
 Revision ID: d39482714a2e

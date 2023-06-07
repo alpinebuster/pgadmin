@@ -1,12 +1,4 @@
 # -*- coding: utf-8 -*-
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
 from unittest.mock import patch
 
 from pgadmin.utils.route import BaseTestGenerator

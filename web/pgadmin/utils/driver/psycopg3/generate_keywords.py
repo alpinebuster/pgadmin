@@ -1,18 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2022, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-# This allows us to generate to keywords.py for PostgreSQL for used by
-# qtIdent and qtTypeIdent functions for scanning the keywords type.
-#
-# In order to generate keywords.py for specific version of PostgreSQL, put
-# pg_config executable in the PATH.
-#
-##########################################################################
-
 import os
 import re
 
@@ -22,15 +7,6 @@ if __name__ == '__main__':
 
     keywords_file = open('keywords.py', 'w')
 
-    keywords_file.write("""##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2022, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-""")
     keywords_file.write('# ScanKeyword function for ' + version)
     keywords_file.write('\n\ndef ScanKeyword(key):')
     keywords_file.write('\n    keywordDict = {\n')

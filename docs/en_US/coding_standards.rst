@@ -118,15 +118,6 @@ Python coding standards defined in
 `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_. An example function along
 with the required file header is shown below::
 
-    ##########################################################################
-    #
-    # pgAdmin 4 - PostgreSQL Tools
-    #
-    # Copyright (C) 2013 - 2023, The pgAdmin Development Team
-    # This software is released under the PostgreSQL Licence
-    #
-    ##########################################################################
-
     """Integration hooks for server groups."""
 
     from flask import render_template, url_for

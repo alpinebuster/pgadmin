@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 # Get the correct version of chromedriver for the version of Chrome on the
 # machine and save it to the specified location.
 

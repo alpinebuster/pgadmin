@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 from pgadmin.misc.bgprocess.processes import BatchProcess, IProcessDesc, \
     current_app
 from pgadmin.tools.import_export import IEMessage

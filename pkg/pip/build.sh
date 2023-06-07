@@ -1,14 +1,5 @@
 #!/bin/bash
 
-########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-#########################################################################
-
 # Runtime checks
 if [ ! -d runtime ] && [ ! -d web ]; then
     echo This script must be run from the top-level directory of the source tree.

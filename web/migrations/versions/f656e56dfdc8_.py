@@ -1,11 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
 """ Used for connection parameter changes in the server table.
 
 Revision ID: f656e56dfdc8

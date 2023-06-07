@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 # This utility will allow us to change the copyright year information from
 # all the files present in FILE_EXTENSIONS variable at once
 

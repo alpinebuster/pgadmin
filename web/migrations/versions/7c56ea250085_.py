@@ -1,11 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
 """Change server port constraint to allow port below 1024 RM#3307
 
 Revision ID: 7c56ea250085

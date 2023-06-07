@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 from unittest.mock import MagicMock
 from pgadmin.browser.server_groups.servers.tablespaces import TablespaceModule
 from pgadmin.utils.route import BaseTestGenerator

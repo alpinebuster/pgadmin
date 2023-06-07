@@ -1,11 +1,3 @@
-#######################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
 from pgadmin.utils.route import BaseTestGenerator
 from .registry import test_load_modules_based_registry, test_empty_registry, \
     test_create_base_class, test_load_classname_registry

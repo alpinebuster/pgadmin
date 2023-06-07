@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 # This utility will extract SQL keywords from postgres website and
 # pgsql keywords from the code git paths mentioned in PG_CODES_URLS
 # Note that, PG_CODES_URLS may need to be changed manually per version change

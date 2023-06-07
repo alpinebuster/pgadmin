@@ -1,16 +1,9 @@
 # -*- coding: utf-8 -*-
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL License
-#
-##########################################################################
 
 """
 Introduce a function to run the process executor in detached mode.
 """
+
 import csv
 import os
 import sys

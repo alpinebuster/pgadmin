@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """This is the main application entry point for pgAdmin 4. If running on
 a webserver, this will provide the WSGI interface, otherwise, we're going
 to start a web server."""

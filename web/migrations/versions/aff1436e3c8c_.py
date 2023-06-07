@@ -1,11 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
 """ Update the default timeout to 10 seconds instead on 0.
 0 indicates wait indefinitely which causes trouble when network connection
 to server is lost.

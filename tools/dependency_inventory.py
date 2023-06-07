@@ -1,14 +1,5 @@
 # -*- coding: utf-8 -*-
 
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 # This utility will generate a list of all dependencies, their upstream
 # repos and licence information.
 

@@ -1,12 +1,3 @@
-#########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """Perform the initial setup of the application, by creating the auth
 and settings database."""
 

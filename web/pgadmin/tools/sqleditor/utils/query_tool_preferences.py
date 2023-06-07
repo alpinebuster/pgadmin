@@ -1,12 +1,3 @@
-##########################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """Register preferences for query tool"""
 from flask_babel import gettext
 from pgadmin.utils.constants import PREF_LABEL_DISPLAY,\

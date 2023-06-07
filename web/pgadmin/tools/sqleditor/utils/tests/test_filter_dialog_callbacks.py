@@ -1,13 +1,5 @@
-#######################################################################
-#
-# pgAdmin 4 - PostgreSQL Tools
-#
-# Copyright (C) 2013 - 2023, The pgAdmin Development Team
-# This software is released under the PostgreSQL Licence
-#
-##########################################################################
-
 """Apply Explain plan wrapper to sql object."""
+
 from pgadmin.utils.ajax import make_json_response, internal_server_error
 from pgadmin.tools.sqleditor.utils.filter_dialog import FilterDialog
 from pgadmin.utils.route import BaseTestGenerator
