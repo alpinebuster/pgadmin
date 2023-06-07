@@ -723,7 +723,9 @@ def browser_css():
         render_template(
             'browser/css/browser.css', snippets=snippets, _=gettext
         ),
-        200, {'Content-Type': 'text/css'})
+        200,
+        {'Content-Type': 'text/css'}
+    )
 
 
 @blueprint.route("/nodes/", endpoint="nodes")
@@ -737,9 +739,11 @@ def get_nodes():
     return make_json_response(data=nodes)
 
 
-def form_master_password_response(existing=True, present=False, errmsg=None,
-                                  keyring_name='',
-                                  invalid_master_password_hook=False):
+def form_master_password_response(
+    existing=True, present=False, errmsg=None,
+    keyring_name='',
+    invalid_master_password_hook=False
+):
     return make_json_response(data={
         'present': present,
         'reset': existing,
@@ -750,8 +754,11 @@ def form_master_password_response(existing=True, present=False, errmsg=None,
     })
 
 
-@blueprint.route("/check_corrupted_db_file",
-                 endpoint="check_corrupted_db_file", methods=["GET"])
+@blueprint.route(
+    "/check_corrupted_db_file",
+    endpoint="check_corrupted_db_file",
+    methods=["GET"]
+)
 def check_corrupted_db_file():
     """
     Get the corrupted database file path.
