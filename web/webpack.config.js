@@ -1,4 +1,5 @@
 /* eslint-env node */
+
 // Import file, libraries and plugins
 const path = require('path');
 const webpack = require('webpack');
@@ -60,7 +61,7 @@ const copyFiles = new CopyPlugin({
     pgadminThemesJson,
     {
       from: './pgadmin/static/scss/resources/**/*.png',
-      to: 'img/[name].[ext]',
+      to: 'img/[name][ext]',
     },
   ],
 });
@@ -151,7 +152,7 @@ fs.readdirSync(all_themes_dir).map(function(curr_dir) {
 
   if(stats.isDirectory()) {
     /* Theme directory found */
-    let cssfile = 'pgadmin.theme.'+curr_dir;
+    let cssfile = 'pgadmin.theme.' + curr_dir;
 
     let disp_name = curr_dir;
 
@@ -159,7 +160,7 @@ fs.readdirSync(all_themes_dir).map(function(curr_dir) {
       /* For now lets keep it as beta release */
       disp_name: disp_name,
       cssfile: cssfile,
-      preview_img: curr_dir + '_preview.png',
+      preview_img: disp_name + '_preview.png',
     };
   }
 });
@@ -193,14 +194,14 @@ let themeCssRules = function(theme_name) {
       },
     },
     generator: {
-      filename: 'img/[name].[ext]',
+      filename: 'img/[name][ext]',
     },
     exclude: /vendor/,
   },{
     test: /\.(eot|ttf|woff|woff2)$/,
     type: 'asset/resource',
     generator: {
-      filename: 'fonts/[name].[ext]',
+      filename: 'fonts/[name][ext]',
     },
     include: [
       /node_modules/,

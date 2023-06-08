@@ -1,9 +1,11 @@
 /* The standard theme */
-import { createMuiTheme } from '@material-ui/core/styles';
-import { fade, darken } from '@material-ui/core/styles/colorManipulator';
+
+import { createTheme } from '@material-ui/core/styles';
+import { darken} from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles';
 
 export default function(basicSettings) {
-  return createMuiTheme(basicSettings, {
+  return createTheme(basicSettings, {
     palette: {
       default: {
         main: '#fff',
@@ -77,7 +79,7 @@ export default function(basicSettings) {
       },
       borderColor: '#dde0e6',
       loader: {
-        backgroundColor: fade('#000', 0.65),
+        backgroundColor: alpha('#000', 0.65),
         color: '#fff',
       },
       errorColor: '#E53935',

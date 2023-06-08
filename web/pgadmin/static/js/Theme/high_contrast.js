@@ -1,8 +1,9 @@
-/* The dark theme */
-import { createMuiTheme } from '@material-ui/core/styles';
+/* The high contrast theme */
+
+import { createTheme } from '@material-ui/core/styles';
 
 export default function(basicSettings) {
-  return createMuiTheme(basicSettings, {
+  return createTheme(basicSettings, {
     palette: {
       default: {
         main: 'transparent',
