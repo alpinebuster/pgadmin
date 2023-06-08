@@ -52,12 +52,11 @@ const useStyles = makeStyles((theme)=>({
 }));
 
 
-
 export default function AppMenuBar() {
   const classes = useStyles();
   const [,setRefresh] = useState(false);
 
-  const reRenderMenus = ()=>setRefresh((prev)=>!prev);
+  const reRenderMenus = () => setRefresh((prev)=>!prev);
 
   useEffect(()=>{
     pgAdmin.Browser.Events.on('pgadmin:nw-enable-disable-menu-items', ()=>{

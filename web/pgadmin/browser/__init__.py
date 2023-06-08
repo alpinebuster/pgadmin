@@ -104,28 +104,32 @@ class BrowserModule(PgAdminModule):
                     module=PGADMIN_BROWSER,
                     label=gettext('Lock Layout'),
                     priority=999,
-                    menu_items=[MenuItem(
-                        name='mnu_lock_none',
-                        module=PGADMIN_BROWSER,
-                        callback='mnu_lock_none',
-                        priority=0,
-                        label=gettext('None'),
-                        checked=True
-                    ), MenuItem(
-                        name='mnu_lock_docking',
-                        module=PGADMIN_BROWSER,
-                        callback='mnu_lock_docking',
-                        priority=1,
-                        label=gettext('Prevent Docking'),
-                        checked=False
-                    ), MenuItem(
-                        name='mnu_lock_full',
-                        module=PGADMIN_BROWSER,
-                        callback='mnu_lock_full',
-                        priority=2,
-                        label=gettext('Full Lock'),
-                        checked=False
-                    )]
+                    menu_items=[
+                        MenuItem(
+                            name='mnu_lock_none',
+                            module=PGADMIN_BROWSER,
+                            callback='mnu_lock_none',
+                            priority=0,
+                            label=gettext('None'),
+                            checked=False
+                        ),
+                        MenuItem(
+                            name='mnu_lock_docking',
+                            module=PGADMIN_BROWSER,
+                            callback='mnu_lock_docking',
+                            priority=1,
+                            label=gettext('Prevent Docking'),
+                            checked=True
+                        ),
+                        MenuItem(
+                            name='mnu_lock_full',
+                            module=PGADMIN_BROWSER,
+                            callback='mnu_lock_full',
+                            priority=2,
+                            label=gettext('Full Lock'),
+                            checked=False
+                        )
+                    ]
                 )
             ]
         }
@@ -140,13 +144,15 @@ class BrowserModule(PgAdminModule):
         Returns:
             list: a list of url endpoints exposed to the client.
         """
-        return [BROWSER_INDEX, 'browser.nodes',
-                'browser.check_corrupted_db_file',
-                'browser.check_master_password',
-                'browser.set_master_password',
-                'browser.reset_master_password',
-                'browser.lock_layout',
-                ]
+        return [
+            BROWSER_INDEX,
+            'browser.nodes',
+            'browser.check_corrupted_db_file',
+            'browser.check_master_password',
+            'browser.set_master_password',
+            'browser.reset_master_password',
+            'browser.lock_layout',
+        ]
 
     def register(self, app, options):
         """

@@ -90,14 +90,25 @@ def register_browser_preferences(self):
     )
 
     self.lock_layout = self.preference.register(
-        'display', 'lock_layout',
-        gettext('Lock Layout'), 'radioModern', LOCK_LAYOUT_LEVEL['NONE'],
-        category_label=PREF_LABEL_DISPLAY, options=[
-            {'label': gettext('None'), 'value': LOCK_LAYOUT_LEVEL['NONE']},
-            {'label': gettext('Prevent Docking'),
-             'value': LOCK_LAYOUT_LEVEL['PREVENT_DOCKING']},
-            {'label': gettext('Full Lock'),
-             'value': LOCK_LAYOUT_LEVEL['FULL']},
+        'display',
+        'lock_layout',
+        gettext('Lock Layout'),
+        'radioModern',
+        LOCK_LAYOUT_LEVEL['PREVENT_DOCKING'],  # Default value
+        category_label=PREF_LABEL_DISPLAY,
+        options=[
+            {
+                'label': gettext('None'),
+                'value': LOCK_LAYOUT_LEVEL['NONE']
+            },
+            {
+                'label': gettext('Prevent Docking'),
+                'value': LOCK_LAYOUT_LEVEL['PREVENT_DOCKING']
+            },
+            {
+                'label': gettext('Full Lock'),
+                'value': LOCK_LAYOUT_LEVEL['FULL']
+            },
         ],
         help_str=gettext(
             'Lock the UI layout at different levels'
