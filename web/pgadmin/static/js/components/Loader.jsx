@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme)=>({
   }
 }));
 
-export default function Loader({message, style, autoEllipsis=false, ...props}) {
+export default function Loader({
+  message, style, autoEllipsis=false, ...props
+}) {
   const classes = useStyles();
   if(!message) {
     return <></>;

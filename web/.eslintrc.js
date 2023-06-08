@@ -61,10 +61,6 @@ module.exports = {
       'error',
       'single',
     ],
-    'semi': [
-      'error',
-      'always',
-    ],
     'comma-dangle': [
       'error',
       'only-multiline',

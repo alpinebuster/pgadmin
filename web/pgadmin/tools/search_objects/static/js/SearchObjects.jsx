@@ -261,6 +261,7 @@ function getComparator(sortColumn) {
     return dir*(a[key].localeCompare(b[key]));
   };
 }
+
 export default function SearchObjects({nodeData}) {
   const classes = useStyles();
   const modalClasses = useModalStyles();

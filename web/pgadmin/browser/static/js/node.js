@@ -26,7 +26,9 @@ define('pgadmin.browser.node', [
 
   // A helper (base) class for all the nodes, this has basic
   // operations/callbacks defined for basic operation.
-  pgBrowser.Node = function() {/*This is intentional (SonarQube)*/};
+  pgBrowser.Node = function() {
+    /*This is intentional (SonarQube)*/
+  };
 
   // Helper function to correctly set up the property chain, for subclasses.
   // Uses a hash of class properties to be extended.

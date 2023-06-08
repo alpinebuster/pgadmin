@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 define([
   'sources/pgadmin', 'jquery', 'wcdocker',
 ], function(pgAdmin, $) {

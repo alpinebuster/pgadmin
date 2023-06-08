@@ -1,4 +1,3 @@
-
 import pgAdmin from 'sources/pgadmin';
 import pgBrowser from 'top/browser/static/js/browser';
 import React from 'react';
@@ -87,7 +86,9 @@ export default class SearchObjectModule {
     ReactDOM.render(
       <Theme>
         <SearchObjects nodeData={nodeData}/>
-      </Theme>, j[0]);
+      </Theme>,
+      j[0]
+    );
   }
 }
 
