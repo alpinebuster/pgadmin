@@ -22,6 +22,27 @@ samp,
     margin-bottom: 3px;
 }
 
+// Used for submodule loading
+.pg-loading-container {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  background: $color-bg;
+  z-index: 1056;
+
+  .pg-loading-content {
+    position: absolute;
+    width: 100%;
+    top: 40%;
+  }
+}
+.pg-loading-icon {
+  background: $loader-icon center center no-repeat;
+  height: 75px;
+  width: 100%;
+  text-align: center;
+}
+
 .pg-sp-container {
   position: absolute;
   min-width: 100%;
@@ -36,7 +57,7 @@ samp,
   }
 }
 .pg-sp-icon {
-  background: $loader-icon center center no-repeat;
+  background: $splash-loader-icon center center no-repeat;
   height: 75px;
   width: 100%;
   text-align: center;

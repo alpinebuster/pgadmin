@@ -22,7 +22,7 @@ try {
         height: 100%;
     }
 
-    #schema-diff-main-container:not(:empty) + .pg-sp-container {
+    #schema-diff-main-container:not(:empty) + .pg-loading-container {
         display: none;
     }
 </style>
@@ -31,8 +31,8 @@ try {
 {% block title %}{{editor_title}}{% endblock %}
 {% block body %}
 <div id="schema-diff-main-container" tabindex="0">
-  <div class="pg-sp-container">
-    <div class="pg-sp-content">
+  <div class="pg-loading-container">
+    <div class="pg-loading-content">
         <div class="row">
             <div class="col-12 pg-sp-icon"></div>
         </div>

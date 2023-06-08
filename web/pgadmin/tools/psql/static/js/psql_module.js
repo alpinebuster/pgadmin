@@ -178,10 +178,10 @@ export function initialize(gettext, url_for, _, pgAdmin, csrfToken, Browser) {
           // add spinner element
           const frame = j.frameData.embeddedFrame;
           const spinner = document.createElement('div');
-          spinner.setAttribute('class', 'pg-sp-container');
+          spinner.setAttribute('class', 'pg-loading-container');
           spinner.innerHTML = `
-            <div class="pg-sp-content">
-              <div class="pg-sp-icon"></div>
+            <div class="pg-loading-content">
+              <div class="pg-loading-icon"></div>
             </div>
           `;
 

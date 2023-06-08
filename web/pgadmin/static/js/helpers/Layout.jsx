@@ -303,7 +303,9 @@ function getDefaultGroup() {
   };
 }
 
-export default function Layout({groups, getLayoutInstance, layoutId, savedLayout, ...props}) {
+export default function Layout(
+  {groups, getLayoutInstance, layoutId, savedLayout, ...props}
+) {
   const classes = useStyles();
   const layoutObj = useRef();
   const defaultGroups = React.useMemo(()=>({
