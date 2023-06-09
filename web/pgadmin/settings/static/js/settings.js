@@ -26,7 +26,8 @@ define('pgadmin.settings', [
     // We will force unload method to not to save current layout
     // and reload the window
     show: function() {
-      Notify.confirm(gettext('Reset layout'),
+      Notify.confirm(
+        gettext('Reset layout'),
         gettext('Are you sure you want to reset the current layout? This will cause the application to reload and any un-saved data will be lost.'),
         function() {
           const reloadingIndicator = document.createElement('div');
@@ -34,21 +35,25 @@ define('pgadmin.settings', [
           document.body.appendChild(reloadingIndicator);
 
           // Delete the record from database as well, then only reload page
-          getApiInstance().delete(url_for('settings.reset_layout'))
-            .then(()=>{
-              window.onbeforeunload = null;
-              // Now reload page
-              location.reload(true);
-              let {name: browser} = getBrowser();
-              if(browser == 'Nwjs') {
-                pgAdmin.Browser.create_menus();
-              }
-            })
-            .catch(()=>{
-              console.warn(
-                'Something went wrong on server while resetting layout.'
-              );
-            });
+          getApiInstance().delete(
+            url_for('settings.reset_layout')
+          ).then(()=>{
+            // This event enables a web page to trigger a confirmation dialog
+            // asking the user if they really want to leave the page.
+            window.onbeforeunload = null;
+
+            // Now reload page
+            location.reload(true);
+
+            let {name: browser} = getBrowser();
+            if(browser == 'Nwjs') {
+              pgAdmin.Browser.create_menus();
+            }
+          }).catch(()=>{
+            console.warn(
+              'Something went wrong on server while resetting layout.'
+            );
+          });
         },
         function() {
           // Do nothing as user canceled the operation.

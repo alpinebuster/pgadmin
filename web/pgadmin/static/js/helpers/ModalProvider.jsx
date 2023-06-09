@@ -1,8 +1,12 @@
-import { Box, Dialog, DialogContent, DialogTitle, makeStyles, Paper } from '@material-ui/core';
+import {
+  Box, Dialog, DialogContent, DialogTitle, makeStyles, Paper
+} from '@material-ui/core';
 import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { getEpoch } from 'sources/utils';
-import { DefaultButton, PgIconButton, PrimaryButton } from '../components/Buttons';
+import {
+  DefaultButton, PgIconButton, PrimaryButton
+} from '../components/Buttons';
 import Draggable from 'react-draggable';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import CustomPropTypes from '../custom_prop_types';
@@ -11,15 +15,19 @@ import gettext from 'sources/gettext';
 import HTMLReactParser from 'html-react-parser';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import { Rnd } from 'react-rnd';
-import { ExpandDialogIcon, MinimizeDialogIcon } from '../components/ExternalIcon';
+import {
+  ExpandDialogIcon, MinimizeDialogIcon
+} from '../components/ExternalIcon';
 
 export const ModalContext = React.createContext({});
+
 const MIN_HEIGHT = 190;
 const MIN_WIDTH = 500;
 
 export function useModal() {
   return React.useContext(ModalContext);
 }
+
 const useAlertStyles = makeStyles((theme) => ({
   footer: {
     display: 'flex',
@@ -32,7 +40,11 @@ const useAlertStyles = makeStyles((theme) => ({
   }
 }));
 
-function AlertContent({ text, confirm, okLabel = gettext('OK'), cancelLabel = gettext('Cancel'), onOkClick, onCancelClick }) {
+function AlertContent({
+  text, confirm, okLabel = gettext('OK'),
+  cancelLabel = gettext('Cancel'),
+  onOkClick, onCancelClick
+}) {
   const classes = useAlertStyles();
   return (
     <Box display="flex" flexDirection="column" height="100%">
@@ -46,6 +58,7 @@ function AlertContent({ text, confirm, okLabel = gettext('OK'), cancelLabel = ge
     </Box>
   );
 }
+
 AlertContent.propTypes = {
   text: PropTypes.string,
   confirm: PropTypes.bool,
@@ -55,7 +68,10 @@ AlertContent.propTypes = {
   cancelLabel: PropTypes.string,
 };
 
-function alert(title, text, onOkClick, okLabel = gettext('OK')) {
+function alert(
+  title, text, onOkClick,
+  okLabel = gettext('OK')
+) {
   // bind the modal provider before calling
   this.showModal(title, (closeModal) => {
     const onOkClickClose = () => {
@@ -68,7 +84,11 @@ function alert(title, text, onOkClick, okLabel = gettext('OK')) {
   });
 }
 
-function confirm(title, text, onOkClick, onCancelClick, okLabel = gettext('Yes'), cancelLabel = gettext('No')) {
+function confirm(
+  title, text, onOkClick, onCancelClick,
+  okLabel = gettext('Yes'),
+  cancelLabel = gettext('No')
+) {
   // bind the modal provider before calling
   this.showModal(title, (closeModal) => {
     const onCancelClickClose = () => {
@@ -254,12 +274,18 @@ export const useModalStyles = makeStyles((theme) => ({
   },
 }));
 
-function ModalContainer({ id, title, content, dialogHeight, dialogWidth, onClose, fullScreen = false, isFullWidth = false, showFullScreen = false, isResizeable = false, minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH, showTitle=true }) {
+function ModalContainer({
+  id, title, content, dialogHeight, dialogWidth,
+  onClose, fullScreen = false, isFullWidth = false,
+  showFullScreen = false, isResizeable = false,
+  minHeight = MIN_HEIGHT, minWidth = MIN_WIDTH,
+  showTitle=true
+}) {
   let useModalRef = useModal();
   const classes = useModalStyles();
   let closeModal = (_e, reason) => {
     useModalRef.closeModal(id);
-    if(reason == 'escapeKeyDown') {
+    if (reason == 'escapeKeyDown') {
       onClose?.();
     }
   };
@@ -270,36 +296,37 @@ function ModalContainer({ id, title, content, dialogHeight, dialogWidth, onClose
       open={true}
       onClose={closeModal}
       PaperComponent={PaperComponent}
-      PaperProps={{ 'isfullscreen': isfullScreen.toString(), 'isresizeable': isResizeable.toString(), width: dialogWidth, height: dialogHeight, minHeight: minHeight, minWidth: minWidth }}
+      PaperProps={{'isfullscreen': isfullScreen.toString(), 'isresizeable': isResizeable.toString(), width: dialogWidth, height: dialogHeight, minHeight: minHeight, minWidth: minWidth}}
       fullScreen={isfullScreen}
       fullWidth={isFullWidth}
       disableBackdropClick={showTitle}
       disablePortal
     >
-      { showTitle && <>
+      {showTitle && <>
         <DialogTitle className='modal-drag-area'>
           <Box className={classes.titleBar}>
             <Box className={classes.title} marginRight="0.25rem" >{title}</Box>
             {
               showFullScreen && !isfullScreen &&
-                <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Maximize')} icon={<ExpandDialogIcon className={classes.icon} />} size="xs" noBorder onClick={() => { setIsFullScreen(!isfullScreen); }} /></Box>
+              <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Maximize')} icon={<ExpandDialogIcon className={classes.icon} />} size="xs" noBorder onClick={() => {setIsFullScreen(!isfullScreen);}} /></Box>
             }
             {
               showFullScreen && isfullScreen &&
-                <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Minimize')} icon={<MinimizeDialogIcon  className={classes.icon} />} size="xs" noBorder onClick={() => { setIsFullScreen(!isfullScreen); }} /></Box>
+              <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Minimize')} icon={<MinimizeDialogIcon className={classes.icon} />} size="xs" noBorder onClick={() => {setIsFullScreen(!isfullScreen);}} /></Box>
             }
 
-            <Box marginLeft="auto"><PgIconButton title={gettext('Close')} icon={<CloseIcon  />} size="xs" noBorder onClick={closeModal} /></Box>
+            <Box marginLeft="auto"><PgIconButton title={gettext('Close')} icon={<CloseIcon />} size="xs" noBorder onClick={closeModal} /></Box>
           </Box>
         </DialogTitle>
       </>
       }
       <DialogContent height="100%">
-        {useMemo(()=>{ return content(closeModal); }, [])}
+        {useMemo(() => {return content(closeModal);}, [])}
       </DialogContent>
     </Dialog>
   );
 }
+
 ModalContainer.propTypes = {
   id: PropTypes.string,
   title: CustomPropTypes.children,

@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
+
 import Theme from 'sources/Theme';
+
 import Dependencies from '../../../misc/dependencies/static/js/Dependencies';
 import Dependents from '../../../misc/dependents/static/js/Dependents';
 import Statistics from '../../../misc/statistics/static/js/Statistics';
 import SQL from '../../../misc/sql/static/js/SQL';
 import Dashboard from '../../../dashboard/static/js/Dashboard';
-import _ from 'lodash';
 import { CollectionNodeView } from '../../../misc/properties/CollectionNodeProperties';
 import Processes from '../../../misc/bgprocess/static/js/Processes';
 

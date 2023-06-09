@@ -1,5 +1,6 @@
-import { getPanelView } from './panel_view'
-import _ from 'lodash'
+import _ from 'lodash';
+
+import {getPanelView} from './panel_view';
 
 define([
   'sources/pgadmin', 'wcdocker'

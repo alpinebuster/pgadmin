@@ -8,7 +8,6 @@
 *.swp
 .DS_Store
 .idea
-.vscode
 .yarn
 /*.diff
 /*.patch
@@ -39,7 +38,6 @@ runtime/pgAdmin4.pro.user*
 runtime/pgAdmin4_resource.rc
 runtime/release/
 runtime/ui_BrowserWindow.h
-# web/config_local.py
 web/pgadmin/misc/themes/pgadmin.themes.json
 web/geckodriver.log
 web/regression/test_config.json

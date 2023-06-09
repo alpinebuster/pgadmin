@@ -59,9 +59,12 @@ def register_browser_preferences(self):
     )
 
     self.preference.register(
-        'display', 'confirm_on_refresh_close',
-        gettext("Confirm on close or refresh?"), 'boolean',
-        True, category_label=PREF_LABEL_DISPLAY,
+        'display',
+        'confirm_on_refresh_close',
+        gettext("Confirm on close or refresh?"),
+        'boolean',
+        False,
+        category_label=PREF_LABEL_DISPLAY,
         help_str=gettext(
             'Confirm closure or refresh of the browser or browser tab is '
             'intended before proceeding.'

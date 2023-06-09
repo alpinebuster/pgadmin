@@ -21,6 +21,7 @@ const AUTO_HIDE_DURATION = 3000;  // In milliseconds
 
 let snackbarRef;
 let notifierInitialized = false;
+
 export function initializeNotifier(notifierContainer) {
   notifierInitialized = true;
   const RefLoad = ()=>{
@@ -46,6 +47,7 @@ export function initializeNotifier(notifierContainer) {
 
 let modalRef;
 let modalInitialized = false;
+
 export function initializeModalProvider(modalContainer) {
   modalInitialized = true;
   const RefLoad = ()=>{
@@ -86,7 +88,12 @@ const useModalStyles = makeStyles((theme)=>({
     marginLeft: '0.25rem',
   },
 }));
-function AlertContent({text, confirm, okLabel=gettext('OK'), cancelLabel=gettext('Cancel'), onOkClick, onCancelClick}) {
+
+function AlertContent({
+  text, confirm, okLabel=gettext('OK'),
+  cancelLabel=gettext('Cancel'),
+  onOkClick, onCancelClick
+}) {
   const classes = useModalStyles();
   return (
     <Box display="flex" flexDirection="column" height="100%">
@@ -100,6 +107,7 @@ function AlertContent({text, confirm, okLabel=gettext('OK'), cancelLabel=gettext
     </Box>
   );
 }
+
 AlertContent.propTypes = {
   text: PropTypes.string,
   confirm: PropTypes.bool,
@@ -108,7 +116,6 @@ AlertContent.propTypes = {
   okLabel: PropTypes.string,
   cancelLabel: PropTypes.string,
 };
-
 
 let Notifier = {
   success(msg, autoHideDuration = AUTO_HIDE_DURATION) {
@@ -141,7 +148,6 @@ let Notifier = {
       autoHideDuration
     );
   },
-
   pgRespErrorNotify(error, prefixMsg='') {
     if (error.response?.status === 410) {
       this.alert(gettext('Error: Object not found - %s.', error.response.statusText), parseApiError(error));
@@ -149,7 +155,6 @@ let Notifier = {
       this.error(prefixMsg + ' ' + parseApiError(error));
     }
   },
-
   pgNotifier(type, error, promptmsg, onJSONResult) {
     let msg;
 
@@ -196,13 +201,20 @@ let Notifier = {
     }
     modalRef.alert(title, text, onOkClick, okLabel);
   },
-  confirm: (title, text, onOkClick, onCancelClick, okLabel=gettext('Yes'), cancelLabel=gettext('No'))=>{
+  confirm: (
+    title, text, onOkClick, onCancelClick,
+    okLabel=gettext('Yes'),
+    cancelLabel=gettext('No')
+  ) => {
     /* Use this if you want to use pgAdmin global notifier.
     Or else, if you want to use modal inside iframe only then use ModalProvider eg- query tool */
     if(!modalInitialized) {
       initializeModalProvider();
     }
-    modalRef.confirm(title, text, onOkClick, onCancelClick, okLabel, cancelLabel);
+    modalRef.confirm(
+      title, text, onOkClick, onCancelClick,
+      okLabel, cancelLabel
+    );
   },
   showModal: (title, content, modalOptions) => {
     if(!modalInitialized) {
@@ -217,4 +229,5 @@ if(window.frameElement) {
 } else if(!pgWindow.Notifier){
   pgWindow.Notifier = Notifier;
 }
+
 export default Notifier;

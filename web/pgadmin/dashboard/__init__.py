@@ -1,4 +1,5 @@
 """A blueprint module implementing the dashboard frame."""
+
 import math
 from functools import wraps
 from flask import render_template, url_for, Response, g, request
