@@ -287,9 +287,14 @@ class ERDTool extends React.Component {
     const erdPref = this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module('erd');
     this.setState({
       preferences: erdPref,
-      is_new_tab: (this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module('browser').new_browser_tab_open || '')
-        .includes('erd_tool'),
-      is_close_tab_warning: this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module('browser').confirm_on_refresh_close,
+      is_new_tab: (
+        this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module(
+          'browser'
+        ).new_browser_tab_open || ''
+      ).includes('erd_tool'),
+      is_close_tab_warning: this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module(
+        'browser'
+      ).confirm_on_refresh_close,
       cardinality_notation: erdPref.cardinality_notation,
     }, ()=>{
       this.registerKeyboardShortcuts();
@@ -309,7 +314,9 @@ class ERDTool extends React.Component {
 
     this.props.pgWindow.pgAdmin.Browser.onPreferencesChange('browser', () => {
       this.setState({
-        is_close_tab_warning: this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module('browser').confirm_on_refresh_close,
+        is_close_tab_warning: this.props.pgWindow.pgAdmin.Browser.get_preferences_for_module(
+          'browser'
+        ).confirm_on_refresh_close,
       });
     });
 

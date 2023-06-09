@@ -61,14 +61,17 @@ class MiscModule(PgAdminModule):
                 .title(),
                 'value': theme,
                 'preview_src': url_for(
-                    'static', filename='js/generated/img/' +
-                    theme_data['preview_img']
+                    'static',
+                    filename='js/generated/img/' + theme_data['preview_img']
                 )
             })
 
         self.preference.register(
-            'themes', 'theme',
-            gettext("Theme"), 'options', 'standard',
+            'themes',
+            'theme',
+            gettext("Theme"),
+            'options',
+            'standard',
             category_label=gettext('Themes'),
             options=theme_options,
             control_props={

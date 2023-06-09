@@ -49,9 +49,12 @@ def register_browser_preferences(self):
         )
 
     self.preference.register(
-        'display', 'browser_tree_state_save_interval',
-        gettext("Object explorer tree state saving interval"), 'integer',
-        30, category_label=PREF_LABEL_DISPLAY,
+        'display',
+        'browser_tree_state_save_interval',
+        gettext("Object explorer tree state saving interval"),
+        'integer',
+        30,
+        category_label=PREF_LABEL_DISPLAY,
         help_str=gettext(
             'Object explorer state saving interval in seconds. '
             'Use -1 to disable the tree saving mechanism.'

@@ -302,23 +302,43 @@ function ModalContainer({
       disableBackdropClick={showTitle}
       disablePortal
     >
-      {showTitle && <>
-        <DialogTitle className='modal-drag-area'>
-          <Box className={classes.titleBar}>
-            <Box className={classes.title} marginRight="0.25rem" >{title}</Box>
-            {
-              showFullScreen && !isfullScreen &&
-              <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Maximize')} icon={<ExpandDialogIcon className={classes.icon} />} size="xs" noBorder onClick={() => {setIsFullScreen(!isfullScreen);}} /></Box>
-            }
-            {
-              showFullScreen && isfullScreen &&
-              <Box className={classes.iconButtonStyle}><PgIconButton title={gettext('Minimize')} icon={<MinimizeDialogIcon className={classes.icon} />} size="xs" noBorder onClick={() => {setIsFullScreen(!isfullScreen);}} /></Box>
-            }
+      { showTitle &&
+        <>
+          <DialogTitle className='modal-drag-area'>
+            <Box className={classes.titleBar}>
+              <Box className={classes.title} marginRight="0.25rem" >
+                {title}
+              </Box>
+              {
+                showFullScreen && !isfullScreen &&
+                <Box className={classes.iconButtonStyle}>
+                  <PgIconButton
+                    title={gettext('Maximize')}
+                    icon={<ExpandDialogIcon className={classes.icon} />}
+                    size="xs" noBorder
+                    onClick={() => {setIsFullScreen(!isfullScreen);}} />
+                </Box>
+              }
+              {
+                showFullScreen && isfullScreen &&
+                <Box className={classes.iconButtonStyle}>
+                  <PgIconButton title={gettext('Minimize')}
+                    icon={<MinimizeDialogIcon className={classes.icon} />}
+                    size="xs" noBorder
+                    onClick={() => {setIsFullScreen(!isfullScreen);}} />
+                </Box>
+              }
 
-            <Box marginLeft="auto"><PgIconButton title={gettext('Close')} icon={<CloseIcon />} size="xs" noBorder onClick={closeModal} /></Box>
-          </Box>
-        </DialogTitle>
-      </>
+              <Box marginLeft="auto">
+                <PgIconButton
+                  title={gettext('Close')}
+                  icon={<CloseIcon />}
+                  size="xs" noBorder
+                  onClick={closeModal} />
+              </Box>
+            </Box>
+          </DialogTitle>
+        </>
       }
       <DialogContent height="100%">
         {useMemo(() => {return content(closeModal);}, [])}

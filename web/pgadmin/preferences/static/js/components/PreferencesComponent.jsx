@@ -571,7 +571,10 @@ export default function PreferencesComponent({ ...props }) {
       if (requiresTreeRefresh) {
         Notify.confirm(
           gettext('Object explorer refresh required'),
-          gettext('An object explorer refresh is required. Do you wish to refresh it now?'),
+          gettext(
+            'An object explorer refresh is required. ' +
+            'Do you wish to refresh it now?'
+          ),
           function () {
             pgAdmin.Browser.tree.destroy({
               success: function () {
@@ -591,7 +594,10 @@ export default function PreferencesComponent({ ...props }) {
       if (requires_refresh) {
         Notify.confirm(
           gettext('Refresh required'),
-          gettext('A page refresh is required to apply the theme. Do you wish to refresh the page now?'),
+          gettext(
+            'A page refresh is required to apply the theme. ' +
+            'Do you wish to refresh the page now?'
+          ),
           function () {
             /* If user clicks Yes */
             location.reload();

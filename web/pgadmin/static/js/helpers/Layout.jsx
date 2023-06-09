@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/CloseRounded';
 import gettext from 'sources/gettext';
 import {ExpandDialogIcon, MinimizeDialogIcon } from '../components/ExternalIcon';
 
-
 const useStyles = makeStyles((theme)=>({
   docklayout: {
     height: '100%',
@@ -108,6 +107,7 @@ const useStyles = makeStyles((theme)=>({
       }
     },
     '& .dock-extra-content': {
+      color: theme.palette.text.primary,
       alignItems: 'center',
       paddingRight: '10px',
     },
@@ -276,9 +276,13 @@ function getDialogsGroup() {
     floatable: 'singleTab',
     panelExtra: (panelData, context) => (
       <div>
-        <PgIconButton title={gettext('Close')} icon={<CloseIcon  />} size="xs" noBorder onClick={()=>{
-          context.dockMove(panelData, null, 'remove');
-        }} />
+        <PgIconButton
+          title={gettext('Close')}
+          icon={<CloseIcon />}
+          size="xs" noBorder
+          onClick={() => {
+            context.dockMove(panelData, null, 'remove');
+          }} />
       </div>
     )
   };
@@ -288,24 +292,27 @@ function getDefaultGroup() {
   return {
     maximizable: false,
     panelExtra: (panelData, context) => {
-      let icon = <ExpandDialogIcon style={{width: '0.7em'}}/>;
-      let title = gettext('Maximise');
+      let icon = <ExpandDialogIcon style={{width: '0.7em'}} />;
+      let title = gettext('Maximize');
       if(panelData?.parent?.mode == 'maximize') {
         icon = <MinimizeDialogIcon />;
         title = gettext('Restore');
       }
       return <div>
-        <PgIconButton title={title} icon={icon} size="xs" noBorder onClick={()=>{
-          context.dockMove(panelData, null, 'maximize');
-        }} />
+        <PgIconButton
+          title={title} icon={icon}
+          size="xs" noBorder
+          onClick={() => {
+            context.dockMove(panelData, null, 'maximize');
+          }} />
       </div>;
     }
   };
 }
 
-export default function Layout(
-  {groups, getLayoutInstance, layoutId, savedLayout, ...props}
-) {
+export default function Layout({
+  groups, getLayoutInstance, layoutId, savedLayout, ...props
+}) {
   const classes = useStyles();
   const layoutObj = useRef();
   const defaultGroups = React.useMemo(()=>({

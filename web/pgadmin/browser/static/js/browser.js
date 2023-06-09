@@ -691,15 +691,24 @@ define('pgadmin.browser', [
         /* Can open you in new tab */
         let openerBrowser = pgWindow.default.pgAdmin.Browser;
 
-        let tree_save_interval = pgBrowser.get_preference('browser', 'browser_tree_state_save_interval'),
-          confirm_on_refresh_close = openerBrowser.get_preference('browser', 'confirm_on_refresh_close');
+        let tree_save_interval = pgBrowser.get_preference(
+          'browser', 'browser_tree_state_save_interval'
+        ),
+        confirm_on_refresh_close = openerBrowser.get_preference(
+          'browser', 'confirm_on_refresh_close'
+        );
 
         if (!_.isUndefined(tree_save_interval) && tree_save_interval.value !== -1)
           pgAdmin.Browser.browserTreeState.save_state();
 
-        if(!_.isUndefined(confirm_on_refresh_close) && confirm_on_refresh_close.value) {
+        if (
+          !_.isUndefined(confirm_on_refresh_close) && confirm_on_refresh_close.value
+        ) {
           /* This message will not be displayed in Chrome, Firefox, Safari as they have disabled it*/
-          let msg = gettext('Are you sure you want to close the %s browser?', pgBrowser.utils.app_name);
+          let msg = gettext(
+            'Are you sure you want to close the %s browser?',
+            pgBrowser.utils.app_name
+          );
           e.originalEvent.returnValue = msg;
           return msg;
         }

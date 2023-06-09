@@ -1,17 +1,19 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import FastForwardIcon from '@material-ui/icons/FastForward';
 import FastRewindIcon from '@material-ui/icons/FastRewind';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import DoneIcon from '@material-ui/icons/Done';
 import HelpIcon from '@material-ui/icons/HelpRounded';
 import CheckIcon from '@material-ui/icons/Check';
-import { DefaultButton, PrimaryButton, PgIconButton } from '../../../../static/js/components/Buttons';
-import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import {Box} from '@material-ui/core';
+
 import gettext from 'sources/gettext';
 import Loader from 'sources/components/Loader';
+
+import { DefaultButton, PrimaryButton, PgIconButton } from '../../../../static/js/components/Buttons';
 
 
 const useStyles = makeStyles((theme) =>
