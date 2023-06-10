@@ -297,7 +297,7 @@ function getDefaultGroup() {
       let icon = <ExpandDialogIcon style={{width: '0.7em'}} />;
       let title = gettext('Maximize');
       if(panelData?.parent?.mode == 'maximize') {
-        icon = <MinimizeDialogIcon />;
+        icon = <MinimizeDialogIcon style={{width: '0.7em'}} />;
         title = gettext('Restore');
       }
       return <div>
