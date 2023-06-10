@@ -1,7 +1,12 @@
 {
 	"svg.preview.background": "editor",
 	"cSpell.words": [
-		"gettext"
+		"docklayout",
+		"gettext",
+		"maximizable",
+		"preinstall",
+		"wcdocker",
+		"webcabin"
 	],
 	"esbonio.sphinx.confDir": ""
 }

@@ -693,8 +693,8 @@ define('pgadmin.browser', [
 
         let tree_save_interval = pgBrowser.get_preference(
           'browser', 'browser_tree_state_save_interval'
-        ),
-        confirm_on_refresh_close = openerBrowser.get_preference(
+        );
+        let confirm_on_refresh_close = openerBrowser.get_preference(
           'browser', 'confirm_on_refresh_close'
         );
 

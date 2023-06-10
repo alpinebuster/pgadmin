@@ -1,13 +1,15 @@
 import React, { useRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import DockLayout from 'rc-dock';
 import { makeStyles } from '@material-ui/styles';
-import PropTypes from 'prop-types';
+import CloseIcon from '@material-ui/icons/CloseRounded';
+
+import gettext from 'sources/gettext';
+import url_for from 'sources/url_for';
+
 import EventBus from './EventBus';
 import getApiInstance from '../api_instance';
-import url_for from 'sources/url_for';
 import { PgIconButton } from '../components/Buttons';
-import CloseIcon from '@material-ui/icons/CloseRounded';
-import gettext from 'sources/gettext';
 import {ExpandDialogIcon, MinimizeDialogIcon } from '../components/ExternalIcon';
 
 const useStyles = makeStyles((theme)=>({
@@ -364,7 +366,6 @@ Layout.propTypes = {
   groups: PropTypes.object,
   getLayoutInstance: PropTypes.func,
 };
-
 
 export const LAYOUT_EVENTS = {
   ACTIVE: 'active',

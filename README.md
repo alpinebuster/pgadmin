@@ -169,6 +169,8 @@ download the required packages and build the bundle:
 
 ```bash
 (venv) $ cd $PGADMIN4_SRC
+# Install prerequisites for `imagemin-mozjpeg`
+(venv) $ sudo apt-get install libtool automake autoconf nasm
 (venv) $ make install-node
 (venv) $ make bundle
 ```
