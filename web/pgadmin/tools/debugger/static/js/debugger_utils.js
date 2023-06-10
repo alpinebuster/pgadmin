@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////////////////
-
 import {generateTitle} from '../../../sqleditor/static/js/sqleditor_title';
 import {_set_dynamic_tab} from '../../../sqleditor/static/js/show_query_tool';
 

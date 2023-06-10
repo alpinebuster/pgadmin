@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-//
-// pgAdmin 4 - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////////////////
-
 export function getHelpUrl(base_path, file, version) {
   let major = Math.floor(version / 10000),
     minor = Math.floor(version / 100) - (major * 100),

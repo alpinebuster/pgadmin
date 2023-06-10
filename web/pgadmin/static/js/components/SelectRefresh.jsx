@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Box} from '@material-ui/core';
-import {InputSelect, FormInput} from './FormComponents';
-import PropTypes from 'prop-types';
-import CustomPropTypes from '../custom_prop_types';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { PgIconButton } from './Buttons';
+import PropTypes from 'prop-types';
 
-export function SelectRefresh({ required, className, label, helpMessage, testcid, controlProps, ...props }){
+import CustomPropTypes from '../custom_prop_types';
+import { PgIconButton } from './Buttons';
+import {InputSelect, FormInput} from './FormComponents';
+
+export function SelectRefresh({
+  required, className, label, helpMessage, testcid, controlProps,
+  ...props
+}){
   const [options, setOptions] = useState([]);
   const [optionsReloadBasis, setOptionsReloadBasis] = useState(false);
   const {getOptionsOnRefresh, ...selectControlProps} = controlProps;
@@ -19,13 +23,24 @@ export function SelectRefresh({ required, className, label, helpMessage, testcid
       });
   };
   return (
-    <FormInput required={required} label={label} className={className} helpMessage={helpMessage} testcid={testcid}>
+    <FormInput
+      required={required} label={label} className={className}
+      helpMessage={helpMessage} testcid={testcid}
+    >
       <Box display="flex" >
         <Box flexGrow="1">
-          <InputSelect {...props} options={options} optionsReloadBasis={optionsReloadBasis} controlProps={selectControlProps}/>
+          <InputSelect
+            {...props} options={options}
+            optionsReloadBasis={optionsReloadBasis}
+            controlProps={selectControlProps}
+          />
         </Box>
         <Box>
-          <PgIconButton onClick={onRefreshClick} icon={<RefreshIcon />} title={label||''}/>
+          <PgIconButton
+            onClick={onRefreshClick}
+            icon={<RefreshIcon />}
+            title={label||''}
+          />
         </Box>
       </Box>
     </FormInput>

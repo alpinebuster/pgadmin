@@ -551,7 +551,7 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     // get label ref and add loading class
     ref.style.background = 'none';
     const label$ = ref.querySelector('i.directory-toggle') as HTMLDivElement;
-    if (label$)  label$.classList.add('loading');
+    if (label$) label$.classList.add('loading');
   };
 
   private hideLoader = (ref: HTMLDivElement) => {

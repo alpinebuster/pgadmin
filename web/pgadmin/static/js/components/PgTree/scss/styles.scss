@@ -113,51 +113,51 @@
     }
 
     i {
+      display: inline-block;
+      font-size: 18px;
+      text-align: center;
+      height: 21px !important;
+      width: 20px !important;
+      flex-shrink: 0;
+
+      &:before {
+        height: inherit;
+        width: inherit;
         display: inline-block;
-        font-size: 18px;
-        text-align: center;
-        height: 21px !important;
-        width: 20px !important;
-        flex-shrink: 0;
+      }
 
+      &.directory-toggle {
         &:before {
-            height: inherit;
-            width: inherit;
-            display: inline-block;
+          background-position: 6px center !important;
+          font-family: $font-family-icon;
+          content: "\f054" !important;
+          border-style: none;
+          margin-left: 5px;
+          font-weight: 900;
+          right: 15px;
+          top: 3px;
+          font-size: 0.6rem;
+          line-height: 2;
         }
 
-        &.directory-toggle {
-            &:before {
-                background-position: 6px center !important;
-                font-family: $font-family-icon;
-                content: "\f054" !important;
-                border-style: none;
-                margin-left: 5px;
-                font-weight: 900;
-                right: 15px;
-                top: 3px;
-                font-size: 0.6rem;
-                line-height: 2;
-            }
-
-            &.open:before {
-                background-position: -14px center !important;
-                font-family: $font-family-icon;
-                content: "\f078" !important;
-                border-style: none;
-                margin-left: 5px;
-                font-weight: 900;
-                transform: none !important;
-            }
-
-            &.loading:before {
-                content: '' !important;
-                font-family: $font-family-icon;
-                border-style: none;
-                background: $loader-icon-small 0 0 no-repeat;
-                background-position: center !important;
-            }
+        &.open:before {
+          background-position: -14px center !important;
+          font-family: $font-family-icon;
+          content: "\f078" !important;
+          border-style: none;
+          margin-left: 5px;
+          font-weight: 900;
+          transform: none !important;
         }
+
+        &.loading:before {
+          content: '' !important;
+          font-family: $font-family-icon;
+          border-style: none;
+          background: $loader-icon-small 0 0 no-repeat;
+          background-position: center !important;
+        }
+      }
     }
 
     span.file-label {
