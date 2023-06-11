@@ -237,6 +237,7 @@ APP_VERSION_EXTN = ('.css', '.js', '.html', '.svg', '.png', '.gif', '.ico')
 if IS_WIN:
     # Use the short path on windows
     DATA_DIR = os.path.realpath(
+        # `C:\Users\zzz\AppData\Roaming\pgAdmin\pgadmin4-server.db`
         os.path.join(fs_short_path(env('APPDATA')), "pgAdmin")
     )
 else:
