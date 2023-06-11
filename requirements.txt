@@ -1,13 +1,3 @@
-###############################################################################
-#
-# IMPORTANT:
-#
-# If runtime or build time dependencies are changed in this file, the committer
-# *must* ensure the DEB and RPM package maintainers are informed as soon as
-# possible.
-#
-###############################################################################
-
 Flask==2.2.*
 Flask-Gravatar==0.*
 Flask-Login==0.*
@@ -27,7 +17,7 @@ pytz==2023.*
 speaklater3==1.*
 sqlparse==0.*
 psutil==5.9.*
-psycopg[c]==3.1.8
+psycopg[binary]==3.1.8
 python-dateutil==2.*
 SQLAlchemy==2.*
 bcrypt==4.0.*
@@ -40,7 +30,7 @@ httpagentparser==1.9.*
 user-agents==2.2.0
 pywinpty==2.0.*; sys_platform=="win32"
 Authlib==1.2.*
-requests==2.31.*
+requests==2.30.*
 pyotp==2.*
 qrcode==7.*
 Pillow==9.*

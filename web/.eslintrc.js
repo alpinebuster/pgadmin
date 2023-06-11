@@ -53,7 +53,7 @@ module.exports = {
   },
   'rules': {
     'indent': [
-      'error',
+      'warn',
       2,
     ],
     'linebreak-style': 0,

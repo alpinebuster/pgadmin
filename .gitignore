@@ -50,6 +50,7 @@ web/yarn-error.log
 auditjs.html
 auditpy.txt
 /venv/
+.env
 .scannerwork/
 web/coverage/
 web/.coverage
