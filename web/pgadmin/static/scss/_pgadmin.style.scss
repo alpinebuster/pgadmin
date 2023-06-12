@@ -1012,7 +1012,9 @@ select:-webkit-autofill:focus {
   color: $white !important;
 }
 
-#myDropdown a:hover {background-color: $dropdown-link-hover-bg; color:$white !important;}
+#myDropdown a:hover {
+  background-color: $dropdown-link-hover-bg; color:$white !important;
+}
 
 .text-wrap {
   word-break: break-word;

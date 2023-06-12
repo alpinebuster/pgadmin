@@ -1,7 +1,8 @@
 import React from 'react';
+import _ from 'lodash';
+
 import { generateNodeUrl } from './node_ajax';
 import MainMenuFactory from './MainMenuFactory';
-import _ from 'lodash';
 import Notify, {initializeModalProvider, initializeNotifier} from '../../../static/js/helpers/Notifier';
 import { checkMasterPassword } from '../../../static/js/Dialogs/index';
 import { pgHandleItemError } from '../../../static/js/utils';

@@ -1,11 +1,13 @@
-import { Box, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
-import { PrimaryButton } from './components/Buttons';
-import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from './components/Menu';
+import { useEffect } from 'react';
+import { Box, makeStyles } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+
 import pgAdmin from 'sources/pgadmin';
-import { useEffect } from 'react';
+
+import { PrimaryButton } from './components/Buttons';
+import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from './components/Menu';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -50,7 +52,6 @@ const useStyles = makeStyles((theme)=>({
     marginRight: '4px',
   }
 }));
-
 
 export default function AppMenuBar() {
   const classes = useStyles();

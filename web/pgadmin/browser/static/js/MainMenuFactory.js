@@ -1,5 +1,6 @@
 import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
+
 import Menu, { MenuItem } from '../../../static/js/helpers/Menu';
 import getApiInstance from '../../../static/js/api_instance';
 import url_for from 'sources/url_for';
@@ -37,9 +38,6 @@ if (browser == 'Nwjs') {
 
   pgAdmin.Browser.RUNTIME_MENUS_OPTIONS = RUNTIME_MENUS_OPTIONS;
 }
-
-
-
 
 export default class MainMenuFactory {
   static createMainMenus() {

@@ -1,8 +1,7 @@
-import { makeStyles } from '@material-ui/styles';
 import React, { useRef } from 'react';
-import CheckIcon from '@material-ui/icons/Check';
 import PropTypes from 'prop-types';
-
+import { makeStyles } from '@material-ui/styles';
+import CheckIcon from '@material-ui/icons/Check';
 import {
   MenuItem,
   ControlledMenu,
@@ -11,21 +10,22 @@ import {
   SubMenu,
 } from '@szhsin/react-menu';
 export {MenuDivider as PgMenuDivider} from '@szhsin/react-menu';
-import { shortcutToString } from './ShortcutTitle';
 import clsx from 'clsx';
+
+import { shortcutToString } from './ShortcutTitle';
 import CustomPropTypes from '../custom_prop_types';
 
 const useStyles = makeStyles((theme)=>({
   menu: {
     '& .szh-menu': {
-      padding: '4px 0px',
+      padding: '4px 2px',
       zIndex: 1005,
       backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
       border: `1px solid ${theme.otherVars.borderColor}`
     },
     '& .szh-menu__divider': {
-      margin: 0,
+      margin: '2px',
       background: theme.otherVars.borderColor,
     },
     '& .szh-menu__item': {
@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme)=>({
       '&.szh-menu__item--active, &.szh-menu__item--hover': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
+        border: `1px solid ${theme.palette.primary.main}`,
+        borderRadius: '0.25rem',
       }
     }
   },

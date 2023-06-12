@@ -1,12 +1,14 @@
 import React, {useRef,useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
+import $ from 'jquery';
+
 import {useDelayDebounce} from 'sources/custom_hooks';
+import gettext from 'sources/gettext';
+
 import {onlineHelpSearch} from './online_help';
 import {menuSearch} from './menuitems_help';
-import $ from 'jquery';
-import gettext from 'sources/gettext';
-import PropTypes from 'prop-types';
 
 function HelpArticleContents({isHelpLoading, isMenuLoading, helpSearchResult}) {
   return (isHelpLoading && !(isMenuLoading??true)) ? (
@@ -125,22 +127,26 @@ export function Search({closeModal}) {
       let menuItemsHtmlElement = [];
       items.forEach((i) => {
         menuItemsHtmlElement.push(
-          <li key={ 'li-menu-' + i }><a tabIndex='0' id={ 'li-menu-' + i.label } href={'#'} className={ (i.isDisabled ? 'dropdown-item menu-groups-a disabled':'dropdown-item menu-groups-a')} key={ 'menu-' + i.label } onClick={
-            () => {
-              closeModal();
-              i.callback();
-            }
-          }>
-            {i.label}
-            <span key={ 'menu-span-' + i.label }>{i.path}</span>
-          </a>
-          </li>);
+          <li key={'li-menu-' + i}>
+            <a
+              tabIndex='0' id={'li-menu-' + i.label} href={'#'}
+              className={(i.isDisabled ? 'dropdown-item menu-groups-a disabled' : 'dropdown-item menu-groups-a')}
+              key={'menu-' + i.label}
+              onClick={() => {
+                closeModal();
+                i.callback();
+              }}
+            >
+              {i.label}
+              <span key={ 'menu-span-' + i.label }>{i.path}</span>
+            </a>
+          </li>
+        );
       });
       $('[data-toggle="tooltip"]').tooltip();
       return menuItemsHtmlElement;
     }
   };
-
 
   const onInputValueChange = (value) => {
     let pooling = window.pooling;
@@ -217,23 +223,22 @@ export function Search({closeModal}) {
           </li>
           <div style={{marginBottom:0}}>
             <div>
-
               { isShowMinLengthMsg
                 ? (<div className='pad-12 no-results'>
                   <span className='fa fa-info-circle'></span>
-                   &nbsp;Please enter minimum 3 characters to search
+                    &nbsp;Please enter minimum 3 characters to search
                 </div>)
-                :''}
-              <div >
+                : ''
+              }
+              <div id='myItems'>
                 { (menuSearchResult.fetched && !(isMenuLoading??true) ) ?
                   <div>
                     <div className='menu-groups'>
                       <span className='fa fa-window-maximize'></span> &nbsp;{gettext('MENU ITEMS')} ({menuSearchResult.data.length})
                     </div>
-
-
                     {refactorMenuItems(menuSearchResult.data)}
-                  </div> :  showLoader(isMenuLoading)}
+                  </div> : showLoader(isMenuLoading)
+                }
 
                 {(menuSearchResult.data.length == 0 && menuSearchResult.fetched && !(isMenuLoading??true)) ? (<div className='pad-12 no-results'><span className='fa fa-info-circle'></span> {gettext('No search results')}</div>):''}
 
@@ -264,7 +269,6 @@ export function Search({closeModal}) {
     </ul>
   );
 }
-
 
 Search.propTypes = {
   closeModal: PropTypes.func

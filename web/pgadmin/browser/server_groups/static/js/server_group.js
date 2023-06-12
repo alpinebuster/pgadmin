@@ -1,9 +1,11 @@
-import ServerGroupSchema from './server_group.ui';
 import _ from 'lodash';
+
+import ServerGroupSchema from './server_group.ui';
 
 define('pgadmin.node.server_group', [
   'sources/gettext', 'sources/url_for',
-  'sources/pgadmin', 'pgadmin.user_management.current_user', 'pgadmin.browser', 'pgadmin.browser.node',
+  'sources/pgadmin', 'pgadmin.user_management.current_user',
+  'pgadmin.browser', 'pgadmin.browser.node',
 ], function(gettext, url_for, pgAdmin, current_user) {
 
   if (!pgAdmin.Browser.Nodes['server_group']) {
