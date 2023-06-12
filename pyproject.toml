@@ -5,6 +5,11 @@ description = ""
 authors = ["zzz <imzqqq@hotmail.com>"]
 readme = "README.md"
 
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+priority = "explicit"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 flask = "==2.2.*"

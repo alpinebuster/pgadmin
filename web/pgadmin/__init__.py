@@ -1,5 +1,6 @@
 """The main pgAdmin module. This handles the application initialisation tasks,
 such as setup of logging, dynamic loading of modules etc."""
+
 import logging
 import os
 import sys
@@ -40,7 +41,6 @@ from pgadmin.utils.csrf import pgCSRFProtect
 from pgadmin import authenticate
 from pgadmin.utils.security_headers import SecurityHeaders
 from pgadmin.utils.constants import KERBEROS, OAUTH2, INTERNAL, LDAP, WEBSERVER
-
 
 # Explicitly set the mime-types so that a corrupted windows registry will not
 # affect pgAdmin 4 to be load properly. This will avoid the issues that may
