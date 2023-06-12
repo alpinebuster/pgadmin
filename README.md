@@ -189,15 +189,13 @@ yarn run bundle
 On linux:
 
 ```bash
-docker run -itd -e POSTGRES_USER=imzqqq -e POSTGRES_PASSWORD=itsasecret -p 5432:5432 -v ./data/postgresql:/var/lib/postgresql/data --name postgresql postgres:
-latest
+docker run -itd -e POSTGRES_USER=imzqqq -e POSTGRES_PASSWORD=itsasecret -p 5432:5432 -v ./data/postgresql:/var/lib/postgresql/data --name postgresql postgres:latest
 ```
 
 On Windows, in cmd(can not use `git bash`):
 
 ```bash
-docker run -itd -e POSTGRES_USER=imzqqq -e POSTGRES_PASSWORD=itsasecret -p 5432:5432 -v .\\data\\postgresql:/var/lib/postgresql/data --name postgresql postgres:
-latest
+docker run -itd -e POSTGRES_USER=imzqqq -e POSTGRES_PASSWORD=itsasecret -p 5432:5432 -v .\\data\\postgresql:/var/lib/postgresql/data --name postgresql postgres:latest
 ```
 
 # Creating pgAdmin themes

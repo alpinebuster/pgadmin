@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme)=>({
       '&.szh-menu__item--active, &.szh-menu__item--hover': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
-        border: `1px solid ${theme.palette.primary.main}`,
+        border: `0px solid ${theme.palette.primary.main}`,
         borderRadius: '0.25rem',
       }
     }
