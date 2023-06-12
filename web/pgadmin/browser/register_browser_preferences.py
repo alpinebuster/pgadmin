@@ -579,10 +579,12 @@ def register_browser_preferences(self):
         )
 
     self.preference.register(
-        'breadcrumbs', 'breadcrumbs_enable',
+        'breadcrumbs',
+        'breadcrumbs_enable',
         gettext("Enable object breadcrumbs?"),
         'boolean',
-        True, category_label=PREF_LABEL_BREADCRUMBS,
+        True,
+        category_label=PREF_LABEL_BREADCRUMBS,
         help_str=gettext(
             'Enable breadcrumbs to show the complete path of an object in the '
             'object explorer. The breadcrumbs are displayed on object mouse '

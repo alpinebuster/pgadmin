@@ -90,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 export const MESSAGE_TYPE = {
   SUCCESS: 'Success',
   ERROR: 'Error',
@@ -358,7 +357,6 @@ export const InputText = forwardRef((
   },
   ref
 ) => {
-
   const maxlength = typeof(
     controlProps?.maxLength
   ) != 'undefined' ? controlProps.maxLength : 255;
@@ -776,14 +774,14 @@ const customReactSelectStyles = (theme, readonly) => ({
   option: (provided, state) => {
     let bgColor = 'inherit';
     if (state.isFocused) {
-      bgColor = theme.palette.grey[400];
-    } else if (state.isSelected) {
-      bgColor = theme.palette.primary.light;
+      bgColor = theme.palette.primary.main;
     }
     return {
       ...provided,
       padding: '0.5rem',
       color: 'inherit',
+      border: `0px solid ${bgColor}`,
+      borderRadius: '0.25rem',
       backgroundColor: bgColor,
     };
   },
@@ -935,7 +933,10 @@ export const InputSelect = forwardRef((
             selectedVal = _.find(flatRes, (o) => o.selected)?.value;
           }
 
-          if ((!_.isUndefined(selectedVal) && !_.isArray(selectedVal)) || (_.isArray(selectedVal) && selectedVal.length != 0)) {
+          if (
+            (!_.isUndefined(selectedVal) && !_.isArray(selectedVal)) ||
+            (_.isArray(selectedVal) && selectedVal.length != 0)
+          ) {
             onChange && onChange(selectedVal);
           }
           setFinalOptions([res || [], false]);
@@ -944,13 +945,20 @@ export const InputSelect = forwardRef((
     return () => umounted = true;
   }, [optionsReloadBasis]);
 
-
   /* Apply filter if any */
-  const filteredOptions = (controlProps.filter && controlProps.filter(finalOptions)) || finalOptions;
+  const filteredOptions = (
+    controlProps.filter && controlProps.filter(finalOptions)
+  ) || finalOptions;
   const flatFiltered = flattenSelectOptions(filteredOptions);
-  let realValue = getRealValue(flatFiltered, value, controlProps.creatable, controlProps.formatter);
+  let realValue = getRealValue(
+    flatFiltered, value, controlProps.creatable, controlProps.formatter
+  );
   if (realValue && _.isPlainObject(realValue) && _.isUndefined(realValue.value)) {
-    console.error('Undefined option value not allowed', realValue, filteredOptions);
+    console.error(
+      'Undefined option value not allowed',
+      realValue,
+      filteredOptions
+    );
   }
   const otherProps = {
     isSearchable: !readonly,
@@ -992,12 +1000,16 @@ export const InputSelect = forwardRef((
     openMenuOnClick: !readonly,
     onChange: onChangeOption,
     isLoading: isLoading,
-    options: controlProps.allowSelectAll ? [{ label: gettext('<Select All>'), value: '*' }, ...filteredOptions] : filteredOptions,
+    options: controlProps.allowSelectAll ? [
+      { label: gettext('<Select All>'), value: '*' }, ...filteredOptions
+    ] : filteredOptions,
     value: realValue,
     menuPortalTarget: document.body,
     styles: styles,
     inputId: cid,
-    placeholder: (readonly || disabled) ? '' : controlProps.placeholder || gettext('Select an item...'),
+    placeholder: (
+      readonly || disabled
+    ) ? '' : controlProps.placeholder || gettext('Select an item...'),
     maxLength: controlProps.maxLength,
     ...otherProps,
     ...props,
@@ -1022,8 +1034,12 @@ export const InputSelect = forwardRef((
 InputSelect.displayName = 'InputSelect';
 InputSelect.propTypes = {
   cid: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool]),
-  options: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(Promise), PropTypes.func]),
+  value: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool
+  ]),
+  options: PropTypes.oneOfType([
+    PropTypes.array, PropTypes.instanceOf(Promise), PropTypes.func
+  ]),
   controlProps: PropTypes.object,
   optionsLoaded: PropTypes.func,
   optionsReloadBasis: PropTypes.any,
@@ -1034,7 +1050,8 @@ InputSelect.propTypes = {
 
 
 export function FormInputSelect({
-  hasError, required, className, label, helpMessage, testcid, ...props
+  hasError, required, className, label, helpMessage, testcid,
+  ...props
 }) {
   return (
     <FormInput

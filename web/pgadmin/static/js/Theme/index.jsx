@@ -5,12 +5,12 @@
 
 import React, { useMemo } from 'react';
 import { createTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import CustomPropTypes from '../custom_prop_types';
+import { CssBaseline } from '@material-ui/core';
 
+import CustomPropTypes from '../custom_prop_types';
 import getStandardTheme from './standard';
 import getDarkTheme from './dark';
 import getHightContrastTheme from './high_contrast';
-import { CssBaseline } from '@material-ui/core';
 import pickrOverride from './overrides/pickr.override';
 import uplotOverride from './overrides/uplot.override';
 

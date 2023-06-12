@@ -12,7 +12,9 @@ import Notify from '../../../../static/js/helpers/Notifier';
 import getApiInstance, { parseApiError } from '../../../../static/js/api_instance';
 import { PrimaryButton, PgIconButton } from '../../../../static/js/components/Buttons';
 import { useModalStyles } from '../../../../static/js/helpers/ModalProvider';
-import { FormFooterMessage, InputSelect, InputText, MESSAGE_TYPE } from '../../../../static/js/components/FormComponents';
+import {
+  FormFooterMessage, InputSelect, InputText, MESSAGE_TYPE
+} from '../../../../static/js/components/FormComponents';
 import PgReactDataGrid from '../../../../static/js/components/PgReactDataGrid';
 
 const pgBrowser = pgAdmin.Browser;
@@ -357,18 +359,20 @@ export default function SearchObjects({nodeData}) {
     }
   };
 
-  const typeOptions = ()=> {
+  const typeOptions = () => {
     return new Promise((resolve, reject)=>{
       try {
         api.get(url_for('search_objects.types', {
           sid: nodeData?.server?._id,
           did: nodeData?.database?._id,
         }))
-          .then(res=>{
+          .then(res => {
             let typeOpt = [{label:gettext('All types'), value:'all'}];
             let typesRes = Object.entries(res.data.data).sort();
             typesRes.forEach((element) => {
-              typeOpt.push({label:gettext(element[1]), value:element[0]});
+              typeOpt.push({
+                label:gettext(element[1]), value:element[0]
+              });
             });
 
             resolve(typeOpt);
@@ -385,18 +389,48 @@ export default function SearchObjects({nodeData}) {
   };
 
   return (
-    <Box display="flex" flexDirection="column" height="100%" className={modalClasses.container}>
-      <Box flexGrow="1" display="flex" flexDirection="column" position="relative" overflow="hidden">
+    <Box
+      display="flex" flexDirection="column" height="100%"
+      className={modalClasses.container}
+    >
+      <Box
+        flexGrow="1" display="flex" flexDirection="column"
+        position="relative" overflow="hidden"
+      >
         <Loader message={loaderText} />
         <Box className={classes.toolbar}>
-          <InputText type="search" className={classes.inputSearch} data-label="search" placeholder={gettext('Type at least 3 characters')} value={search} onChange={setSearch} onKeyPress={onEnterPress}/>
-          <Box style={{marginLeft: '4px', width: '50%'}}>
-            <InputSelect value={type} controlProps={{allowClear: false}} options={typeOptions} onChange={(v)=>setType(v)}/>
+          <InputText
+            type="search" className={classes.inputSearch}
+            data-label="search"
+            placeholder={gettext('Type at least 3 characters')}
+            value={search} onChange={setSearch}
+            onKeyPress={onEnterPress}
+          />
+          <Box
+            style={{
+              marginLeft: '4px',
+              width: '50%'
+            }}
+          >
+            <InputSelect
+              value={type} controlProps={{allowClear: false}}
+              options={typeOptions} onChange={(v) => setType(v)}
+            />
           </Box>
-          <PrimaryButton style={{width: '120px'}} data-test="search" className={modalClasses.margin} startIcon={<SearchRoundedIcon />}
-            onClick={onSearch} disabled={search.length >= 3 ? false : true}>{gettext('Search')}</PrimaryButton>
+          <PrimaryButton
+            style={{width: '120px'}} data-test="search"
+            className={modalClasses.margin}
+            startIcon={<SearchRoundedIcon />}
+            onClick={onSearch}
+            disabled={search.length >= 3 ? false : true}
+          >
+            {gettext('Search')}
+          </PrimaryButton>
         </Box>
-        <Box flexGrow="1" display="flex" flexDirection="column" position="relative" overflow="hidden">
+        <Box
+          flexGrow="1" display="flex" flexDirection="column"
+          position="relative" overflow="hidden"
+        >
           <PgReactDataGrid
             id="searchobjects"
             className={classes.grid}
@@ -419,11 +453,20 @@ export default function SearchObjects({nodeData}) {
         <Box className={classes.footer1}>
           <Box>{footerText}</Box>
         </Box>
-        <FormFooterMessage type={MESSAGE_TYPE.ERROR} message={errorMsg} closable onClose={()=>setErrorMsg('')}  />
+        <FormFooterMessage
+          type={MESSAGE_TYPE.ERROR}
+          message={errorMsg}
+          closable onClose={()=>setErrorMsg('')}
+        />
       </Box>
       <Box className={classes.footer}>
         <Box>
-          <PgIconButton data-test="dialog-help" onClick={onDialogHelp} icon={<HelpIcon />} title={gettext('Help for this dialog.')} />
+          <PgIconButton
+            data-test="dialog-help"
+            onClick={onDialogHelp}
+            icon={<HelpIcon />}
+            title={gettext('Help for this dialog.')}
+          />
         </Box>
       </Box>
     </Box>
