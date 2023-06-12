@@ -64,8 +64,9 @@ class SearchObjectsHelper:
             if blueprint is None:
                 continue
 
-            if blueprint.backend_supported(self.manager, is_catalog=False,
-                                           did=self.did) or skip_check:
+            if blueprint.backend_supported(
+                self.manager, is_catalog=False, did=self.did
+            ) or skip_check:
                 if node_type in ['edbfunc', 'edbproc']:
                     return_types[node_type] =\
                         gettext('Package {0}').format(
@@ -109,20 +110,23 @@ class SearchObjectsHelper:
         node_labels = self.get_supported_types(skip_check=True)
         # escape the single quote from search text
         text = text.replace("'", "''")
-        skip_obj_type = self._check_permission(obj_type, conn,
-                                               skip_obj_type)
+        skip_obj_type = self._check_permission(
+            obj_type, conn, skip_obj_type
+        )
 
         # Column catalog_level has values as
         # N - Not a catalog schema
         # D - Catalog schema with DB support - pg_catalog
         # O - Catalog schema with object support only - info schema, dbo, sys
         status, res = conn.execute_dict(
-            self.get_sql('search.sql',
-                         search_text=text.lower(), obj_type=obj_type,
-                         show_system_objects=self.show_system_objects,
-                         show_node_prefs=show_node_prefs, _=gettext,
-                         last_system_oid=last_system_oid,
-                         skip_obj_type=skip_obj_type)
+            self.get_sql(
+                'search.sql',
+                search_text=text.lower(), obj_type=obj_type,
+                show_system_objects=self.show_system_objects,
+                show_node_prefs=show_node_prefs, _=gettext,
+                last_system_oid=last_system_oid,
+                skip_obj_type=skip_obj_type
+            )
         )
 
         if not status:

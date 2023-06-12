@@ -1,10 +1,12 @@
-import pgAdmin from 'sources/pgadmin';
-import pgBrowser from 'top/browser/static/js/browser';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import gettext from 'sources/gettext';
 import Theme from 'sources/Theme';
 import * as toolBar from 'pgadmin.browser.toolbar';
+import pgAdmin from 'sources/pgadmin';
+import pgBrowser from 'top/browser/static/js/browser';
+
 import SearchObjects from './SearchObjects';
 import {getPanelTitle} from '../../../sqleditor/static/js/sqleditor_title';
 
@@ -40,7 +42,9 @@ export default class SearchObjectModule {
       label: gettext('Search Objects...'),
       below: true,
       data: {
-        data_disabled: gettext('Please select a database from the object explorer to search the database objects.'),
+        data_disabled: gettext(
+          'Please select a database from the object explorer to search the database objects.'
+        ),
       },
     }];
 
@@ -77,8 +81,8 @@ export default class SearchObjectModule {
     let nodeData = pgBrowser.tree.getTreeNodeHierarchy(treeItem);
 
     pgBrowser.Node.registerUtilityPanel();
-    let panel = pgBrowser.Node.addUtilityPanel(pgBrowser.stdW.md, pgBrowser.stdH.lg),
-      j = panel.$container.find('.obj_properties').first();
+    let panel = pgBrowser.Node.addUtilityPanel(pgBrowser.stdW.md, pgBrowser.stdH.lg);
+    let j = panel.$container.find('.obj_properties').first();
 
     panel.title(dialogTitle);
     panel.focus();

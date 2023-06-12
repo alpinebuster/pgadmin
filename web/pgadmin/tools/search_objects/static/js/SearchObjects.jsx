@@ -3,11 +3,13 @@ import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@material-ui/icons/HelpRounded';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import clsx from 'clsx';
+
 import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 import Loader from 'sources/components/Loader';
-import clsx from 'clsx';
+
 import Notify from '../../../../static/js/helpers/Notifier';
 import getApiInstance, { parseApiError } from '../../../../static/js/api_instance';
 import { PrimaryButton, PgIconButton } from '../../../../static/js/components/Buttons';
@@ -85,7 +87,9 @@ function ObjectNameFormatter({row}) {
         <span className={clsx(classes.gridCell, row.icon)}></span>
         {row.name}
         {row.other_info != null && row.other_info != '' && <>
-          <span className={classes.funcArgs}onClick={()=>{row.showArgs = true;}}> {row?.showArgs ? `(${row.other_info})` : '(...)'}</span>
+          <span className={classes.funcArgs} onClick={() => {row.showArgs = true;}}>
+            {row?.showArgs ? `(${row.other_info})` : '(...)'}
+          </span>
         </>}
       </Box>
     </div>
@@ -106,7 +110,11 @@ function TypePathFormatter({row, column}) {
   }
 
   return (
-    <Box className={clsx(classes.textWrap, row.show_node ? '' : classes.cellMuted)}>{val}</Box>
+    <Box
+      className={clsx(classes.textWrap, row.show_node ? '' : classes.cellMuted)}
+    >
+      {val}
+    </Box>
   );
 }
 TypePathFormatter.propTypes = {
@@ -210,13 +218,20 @@ const translateSearchObjectsPath = (nodeData, path, catalog_level)=> {
     }
 
     /* schema type is "catalog" for catalog schemas */
-    node_type = (['D', 'O'].indexOf(catalog_level) != -1 && node_type == 'schema') ? 'catalog' : node_type;
+    node_type = (
+      ['D', 'O'].indexOf(catalog_level) != -1 && node_type == 'schema'
+    ) ? 'catalog' : node_type;
 
-    /* catalog like info schema will only have views and tables AKA catalog_object except for pg_catalog */
-    node_type = (catalog_level === 'O' && ['view', 'table'].indexOf(node_type) != -1) ? 'catalog_object' : node_type;
+    /* catalog like info schema will only have views and
+        tables AKA catalog_object except for pg_catalog */
+    node_type = (
+      catalog_level === 'O' && ['view', 'table'].indexOf(node_type) != -1
+    ) ? 'catalog_object' : node_type;
 
     /* catalog_object will have column node as catalog_object_column */
-    node_type = (catalog_level === 'O' && node_type == 'column') ? 'catalog_object_column' : node_type;
+    node_type = (
+      catalog_level === 'O' && node_type == 'column'
+    ) ? 'catalog_object_column' : node_type;
 
     /* If collection node present then add it */
     let coll_node = getCollNode(node_type);
@@ -239,7 +254,8 @@ const translateSearchObjectsPath = (nodeData, path, catalog_level)=> {
       /* This will be need for coll node id path */
       prev_node_id = node_oid;
 
-      /* Remove the token and replace with slash. This will be displayed in the grid */
+      /* Remove the token and replace with slash.
+          This will be displayed in the grid */
       return '/';
     }
     prev_node_id = null;
@@ -277,7 +293,10 @@ export default function SearchObjects({nodeData}) {
   const api = getApiInstance();
 
   const onDialogHelp = ()=> {
-    window.open(url_for('help.static', { 'filename': 'search_objects.html' }), 'pgadmin_help');
+    window.open(
+      url_for('help.static', {'filename': 'search_objects.html'}),
+      'pgadmin_help'
+    );
   };
 
   const sortedItems = useMemo(()=>(
@@ -326,7 +345,10 @@ export default function SearchObjects({nodeData}) {
 
     let searchType = type;
     if(type === 'constraints') {
-      searchType = ['constraints', 'check_constraint', 'foreign_key', 'primary_key', 'unique_constraint', 'exclusion_constraint'];
+      searchType = [
+        'constraints', 'check_constraint', 'foreign_key',
+        'primary_key', 'unique_constraint', 'exclusion_constraint'
+      ];
     }
 
     api.get(url_for('search_objects.search',{

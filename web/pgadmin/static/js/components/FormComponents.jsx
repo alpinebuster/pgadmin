@@ -710,6 +710,20 @@ FormInputToggle.propTypes = {
 
 /* react-select package is used for select input
  * Customizing the select styles to fit existing theme
+ *
+ * The DOM structure is similar to this:
+ *
+ * <div class="react-select-container">
+ *   <div class="react-select__control">
+ *     <div class="react-select__value-container">...</div>
+ *     <div class="react-select__indicators">...</div>
+ *   </div>
+ *   <div class="react-select__menu">
+ *     <div class="react-select__menu-list">
+ *       <div class="react-select__option">...</div>
+ *     </div>
+ *   </div>
+ * </div>
  */
 const customReactSelectStyles = (theme, readonly) => ({
   input: (provided) => {
@@ -758,6 +772,11 @@ const customReactSelectStyles = (theme, readonly) => ({
     fontWeight: 'bold',
     textTransform: 'none',
   }),
+  menuPortal: (provided) => ({
+    ...provided, zIndex: 9999,
+    backgroundColor: 'inherit',
+    color: 'inherit',
+  }),
   menu: (provided) => ({
     ...provided,
     backgroundColor: theme.palette.background.default,
@@ -765,17 +784,19 @@ const customReactSelectStyles = (theme, readonly) => ({
     boxShadow: 'none',
     border: '1px solid ' + theme.otherVars.inputBorderColor,
     marginTop: '2px',
+    overflow: 'hidden',
   }),
-  menuPortal: (provided) => ({
-    ...provided, zIndex: 9999,
-    backgroundColor: 'inherit',
-    color: 'inherit',
+  menuList: (provided) => ({
+    ...provided,
+    padding: '3px',
   }),
   option: (provided, state) => {
     let bgColor = 'inherit';
+
     if (state.isFocused) {
       bgColor = theme.palette.primary.main;
     }
+
     return {
       ...provided,
       padding: '0.5rem',
@@ -783,6 +804,8 @@ const customReactSelectStyles = (theme, readonly) => ({
       border: `0px solid ${bgColor}`,
       borderRadius: '0.25rem',
       backgroundColor: bgColor,
+      width: 'auto',
+      wordWrap: 'break-word',
     };
   },
   multiValue: (provided) => ({
