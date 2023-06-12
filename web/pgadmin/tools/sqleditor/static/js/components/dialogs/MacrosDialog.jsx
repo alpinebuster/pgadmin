@@ -1,12 +1,14 @@
-import { makeStyles } from '@material-ui/core';
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { makeStyles } from '@material-ui/core';
+
+import gettext from 'sources/gettext';
+import url_for from 'sources/url_for';
+
 import SchemaView from '../../../../../../static/js/SchemaView';
 import BaseUISchema from '../../../../../../static/js/SchemaView/base_schema.ui';
-import gettext from 'sources/gettext';
 import { QueryToolContext } from '../QueryToolComponent';
-import url_for from 'sources/url_for';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
 
 class MacrosCollection extends BaseUISchema {
   constructor(keyOptions) {

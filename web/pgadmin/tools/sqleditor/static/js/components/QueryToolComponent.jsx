@@ -603,8 +603,8 @@ export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedN
     });
   };
 
-  const onNewConnClick = useCallback(()=>{
-    const onClose = ()=>LayoutHelper.close(docker.current, 'new-conn');
+  const onNewConnClick = useCallback(() => {
+    const onClose = () => LayoutHelper.close(docker.current, 'new-conn');
     LayoutHelper.openDialog(docker.current, {
       id: 'new-conn',
       title: gettext('Add New Connection'),
@@ -646,7 +646,6 @@ export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedN
       onClose={onClose}/>
     });
   }, [qtState.preferences.browser, qtState.connection_list, qtState.params]);
-
 
   const onNewQueryToolClick = ()=>{
     const transId = commonUtils.getRandomInt(1, 9999999);

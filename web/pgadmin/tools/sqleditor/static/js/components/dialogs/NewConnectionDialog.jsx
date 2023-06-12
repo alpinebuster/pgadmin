@@ -1,13 +1,15 @@
 import { makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+
+import gettext from 'sources/gettext';
+import url_for from 'sources/url_for';
+
 import SchemaView from '../../../../../../static/js/SchemaView';
 import BaseUISchema from '../../../../../../static/js/SchemaView/base_schema.ui';
-import gettext from 'sources/gettext';
 import { QueryToolContext } from '../QueryToolComponent';
-import url_for from 'sources/url_for';
-import _ from 'lodash';
 import { flattenSelectOptions } from '../../../../../../static/js/components/FormComponents';
-import PropTypes from 'prop-types';
 import ConnectServerContent from '../../../../../../static/js/Dialogs/ConnectServerContent';
 
 class NewConnectionSchema extends BaseUISchema {
