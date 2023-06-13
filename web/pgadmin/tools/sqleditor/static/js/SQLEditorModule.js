@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom';
 import QueryToolComponent from './components/QueryToolComponent';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import Theme from '../../../../static/js/theme';
-import { showRenamePanel } from '../../../../static/js/Dialogs';
+import { showRenamePanel } from '../../../../static/js/dialogs';
 import { openNewWindow } from '../../../../static/js/utils';
 
 const wcDocker = window.wcDocker;

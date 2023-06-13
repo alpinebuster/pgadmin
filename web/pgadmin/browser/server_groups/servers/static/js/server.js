@@ -1,7 +1,7 @@
 import { getNodeListById } from '../../../../static/js/node_ajax';
 import ServerSchema from './server.ui';
 import Notify from '../../../../../static/js/helpers/Notifier';
-import { showServerPassword, showChangeServerPassword, showNamedRestorePoint } from '../../../../../static/js/Dialogs/index';
+import { showServerPassword, showChangeServerPassword, showNamedRestorePoint } from '../../../../../static/js/dialogs/index';
 import _ from 'lodash';
 import getApiInstance, { parseApiError } from '../../../../../static/js/api_instance';
 

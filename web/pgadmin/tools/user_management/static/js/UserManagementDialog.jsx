@@ -13,7 +13,7 @@ import authConstant from 'pgadmin.browser.constants';
 import current_user from 'pgadmin.user_management.current_user';
 import { isEmptyString } from '../../../../static/js/validators';
 import Notify from '../../../../static/js/helpers/Notifier';
-import { showChangeOwnership } from '../../../../static/js/Dialogs/index';
+import { showChangeOwnership } from '../../../../static/js/dialogs/index';
 
 class UserManagementCollection extends BaseUISchema {
   constructor(authSources, roleOptions) {

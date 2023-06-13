@@ -1,6 +1,6 @@
 import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
-import { showUrlDialog } from '../../../../static/js/Dialogs/index';
+import { showUrlDialog } from '../../../../static/js/dialogs/index';
 import { showUserManagement } from './UserManagementDialog';
 
 

@@ -29,7 +29,7 @@ import PropTypes from 'prop-types';
 import { retrieveNodeName } from '../show_view_data';
 import 'wcdocker';
 import { useModal } from '../../../../../static/js/helpers/ModalProvider';
-import ConnectServerContent from '../../../../../static/js/Dialogs/ConnectServerContent';
+import ConnectServerContent from '../../../../../static/js/dialogs/ConnectServerContent';
 
 export const QueryToolContext = React.createContext();
 export const QueryToolConnectionContext = React.createContext();

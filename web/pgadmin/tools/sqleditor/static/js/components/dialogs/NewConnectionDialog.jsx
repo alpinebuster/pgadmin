@@ -10,7 +10,7 @@ import SchemaView from '../../../../../../static/js/schema_view';
 import BaseUISchema from '../../../../../../static/js/schema_view/base_schema.ui';
 import { QueryToolContext } from '../QueryToolComponent';
 import { flattenSelectOptions } from '../../../../../../static/js/components/FormComponents';
-import ConnectServerContent from '../../../../../../static/js/Dialogs/ConnectServerContent';
+import ConnectServerContent from '../../../../../../static/js/dialogs/ConnectServerContent';
 
 class NewConnectionSchema extends BaseUISchema {
   constructor(api, params, connectServer) {

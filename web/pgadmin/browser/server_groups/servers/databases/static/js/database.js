@@ -3,7 +3,7 @@ import { getNodePrivilegeRoleSchema } from '../../../static/js/privilege.ui';
 import { getNodeVariableSchema } from '../../../static/js/variable.ui';
 import DatabaseSchema from './database.ui';
 import Notify from '../../../../../../static/js/helpers/Notifier';
-import { showServerPassword } from '../../../../../../static/js/Dialogs/index';
+import { showServerPassword } from '../../../../../../static/js/dialogs/index';
 import _ from 'lodash';
 import getApiInstance, { parseApiError } from '../../../../../../static/js/api_instance';
 

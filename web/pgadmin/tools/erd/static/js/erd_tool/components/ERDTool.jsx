@@ -16,7 +16,7 @@ import TableSchema from '../../../../../../browser/server_groups/servers/databas
 import Notify from '../../../../../../static/js/helpers/Notifier';
 import { ModalContext } from '../../../../../../static/js/helpers/ModalProvider';
 import ERDDialogs from '../dialogs';
-import ConfirmSaveContent from '../../../../../../static/js/Dialogs/ConfirmSaveContent';
+import ConfirmSaveContent from '../../../../../../static/js/dialogs/ConfirmSaveContent';
 import Loader from '../../../../../../static/js/components/Loader';
 import { MainToolBar } from './MainToolBar';
 import { Box, withStyles } from '@material-ui/core';

@@ -12,7 +12,7 @@ import Theme from '../../../../static/js/theme';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import Notify from '../../../../static/js/helpers/Notifier';
 import SchemaDiffComponent from './components/SchemaDiffComponent';
-import { showRenamePanel } from '../../../../static/js/Dialogs';
+import { showRenamePanel } from '../../../../static/js/dialogs';
 
 
 export default class SchemaDiff {

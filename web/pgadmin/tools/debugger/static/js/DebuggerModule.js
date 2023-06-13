@@ -17,7 +17,7 @@ import FunctionArguments from './debugger_ui';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import DebuggerComponent from './components/DebuggerComponent';
 import Theme from '../../../../static/js/theme';
-import { showRenamePanel } from '../../../../static/js/Dialogs';
+import { showRenamePanel } from '../../../../static/js/dialogs';
 
 export default class DebuggerModule {
   static instance;

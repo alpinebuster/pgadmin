@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { generateNodeUrl } from './node_ajax';
 import MainMenuFactory from './MainMenuFactory';
 import Notify, {initializeModalProvider, initializeNotifier} from '../../../static/js/helpers/Notifier';
-import { checkMasterPassword } from '../../../static/js/Dialogs/index';
+import { checkMasterPassword } from '../../../static/js/dialogs/index';
 import { pgHandleItemError } from '../../../static/js/utils';
 import { Search } from './quick_search/trigger_search';
 import { send_heartbeat, stop_heartbeat } from './heartbeat';

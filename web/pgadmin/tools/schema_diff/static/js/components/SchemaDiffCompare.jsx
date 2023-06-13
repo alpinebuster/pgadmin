@@ -15,7 +15,7 @@ import pgWindow from 'sources/window';
 
 import { PgButtonGroup, PgIconButton } from '../../../../../static/js/components/Buttons';
 import Notifier from '../../../../../static/js/helpers/Notifier';
-import ConnectServerContent from '../../../../../static/js/Dialogs/ConnectServerContent';
+import ConnectServerContent from '../../../../../static/js/dialogs/ConnectServerContent';
 import { generateScript } from '../../../../sqleditor/static/js/show_query_tool';
 import { FILTER_NAME, SCHEMA_DIFF_EVENT, TYPE } from '../SchemaDiffConstants';
 import { InputComponent } from './InputComponent';

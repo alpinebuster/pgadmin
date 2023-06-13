@@ -21,7 +21,7 @@ import { getAppropriateLabel, setDebuggerTitle } from '../debugger_utils';
 import Notify from '../../../../../static/js/helpers/Notifier';
 import { DebuggerArgumentSchema } from './DebuggerArgs.ui';
 import { DEBUGGER_ARGS } from '../DebuggerConstants';
-import { showRenamePanel } from '../../../../../static/js/Dialogs';
+import { showRenamePanel } from '../../../../../static/js/dialogs';
 
 
 const useStyles = makeStyles((theme) =>

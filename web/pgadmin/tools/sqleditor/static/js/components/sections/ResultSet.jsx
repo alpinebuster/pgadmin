@@ -17,7 +17,7 @@ import { QuerySources } from './QueryHistory';
 import { getBrowser } from '../../../../../../static/js/utils';
 import CopyData from '../QueryToolDataGrid/CopyData';
 import moment from 'moment';
-import ConfirmSaveContent from '../../../../../../static/js/Dialogs/ConfirmSaveContent';
+import ConfirmSaveContent from '../../../../../../static/js/dialogs/ConfirmSaveContent';
 import { makeStyles } from '@material-ui/styles';
 import EmptyPanelMessage from '../../../../../../static/js/components/EmptyPanelMessage';
 import { GraphVisualiser } from './GraphVisualiser';
