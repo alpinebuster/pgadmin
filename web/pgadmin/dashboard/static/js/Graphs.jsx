@@ -7,7 +7,7 @@ import gettext from 'sources/gettext';
 import {getGCD, getEpoch} from 'sources/utils';
 import {useInterval, usePrevious} from 'sources/custom_hooks';
 import PropTypes from 'prop-types';
-import StreamingChart from '../../../static/js/components/PgChart/StreamingChart';
+import StreamingChart from '../../../static/js/components/pg_chart/StreamingChart';
 import { Grid } from '@material-ui/core';
 
 export const X_AXIS_LENGTH = 75;
