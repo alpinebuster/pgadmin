@@ -1,5 +1,5 @@
 import React from 'react';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 
 export function withTheme(WrappedComp) {
   // eslint-disable-next-line react/display-name

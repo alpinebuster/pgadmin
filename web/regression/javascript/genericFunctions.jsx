@@ -4,7 +4,7 @@ import pgAdmin from 'sources/pgadmin';
 import SchemaView from '../../pgadmin/static/js/schema_view';
 import pgWindow from 'sources/window';
 import fakePgAdmin from './fake_pgadmin';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 
 export let getEditView = (schemaObj, getInitData)=> {
   return <Theme>

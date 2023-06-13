@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import {DebuggerContext, DebuggerEventsContext} from '../../../pgadmin/tools/debugger/static/js/components/DebuggerComponent';
 
 export default function MockDebuggerComponent({value, eventsvalue, children}) {

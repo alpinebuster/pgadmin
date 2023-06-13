@@ -4,7 +4,7 @@ import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import pgAdmin from 'sources/pgadmin';
 import { messages } from '../fake_messages';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import Wizard from '../../../pgadmin/static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../pgadmin/static/js/helpers/wizard/WizardStep';
 
