@@ -317,12 +317,12 @@ $scrollbar-width: 1rem;
 $security-text-color: $white;
 $security-btn-color: #038bba;
 
-$loading-bg : $color-primary;
-$loading-fg : $white;
+$loading-bg: $color-primary;
+$loading-fg: $white;
 
 // Current path is `static/js/generated`
-$splash-loader-icon : url("../../img/spinner-dark.svg") !default;
-$loader-icon : url("../../img/spinner.svg") !default;
+$splash-loader-icon: url("../../img/spinner-dark.svg") !default;
+$loader-icon: url("../../img/spinner.svg") !default;
 $loader-icon-small: url("../../img/spinner-small.svg") !default;
 
 /***************/

@@ -75,6 +75,10 @@ export default function(basicSettings) {
     },
     otherVars: {
       borderColor: '#4a4a4a',
+      loader: {
+        backgroundColor: '#212121',
+        color: '#fff',
+      },
       inputBorderColor: '#6b6b6b',
       inputDisabledBg: 'inherit',
       errorColor: '#DA6758',

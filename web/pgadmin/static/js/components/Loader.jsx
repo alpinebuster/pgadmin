@@ -1,6 +1,10 @@
-import { CircularProgress, Box, Typography, makeStyles } from '@material-ui/core';
+import {
+  Box, Typography, makeStyles
+} from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import gettext from 'sources/gettext';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -27,7 +31,6 @@ const useStyles = makeStyles((theme)=>({
     color: theme.otherVars.loader.color,
   },
   message: {
-    marginLeft: '0.5rem',
     fontSize: '16px',
   }
 }));
@@ -40,10 +43,15 @@ export default function Loader({
     return <></>;
   }
   return (
-    <Box className={classes.root} style={style} data-label="loader" {...props}>
+    <Box
+      className={classes.root} style={style}
+      data-label="loader" {...props}
+    >
       <Box className={classes.loaderRoot}>
-        <CircularProgress className={classes.loader} />
-        <Typography className={classes.message}>{message}{autoEllipsis ? '...':''}</Typography>
+        <div class="p-4 pg-loading-icon"></div>
+        <Typography className={classes.message}>
+          {message}{autoEllipsis ? '...' : ''}
+        </Typography>
       </Box>
     </Box>
   );

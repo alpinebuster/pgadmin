@@ -528,7 +528,7 @@ define('pgadmin.browser', [
         '#dockerContainer', {
           allowContextMenu: true,
           allowCollapse: false,
-          loadingClass: 'pg-sp-icon',
+          loadingClass: 'pg-loading-icon',
           themePath: url_for('static', {
             'filename': 'css',
           }),
