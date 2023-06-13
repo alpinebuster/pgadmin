@@ -11,7 +11,7 @@ import { Box } from '@material-ui/core';
 import { ResultSetToolbar } from './ResultSetToolbar';
 import { LayoutHelper } from '../../../../../../static/js/helpers/Layout';
 import { GeometryViewer } from './GeometryViewer';
-import Explain from '../../../../../../static/js/Explain';
+import Explain from '../../../../../../static/js/explain';
 import Notifier from '../../../../../../static/js/helpers/Notifier';
 import { QuerySources } from './QueryHistory';
 import { getBrowser } from '../../../../../../static/js/utils';
