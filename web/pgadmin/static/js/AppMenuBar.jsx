@@ -8,11 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 import pgAdmin from 'sources/pgadmin';
+import gettext from 'sources/gettext';
 
 import { PrimaryButton } from './components/Buttons';
-import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from './components/Menu';
+import {
+  PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu
+} from './components/Menu';
 
 const navbarHeight = '38px';  // NOTE: `navbar-height`
 const useStyles = makeStyles((theme)=>({
@@ -63,7 +68,35 @@ const useStyles = makeStyles((theme)=>({
   },
   gravatar: {
     marginRight: '4px',
-  }
+  },
+  search: {
+    borderRadius: '0.25rem',
+    padding: '2px',
+    backgroundColor: theme.palette.text.white,
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '16px',
+  },
+  searchIcon: {
+    fill: theme.palette.text.white,
+    backgroundColor: theme.palette.text.black,
+    paddingLeft: '5px',
+    paddingRight: '3px',
+    height: '100%',
+  },
+  inputRoot: {
+    color: theme.palette.text.white,
+    paddingLeft: '3px',
+    paddingRight: '3px',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputInput: {
+    // paddingLeft: '5px',
+    // paddingRight: '5px',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
 }));
 
 export default function AppMenuBar() {
@@ -128,11 +161,13 @@ export default function AppMenuBar() {
                   {menu.getMenuItems().map((menuItem, i)=>{
                     const submenus = menuItem.getMenuItems();
                     if(submenus) {
-                      return <PgSubMenu key={i} label={menuItem.label}>
-                        {submenus.map((submenuItem, si)=>{
-                          return getPgMenuItem(submenuItem, si);
-                        })}
-                      </PgSubMenu>;
+                      return (
+                        <PgSubMenu key={i} label={menuItem.label}>
+                          {submenus.map((submenuItem, si)=>{
+                            return getPgMenuItem(submenuItem, si);
+                          })}
+                        </PgSubMenu>
+                      );
                     }
                     return getPgMenuItem(menuItem, i);
                   })}
@@ -140,6 +175,21 @@ export default function AppMenuBar() {
               );
             })}
           </div>
+
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder={gettext('Search')}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+
           {userMenuInfo &&
             <div className={classes.userMenu}>
               <PgMenu

@@ -52,6 +52,8 @@ export default function(basicSettings) {
       text: {
         primary: '#222',
         muted: '#646B82',
+        white: '#fff',
+        black: '#000',
       },
       checkbox: {
         disabled: '#ebeef3'
