@@ -2,7 +2,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 import Uploader, { filesReducer, getFileSize, UploadedFile } from '../../../pgadmin/misc/file_manager/static/js/components/Uploader';
 import { MESSAGE_TYPE } from '../../../pgadmin/static/js/components/FormComponents';
 

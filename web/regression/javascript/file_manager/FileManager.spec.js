@@ -2,7 +2,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 import FileManager, { FileManagerUtils, getComparator } from '../../../pgadmin/misc/file_manager/static/js/components/FileManager';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios/index';

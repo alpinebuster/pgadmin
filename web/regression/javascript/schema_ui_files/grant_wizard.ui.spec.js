@@ -5,7 +5,7 @@ import SchemaView from '../../../pgadmin/static/js/schema_view';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import GrantWizardPrivilegeSchema from '../../../pgadmin/tools/grant_wizard/static/js/privilege_schema.ui';
 import {genericBeforeEach} from '../genericFunctions';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 class MockSchema extends BaseUISchema {
   get baseFields() {

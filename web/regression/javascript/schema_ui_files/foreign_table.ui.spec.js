@@ -5,7 +5,7 @@ import SchemaView from '../../../pgadmin/static/js/schema_view';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import ForeignTableSchema, { ColumnSchema, CheckConstraintSchema } from '../../../pgadmin/browser/server_groups/servers/databases/schemas/foreign_tables/static/js/foreign_table.ui';
 import {genericBeforeEach, getCreateView, getEditView, getPropertiesView} from '../genericFunctions';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 class MockSchema extends BaseUISchema {
   get baseFields() {

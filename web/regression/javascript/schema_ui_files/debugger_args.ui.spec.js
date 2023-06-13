@@ -6,7 +6,7 @@ import { createMount } from '@material-ui/core/test-utils';
 import SchemaView from '../../../pgadmin/static/js/schema_view';
 import {DebuggerArgumentSchema} from '../../../pgadmin/tools/debugger/static/js/components/DebuggerArgs.ui';
 import {genericBeforeEach} from '../genericFunctions';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 describe('DebuggerArgs', () => {
   let mount;

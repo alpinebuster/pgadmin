@@ -15,7 +15,7 @@ import url_for from 'sources/url_for';
 
 import { messages } from '../fake_messages';
 import { TreeFake } from '../tree/tree_fake';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 import SchemaDiffComponent from '../../../pgadmin/tools/schema_diff/static/js/components/SchemaDiffComponent';
 import SchemaDiff from '../../../pgadmin/tools/schema_diff/static/js/SchemaDiffModule';
 

@@ -11,7 +11,7 @@ import ERDTool from 'pgadmin.tools.erd/erd_tool/components/ERDTool';
 import * as ERDSqlTool from 'tools/sqleditor/static/js/show_query_tool';
 import { FakeLink, FakeNode, FakePort } from '../fake_item';
 import Notify from '../../../../pgadmin/static/js/helpers/Notifier';
-import Theme from '../../../../pgadmin/static/js/Theme';
+import Theme from '../../../../pgadmin/static/js/theme';
 import ModalProvider from '../../../../pgadmin/static/js/helpers/ModalProvider';
 
 

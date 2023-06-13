@@ -4,7 +4,7 @@ import {mount} from 'enzyme';
 import '../../helper/enzyme.helper';
 
 import ConnectionBar, {STATUS} from 'pgadmin.tools.erd/erd_tool/components/ConnectionBar';
-import Theme from '../../../../pgadmin/static/js/Theme';
+import Theme from '../../../../pgadmin/static/js/theme';
 
 describe('ERD ConnectionBar', ()=>{
   beforeEach(()=>{

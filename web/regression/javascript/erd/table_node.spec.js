@@ -5,7 +5,7 @@ import '../helper/enzyme.helper';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
 import {TableNodeModel, TableNodeWidget} from 'pgadmin.tools.erd/erd_tool/nodes/TableNode';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 
 describe('ERD TableNodeModel', ()=>{

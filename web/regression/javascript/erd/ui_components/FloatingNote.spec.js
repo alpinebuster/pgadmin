@@ -4,7 +4,7 @@ import {mount} from 'enzyme';
 import '../../helper/enzyme.helper';
 
 import FloatingNote from 'pgadmin.tools.erd/erd_tool/components/FloatingNote';
-import Theme from '../../../../pgadmin/static/js/Theme';
+import Theme from '../../../../pgadmin/static/js/theme';
 
 describe('ERD FloatingNote', ()=>{
 

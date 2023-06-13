@@ -4,7 +4,7 @@ import { createMount } from '@material-ui/core/test-utils';
 import pgAdmin from 'sources/pgadmin';
 import SchemaView from '../../../pgadmin/static/js/schema_view';
 import BackupSchema, {getSectionSchema, getTypeObjSchema, getSaveOptSchema, getQueryOptionSchema, getDisabledOptionSchema, getMiscellaneousSchema} from '../../../pgadmin/tools/backup/static/js/backup.ui';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 
 describe('BackupSchema', ()=>{

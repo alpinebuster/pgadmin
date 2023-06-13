@@ -2,7 +2,7 @@ import jasmineEnzyme from 'jasmine-enzyme';
 import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 import { FileNameEditor } from '../../../pgadmin/misc/file_manager/static/js/components/ListView';
 
 describe('ListView', ()=>{

@@ -8,7 +8,7 @@ import pgAdmin from 'sources/pgadmin';
 import {messages} from '../fake_messages';
 import SchemaView from '../../../pgadmin/static/js/schema_view';
 import Notify from '../../../pgadmin/static/js/helpers/Notifier';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 const initData = {
   id: 1,

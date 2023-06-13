@@ -18,7 +18,7 @@ import DebuggerComponent from '../../../pgadmin/tools/debugger/static/js/compone
 import FunctionArguments from '../../../pgadmin/tools/debugger/static/js/debugger_ui';
 import Debugger from '../../../pgadmin/tools/debugger/static/js/DebuggerModule';
 import {TreeFake} from '../tree/tree_fake';
-import Theme from '../../../pgadmin/static/js/Theme';
+import Theme from '../../../pgadmin/static/js/theme';
 
 
 describe('Debugger Component', () => {
