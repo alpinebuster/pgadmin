@@ -85,7 +85,9 @@ simple - adapt as required for your distribution:
 
    ```bash
    pip install poetry
-   poetry install
+   poetry install 
+   # Install all deps, including test deps
+   poetry install -E all
    ```
 
 5. Create a local configuration file for pgAdmin. Edit

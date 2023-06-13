@@ -61,6 +61,54 @@ keyring = "==23.*"
 sphinx = "^7.0.1"
 sphinxcontrib-youtube = "^1.2.0"
 
+# Optional deps
+extras = { version = ">=1.0.0", optional = true }
+fixtures = { version = ">=4.1.0", optional = true }
+linecache2 = { version = ">=1.0.0", optional = true }
+pbr = { version = ">=5.11.1", optional = true }
+pycodestyle = { version = ">=2.5.0", optional = true }
+python-mimeparse = { version = ">=1.6.0", optional = true }
+testscenarios = { version = ">=0.5.0", optional = true }
+testtools = { version = ">=2.6.0", optional = true }
+traceback2 = { version = ">=1.4.0", optional = true }
+selenium = { version = ">=4.10.0", optional = true }
+coverage = { version = ">=7.2.7", optional = true }
+
+[tool.poetry.extras]
+# NB: Packages that should be part of `poetry install -E` need to be specified
+extras = ["extras"]
+fixtures = ["fixtures"]
+linecache2 = ["linecache2"]
+pbr = ["pbr"]
+pycodestyle = ["pycodestyle"]
+python-mimeparse = ["python-mimeparse"]
+testscenarios = ["testscenarios"]
+testtools = ["testtools"]
+traceback2 = ["traceback2"]
+selenium = ["selenium"]
+coverage = ["coverage"]
+
+all = [
+	"extras", 
+	"fixtures", 
+	"linecache2", 
+	"pbr", 
+	"pycodestyle", 
+	"python-mimeparse", 
+	"testscenarios", 
+	"testtools", 
+	"traceback2", 
+	"selenium", 
+	"coverage"
+]
+
+[tool.poetry.dev-dependencies]
+## We pin black so that our tests don't start failing on new releases.
+isort = ">=5.10.1"
+black = ">=22.3.0"
+flake8-comprehensions = "*"
+flake8-bugbear = ">=21.3.2"
+flake8 = "*"
 
 [build-system]
 requires = ["poetry-core"]
