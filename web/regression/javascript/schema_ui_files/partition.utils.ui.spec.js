@@ -1,6 +1,6 @@
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import BaseUISchema from '../../../pgadmin/static/js/SchemaView/base_schema.ui';
+import BaseUISchema from '../../../pgadmin/static/js/schema_view/base_schema.ui';
 import _ from 'lodash';
 import * as nodeAjax from '../../../pgadmin/browser/static/js/node_ajax';
 import { PartitionKeysSchema, PartitionsSchema } from '../../../pgadmin/browser/server_groups/servers/databases/schemas/tables/static/js/partition.utils.ui';

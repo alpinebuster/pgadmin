@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import DatabaseSchema from '../../../pgadmin/browser/server_groups/servers/databases/static/js/database.ui';
 import {genericBeforeEach, getCreateView, getEditView, getPropertiesView} from '../genericFunctions';
 

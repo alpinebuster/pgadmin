@@ -1,6 +1,6 @@
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import VariableSchema, {getNodeVariableSchema} from '../../../pgadmin/browser/server_groups/servers/static/js/variable.ui';
 import * as nodeAjax from '../../../pgadmin/browser/static/js/node_ajax';
 import {genericBeforeEach, getCreateView, getEditView, getPropertiesView} from '../genericFunctions';

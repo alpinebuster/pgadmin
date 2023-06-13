@@ -1,7 +1,7 @@
 import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import SchemaView from '../../../pgadmin/static/js/SchemaView';
+import SchemaView from '../../../pgadmin/static/js/schema_view';
 import ImportExportSelectionSchema from '../../../pgadmin/tools/import_export_servers/static/js/import_export_selection.ui';
 import {genericBeforeEach} from '../genericFunctions';
 import Theme from '../../../pgadmin/static/js/Theme';

@@ -1,7 +1,7 @@
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import { SCHEMA_STATE_ACTIONS } from '../../../pgadmin/static/js/SchemaView';
-import BaseUISchema from '../../../pgadmin/static/js/SchemaView/base_schema.ui';
+import { SCHEMA_STATE_ACTIONS } from '../../../pgadmin/static/js/schema_view';
+import BaseUISchema from '../../../pgadmin/static/js/schema_view/base_schema.ui';
 import _ from 'lodash';
 import UniqueConstraintSchema from '../../../pgadmin/browser/server_groups/servers/databases/schemas/tables/constraints/index_constraint/static/js/unique_constraint.ui';
 import TableSchema from '../../../pgadmin/browser/server_groups/servers/databases/schemas/tables/static/js/table.ui';

@@ -2,7 +2,7 @@ import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import pgAdmin from 'sources/pgadmin';
-import SchemaView from '../../../pgadmin/static/js/SchemaView';
+import SchemaView from '../../../pgadmin/static/js/schema_view';
 import BackupSchema, {getSectionSchema, getTypeObjSchema, getSaveOptSchema, getQueryOptionSchema, getDisabledOptionSchema, getMiscellaneousSchema} from '../../../pgadmin/tools/backup/static/js/backup.ui';
 import Theme from '../../../pgadmin/static/js/Theme';
 

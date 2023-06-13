@@ -1,6 +1,6 @@
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import DomainSchema, { DomainConstSchema } from '../../../pgadmin/browser/server_groups/servers/databases/schemas/domains/static/js/domain.ui';
 import {genericBeforeEach, getCreateView, getEditView, getPropertiesView} from '../genericFunctions';
 

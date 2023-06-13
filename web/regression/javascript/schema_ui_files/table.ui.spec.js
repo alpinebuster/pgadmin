@@ -1,6 +1,6 @@
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import { SCHEMA_STATE_ACTIONS } from '../../../pgadmin/static/js/SchemaView';
+import { SCHEMA_STATE_ACTIONS } from '../../../pgadmin/static/js/schema_view';
 import _ from 'lodash';
 import { getNodeTableSchema, LikeSchema } from '../../../pgadmin/browser/server_groups/servers/databases/schemas/tables/static/js/table.ui';
 import * as nodeAjax from '../../../pgadmin/browser/static/js/node_ajax';

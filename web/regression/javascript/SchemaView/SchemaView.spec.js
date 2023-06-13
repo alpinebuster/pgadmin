@@ -6,7 +6,7 @@ import { createMount } from '@material-ui/core/test-utils';
 import {TestSchema, TestSchemaAllTypes} from './TestSchema.ui';
 import pgAdmin from 'sources/pgadmin';
 import {messages} from '../fake_messages';
-import SchemaView from '../../../pgadmin/static/js/SchemaView';
+import SchemaView from '../../../pgadmin/static/js/schema_view';
 import Notify from '../../../pgadmin/static/js/helpers/Notifier';
 import Theme from '../../../pgadmin/static/js/Theme';
 

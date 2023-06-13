@@ -1,8 +1,8 @@
 import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
-import SchemaView from '../../../pgadmin/static/js/SchemaView';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import SchemaView from '../../../pgadmin/static/js/schema_view';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import ForeignTableSchema, { ColumnSchema, CheckConstraintSchema } from '../../../pgadmin/browser/server_groups/servers/databases/schemas/foreign_tables/static/js/foreign_table.ui';
 import {genericBeforeEach, getCreateView, getEditView, getPropertiesView} from '../genericFunctions';
 import Theme from '../../../pgadmin/static/js/Theme';

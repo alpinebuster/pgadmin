@@ -1,4 +1,4 @@
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 
 class TestSubSchema extends BaseUISchema {
   constructor() {

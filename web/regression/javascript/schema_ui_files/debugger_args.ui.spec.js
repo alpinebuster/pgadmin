@@ -3,7 +3,7 @@ import '../helper/enzyme.helper';
 import React from 'react';
 import { createMount } from '@material-ui/core/test-utils';
 
-import SchemaView from '../../../pgadmin/static/js/SchemaView';
+import SchemaView from '../../../pgadmin/static/js/schema_view';
 import {DebuggerArgumentSchema} from '../../../pgadmin/tools/debugger/static/js/components/DebuggerArgs.ui';
 import {genericBeforeEach} from '../genericFunctions';
 import Theme from '../../../pgadmin/static/js/Theme';
