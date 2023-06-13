@@ -1,10 +1,11 @@
-import gettext from 'sources/gettext';
-import SecLabelSchema from '../../../../../static/js/sec_label.ui';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
-import OptionsSchema from '../../../../../static/js/options.ui';
-import { isEmptyString } from 'sources/validators';
-
 import _ from 'lodash';
+
+import gettext from 'sources/gettext';
+import { isEmptyString } from 'sources/validators';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
+
+import SecLabelSchema from '../../../../../static/js/sec_label.ui';
+import OptionsSchema from '../../../../../static/js/options.ui';
 import { getNodePrivilegeRoleSchema } from '../../../../../static/js/privilege.ui';
 import { getNodeAjaxOptions } from '../../../../../../../static/js/node_ajax';
 

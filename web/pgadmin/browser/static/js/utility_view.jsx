@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import pgAdmin from 'sources/pgadmin';
 import getApiInstance from 'sources/api_instance';
 import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
-import SchemaView from 'sources/SchemaView';
+import SchemaView from 'sources/schema_view';
 import 'wcdocker';
 import Theme from '../../../static/js/theme';
 import url_for from 'sources/url_for';

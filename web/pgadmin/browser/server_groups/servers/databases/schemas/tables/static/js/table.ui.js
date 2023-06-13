@@ -1,10 +1,10 @@
 import gettext from 'sources/gettext';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import SecLabelSchema from 'top/browser/server_groups/servers/static/js/sec_label.ui';
 import _ from 'lodash';
 import { isEmptyString } from 'sources/validators';
 import PrimaryKeySchema from '../../constraints/index_constraint/static/js/primary_key.ui';
-import { SCHEMA_STATE_ACTIONS } from '../../../../../../../../static/js/SchemaView';
+import { SCHEMA_STATE_ACTIONS } from '../../../../../../../../static/js/schema_view';
 import { PartitionKeysSchema, PartitionsSchema } from './partition.utils.ui';
 import CheckConstraintSchema from '../../constraints/check_constraint/static/js/check_constraint.ui';
 import UniqueConstraintSchema from '../../constraints/index_constraint/static/js/unique_constraint.ui';

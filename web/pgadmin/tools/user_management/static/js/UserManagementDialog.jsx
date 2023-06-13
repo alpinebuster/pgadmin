@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { makeStyles } from '@material-ui/core';
-import SchemaView from '../../../../static/js/SchemaView';
-import BaseUISchema from '../../../../static/js/SchemaView/base_schema.ui';
+import SchemaView from '../../../../static/js/schema_view';
+import BaseUISchema from '../../../../static/js/schema_view/base_schema.ui';
 import pgAdmin from 'sources/pgadmin';
 import Theme from 'sources/theme';
 import gettext from 'sources/gettext';

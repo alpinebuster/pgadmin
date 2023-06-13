@@ -1,5 +1,5 @@
 import gettext from 'sources/gettext';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import _ from 'lodash';
 import { isEmptyString } from 'sources/validators';
 export default class CheckConstraintSchema extends BaseUISchema {

@@ -1,6 +1,6 @@
 import gettext from 'sources/gettext';
 import SecLabelSchema from '../../../../../static/js/sec_label.ui';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import { isEmptyString } from 'sources/validators';
 
 

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import SchemaView from '../../../../../../static/js/SchemaView';
-import BaseUISchema from '../../../../../../static/js/SchemaView/base_schema.ui';
+import SchemaView from '../../../../../../static/js/schema_view';
+import BaseUISchema from '../../../../../../static/js/schema_view/base_schema.ui';
 import gettext from 'sources/gettext';
 import { QueryToolContext } from '../QueryToolComponent';
 import url_for from 'sources/url_for';

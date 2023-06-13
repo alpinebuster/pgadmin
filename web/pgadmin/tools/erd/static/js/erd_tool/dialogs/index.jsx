@@ -3,7 +3,7 @@ import {getOneToManyDialogSchema} from './OneToManyDialog';
 import {getManyToManyDialogSchema} from './ManyToManyDialog';
 
 import pgAdmin from 'sources/pgadmin';
-import SchemaView from '../../../../../../static/js/SchemaView';
+import SchemaView from '../../../../../../static/js/schema_view';
 import React from 'react';
 export default class ERDDialogs {
   constructor(modalProvider) {

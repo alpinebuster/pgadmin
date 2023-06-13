@@ -17,7 +17,7 @@ import { Checkbox, Box } from '@material-ui/core';
 import { InputText } from './FormComponents';
 import _ from 'lodash';
 import gettext from 'sources/gettext';
-import SchemaView from '../SchemaView';
+import SchemaView from '../schema_view';
 import EmptyPanelMessage from './EmptyPanelMessage';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';

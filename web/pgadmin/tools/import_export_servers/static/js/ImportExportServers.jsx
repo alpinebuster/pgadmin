@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Wizard from '../../../../static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../../static/js/helpers/wizard/WizardStep';
 import { FormFooterMessage, MESSAGE_TYPE, FormNote } from '../../../../static/js/components/FormComponents';
-import SchemaView from '../../../../static/js/SchemaView';
+import SchemaView from '../../../../static/js/schema_view';
 import Loader from 'sources/components/Loader';
 import ImportExportSelectionSchema from './import_export_selection.ui';
 import CheckBoxTree from '../../../../static/js/components/CheckBoxTree';

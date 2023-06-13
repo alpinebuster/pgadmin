@@ -1,6 +1,6 @@
 import gettext from 'sources/gettext';
 import _ from 'lodash';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import pgAdmin from 'sources/pgadmin';
 import {default as supportedServers} from 'pgadmin.server.supported_servers';
 import current_user from 'pgadmin.user_management.current_user';

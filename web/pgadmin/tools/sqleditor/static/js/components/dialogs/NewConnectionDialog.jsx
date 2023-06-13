@@ -6,8 +6,8 @@ import _ from 'lodash';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 
-import SchemaView from '../../../../../../static/js/SchemaView';
-import BaseUISchema from '../../../../../../static/js/SchemaView/base_schema.ui';
+import SchemaView from '../../../../../../static/js/schema_view';
+import BaseUISchema from '../../../../../../static/js/schema_view/base_schema.ui';
 import { QueryToolContext } from '../QueryToolComponent';
 import { flattenSelectOptions } from '../../../../../../static/js/components/FormComponents';
 import ConnectServerContent from '../../../../../../static/js/Dialogs/ConnectServerContent';

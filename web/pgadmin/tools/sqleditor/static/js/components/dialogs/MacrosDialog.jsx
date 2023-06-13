@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 
-import SchemaView from '../../../../../../static/js/SchemaView';
-import BaseUISchema from '../../../../../../static/js/SchemaView/base_schema.ui';
+import SchemaView from '../../../../../../static/js/schema_view';
+import BaseUISchema from '../../../../../../static/js/schema_view/base_schema.ui';
 import { QueryToolContext } from '../QueryToolComponent';
 
 class MacrosCollection extends BaseUISchema {

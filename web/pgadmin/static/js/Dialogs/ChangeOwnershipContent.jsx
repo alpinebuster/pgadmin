@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import gettext from 'sources/gettext';
-import BaseUISchema from '../SchemaView/base_schema.ui';
-import SchemaView from '../SchemaView';
+import BaseUISchema from '../schema_view/base_schema.ui';
+import SchemaView from '../schema_view';
 import { isEmptyString } from 'sources/validators';
 
 class ChangeOwnershipSchema extends BaseUISchema {

@@ -2,7 +2,7 @@ import React from 'react';
 import pgAdmin from 'sources/pgadmin';
 import { getNodeAjaxOptions, getNodeListById } from 'pgbrowser/node_ajax';
 import {BigAnimalClusterSchema, BigAnimalDatabaseSchema, BigAnimalClusterTypeSchema} from './biganimal_schema.ui';
-import SchemaView from '../../../../static/js/SchemaView';
+import SchemaView from '../../../../static/js/schema_view';
 import url_for from 'sources/url_for';
 import getApiInstance from '../../../../static/js/api_instance';
 import { isEmptyString } from 'sources/validators';

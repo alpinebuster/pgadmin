@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 
 import TableSchema, { ConstraintsSchema } from '../../../../../../browser/server_groups/servers/databases/schemas/tables/static/js/table.ui';
 import ColumnSchema from '../../../../../../browser/server_groups/servers/databases/schemas/tables/columns/static/js/column.ui';

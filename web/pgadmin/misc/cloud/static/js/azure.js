@@ -2,7 +2,7 @@ import React from 'react';
 import {AzureCredSchema, AzureClusterSchema, AzureDatabaseSchema} from './azure_schema.ui';
 import pgAdmin from 'sources/pgadmin';
 import { getNodeAjaxOptions, getNodeListById } from 'pgbrowser/node_ajax';
-import SchemaView from '../../../../static/js/SchemaView';
+import SchemaView from '../../../../static/js/schema_view';
 import url_for from 'sources/url_for';
 import { isEmptyString } from 'sources/validators';
 import PropTypes from 'prop-types';

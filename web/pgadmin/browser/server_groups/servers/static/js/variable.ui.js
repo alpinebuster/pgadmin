@@ -1,6 +1,6 @@
 import gettext from 'sources/gettext';
 import _ from 'lodash';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import { getNodeAjaxOptions, getNodeListByName } from '../../../../static/js/node_ajax';
 import { isEmptyString } from '../../../../../static/js/validators';
 

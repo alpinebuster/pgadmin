@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
-import DataGridView, { DataGridHeader } from '../SchemaView/DataGridView';
-import SchemaView, { SCHEMA_STATE_ACTIONS } from '../SchemaView';
+import DataGridView, { DataGridHeader } from '../schema_view/DataGridView';
+import SchemaView, { SCHEMA_STATE_ACTIONS } from '../schema_view';
 import { DefaultButton } from '../components/Buttons';
 import { evalFunc } from '../utils';
 import PropTypes from 'prop-types';

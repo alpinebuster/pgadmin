@@ -1,5 +1,5 @@
 import gettext from 'sources/gettext';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import { emptyValidator } from 'sources/validators';
 
 export default class SynonymSchema extends BaseUISchema {

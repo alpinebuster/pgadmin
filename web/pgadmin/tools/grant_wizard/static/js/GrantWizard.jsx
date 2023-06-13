@@ -10,7 +10,7 @@ import PgTable from 'sources/components/PgTable';
 import { getNodePrivilegeRoleSchema } from '../../../../../pgadmin/browser/server_groups/servers/static/js/privilege.ui.js';
 import { InputSQL, FormFooterMessage, MESSAGE_TYPE } from '../../../../static/js/components/FormComponents';
 import getApiInstance from '../../../../static/js/api_instance';
-import SchemaView from '../../../../static/js/SchemaView';
+import SchemaView from '../../../../static/js/schema_view';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import PrivilegeSchema from './privilege_schema.ui';

@@ -1,8 +1,8 @@
 import gettext from 'sources/gettext';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import _ from 'lodash';
 import { isEmptyString } from 'sources/validators';
-import { SCHEMA_STATE_ACTIONS } from '../../../../../../../../../../static/js/SchemaView';
+import { SCHEMA_STATE_ACTIONS } from '../../../../../../../../../../static/js/schema_view';
 import TableSchema from '../../../../static/js/table.ui';
 
 export default class UniqueConstraintSchema extends BaseUISchema {

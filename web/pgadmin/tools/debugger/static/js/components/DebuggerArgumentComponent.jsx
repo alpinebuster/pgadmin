@@ -14,7 +14,7 @@ import * as commonUtils from 'sources/utils';
 import pgAdmin from 'sources/pgadmin';
 import Loader from 'sources/components/Loader';
 
-import SchemaView from '../../../../../static/js/SchemaView';
+import SchemaView from '../../../../../static/js/schema_view';
 import getApiInstance from '../../../../../static/js/api_instance';
 import { DefaultButton, PrimaryButton } from '../../../../../static/js/components/Buttons';
 import { getAppropriateLabel, setDebuggerTitle } from '../debugger_utils';

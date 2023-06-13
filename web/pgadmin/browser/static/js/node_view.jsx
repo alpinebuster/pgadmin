@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import pgAdmin from 'sources/pgadmin';
 import getApiInstance from 'sources/api_instance';
 import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
-import SchemaView from 'sources/SchemaView';
+import SchemaView from 'sources/schema_view';
 import { generateNodeUrl } from './node_ajax';
 import Notify from '../../../static/js/helpers/Notifier';
 import gettext from 'sources/gettext';

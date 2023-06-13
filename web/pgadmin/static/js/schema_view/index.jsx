@@ -19,7 +19,7 @@ import Loader from 'sources/components/Loader';
 import { minMaxValidator, numberValidator, integerValidator, emptyValidator, checkUniqueCol, isEmptyString} from '../validators';
 import { MappedFormControl } from './MappedControl';
 import gettext from 'sources/gettext';
-import BaseUISchema from 'sources/SchemaView/base_schema.ui';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import FormView, { getFieldMetaData } from './FormView';
 import PropTypes from 'prop-types';
 import CustomPropTypes from '../custom_prop_types';
