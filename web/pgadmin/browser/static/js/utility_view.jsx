@@ -5,7 +5,7 @@ import getApiInstance from 'sources/api_instance';
 import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 import SchemaView from 'sources/SchemaView';
 import 'wcdocker';
-import Theme from '../../../static/js/Theme';
+import Theme from '../../../static/js/theme';
 import url_for from 'sources/url_for';
 import { generateNodeUrl } from './node_ajax';
 

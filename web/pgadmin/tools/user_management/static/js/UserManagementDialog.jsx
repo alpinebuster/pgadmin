@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import SchemaView from '../../../../static/js/SchemaView';
 import BaseUISchema from '../../../../static/js/SchemaView/base_schema.ui';
 import pgAdmin from 'sources/pgadmin';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 import PropTypes from 'prop-types';

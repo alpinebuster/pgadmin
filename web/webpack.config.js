@@ -137,7 +137,9 @@ pgadminCssStyles.push(path.join(__dirname,'./pgadmin/static/js/pgadmin.fonticon.
 
 /* Get all the themes */
 
-let all_themes_dir = path.join(__dirname,'./pgadmin/static/scss/resources');
+let all_themes_dir = path.join(
+  __dirname, './pgadmin/static/scss/resources'
+);
 let pgadminThemes = {};
 /* Read all the theme dirs */
 /* Theme format

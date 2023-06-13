@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getAWSSummary } from './aws';
 import  {getAzureSummary} from './azure';
 import { getBigAnimalSummary } from './biganimal';
-import { commonTableStyles } from '../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../static/js/theme';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import clsx from 'clsx';
 import gettext from 'sources/gettext';

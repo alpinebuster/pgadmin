@@ -13,7 +13,7 @@ import ImportExportSelectionSchema from './import_export_selection.ui';
 import CheckBoxTree from '../../../../static/js/components/CheckBoxTree';
 import getApiInstance from '../../../../static/js/api_instance';
 import PropTypes from 'prop-types';
-import { commonTableStyles } from '../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../static/js/theme';
 import clsx from 'clsx';
 import Notify from '../../../../static/js/helpers/Notifier';
 import pgAdmin from 'sources/pgadmin';

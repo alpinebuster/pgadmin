@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import pgAdmin from 'sources/pgadmin';
 import ConnectServerContent from './ConnectServerContent';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import url_for from 'sources/url_for';
 import gettext from 'sources/gettext';
 

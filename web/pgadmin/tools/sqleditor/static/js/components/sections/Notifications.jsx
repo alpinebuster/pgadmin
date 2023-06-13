@@ -1,5 +1,5 @@
 import React from 'react';
-import { commonTableStyles } from '../../../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../../../static/js/theme';
 import { QUERY_TOOL_EVENTS } from '../QueryToolConstants';
 import gettext from 'sources/gettext';
 import _ from 'lodash';

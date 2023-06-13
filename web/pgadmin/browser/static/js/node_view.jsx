@@ -9,7 +9,7 @@ import { generateNodeUrl } from './node_ajax';
 import Notify from '../../../static/js/helpers/Notifier';
 import gettext from 'sources/gettext';
 import 'wcdocker';
-import Theme from '../../../static/js/Theme';
+import Theme from '../../../static/js/theme';
 
 /* The entry point for rendering React based view in properties, called in node.js */
 export function getNodeView(nodeType, treeNodeInfo, actionType, itemNodeData, formType, container, containerPanel, onEdit, onSave) {

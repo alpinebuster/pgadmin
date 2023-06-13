@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import gettext from 'sources/gettext';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import ImportExportServers from './ImportExportServers';
 import pgBrowser from 'top/browser/static/js/browser';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import GrantWizard from './GrantWizard';
 
 

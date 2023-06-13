@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import pgAdmin from 'sources/pgadmin';
-import Theme from '../../../../static/js/Theme';
+import Theme from '../../../../static/js/theme';
 import ProcessDetails from './ProcessDetails';
 import gettext from 'sources/gettext';
 

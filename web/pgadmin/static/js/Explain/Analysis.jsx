@@ -5,7 +5,7 @@ import _ from 'lodash';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import HTMLReactParse from 'html-react-parser';
-import { commonTableStyles } from '../Theme';
+import { commonTableStyles } from '../theme';
 import PropTypes from 'prop-types';
 import gettext from 'sources/gettext';
 

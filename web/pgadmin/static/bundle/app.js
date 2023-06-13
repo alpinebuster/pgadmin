@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import MainMenuFactory from '../../browser/static/js/MainMenuFactory';
 import AppMenuBar from '../js/AppMenuBar';
 import ObjectBreadcrumbs from '../js/components/ObjectBreadcrumbs';
-import Theme from '../js/Theme';
+import Theme from '../js/theme';
 
 define(
   'app',

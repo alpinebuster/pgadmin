@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { DebuggerEventsContext } from './DebuggerComponent';
 import { DEBUGGER_EVENTS } from '../DebuggerConstants';
-import { commonTableStyles } from '../../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../../static/js/theme';
 import { InputText } from '../../../../../static/js/components/FormComponents';
 
 

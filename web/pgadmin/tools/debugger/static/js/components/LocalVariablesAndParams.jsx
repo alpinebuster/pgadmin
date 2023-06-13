@@ -12,7 +12,7 @@ import gettext from 'sources/gettext';
 
 import { DebuggerEventsContext } from './DebuggerComponent';
 import { DEBUGGER_EVENTS } from '../DebuggerConstants';
-import { commonTableStyles } from '../../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../../static/js/theme';
 import { InputText, InputDateTimePicker } from '../../../../../static/js/components/FormComponents';
 
 

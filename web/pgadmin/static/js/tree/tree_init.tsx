@@ -6,7 +6,7 @@ import { IBasicFileSystemHost, Directory, FileOrDir } from 'react-aspen';
 import { ManageTreeNodes } from './tree_nodes';
 import pgAdmin from 'sources/pgadmin';
 import { FileTreeX, TreeModelX } from '../components/PgTree';
-import Theme from '../Theme';
+import Theme from '../theme';
 import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from '../components/Menu';
 
 const initBrowserTree = (pgBrowser) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import gettext from 'sources/gettext';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import * as toolBar from 'pgadmin.browser.toolbar';
 import pgAdmin from 'sources/pgadmin';
 import pgBrowser from 'top/browser/static/js/browser';

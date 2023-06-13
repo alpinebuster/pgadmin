@@ -8,7 +8,7 @@ import { registerDetachEvent } from 'sources/utils';
 
 import { _set_dynamic_tab } from '../../../sqleditor/static/js/show_query_tool';
 import getApiInstance from '../../../../static/js/api_instance';
-import Theme from '../../../../static/js/Theme';
+import Theme from '../../../../static/js/theme';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import Notify from '../../../../static/js/helpers/Notifier';
 import SchemaDiffComponent from './components/SchemaDiffComponent';

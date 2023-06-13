@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ERDTool from './erd_tool/components/ERDTool';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
-import Theme from '../../../../static/js/Theme';
+import Theme from '../../../../static/js/theme';
 import { openNewWindow } from '../../../../static/js/utils';
 
 const wcDocker = window.wcDocker;

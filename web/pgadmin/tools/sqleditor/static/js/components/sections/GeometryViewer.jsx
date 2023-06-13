@@ -7,7 +7,7 @@ import Leaflet, { CRS } from 'leaflet';
 import {Geometry as WkxGeometry} from 'wkx';
 import {Buffer} from 'buffer';
 import gettext from 'sources/gettext';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';

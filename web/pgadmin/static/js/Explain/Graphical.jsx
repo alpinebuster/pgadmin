@@ -11,7 +11,7 @@ import ReactDOMServer from 'react-dom/server';
 import url_for from 'sources/url_for';
 import { downloadSvg } from './svg_download';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import { commonTableStyles } from '../Theme';
+import { commonTableStyles } from '../theme';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 
 import Dependencies from '../../../misc/dependencies/static/js/Dependencies';
 import Dependents from '../../../misc/dependents/static/js/Dependents';

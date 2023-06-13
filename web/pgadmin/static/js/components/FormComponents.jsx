@@ -792,15 +792,18 @@ const customReactSelectStyles = (theme, readonly) => ({
   }),
   option: (provided, state) => {
     let bgColor = 'inherit';
+    let textColor = 'inherit';
 
+    // Option items's background color when hover
     if (state.isFocused) {
       bgColor = theme.palette.primary.main;
+      textColor = 'white';
     }
 
     return {
       ...provided,
       padding: '0.5rem',
-      color: 'inherit',
+      color: textColor,
       border: `0px solid ${bgColor}`,
       borderRadius: '0.25rem',
       backgroundColor: bgColor,

@@ -16,7 +16,7 @@ import { getFunctionId, getProcedureId, getAppropriateLabel, setDebuggerTitle } 
 import FunctionArguments from './debugger_ui';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import DebuggerComponent from './components/DebuggerComponent';
-import Theme from '../../../../static/js/Theme';
+import Theme from '../../../../static/js/theme';
 import { showRenamePanel } from '../../../../static/js/Dialogs';
 
 export default class DebuggerModule {

@@ -8,7 +8,7 @@ import Notify from '../../static/js/helpers/Notifier';
 import gettext from 'sources/gettext';
 import 'wcdocker';
 import PgTable from 'sources/components/PgTable';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import PropTypes from 'prop-types';
 import { PgIconButton } from '../../static/js/components/Buttons';
 import DeleteIcon from '@material-ui/icons/Delete';

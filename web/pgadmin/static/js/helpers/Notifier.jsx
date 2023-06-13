@@ -8,7 +8,7 @@ import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Theme from 'sources/Theme';
+import Theme from 'sources/theme';
 import { NotifierMessage, MESSAGE_TYPE } from '../components/FormComponents';
 import CustomPropTypes from '../custom_prop_types';
 import gettext from 'sources/gettext';

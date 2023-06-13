@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Grid, makeStyles } from '@material-ui/core';
 import gettext from 'sources/gettext';
-import { commonTableStyles } from '../Theme';
+import { commonTableStyles } from '../theme';
 import clsx from 'clsx';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
