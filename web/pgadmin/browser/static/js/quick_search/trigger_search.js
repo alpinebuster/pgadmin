@@ -214,12 +214,24 @@ export function Search({closeModal}) {
 
   return (
     <div id='quick-search-container' onClick={setSearchTerm}></div>,
-    <ul id='quick-search-container' ref={wrapperRef} className={clsx('test', classes.setTop)} role="menu">
+    <ul
+      id='quick-search-container'
+      ref={wrapperRef}
+      className={clsx('test', classes.setTop)}
+      role="menu"
+    >
       <li>
         <ul id='myDropdown'>
           <li className='dropdown-item-input'>
-            <input ref={firstEleRef} tabIndex='0' autoFocus type='text' autoComplete='off' className='form-control live-search-field'
-              aria-label='live-search-field' id='live-search-field' placeholder={gettext('Quick Search')} onChange={(e) => {onInputValueChange(e.target.value);} } />
+            <input
+              ref={firstEleRef} tabIndex='0' autoFocus
+              type='text' autoComplete='off'
+              className='form-control live-search-field'
+              aria-label='live-search-field'
+              id='live-search-field'
+              placeholder={gettext('Quick Search')}
+              onChange={ (e) => { onInputValueChange(e.target.value); } }
+            />
           </li>
           <div style={{marginBottom:0}}>
             <div>

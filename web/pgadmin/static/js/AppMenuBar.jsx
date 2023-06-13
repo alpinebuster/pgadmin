@@ -3,20 +3,33 @@ import { useEffect } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import MenuIcon from '@material-ui/icons/Menu';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import pgAdmin from 'sources/pgadmin';
 
 import { PrimaryButton } from './components/Buttons';
 import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from './components/Menu';
 
+const navbarHeight = '38px';  // NOTE: `navbar-height`
 const useStyles = makeStyles((theme)=>({
   root: {
-    height: '32px',
+    height: navbarHeight,
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    padding: '0 0.5rem',
-    display: 'flex',
-    alignItems: 'center',
+    flexGrow: 1,
+  },
+  appbar: {
+    height: navbarHeight,
+  },
+  toolbar: {
+    height: navbarHeight,
+    minHeight: navbarHeight,
+    // top, right, bottom, left
+    padding: '0rem 0.25rem 0rem 0.5rem',
   },
   logo: {
     width: '96px',
@@ -92,56 +105,67 @@ export default function AppMenuBar() {
   const userMenuInfo = pgAdmin.Browser.utils.userMenuInfo;
 
   return(
-    <>
-      <Box className={classes.root}>
-        <div className={classes.logo} />
-        <div className={classes.menus}>
-          {pgAdmin.Browser.MainMenus?.map((menu, i)=>{
-            return (
-              <PgMenu
-                menuButton={<PrimaryButton key={i} className={classes.menuButton} data-label={menu.label}>{menu.label}<KeyboardArrowDownIcon fontSize="small" /></PrimaryButton>}
-                label={menu.label}
-                key={menu.name}
-              >
-                {menu.getMenuItems().map((menuItem, i)=>{
-                  const submenus = menuItem.getMenuItems();
-                  if(submenus) {
-                    return <PgSubMenu key={i} label={menuItem.label}>
-                      {submenus.map((submenuItem, si)=>{
-                        return getPgMenuItem(submenuItem, si);
-                      })}
-                    </PgSubMenu>;
+    <div className={classes.root}>
+      <AppBar position="static" className={classes.appbar}>
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.logo} />
+          <div className={classes.menus}>
+            {pgAdmin.Browser.MainMenus?.map((menu, i)=>{
+              return (
+                <PgMenu
+                  menuButton={
+                    <PrimaryButton
+                      key={i} className={classes.menuButton}
+                      data-label={menu.label}
+                    >
+                      {menu.label}
+                      <KeyboardArrowDownIcon fontSize="small" />
+                    </PrimaryButton>
                   }
+                  label={menu.label}
+                  key={menu.name}
+                >
+                  {menu.getMenuItems().map((menuItem, i)=>{
+                    const submenus = menuItem.getMenuItems();
+                    if(submenus) {
+                      return <PgSubMenu key={i} label={menuItem.label}>
+                        {submenus.map((submenuItem, si)=>{
+                          return getPgMenuItem(submenuItem, si);
+                        })}
+                      </PgSubMenu>;
+                    }
+                    return getPgMenuItem(menuItem, i);
+                  })}
+                </PgMenu>
+              );
+            })}
+          </div>
+          {userMenuInfo &&
+            <div className={classes.userMenu}>
+              <PgMenu
+                menuButton={
+                  <PrimaryButton className={classes.menuButton} data-test="loggedin-username">
+                    <div className={classes.gravatar}>
+                      {userMenuInfo.gravatar &&
+                      <img src={userMenuInfo.gravatar} width = "18" height = "18"
+                        alt = "Gravatar image for {{ username }}" />}
+                      {!userMenuInfo.gravatar && <AccountCircleRoundedIcon />}
+                    </div>
+                    { userMenuInfo.username } ({userMenuInfo.auth_source})
+                    <KeyboardArrowDownIcon fontSize="small" />
+                  </PrimaryButton>
+                }
+                label={userMenuInfo.username}
+                align="end"
+              >
+                {userMenuInfo.menus.map((menuItem, i)=>{
                   return getPgMenuItem(menuItem, i);
                 })}
               </PgMenu>
-            );
-          })}
-        </div>
-        {userMenuInfo &&
-        <div className={classes.userMenu}>
-          <PgMenu
-            menuButton={
-              <PrimaryButton className={classes.menuButton} data-test="loggedin-username">
-                <div className={classes.gravatar}>
-                  {userMenuInfo.gravatar &&
-                  <img src={userMenuInfo.gravatar} width = "18" height = "18"
-                    alt = "Gravatar image for {{ username }}" />}
-                  {!userMenuInfo.gravatar && <AccountCircleRoundedIcon />}
-                </div>
-                { userMenuInfo.username } ({userMenuInfo.auth_source})
-                <KeyboardArrowDownIcon fontSize="small" />
-              </PrimaryButton>
-            }
-            label={userMenuInfo.username}
-            align="end"
-          >
-            {userMenuInfo.menus.map((menuItem, i)=>{
-              return getPgMenuItem(menuItem, i);
-            })}
-          </PgMenu>
-        </div>}
-      </Box>
-    </>
+            </div>
+          }
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }

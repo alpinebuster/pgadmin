@@ -43,14 +43,20 @@ export default class MainMenuFactory {
   static createMainMenus() {
     pgAdmin.Browser.MainMenus = [];
     MAIN_MENUS.forEach((_menu) => {
-      let menuObj = Menu.create(_menu.name, _menu.label, _menu.id, _menu.index, _menu.addSepratior);
+      let menuObj = Menu.create(
+        _menu.name, _menu.label, _menu.id, _menu.index, _menu.addSepratior
+      );
       pgAdmin.Browser.MainMenus.push(menuObj);
       // Don't add menuItems for Object menu as it's menuItems get changed on tree selection.
       if(_menu.name !== 'object') {
-        menuObj.addMenuItems(Object.values(pgAdmin.Browser.all_menus_cache[_menu.name]));
+        menuObj.addMenuItems(
+          Object.values(pgAdmin.Browser.all_menus_cache[_menu.name])
+        );
         menuObj.getMenuItems().forEach((menuItem, index)=> {
           menuItem?.getMenuItems()?.forEach((item, indx)=> {
-            item.below && menuItem?.getMenuItems().splice(indx+1, 0, MainMenuFactory.getSeparator());
+            item.below && menuItem?.getMenuItems().splice(
+              indx+1, 0, MainMenuFactory.getSeparator()
+            );
           });
           if(menuItem.below) {
             menuObj.addMenuItem(MainMenuFactory.getSeparator(), index+1);
@@ -75,9 +81,13 @@ export default class MainMenuFactory {
     return new MenuItem({...options, callback: () => {
       // Some callbacks registered in 'callbacks' check and call specifiec callback function
       if (options.module && 'callbacks' in options.module && options.module.callbacks[options.callback]) {
-        options.module.callbacks[options.callback].apply(options.module, [options.data, pgAdmin.Browser.tree?.selected()]);
+        options.module.callbacks[options.callback].apply(
+          options.module, [options.data, pgAdmin.Browser.tree?.selected()]
+        );
       } else if (options.module && options.module[options.callback]) {
-        options.module[options.callback].apply(options.module, [options.data, pgAdmin.Browser.tree?.selected()]);
+        options.module[options.callback].apply(
+          options.module, [options.data, pgAdmin.Browser.tree?.selected()]
+        );
       } else if (options?.callback) {
         options.callback(options);
       } else {
@@ -93,9 +103,13 @@ export default class MainMenuFactory {
         }
       }
     }}, (menu, item)=> {
-      pgAdmin.Browser.Events.trigger('pgadmin:nw-enable-disable-menu-items', menu, item);
+      pgAdmin.Browser.Events.trigger(
+        'pgadmin:nw-enable-disable-menu-items', menu, item
+      );
     }, (item) => {
-      pgAdmin.Browser.Events.trigger('pgadmin:nw-update-checked-menu-item', item);
+      pgAdmin.Browser.Events.trigger(
+        'pgadmin:nw-update-checked-menu-item', item
+      );
     });
   }
 

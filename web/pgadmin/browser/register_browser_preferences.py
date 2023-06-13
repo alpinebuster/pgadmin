@@ -473,8 +473,10 @@ def register_browser_preferences(self):
     )
 
     self.preference.register(
-        'keyboard_shortcuts', 'open_quick_search',
-        gettext('Quick Search'), 'keyboardshortcut',
+        'keyboard_shortcuts',
+        'open_quick_search',
+        gettext('Quick Search'),
+        'keyboardshortcut',
         {
             'alt': False,
             'shift': True,

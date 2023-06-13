@@ -774,10 +774,18 @@ define('pgadmin.browser', [
               if(gettext(_m.label) == gettext('Quick Search')) {
                 _m.callback = () => {
                   // Render Search component
-                  Notify.showModal(gettext('Quick Search'), (closeModal) => {
-                    return <Search closeModal={closeModal}/>;
-                  },
-                  { isFullScreen: false, isResizeable: false, showFullScreen: false, isFullWidth: false, showTitle: false}
+                  Notify.showModal(
+                    gettext('Quick Search'),
+                    (closeModal) => {
+                      return <Search closeModal={closeModal}/>;
+                    },
+                    {
+                      isFullScreen: false,
+                      isResizeable: false,
+                      showFullScreen: false,
+                      isFullWidth: false,
+                      showTitle: false
+                    }
                   );
                 };
               }

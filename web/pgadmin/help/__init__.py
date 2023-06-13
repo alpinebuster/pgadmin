@@ -14,32 +14,40 @@ class HelpModule(PgAdminModule):
         """Return a (set) of dicts of help menu items, with name, priority,
         URL, target and onclick code."""
         return {'help_items': [
-            MenuItem(name='mnu_quick_search_help',
-                     label=gettext('Quick Search'),
-                     priority=99,
-                     target='pgadmin_quick_search_help',
-                     icon='fa fa-question',
-                     url='#'),
-            MenuItem(name='mnu_online_help',
-                     label=gettext('Online Help'),
-                     priority=100,
-                     target='pgadmin_help',
-                     icon='fa fa-question',
-                     url=url_for('help.static', filename='index.html')),
+            MenuItem(
+                name='mnu_quick_search_help',
+                label=gettext('Quick Search'),
+                priority=99,
+                target='pgadmin_quick_search_help',
+                icon='fa fa-question',
+                url='#'
+            ),
+            MenuItem(
+                name='mnu_online_help',
+                label=gettext('Online Help'),
+                priority=100,
+                target='pgadmin_help',
+                icon='fa fa-question',
+                url=url_for('help.static', filename='index.html')
+            ),
 
-            MenuItem(name='mnu_pgadmin_website',
-                     label=gettext('pgAdmin Website'),
-                     priority=200,
-                     target='pgadmin_website',
-                     icon='fa fa-external-link-alt',
-                     url='https://www.pgadmin.org/'),
-
-            MenuItem(name='mnu_postgresql_website',
-                     label=gettext('PostgreSQL Website'),
-                     priority=300,
-                     target='postgres_website',
-                     icon='fa fa-external-link-alt',
-                     url='https://www.postgresql.org/')]}
+            MenuItem(
+                name='mnu_pgadmin_website',
+                label=gettext('pgAdmin Website'),
+                priority=200,
+                target='pgadmin_website',
+                icon='fa fa-external-link-alt',
+                url='https://www.pgadmin.org/'
+            ),
+            MenuItem(
+                name='mnu_postgresql_website',
+                label=gettext('PostgreSQL Website'),
+                priority=300,
+                target='postgres_website',
+                icon='fa fa-external-link-alt',
+                url='https://www.postgresql.org/'
+            )
+        ]}
 
     def register_preferences(self):
         """

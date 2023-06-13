@@ -57,7 +57,8 @@ define(
     ReactDOM.render(
       <Theme>
         <ObjectBreadcrumbs pgAdmin={pgAdmin} />
-      </Theme>, document.querySelector('#object-breadcrumbs')
+      </Theme>,
+      document.querySelector('#object-breadcrumbs')
     );
   }
 );

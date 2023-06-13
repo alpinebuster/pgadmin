@@ -55,7 +55,9 @@ const useStyles = makeStyles((theme)=>({
   }
 }));
 
-export function PgMenu({open, className='', label, menuButton=null, ...props}) {
+export function PgMenu({
+  open, className='', label, menuButton=null, ...props
+}) {
   const classes = useStyles();
   const state = open ? 'open' : 'closed';
   props.anchorRef?.current?.setAttribute('data-state', state);
@@ -97,7 +99,10 @@ export const PgSubMenu = applyStatics(SubMenu)(({label, ...props})=>{
   );
 });
 
-export const PgMenuItem = applyStatics(MenuItem)(({hasCheck=false, checked=false, accesskey, shortcut, children, closeOnCheck=false, ...props})=>{
+export const PgMenuItem = applyStatics(MenuItem)(({
+  hasCheck=false, checked=false, accesskey,
+  shortcut, children, closeOnCheck=false, ...props
+})=>{
   const classes = useStyles();
   let onClick = props.onClick;
   if(hasCheck) {
