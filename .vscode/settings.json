@@ -4,6 +4,7 @@
 		"clsx",
 		"docklayout",
 		"gettext",
+		"linebreak",
 		"maximizable",
 		"preinstall",
 		"wcdocker",

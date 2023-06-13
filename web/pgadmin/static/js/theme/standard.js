@@ -2,7 +2,6 @@
 
 import { createTheme } from '@material-ui/core/styles';
 import { darken} from '@material-ui/core/styles/colorManipulator';
-import { alpha } from '@material-ui/core/styles';
 
 export default function(basicSettings) {
   return createTheme(basicSettings, {

@@ -4,8 +4,6 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import gettext from 'sources/gettext';
-
 const useStyles = makeStyles((theme)=>({
   root: {
     position: 'absolute',
@@ -48,7 +46,7 @@ export default function Loader({
       data-label="loader" {...props}
     >
       <Box className={classes.loaderRoot}>
-        <div class="p-4 pg-loading-icon"></div>
+        <div className="p-4 pg-loading-icon"></div>
         <Typography className={classes.message}>
           {message}{autoEllipsis ? '...' : ''}
         </Typography>

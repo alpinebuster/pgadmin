@@ -65,6 +65,7 @@ module.exports = {
       'error',
       'always',
     ],
+    'no-unused-vars': 'off',
     'comma-dangle': [
       'error',
       'only-multiline',
