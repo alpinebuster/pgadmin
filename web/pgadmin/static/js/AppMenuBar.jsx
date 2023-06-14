@@ -72,8 +72,9 @@ const useStyles = makeStyles((theme)=>({
     marginRight: '4px',
   },
   paper: {
-    padding: '0',
+    padding: 0,
     display: 'flex',
+    border: 0,
     alignItems: 'center',
   },
   input: {
@@ -91,18 +92,22 @@ const useStyles = makeStyles((theme)=>({
     paddingTop: 0,
     paddingBottom: 0,
     alignItems: 'center',
-    '& .MuiButtonBase-root': {
-      '&:focus': {
-        borderColor: theme.palette.success.main,
-      }
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    border: '0px solid',
+    borderRadius: '4px',
+    '&:hover': {
+      border: '1px solid',
+      boxShadow: 'none',
+      backgroundColor: theme.palette.background.default,
+      borderColor: theme.palette.primary.hoverMain,
     },
-    '& .MuiButtonBase-input': {
-      '&:focus': {
-        borderColor: theme.palette.warning.main,
-      },
-      '&:hover': {
-        borderColor: theme.palette.error.main,
-      }
+    '&:active': {
+      border: '1px solid',
+      boxShadow: 'none',
+      backgroundColor: theme.palette.background.default,
+      borderColor: theme.palette.primary.main,
     },
   },
 }));
@@ -209,6 +214,7 @@ export default function AppMenuBar() {
             variant='outlined'
           >
             <IconButton
+              disableRipple variant="outlined"
               onClick={onSearchClick}
               className={classes.iconButton} aria-label='search'
             >
