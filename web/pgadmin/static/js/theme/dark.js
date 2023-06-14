@@ -21,7 +21,7 @@ export default function(basicSettings) {
         light: '#323E43',
         contrastText: '#fff',
         hoverMain: darken('#234d6e', 0.25),
-        hoverBorderColor: darken('#234d6e', 0.25),
+        hoverBorderColor: darken('#234d6e', 0.1),
         disabledMain: '#234d6e',
       },
       success:  {

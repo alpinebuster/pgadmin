@@ -824,6 +824,9 @@ const customReactSelectStyles = (theme, readonly) => ({
       backgroundColor: bgColor,
       width: 'auto',
       wordWrap: 'break-word',
+      '&:active': {
+        backgroundColor: bgColor,
+      },
     };
   },
   multiValue: (provided) => ({

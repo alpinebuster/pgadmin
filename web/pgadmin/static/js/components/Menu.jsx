@@ -63,14 +63,16 @@ export function PgMenu({
   props.anchorRef?.current?.setAttribute('data-state', state);
 
   if(menuButton) {
-    return <Menu
-      {...props}
-      menuButton={menuButton}
-      className={clsx(classes.menu, className)}
-      aria-label={label || 'Menu'}
-      onContextMenu={(e)=>e.preventDefault()}
-      viewScroll='close'
-    />;
+    return (
+      <Menu
+        {...props}
+        menuButton={menuButton}
+        className={clsx(classes.menu, className)}
+        aria-label={label || 'Menu'}
+        onContextMenu={(e)=>e.preventDefault()}
+        viewScroll='close'
+      />
+    );
   }
   return (
     <ControlledMenu

@@ -119,7 +119,7 @@ export default function AppMenuBar() {
   }, []);
 
   const onSearchClick = () => {
-    console.log('onClick');
+    // console.log('onClick');
     // Notify.showModal(
     //   gettext('Quick Search'),
     //   (closeModal) => {

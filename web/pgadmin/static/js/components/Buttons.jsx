@@ -7,14 +7,19 @@ import ShortcutTitle from './ShortcutTitle';
 
 const useStyles = makeStyles((theme)=>({
   primaryButton: {
-    border: '1px solid '+theme.palette.primary.main,
+    border: '1px solid ' + theme.palette.primary.main,
     '&.Mui-disabled': {
       color: [theme.palette.primary.contrastText,'!important'],
       backgroundColor: theme.palette.primary.disabledMain,
     },
     '&:hover': {
       backgroundColor: theme.palette.primary.hoverMain,
+      borderColor: theme.palette.primary.hoverMain,
+    },
+    '&:active': {
+      backgroundColor: theme.palette.primary.hoverMain,
       borderColor: theme.palette.primary.hoverBorderColor,
+      boxShadow: 'none',
     },
   },
   defaultButton: {
@@ -100,14 +105,24 @@ export const PrimaryButton = forwardRef((props, ref)=>{
   let {children, className, size, noBorder, ...otherProps} = props;
   const classes = useStyles();
   let allClassName = [classes.primaryButton, className];
+
   if(size == 'xs') {
     size = undefined;
     allClassName.push(classes.xsButton);
   }
+
   noBorder && allClassName.push(...[classes.noBorder, classes.noBorderPrimary]);
   const dataLabel = typeof(children) == 'string' ? children : undefined;
+
   return (
-    <Button ref={ref} size={size} className={clsx(allClassName)} data-label={dataLabel} {...otherProps} variant="contained" color="primary">{children}</Button>
+    <Button
+      ref={ref} size={size} className={clsx(allClassName)}
+      data-label={dataLabel} {...otherProps}
+      variant="contained"
+      color="primary"
+    >
+      {children}
+    </Button>
   );
 });
 PrimaryButton.displayName = 'PrimaryButton';
