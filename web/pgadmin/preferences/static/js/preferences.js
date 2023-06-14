@@ -49,14 +49,23 @@ export default class Preferences {
           <PreferencesComponent
             renderTree={(prefTreeData) => {
               // Render preferences tree component
-              return <PreferencesTree pgBrowser={this.pgBrowser} data={prefTreeData} />;
+              return (
+                <PreferencesTree
+                  pgBrowser={this.pgBrowser}
+                  data={prefTreeData}
+                />
+              );
             }}
             closeModal={closeModal} />
         );
       },
       {
-        isFullScreen: false, isResizeable: true, showFullScreen: true,
-        isFullWidth: true, dialogWidth: 900, dialogHeight: 550
+        isFullScreen: false,
+        isResizeable: true,
+        showFullScreen: true,
+        isFullWidth: true,
+        dialogWidth: 900,
+        dialogHeight: 550
       }
     );
   }

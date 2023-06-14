@@ -41,7 +41,8 @@ export function initializeNotifier(notifierContainer) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
         <RefLoad />
       </SnackbarProvider>
-    </Theme>, notifierContainer
+    </Theme>,
+    notifierContainer
   );
 }
 
@@ -65,7 +66,8 @@ export function initializeModalProvider(modalContainer) {
       <ModalProvider>
         <RefLoad />
       </ModalProvider>
-    </Theme>, modalContainer
+    </Theme>,
+    modalContainer
   );
 }
 

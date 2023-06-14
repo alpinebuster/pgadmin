@@ -110,8 +110,9 @@ def _login():
     session['auth_source_manager'] = None
 
     username = form.data['email']
-    user = User.query.filter_by(username=username,
-                                auth_source=INTERNAL).first()
+    user = User.query.filter_by(
+        username=username, auth_source=INTERNAL
+    ).first()
 
     if user:
         if user.login_attempts >= config.MAX_LOGIN_ATTEMPTS > 0:

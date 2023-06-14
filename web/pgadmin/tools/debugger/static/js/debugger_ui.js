@@ -1,12 +1,3 @@
-///////////////////////////////////////////////////////////////
-////
-//// pgAdmin 4 - PostgreSQL Tools
-////
-//// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-//// This software is released under the PostgreSQL Licence
-////
-////////////////////////////////////////////////////////////////
-
 import React from 'react';
 
 import gettext from 'sources/gettext';
@@ -27,8 +18,27 @@ export default class FunctionArguments {
 
     let treeInfo = t.getTreeNodeHierarchy(i);
     // Render Debugger argument component
-    Notify.showModal(gettext('Debugger'), (closeModal) => {
-      return <DebuggerArgumentComponent closeModal={closeModal} debuggerInfo={debugInfo} restartDebug={restartDebug} isEdbProc={isEdbProc} transId={transId} pgTreeInfo={treeInfo} pgData={d}></DebuggerArgumentComponent>;
-    }, { isFullScreen: false, isResizeable: true, showFullScreen: true, isFullWidth: true, dialogWidth: pgAdmin.Browser.stdW.md, dialogHeight: pgAdmin.Browser.stdH.md });
+    Notify.showModal(
+      gettext('Debugger'),
+      (closeModal) => {
+        return (
+          <DebuggerArgumentComponent
+            closeModal={closeModal}
+            debuggerInfo={debugInfo}
+            restartDebug={restartDebug}
+            isEdbProc={isEdbProc}
+            transId={transId}
+            pgTreeInfo={treeInfo}
+            pgData={d}
+          />
+        );
+      },
+      {
+        isFullScreen: false, isResizeable: true,
+        showFullScreen: true, isFullWidth: true,
+        dialogWidth: pgAdmin.Browser.stdW.md,
+        dialogHeight: pgAdmin.Browser.stdH.md
+      }
+    );
   }
 }

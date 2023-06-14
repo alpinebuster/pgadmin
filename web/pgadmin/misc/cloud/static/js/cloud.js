@@ -19,7 +19,6 @@ define('pgadmin.misc.cloud', [
     return pgBrowser.Cloud;
   }
 
-
   // Create an Object Cloud of pgBrowser class
   pgBrowser.Cloud = {
     init: function() {

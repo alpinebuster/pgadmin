@@ -4,6 +4,7 @@
 		"clsx",
 		"docklayout",
 		"gettext",
+		"labelplacement",
 		"linebreak",
 		"maximizable",
 		"preinstall",

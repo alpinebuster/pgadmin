@@ -133,27 +133,29 @@ def user(uid):
     if uid:
         u = User.query.get(uid)
 
-        res = {'id': u.id,
-               'username': u.username,
-               'email': u.email,
-               'active': u.active,
-               'role': u.roles[0].id,
-               'auth_source': u.auth_source,
-               'locked': u.locked
-               }
+        res = {
+            'id': u.id,
+            'username': u.username,
+            'email': u.email,
+            'active': u.active,
+            'role': u.roles[0].id,
+            'auth_source': u.auth_source,
+            'locked': u.locked
+        }
     else:
         users = User.query.all()
 
         users_data = []
         for u in users:
-            users_data.append({'id': u.id,
-                               'username': u.username,
-                               'email': u.email,
-                               'active': u.active,
-                               'role': u.roles[0].id,
-                               'auth_source': u.auth_source,
-                               'locked': u.locked
-                               })
+            users_data.append({
+                'id': u.id,
+                'username': u.username,
+                'email': u.email,
+                'active': u.active,
+                'role': u.roles[0].id,
+                'auth_source': u.auth_source,
+                'locked': u.locked
+            })
 
         res = users_data
 

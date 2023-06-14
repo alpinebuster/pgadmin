@@ -15,7 +15,10 @@ import ChangeOwnershipContent from './ChangeOwnershipContent';
 import UrlDialogContent from './UrlDialogContent';
 import RenamePanelContent from './RenamePanelContent';
 
-function mountDialog(title, getDialogContent, docker=undefined, width=undefined, height=undefined) {
+function mountDialog(
+  title, getDialogContent, docker = undefined,
+  width = undefined, height = undefined
+) {
   // Register dialog panel
   let panel;
   if (docker) {
@@ -47,7 +50,9 @@ function mountDialog(title, getDialogContent, docker=undefined, width=undefined,
     panel._parent.__update();
   };
 
-  ReactDOM.render(getDialogContent(onClose, setNewSize, panel), j[0]);
+  ReactDOM.render(
+    getDialogContent(onClose, setNewSize, panel), j[0]
+  );
 }
 
 // This functions is used to show the connect server password dialog.
@@ -62,38 +67,49 @@ export function showServerPassword() {
     onSuccess = arguments[7],
     onFailure = arguments[8];
 
-  Notify.showModal(title, (onClose) => {
-    return <Theme>
-      <ConnectServerContent
-        closeModal={()=>{
-          onClose();
-        }}
-        data={formJson}
-        onOK={(formData)=>{
-          const api = getApiInstance();
-          let _url = nodeObj.generate_url(itemNodeData, 'connect', nodeData, true);
-          if (!status) {
-            treeNodeInfo.setLeaf(itemNodeData);
-            treeNodeInfo.removeIcon(itemNodeData);
-            treeNodeInfo.addIcon(itemNodeData, {icon: 'icon-server-connecting'});
-          }
-
-          api.post(_url, formData)
-            .then(res=>{
+  Notify.showModal(
+    title,
+    (onClose) => {
+      return (
+        <Theme>
+          <ConnectServerContent
+            closeModal={()=>{
               onClose();
-              return onSuccess(
-                res.data, nodeObj, nodeData, treeNodeInfo, itemNodeData, status
+            }}
+            data={formJson}
+            onOK={(formData)=>{
+              const api = getApiInstance();
+              let _url = nodeObj.generate_url(
+                itemNodeData, 'connect', nodeData, true
               );
-            })
-            .catch((err)=>{
-              return onFailure(
-                err, null, nodeObj, nodeData, treeNodeInfo, itemNodeData, status
-              );
-            });
-        }}
-      />
-    </Theme>;
-  });
+              if (!status) {
+                treeNodeInfo.setLeaf(itemNodeData);
+                treeNodeInfo.removeIcon(itemNodeData);
+                treeNodeInfo.addIcon(
+                  itemNodeData, {icon: 'icon-server-connecting'}
+                );
+              }
+
+              api.post(_url, formData)
+                .then(res=>{
+                  onClose();
+                  return onSuccess(
+                    res.data, nodeObj, nodeData, treeNodeInfo,
+                    itemNodeData, status
+                  );
+                })
+                .catch((err)=>{
+                  return onFailure(
+                    err, null, nodeObj, nodeData,
+                    treeNodeInfo, itemNodeData, status
+                  );
+                });
+            }}
+          />
+        </Theme>
+      );
+    }
+  );
 }
 
 // This functions is used to show the connect server password dialog when
@@ -367,11 +383,23 @@ export function showUrlDialog() {
     width = arguments[3],
     height = arguments[4];
 
-  Notify.showModal(title, (onClose) => {
-    return <UrlDialogContent url={url} helpFile={helpFile} onClose={onClose} />;
-  },
-  { isFullScreen: false, isResizeable: true, showFullScreen: true, isFullWidth: true,
-    dialogWidth: width || pgAdmin.Browser.stdW.md, dialogHeight: height || pgAdmin.Browser.stdH.md});
+  Notify.showModal(
+    title,
+    (onClose) => {
+      return (
+        <UrlDialogContent
+          url={url} helpFile={helpFile}
+          onClose={onClose}
+        />
+      );
+    },
+    {
+      isFullScreen: false, isResizeable: true,
+      showFullScreen: true, isFullWidth: true,
+      dialogWidth: width || pgAdmin.Browser.stdW.md,
+      dialogHeight: height || pgAdmin.Browser.stdH.md
+    }
+  );
 }
 
 export function showRenamePanel() {

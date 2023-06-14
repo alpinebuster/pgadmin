@@ -835,10 +835,9 @@ export default function Dashboard({
     );
   };
 
-  const CustomActiveOnlyHeaderLabel =
-    {
-      label: gettext('Active sessions only'),
-    };
+  const CustomActiveOnlyHeaderLabel ={
+    label: gettext('Active sessions only'),
+  };
   const CustomActiveOnlyHeader = () => {
     return (
       <InputCheckbox
@@ -851,7 +850,7 @@ export default function Dashboard({
         }}
         value={activeOnly}
         controlProps={CustomActiveOnlyHeaderLabel}
-      ></InputCheckbox>);
+      />);
   };
 
   return (

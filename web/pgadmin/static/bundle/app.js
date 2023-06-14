@@ -6,59 +6,63 @@ import AppMenuBar from '../js/AppMenuBar';
 import ObjectBreadcrumbs from '../js/components/ObjectBreadcrumbs';
 import Theme from '../js/theme';
 
-define(
-  'app',
-  ['sources/pgadmin', 'bundled_browser'],
-  function(pgAdmin) {
-    let initializeModules = function(Object) {
-      for (let key in Object) {
-        let module = Object[key];
+define('app', [
+  'sources/pgadmin', 'bundled_browser'
+], function(pgAdmin) {
+  let initializeModules = function(Object) {
+    for (let key in Object) {
+      let module = Object[key];
 
-        if (module && module.init && typeof module.init == 'function') {
-          try {
-            module.init();
-          }
-          catch (e) {
-            console.warn(e.stack || e);
-          }
+      if (
+        module && module.init && typeof module.init == 'function'
+      ) {
+        try {
+          module.init();
         }
-        else if (module && module.Init && typeof module.Init == 'function') {
-          try {
-            module.Init();
-          }
-          catch (e) {
-            console.warn(e.stack || e);
-          }
+        catch (e) {
+          console.warn(e.stack || e);
         }
       }
-    };
-
-    // Initialize modules registered to pgAdmin, pgAdmin.Browser and Tools object.
-    initializeModules(pgAdmin);
-    initializeModules(pgAdmin.Browser);
-    initializeModules(pgAdmin.Tools);
-
-    // Add menus from back end.
-    pgAdmin.Browser.utils.addBackendMenus(pgAdmin.Browser);
-
-    // Create menus after all modules are initialized.
-    MainMenuFactory.createMainMenus();
-
-    const menuContainerEle = document.querySelector('#main-menu-container');
-    if(menuContainerEle) {
-      ReactDOM.render(
-        <Theme>
-          <AppMenuBar />
-        </Theme>,
-        menuContainerEle
-      );
+      else if (
+        module && module.Init && typeof module.Init == 'function'
+      ) {
+        try {
+          module.Init();
+        }
+        catch (e) {
+          console.warn(e.stack || e);
+        }
+      }
     }
+  };
 
+  // Initialize modules registered to pgAdmin, pgAdmin.Browser and Tools object.
+  initializeModules(pgAdmin);
+  initializeModules(pgAdmin.Browser);
+  initializeModules(pgAdmin.Tools);
+
+  // Add menus from back end.
+  pgAdmin.Browser.utils.addBackendMenus(pgAdmin.Browser);
+
+  // Create menus after all modules are initialized.
+  MainMenuFactory.createMainMenus();
+
+  const menuContainerEle = document.querySelector(
+    '#main-menu-container'
+  );
+  if(menuContainerEle) {
     ReactDOM.render(
       <Theme>
-        <ObjectBreadcrumbs pgAdmin={pgAdmin} />
+        <AppMenuBar />
       </Theme>,
-      document.querySelector('#object-breadcrumbs')
+      menuContainerEle
     );
   }
-);
+
+  ReactDOM.render(
+    <Theme>
+      <ObjectBreadcrumbs pgAdmin={pgAdmin} />
+    </Theme>,
+    document.querySelector('#object-breadcrumbs')
+  );
+});

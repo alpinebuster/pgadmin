@@ -10,6 +10,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
+import Paper from '@material-ui/core/Paper';
 
 import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
@@ -18,6 +19,7 @@ import { PrimaryButton } from './components/Buttons';
 import {
   PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu
 } from './components/Menu';
+import Notify from './helpers/Notifier';
 
 const navbarHeight = '38px';  // NOTE: `navbar-height`
 const useStyles = makeStyles((theme)=>({
@@ -69,33 +71,39 @@ const useStyles = makeStyles((theme)=>({
   gravatar: {
     marginRight: '4px',
   },
-  search: {
-    borderRadius: '0.25rem',
-    padding: '2px',
-    backgroundColor: theme.palette.text.white,
+  paper: {
+    padding: '0',
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '16px',
   },
-  searchIcon: {
-    fill: theme.palette.text.white,
-    backgroundColor: theme.palette.text.black,
-    paddingLeft: '5px',
-    paddingRight: '3px',
-    height: '100%',
+  input: {
+    marginLeft: theme.spacing(1),
+    marginRight: 0,
+    flex: 1,
+    // '&:focus': {
+    //   boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+    //   borderColor: theme.palette.primary.main,
+    // },
   },
-  inputRoot: {
-    color: theme.palette.text.white,
-    paddingLeft: '3px',
-    paddingRight: '3px',
+  iconButton: {
+    paddingLeft: theme.spacing(0.6),
+    paddingRight: theme.spacing(1),
+    paddingTop: 0,
+    paddingBottom: 0,
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputInput: {
-    // paddingLeft: '5px',
-    // paddingRight: '5px',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    '& .MuiButtonBase-root': {
+      '&:focus': {
+        borderColor: theme.palette.success.main,
+      }
+    },
+    '& .MuiButtonBase-input': {
+      '&:focus': {
+        borderColor: theme.palette.warning.main,
+      },
+      '&:hover': {
+        borderColor: theme.palette.error.main,
+      }
+    },
   },
 }));
 
@@ -114,25 +122,45 @@ export default function AppMenuBar() {
     });
   }, []);
 
+  const onSearchClick = () => {
+    console.log('onClick');
+    // Notify.showModal(
+    //   gettext('Quick Search'),
+    //   (closeModal) => {
+    //     return <Search closeModal={closeModal}/>;
+    //   },
+    //   {
+    //     isFullScreen: false,
+    //     isResizeable: false,
+    //     showFullScreen: false,
+    //     isFullWidth: false,
+    //     showTitle: false
+    //   }
+    // );
+  };
   const getPgMenuItem = (menuItem, i)=>{
     if(menuItem.type == 'separator') {
       return <PgMenuDivider key={i}/>;
     }
     const hasCheck = typeof menuItem.checked == 'boolean';
 
-    return <PgMenuItem
-      key={i}
-      disabled={menuItem.isDisabled}
-      onClick={()=>{
-        menuItem.callback();
-        if(hasCheck) {
-          reRenderMenus();
-        }
-      }}
-      hasCheck={hasCheck}
-      checked={menuItem.checked}
-      closeOnCheck={true}
-    >{menuItem.label}</PgMenuItem>;
+    return (
+      <PgMenuItem
+        key={i}
+        disabled={menuItem.isDisabled}
+        onClick={()=>{
+          menuItem.callback();
+          if(hasCheck) {
+            reRenderMenus();
+          }
+        }}
+        hasCheck={hasCheck}
+        checked={menuItem.checked}
+        closeOnCheck={true}
+      >
+        {menuItem.label}
+      </PgMenuItem>
+    );
   };
 
   const userMenuInfo = pgAdmin.Browser.utils.userMenuInfo;
@@ -176,29 +204,39 @@ export default function AppMenuBar() {
             })}
           </div>
 
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <Paper
+            className={classes.paper}
+            variant='outlined'
+          >
+            <IconButton
+              onClick={onSearchClick}
+              className={classes.iconButton} aria-label='search'
+            >
               <SearchIcon />
-            </div>
-            <InputBase
-              placeholder={gettext('Search')}
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+              <InputBase
+                className={classes.input}
+                placeholder={gettext('Search')}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </IconButton>
+          </Paper>
 
           {userMenuInfo &&
             <div className={classes.userMenu}>
               <PgMenu
                 menuButton={
-                  <PrimaryButton className={classes.menuButton} data-test="loggedin-username">
+                  <PrimaryButton
+                    className={classes.menuButton}
+                    data-test="loggedin-username"
+                  >
                     <div className={classes.gravatar}>
                       {userMenuInfo.gravatar &&
-                      <img src={userMenuInfo.gravatar} width = "18" height = "18"
-                        alt = "Gravatar image for {{ username }}" />}
+                        <img
+                          src={userMenuInfo.gravatar}
+                          width="18" height="18"
+                          alt="Gravatar image for {{ username }}"
+                        />
+                      }
                       {!userMenuInfo.gravatar && <AccountCircleRoundedIcon />}
                     </div>
                     { userMenuInfo.username } ({userMenuInfo.auth_source})

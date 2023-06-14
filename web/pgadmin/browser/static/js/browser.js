@@ -3,8 +3,12 @@ import _ from 'lodash';
 
 import { generateNodeUrl } from './node_ajax';
 import MainMenuFactory from './MainMenuFactory';
-import Notify, {initializeModalProvider, initializeNotifier} from '../../../static/js/helpers/Notifier';
-import { checkMasterPassword } from '../../../static/js/dialogs/index';
+import Notify, {
+  initializeModalProvider, initializeNotifier
+} from '../../../static/js/helpers/Notifier';
+import {
+  checkMasterPassword
+} from '../../../static/js/dialogs/index';
 import { pgHandleItemError } from '../../../static/js/utils';
 import { Search } from './quick_search/trigger_search';
 import { send_heartbeat, stop_heartbeat } from './heartbeat';
@@ -16,21 +20,25 @@ define('pgadmin.browser', [
   'sources/gettext', 'sources/url_for', 'jquery',
   'sources/pgadmin', 'bundled_codemirror',
   'sources/check_node_visibility', './toolbar', 'pgadmin.help',
-  'sources/csrf', 'sources/utils', 'sources/window', 'pgadmin.authenticate.kerberos',
+  'sources/csrf', 'sources/utils', 'sources/window',
+  'pgadmin.authenticate.kerberos',
   'sources/tree/tree_init',
   'pgadmin.browser.utils',
   'pgadmin.browser.preferences', 'pgadmin.browser.messages',
   'pgadmin.browser.panel', 'pgadmin.browser.layout',
   'pgadmin.browser.frame',
-  'pgadmin.browser.node', 'pgadmin.browser.collection', 'pgadmin.browser.activity',
+  'pgadmin.browser.node', 'pgadmin.browser.collection',
+  'pgadmin.browser.activity',
   'sources/codemirror/addon/fold/pgadmin-sqlfoldcode',
-  'pgadmin.browser.keyboard', 'sources/tree/pgadmin_tree_save_state',
+  'pgadmin.browser.keyboard',
+  'sources/tree/pgadmin_tree_save_state',
   /* wcDocker dependencies */
   'bootstrap', 'jquery-contextmenu', 'wcdocker',
 ], function(
   gettext, url_for, $,
   pgAdmin, codemirror,
-  checkNodeVisibility, toolBar, help, csrfToken, pgadminUtils, pgWindow,
+  checkNodeVisibility, toolBar, help,
+  csrfToken, pgadminUtils, pgWindow,
   Kerberos, InitTree,
 ) {
   window.jQuery = window.$ = $;
@@ -62,82 +70,81 @@ define('pgadmin.browser', [
     }
   };
 
-  let initializeBrowserTree = pgAdmin.Browser.initializeBrowserTree =
-    function(b) {
-      const draggableTypes = [
-        'collation domain domain_constraints fts_configuration fts_dictionary fts_parser fts_template synonym table partition type sequence package view mview foreign_table edbvar',
-        'schema column database cast event_trigger extension language foreign_data_wrapper foreign_server user_mapping compound_trigger index index_constraint primary_key unique_constraint check_constraint exclusion_constraint foreign_key rule',
-        'trigger trigger_function',
-        'edbfunc function edbproc procedure'
-      ];
-      InitTree.initBrowserTree(b).then(() => {
-        const getQualifiedName = (data, item)=>{
-          if(draggableTypes[0].includes(data._type)) {
-            return pgadminUtils.fully_qualify(b, data, item);
-          } else if(draggableTypes[1].includes(data._type)) {
-            return pgadminUtils.quote_ident(data._label);
-          } else if(draggableTypes[3].includes(data._type)) {
-            let newData = {...data};
-            let parsedFunc = pgadminUtils.parseFuncParams(newData._label);
-            newData._label = parsedFunc.func_name;
-            return pgadminUtils.fully_qualify(b, newData, item);
-          } else {
-            return data._label;
-          }
-        };
+  let initializeBrowserTree = pgAdmin.Browser.initializeBrowserTree = function(b) {
+    const draggableTypes = [
+      'collation domain domain_constraints fts_configuration fts_dictionary fts_parser fts_template synonym table partition type sequence package view mview foreign_table edbvar',
+      'schema column database cast event_trigger extension language foreign_data_wrapper foreign_server user_mapping compound_trigger index index_constraint primary_key unique_constraint check_constraint exclusion_constraint foreign_key rule',
+      'trigger trigger_function',
+      'edbfunc function edbproc procedure'
+    ];
+    InitTree.initBrowserTree(b).then(() => {
+      const getQualifiedName = (data, item)=>{
+        if(draggableTypes[0].includes(data._type)) {
+          return pgadminUtils.fully_qualify(b, data, item);
+        } else if(draggableTypes[1].includes(data._type)) {
+          return pgadminUtils.quote_ident(data._label);
+        } else if(draggableTypes[3].includes(data._type)) {
+          let newData = {...data};
+          let parsedFunc = pgadminUtils.parseFuncParams(newData._label);
+          newData._label = parsedFunc.func_name;
+          return pgadminUtils.fully_qualify(b, newData, item);
+        } else {
+          return data._label;
+        }
+      };
 
-        b.tree.registerDraggableType({
-          [draggableTypes[0]] : (data, item, treeNodeInfo)=>{
-            let text = getQualifiedName(data, item);
-            return {
-              text: text,
-              objUrl: generateNodeUrl.call(pgBrowser.Nodes[data._type], treeNodeInfo, 'properties', data, true),
-              nodeType: data._type,
-              cur: {
-                from: text.length,
-                to: text.length,
-              },
-            };
-          },
-          [draggableTypes[1]] : (data)=>{
-            return getQualifiedName(data);
-          },
-          [draggableTypes[2]] : (data)=>{
-            return getQualifiedName(data);
-          },
-          [draggableTypes[3]] : (data, item)=>{
-            let parsedFunc = pgadminUtils.parseFuncParams(data._label),
-              dropVal = getQualifiedName(data, item),
-              curPos = {from: 0, to: 0};
+      b.tree.registerDraggableType({
+        [draggableTypes[0]] : (data, item, treeNodeInfo)=>{
+          let text = getQualifiedName(data, item);
+          return {
+            text: text,
+            objUrl: generateNodeUrl.call(pgBrowser.Nodes[data._type], treeNodeInfo, 'properties', data, true),
+            nodeType: data._type,
+            cur: {
+              from: text.length,
+              to: text.length,
+            },
+          };
+        },
+        [draggableTypes[1]] : (data)=>{
+          return getQualifiedName(data);
+        },
+        [draggableTypes[2]] : (data)=>{
+          return getQualifiedName(data);
+        },
+        [draggableTypes[3]] : (data, item)=>{
+          let parsedFunc = pgadminUtils.parseFuncParams(data._label),
+            dropVal = getQualifiedName(data, item),
+            curPos = {from: 0, to: 0};
 
-            if(parsedFunc.params.length > 0) {
-              dropVal = dropVal + '(';
-              curPos.from =  dropVal.length;
-              dropVal = dropVal + parsedFunc.params[0][0];
-              curPos.to = dropVal.length;
+          if(parsedFunc.params.length > 0) {
+            dropVal = dropVal + '(';
+            curPos.from =  dropVal.length;
+            dropVal = dropVal + parsedFunc.params[0][0];
+            curPos.to = dropVal.length;
 
-              for(let i=1; i<parsedFunc.params.length; i++) {
-                dropVal = dropVal + ', ' + parsedFunc.params[i][0];
-              }
-
-              dropVal = dropVal + ')';
-            } else {
-              dropVal = dropVal + '()';
-              curPos.from = curPos.to = dropVal.length + 1;
+            for(let i=1; i<parsedFunc.params.length; i++) {
+              dropVal = dropVal + ', ' + parsedFunc.params[i][0];
             }
 
-            return {
-              text: dropVal,
-              cur: curPos,
-            };
-          },
-        });
+            dropVal = dropVal + ')';
+          } else {
+            dropVal = dropVal + '()';
+            curPos.from = curPos.to = dropVal.length + 1;
+          }
 
-        b.tree.onNodeCopy((data, item)=>{
-          copyToClipboard(getQualifiedName(data, item));
-        });
-      }, () => {console.warn('Tree Load Error');});
-    };
+          return {
+            text: dropVal,
+            cur: curPos,
+          };
+        },
+      });
+
+      b.tree.onNodeCopy((data, item)=>{
+        copyToClipboard(getQualifiedName(data, item));
+      });
+    }, () => {console.warn('Tree Load Error');});
+  };
 
   // Extend the browser class attributes
   _.extend(pgAdmin.Browser, {
@@ -392,7 +399,8 @@ define('pgadmin.browser', [
     masterpass_callback_queue: [],
     getMenuList: function(name, item, d, skipDisabled=false) {
       let obj = this;
-      //This 'checkNoMenuOptionForNode' function will check if showMenu flag is present or not for selected node
+      // This 'checkNoMenuOptionForNode' function will check
+      // if showMenu flag is present or not for selected node.
       let {flag,showMenu}=MainMenuFactory.checkNoMenuOptionForNode(d);
       if(flag){
         if(showMenu===false){

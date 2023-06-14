@@ -560,7 +560,8 @@ FormInputSwitch.propTypes = {
 };
 
 export function InputCheckbox({
-  cid, helpid, value, onChange, controlProps, readonly, ...props
+  cid, helpid, value, onChange,
+  controlProps, readonly, ...props
 }) {
   controlProps = controlProps || {};
   return (
@@ -585,6 +586,7 @@ InputCheckbox.propTypes = {
   controlProps: PropTypes.object,
   onChange: PropTypes.func,
   readonly: PropTypes.bool,
+  labelPlacement: PropTypes.string
 };
 
 export function FormInputCheckbox({ hasError, required, label,

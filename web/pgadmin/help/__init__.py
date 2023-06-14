@@ -1,8 +1,9 @@
 """A blueprint module implementing the pgAdmin help system."""
+
 from flask import url_for
 from flask_babel import gettext
 from pgadmin.utils import PgAdminModule
-from pgadmin.utils.menu import MenuItem, Panel
+from pgadmin.utils.menu import MenuItem
 from pgadmin.utils.preferences import Preferences
 import config
 
@@ -30,7 +31,6 @@ class HelpModule(PgAdminModule):
                 icon='fa fa-question',
                 url=url_for('help.static', filename='index.html')
             ),
-
             MenuItem(
                 name='mnu_pgadmin_website',
                 label=gettext('pgAdmin Website'),
