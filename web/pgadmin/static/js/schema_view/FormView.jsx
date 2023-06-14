@@ -71,7 +71,9 @@ SQLTab.propTypes = {
   getSQLValue: PropTypes.func.isRequired,
 };
 
-export function getFieldMetaData(field, schema, value, viewHelperProps, onlyModeCheck=false) {
+export function getFieldMetaData(
+  field, schema, value, viewHelperProps, onlyModeCheck=false
+) {
   let retData = {
     readonly: false,
     disabled: false,
@@ -365,7 +367,10 @@ export default function FormView({
   if(isTabView) {
     return (
       <>
-        <Box height="100%" display="flex" flexDirection="column" className={className} ref={formRef}>
+        <Box
+          height="100%" display="flex" flexDirection="column"
+          className={className} ref={formRef}
+        >
           <Box>
             <Tabs
               value={tabValue}
@@ -377,7 +382,7 @@ export default function FormView({
               action={(ref)=>ref && ref.updateIndicator()}
             >
               {Object.keys(finalTabs).map((tabName)=>{
-                return <Tab key={tabName} label={tabName} />;
+                return <Tab disableRipple key={tabName} label={tabName} />;
               })}
             </Tabs>
           </Box>

@@ -49,9 +49,27 @@ export function ToggleButtons(props) {
       exclusive>
       {
         (props.options||[]).map((option)=>{
-          return (<ToggleButton value={option.value} key={option.label} aria-label={option.label} className={clsx(classes.toggleButtonMargin, option.label==gettext(CLOUD_PROVIDERS_LABELS.GOOGLE) ? classes.gcpiconpadding : null )} component={props.cloudProvider == option.value ? PrimaryButton : DefaultButton}>
-            <CheckRoundedIcon style={{visibility: props.cloudProvider == option.value  ? 'visible': 'hidden'}}/>&nbsp;
-            {option.icon}&nbsp;&nbsp;&nbsp;&nbsp;{option.label}
+          return (
+            <ToggleButton
+              disableRipple
+              value={option.value} key={option.label}
+              aria-label={option.label}
+              className={clsx(
+                classes.toggleButtonMargin,
+                option.label==gettext(
+                  CLOUD_PROVIDERS_LABELS.GOOGLE
+                ) ? classes.gcpiconpadding : null
+              )}
+              component={
+                props.cloudProvider == option.value ? PrimaryButton : DefaultButton
+              }
+            >
+              <CheckRoundedIcon
+                style={{
+                  visibility: props.cloudProvider == option.value  ? 'visible': 'hidden'
+                }}
+              />&nbsp;
+              {option.icon}&nbsp;&nbsp;&nbsp;&nbsp;{option.label}
           </ToggleButton>);
         })
       }

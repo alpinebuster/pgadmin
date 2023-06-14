@@ -625,7 +625,6 @@ export default function PreferencesComponent({ ...props }) {
       <Box className={classes.root}>
         <Box className={clsx(classes.preferences)}>
           <Box className={clsx(classes.treeContainer)} >
-
             <Box className={clsx(classes.tree)} id={'treeContainer'} tabIndex={0}>
               {
                 useMemo(() => (prefTreeData && props.renderTree(prefTreeData)), [prefTreeData])
@@ -635,10 +634,13 @@ export default function PreferencesComponent({ ...props }) {
           <Box className={clsx(classes.preferencesContainer)}>
             {
               prefSchema.current && loadTree > 0 &&
-                <RightPanel schema={prefSchema.current} initValues={initValues} onDataChange={(changedData) => {
-                  Object.keys(changedData).length > 0 ? setDisableSave(false) : setDisableSave(true);
-                  prefChangedData.current = changedData;
-                }}></RightPanel>
+                <RightPanel
+                  schema={prefSchema.current} initValues={initValues}
+                  onDataChange={(changedData) => {
+                    Object.keys(changedData).length > 0 ? setDisableSave(false) : setDisableSave(true);
+                    prefChangedData.current = changedData;
+                  }}
+                />
             }
           </Box>
         </Box>

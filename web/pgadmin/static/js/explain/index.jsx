@@ -499,9 +499,9 @@ export default function Explain({plans=[]}) {
           scrollButtons="auto"
           action={(ref)=>ref && ref.updateIndicator()}
         >
-          <Tab label="Graphical" />
-          <Tab label="Analysis" />
-          <Tab label="Statistics" />
+          <Tab disableRipple label="Graphical" />
+          <Tab disableRipple label="Analysis" />
+          <Tab disableRipple label="Statistics" />
         </Tabs>
       </Box>
       <TabPanel value={tabValue} index={0} classNameRoot={classes.tabPanel}>

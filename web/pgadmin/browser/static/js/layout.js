@@ -1,8 +1,10 @@
+import 'wcdocker';
+
 import pgAdmin from 'sources/pgadmin';
 import url_for from 'sources/url_for';
 import gettext from 'sources/gettext';
-import 'wcdocker';
 import pgWindow from 'sources/window';
+
 import Notify from '../../../static/js/helpers/Notifier';
 import getApiInstance from '../../../static/js/api_instance';
 

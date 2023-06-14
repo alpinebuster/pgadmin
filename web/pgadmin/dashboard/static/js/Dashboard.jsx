@@ -882,7 +882,7 @@ export default function Dashboard({
                       onChange={tabChanged}
                     >
                       {tabs.map((tabValue, i) => {
-                        return <Tab key={i} label={tabValue} />;
+                        return <Tab disableRipple key={i} label={tabValue} />;
                       })}
                       <RefreshButton/>
                     </Tabs>

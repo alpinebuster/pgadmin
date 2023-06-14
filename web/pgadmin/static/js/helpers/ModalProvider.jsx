@@ -251,8 +251,6 @@ export const useModalStyles = makeStyles((theme) => ({
   },
   icon: {
     fill: 'currentColor',
-    width: '1em',
-    height: '1em',
     display: 'inline-block',
     fontSize: '1.5rem',
     transition: 'none',
@@ -316,7 +314,7 @@ function ModalContainer({
                 <Box className={classes.iconButtonStyle}>
                   <PgIconButton
                     title={gettext('Maximize')}
-                    icon={<ExpandDialogIcon className={classes.icon} />}
+                    icon={<ExpandDialogIcon style={{width: '0.7em'}} className={classes.icon} />}
                     size="xs" noBorder
                     onClick={() => {setIsFullScreen(!isfullScreen);}} />
                 </Box>
@@ -325,7 +323,7 @@ function ModalContainer({
                 showFullScreen && isfullScreen &&
                 <Box className={classes.iconButtonStyle}>
                   <PgIconButton title={gettext('Minimize')}
-                    icon={<MinimizeDialogIcon className={classes.icon} />}
+                    icon={<MinimizeDialogIcon style={{width: '0.7em'}} className={classes.icon} />}
                     size="xs" noBorder
                     onClick={() => {setIsFullScreen(!isfullScreen);}} />
                 </Box>

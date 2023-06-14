@@ -468,7 +468,10 @@ function prepareData(val, createMode=false) {
 
 /* If its the dialog */
 function SchemaDialogView({
-  getInitData, viewHelperProps, loadingText, schema={}, showFooter=true, isTabView=true, checkDirtyOnEnableSave=false, ...props}) {
+  getInitData, viewHelperProps, loadingText,
+  schema={}, showFooter=true, isTabView=true,
+  checkDirtyOnEnableSave=false, ...props
+}) {
   const classes = useDialogStyles();
   /* Some useful states */
   const [dirty, setDirty] = useState(false);
@@ -1049,6 +1052,7 @@ export default function SchemaView({formType, ...props}) {
       </ErrorBoundary>
     );
   }
+
   return (
     <ErrorBoundary>
       <SchemaDialogView {...props}/>

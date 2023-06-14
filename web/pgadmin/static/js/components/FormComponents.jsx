@@ -667,9 +667,16 @@ export const InputToggle = forwardRef((
           const isSelected = option.value === value;
           const isDisabled = disabled || option.disabled || (readonly && !isSelected);
           return (
-            <ToggleButton ref={i == 0 ? ref : null} key={option.label} value={option.value} component={isSelected ? PrimaryButton : DefaultButton}
-              disabled={isDisabled} aria-label={option.label}>
-              <CheckRoundedIcon style={{ visibility: isSelected ? 'visible' : 'hidden' }} />&nbsp;{option.label}
+            <ToggleButton
+              disableRipple
+              ref={i == 0 ? ref : null}
+              key={option.label} value={option.value}
+              component={isSelected ? PrimaryButton : DefaultButton}
+              disabled={isDisabled} aria-label={option.label}
+            >
+              <CheckRoundedIcon
+                style={{ visibility: isSelected ? 'visible' : 'hidden' }}
+              />&nbsp;{option.label}
             </ToggleButton>
           );
         })
