@@ -81,10 +81,6 @@ const useStyles = makeStyles((theme)=>({
     marginLeft: theme.spacing(1),
     marginRight: 0,
     flex: 1,
-    // '&:focus': {
-    //   boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-    //   borderColor: theme.palette.primary.main,
-    // },
   },
   iconButton: {
     paddingLeft: theme.spacing(0.6),
