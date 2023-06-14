@@ -726,6 +726,11 @@ FormInputToggle.propTypes = {
  * </div>
  */
 const customReactSelectStyles = (theme, readonly) => ({
+  container: (provided) => ({
+    ...provided,
+    width: '100%',
+    height: '100%'
+  }),
   input: (provided) => {
     return { ...provided, padding: 0, margin: 0, color: 'inherit' };
   },
@@ -738,6 +743,7 @@ const customReactSelectStyles = (theme, readonly) => ({
   control: (provided, state) => ({
     ...provided,
     minHeight: '0',
+    height: '100%',
     backgroundColor: readonly ? theme.otherVars.inputDisabledBg : theme.palette.background.default,
     color: readonly ? theme.palette.text.muted : theme.palette.text.primary,
     borderColor: theme.otherVars.inputBorderColor,

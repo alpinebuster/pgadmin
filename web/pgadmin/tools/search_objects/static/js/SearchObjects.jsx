@@ -431,7 +431,10 @@ export default function SearchObjects({nodeData}) {
           <Box
             style={{
               marginLeft: '4px',
-              width: '50%'
+              width: '50%',
+              padding: '0',
+              alignItems: 'center',
+              display: 'inline-flex',
             }}
           >
             <InputSelect
