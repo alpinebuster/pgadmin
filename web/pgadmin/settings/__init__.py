@@ -76,17 +76,6 @@ def index():
     return bad_request(errormsg=gettext("This URL cannot be called directly."))
 
 
-@blueprint.route("/settings.js")
-@login_required
-def script():
-    """Render the required Javascript"""
-    return Response(
-        response=render_template("settings/settings.js"),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route("/store", methods=['POST'], endpoint='store_bulk')
 @blueprint.route("/store/<setting>/<value>", methods=['PUT'], endpoint='store')
 @login_required

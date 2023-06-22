@@ -109,19 +109,6 @@ def index():
     return bad_request(errormsg=_("This URL cannot be called directly."))
 
 
-@blueprint.route("/restore.js")
-@login_required
-def script():
-    """render own javascript"""
-    return Response(
-        response=render_template(
-            "restore/js/restore.js", _=_
-        ),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 def _get_create_req_data():
     """
     Get data from request for create restore job.

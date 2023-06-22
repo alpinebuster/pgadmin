@@ -169,19 +169,6 @@ def index():
     return bad_request(errormsg=_("This URL cannot be called directly."))
 
 
-@blueprint.route("/backup.js")
-@login_required
-def script():
-    """render own javascript"""
-    return Response(
-        response=render_template(
-            "backup/js/backup.js", _=_
-        ),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 def _get_args_params_values(data, conn, backup_obj_type, backup_file, server,
                             manager):
     """

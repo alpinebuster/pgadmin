@@ -1775,22 +1775,6 @@ def auto_complete(trans_id):
     return make_json_response(data={'status': status, 'result': res})
 
 
-@blueprint.route("/sqleditor.js")
-@login_required
-def script():
-    """render the required javascript"""
-    return Response(
-        response=render_template(
-            "sqleditor/js/sqleditor.js",
-            tab_size=blueprint.tab_size.get(),
-            use_spaces=blueprint.use_spaces.get(),
-            _=gettext
-        ),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route('/load_file/', methods=["PUT", "POST"], endpoint='load_file')
 @login_required
 def load_file():

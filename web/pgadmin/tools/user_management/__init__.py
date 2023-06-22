@@ -69,21 +69,6 @@ def index():
     return bad_request(errormsg=_("This URL cannot be called directly."))
 
 
-@blueprint.route("/user_management.js")
-@login_required
-def script():
-    """render own javascript"""
-    return Response(
-        response=render_template(
-            "user_management/js/user_management.js", _=_,
-            is_admin=current_user.has_role("Administrator"),
-            user_id=current_user.id
-        ),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route("/current_user.js")
 @pgCSRFProtect.exempt
 @login_required

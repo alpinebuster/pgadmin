@@ -50,18 +50,6 @@ def index():
     return bad_request(errormsg=_("This URL cannot be called directly."))
 
 
-@blueprint.route("/js/import_export_servers.js")
-@login_required
-def script():
-    """render the import/export javascript file"""
-    return Response(
-        response=render_template(
-            "import_export_servers/js/import_export_servers.js", _=_),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route('/get_servers', methods=['GET'], endpoint='get_servers')
 @login_required
 def get_servers():

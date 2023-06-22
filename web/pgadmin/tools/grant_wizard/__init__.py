@@ -121,16 +121,6 @@ def index():
     )
 
 
-@blueprint.route("/grant_wizard.js")
-@login_required
-def script():
-    """render own javascript"""
-    return Response(response=render_template(
-        "grant_wizard/js/grant_wizard.js", _=gettext),
-        status=200,
-        mimetype=MIMETYPE_APP_JS)
-
-
 @blueprint.route(
     '/acl/<int:sid>/<int:did>/', methods=['GET'], endpoint='acl'
 )

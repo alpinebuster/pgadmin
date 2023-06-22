@@ -255,20 +255,6 @@ def check_precondition(f):
     return wrap
 
 
-@blueprint.route("/dashboard.js")
-@login_required
-def script():
-    """render the required javascript"""
-    return Response(
-        response=render_template(
-            "dashboard/js/dashboard.js",
-            _=gettext
-        ),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route('/', endpoint='index')
 @blueprint.route('/<int:sid>', endpoint='get_by_sever_id')
 @blueprint.route('/<int:sid>/<int:did>', endpoint='get_by_database_id')

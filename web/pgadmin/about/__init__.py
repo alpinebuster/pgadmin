@@ -122,14 +122,3 @@ def detect_browser(request):
                 'version']
 
     return browser, os_details, nwjs_version
-
-
-@blueprint.route("/about.js")
-@login_required
-def script():
-    """render the required javascript"""
-    return Response(
-        response=render_template("about/about.js", _=gettext),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )

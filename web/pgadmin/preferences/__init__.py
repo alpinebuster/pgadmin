@@ -48,17 +48,6 @@ class PreferencesModule(PgAdminModule):
 blueprint = PreferencesModule(MODULE_NAME, __name__)
 
 
-@blueprint.route("/preferences.js")
-@login_required
-def script():
-    """render the required javascript"""
-    return Response(
-        response=render_template("preferences/preferences.js", _=gettext),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 @blueprint.route("/", methods=["GET"], endpoint='index')
 @blueprint.route("/<module>/<preference>", endpoint='get_by_name')
 @login_required

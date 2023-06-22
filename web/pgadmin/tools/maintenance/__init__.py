@@ -137,17 +137,6 @@ def index():
     )
 
 
-@blueprint.route("/js/maintenance.js")
-@login_required
-def script():
-    """render the maintenance tool of vacuum javascript file"""
-    return Response(
-        response=render_template("maintenance/js/maintenance.js", _=_),
-        status=200,
-        mimetype=MIMETYPE_APP_JS
-    )
-
-
 def get_index_name(data):
     """
     Check and get index name from constraints.
