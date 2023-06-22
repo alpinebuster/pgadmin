@@ -82,9 +82,12 @@ const initBrowserTree = (pgBrowser) => {
     treeModelX.root.ensureLoaded().then(()=>{
       // Render Browser Tree
       ReactDOM.render(
-        <BrowserTree model={treeModelX}
-          onReady={itemHandle} create={create} remove={remove} update={update} />
-        , document.getElementById('tree')
+        <BrowserTree
+          model={treeModelX}
+          onReady={itemHandle} create={create}
+          remove={remove} update={update}
+        />,
+        document.getElementById('tree')
       );
     });
   });

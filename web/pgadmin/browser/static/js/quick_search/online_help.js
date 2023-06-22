@@ -91,7 +91,10 @@ export function onlineHelpSearch(param, props) {
 
   // Render IFrame
   ReactDOM.render(
-    <Iframe id='hidden-quick-search-iframe' srcURL={srcURL} onLoad={_iframeLoaded}/>,
+    <Iframe
+      id='hidden-quick-search-iframe'
+      srcURL={srcURL} onLoad={_iframeLoaded}
+    />,
     document.getElementById('quick-search-iframe-container'),
   );
 }

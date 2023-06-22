@@ -39,23 +39,26 @@ define('pgadmin.node.fts_parser', [
         this.initialized = true;
 
         // Add context menus for fts parser
-        pgBrowser.add_menus([{
-          name: 'create_fts_parser_on_schema', node: 'schema', module: this,
-          applies: ['object', 'context'], callback: 'show_obj_properties',
-          category: 'create', priority: 4, label: gettext('FTS Parser...'),
-          data: {action: 'create'}, enable: 'canCreate',
-        },{
-          name: 'create_fts_parser_on_coll', node: 'coll-fts_parser',
-          applies: ['object', 'context'], callback: 'show_obj_properties',
-          category: 'create', priority: 4, label: gettext('FTS Parser...'),
-          data: {action: 'create'}, module: this, enable: 'canCreate',
-        },{
-          name: 'create_fts_parser', node: 'fts_parser', module: this,
-          applies: ['object', 'context'], callback: 'show_obj_properties',
-          category: 'create', priority: 4, label: gettext('FTS Parser...'),
-          data: {action: 'create'}, enable: 'canCreate',
-        }]);
-
+        pgBrowser.add_menus([
+          {
+            name: 'create_fts_parser_on_schema', node: 'schema', module: this,
+            applies: ['object', 'context'], callback: 'show_obj_properties',
+            category: 'create', priority: 4, label: gettext('FTS Parser...'),
+            data: {action: 'create'}, enable: 'canCreate',
+          },
+          {
+            name: 'create_fts_parser_on_coll', node: 'coll-fts_parser',
+            applies: ['object', 'context'], callback: 'show_obj_properties',
+            category: 'create', priority: 4, label: gettext('FTS Parser...'),
+            data: {action: 'create'}, module: this, enable: 'canCreate',
+          },
+          {
+            name: 'create_fts_parser', node: 'fts_parser', module: this,
+            applies: ['object', 'context'], callback: 'show_obj_properties',
+            category: 'create', priority: 4, label: gettext('FTS Parser...'),
+            data: {action: 'create'}, enable: 'canCreate',
+          }
+        ]);
       },
 
       getSchema: (treeNodeInfo, itemNodeData) => {

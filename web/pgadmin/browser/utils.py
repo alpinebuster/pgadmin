@@ -33,8 +33,10 @@ def underscore_escape(text):
     }
 
     # always replace & first
-    for c, r in sorted(html_map.items(),
-                       key=lambda x: 0 if x[0] == '&' else 1):
+    for c, r in sorted(
+        html_map.items(),
+        key=lambda x: 0 if x[0] == '&' else 1
+    ):
         text = text.replace(c, r)
 
     return text
@@ -121,8 +123,10 @@ class PGChildModule():
             if manager.server_type == 'ppas':
                 min_server_version = self.min_ppasver
                 max_server_version = self.max_ppasver
-            return is_version_in_range(sversion, min_server_version,
-                                       max_server_version)
+            return is_version_in_range(
+                sversion, min_server_version,
+                max_server_version
+            )
 
         return False
 
@@ -133,7 +137,7 @@ class PGChildModule():
 
 class NodeView(View, metaclass=type(MethodView)):
     """
-    A PostgreSQL Object has so many operaions/functions apart from CRUD
+    A PostgreSQL Object has so many operations/functions apart from CRUD
     (Create, Read, Update, Delete):
     i.e.
     - Reversed Engineered SQL
@@ -145,7 +149,7 @@ class NodeView(View, metaclass=type(MethodView)):
     - Listing of the children object types for the certain node
       It will used by the browser tree to get the children nodes
 
-    This class can be inherited to achieve the diffrent routes for each of the
+    This class can be inherited to achieve the different routes for each of the
     object types/collections.
 
        OPERATION   |             URL             | HTTP Method |    Method
@@ -268,17 +272,26 @@ class NodeView(View, metaclass=type(MethodView)):
 
         assert (
             self.cmd in self.operations and
-            (has_id and len(self.operations[self.cmd]) > 0 and
-             http_method in self.operations[self.cmd][0]) or
-            (not has_id and len(self.operations[self.cmd]) > 1 and
-             http_method in self.operations[self.cmd][1]) or
-            (len(self.operations[self.cmd]) > 2 and
-             http_method in self.operations[self.cmd][2])
+            (
+                has_id and len(self.operations[self.cmd]) > 0 and
+                http_method in self.operations[self.cmd][0]
+            ) or
+            (
+                not has_id and len(self.operations[self.cmd]) > 1 and
+                http_method in self.operations[self.cmd][1]
+            ) or
+            (
+                len(self.operations[self.cmd]) > 2 and
+                http_method in self.operations[self.cmd][2]
+            )
         ), \
             'Unimplemented method ({0}) for command ({1}), which {2} ' \
-            'an id'.format(http_method,
-                           self.cmd,
-                           'requires' if has_id else 'does not require')
+            'an id'.format(
+                http_method,
+                self.cmd,
+                'requires' if has_id else 'does not require'
+            )
+
         meth = None
         if has_id:
             meth = self.operations[self.cmd][0][http_method]
@@ -294,8 +307,9 @@ class NodeView(View, metaclass=type(MethodView)):
                 status=406,
                 success=0,
                 errormsg=gettext(
-                    'Unimplemented method ({0}) for this url ({1})').format(
-                        meth, flask.request.path
+                    'Unimplemented method ({0}) for this url ({1})'
+                ).format(
+                    meth, flask.request.path
                 )
             )
 

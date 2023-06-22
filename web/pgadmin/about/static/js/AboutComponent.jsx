@@ -11,7 +11,6 @@ import { copyToClipboard } from '../../../static/js/clipboard';
 import Notify from '../../../static/js/helpers/Notifier';
 import { useDelayedCaller } from '../../../static/js/custom_hooks';
 
-
 const useStyles = makeStyles((theme)=>({
   container: {
     padding: '16px',
@@ -127,8 +126,12 @@ export default function AboutComponent() {
             }}>{copyText}</DefaultButton>
           </Box>
           <Box flexGrow="1" paddingTop="1px">
-            <InputText style={{height: '100%'}} controlProps={{multiline: true}} inputStyle={{resize: 'none'}}
-              value={aboutData.settings}/>
+            <InputText
+              style={{height: '100%'}}
+              controlProps={{multiline: true}}
+              inputStyle={{resize: 'none'}}
+              value={aboutData.settings}
+            />
           </Box>
         </Box>
       </>

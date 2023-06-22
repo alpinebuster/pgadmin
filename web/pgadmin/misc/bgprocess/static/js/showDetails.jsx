@@ -27,5 +27,7 @@ export default function showDetails(p) {
           panel.close();
         }}
       />
-    </Theme>, j[0]);
+    </Theme>,
+    j[0]
+  );
 }

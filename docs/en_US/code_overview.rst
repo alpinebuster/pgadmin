@@ -149,8 +149,8 @@ Hooks currently implemented are:
                     'path': url_for('static', filename='js/mymodule'),
                     'exports': None,
                     'when': 'server'
-                    }
-                ]
+                }
+            ]
 
         def get_own_menuitems(self):
             """
@@ -168,10 +168,11 @@ Hooks currently implemented are:
                         module="pgAdmin.MyModule",
                         callback='about_show',
                         icon='fa fa-info-circle',
-                        label=gettext('About MyModule'
-                        )
-                    ]
-                }
+                        label=gettext('About MyModule')
+                    )
+                ]
+            }
+
         def get_panels(self):
             """
             Returns:
@@ -180,8 +181,6 @@ Hooks currently implemented are:
             """
             return []
         ...
-
-
 
     blueprint = MyModule('mymodule', __name__, static_url_path='/static')
 

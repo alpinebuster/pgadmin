@@ -146,7 +146,9 @@ export default class SchemaDiff {
     ReactDOM.render(
       <Theme>
         <ModalProvider>
-          <SchemaDiffComponent params={{ transId: trans_id, pgAdmin: pgWindow.pgAdmin }}></SchemaDiffComponent>
+          <SchemaDiffComponent
+            params={{transId: trans_id, pgAdmin: pgWindow.pgAdmin}}
+          />
         </ModalProvider>
       </Theme>,
       container

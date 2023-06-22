@@ -648,11 +648,16 @@ export default class DebuggerModule {
     ReactDOM.render(
       <Theme>
         <ModalProvider>
-          <DebuggerComponent pgAdmin={pgWindow.pgAdmin} selectedNodeInfo={selectedNodeInfo} panel={panel}  layout={layout} params={{
-            transId: trans_id,
-            directDebugger: this,
-            funcArgsInstance: this.funcArgs
-          }} />
+          <DebuggerComponent
+            pgAdmin={pgWindow.pgAdmin}
+            selectedNodeInfo={selectedNodeInfo}
+            panel={panel} layout={layout}
+            params={{
+              transId: trans_id,
+              directDebugger: this,
+              funcArgsInstance: this.funcArgs
+            }}
+          />
         </ModalProvider>
       </Theme>,
       container

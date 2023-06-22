@@ -51,7 +51,8 @@ function mountDialog(
   };
 
   ReactDOM.render(
-    getDialogContent(onClose, setNewSize, panel), j[0]
+    getDialogContent(onClose, setNewSize, panel),
+    j[0]
   );
 }
 

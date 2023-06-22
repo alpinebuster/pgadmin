@@ -13,7 +13,14 @@ export default class ChartsDOM {
 
   render() {
     if(this.container && this.preferences.show_graphs) {
-      ReactDOM.render(<Graphs sid={this.sid} did={this.did} preferences={this.preferences} pageVisible={this.pageVisible}/>, this.container);
+      ReactDOM.render(
+        <Graphs
+          sid={this.sid} did={this.did}
+          preferences={this.preferences}
+          pageVisible={this.pageVisible}
+        />,
+        this.container
+      );
     }
   }
 

@@ -145,7 +145,9 @@ export function getUtilityView(schema, treeNodeInfo, actionType, formType, conta
         disableSqlHelp={sqlHelpUrl == undefined || sqlHelpUrl == ''}
         disableDialogHelp={helpUrl == undefined || helpUrl == ''}
       />
-    </Theme>, container);
+    </Theme>,
+    container
+  );
 }
 
 /* When switching from normal node to collection node, clean up the React mounted DOM */

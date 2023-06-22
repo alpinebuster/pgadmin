@@ -129,8 +129,10 @@ class PgAdminModule(Blueprint):
         for module in self.submodules:
             for key, value in module.menu_items.items():
                 menu_items[key].extend(value)
-        menu_items = dict((key, sorted(value, key=attrgetter('priority')))
-                          for key, value in menu_items.items())
+        menu_items = dict(
+            (key, sorted(value, key=attrgetter('priority')))
+            for key, value in menu_items.items()
+        )
         return menu_items
 
     @property

@@ -88,8 +88,10 @@ class CollectionNodeModule(PgAdminModule, PGChildModule, metaclass=ABCMeta):
 
         return obj
 
-    def has_nodes(self, sid, did, scid=None, tid=None, vid=None,
-                  base_template_path=''):
+    def has_nodes(
+        self, sid, did, scid=None, tid=None, vid=None,
+        base_template_path=''
+    ):
         if self.pref_show_empty_coll_nodes.get():
             return True
 

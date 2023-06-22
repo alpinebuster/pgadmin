@@ -4,12 +4,17 @@
 		"clsx",
 		"docklayout",
 		"gettext",
+		"javascripts",
 		"labelplacement",
 		"linebreak",
 		"maximizable",
+		"mymodule",
 		"preinstall",
+		"stylesheet",
+		"treeview",
 		"wcdocker",
-		"webcabin"
+		"webcabin",
+		"WEBSERVER"
 	],
 	"esbonio.sphinx.confDir": ""
 }

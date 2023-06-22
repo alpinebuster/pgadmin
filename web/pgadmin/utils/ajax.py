@@ -55,7 +55,7 @@ def get_no_cache_header():
 
 
 def make_json_response(
-        success=1, errormsg='', info='', result=None, data=None, status=200
+    success=1, errormsg='', info='', result=None, data=None, status=200
 ):
     """Create a HTML response document describing the results of a request and
     containing the data."""

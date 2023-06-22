@@ -11,8 +11,9 @@ def log_server_heartbeat(data):
     """Log Server Heartbeat."""
     from config import PG_DEFAULT_DRIVER
     from pgadmin.utils.driver import get_driver
-    manager = get_driver(PG_DEFAULT_DRIVER).connection_manager(int(data['sid'])
-                                                               )
+    manager = get_driver(
+        PG_DEFAULT_DRIVER
+    ).connection_manager(int(data['sid']))
 
     _server_heartbeat = getattr(current_app, '_pgadmin_server_heartbeat', {})
 
@@ -75,8 +76,11 @@ class ServerHeartbeatTimer():
 
     def release_server_heartbeat(self):
         with self._app.app_context():
-            _server_heartbeat = getattr(self._app,
-                                        '_pgadmin_server_heartbeat', {})
+            _server_heartbeat = getattr(
+                self._app,
+                '_pgadmin_server_heartbeat',
+                {}
+            )
             if len(_server_heartbeat) > 0:
                 for sess_id in list(_server_heartbeat):
                     for sid in list(_server_heartbeat[sess_id]):
@@ -94,8 +98,11 @@ class ServerHeartbeatTimer():
                             _server_heartbeat[sess_id].pop(sid)
                             if len(_server_heartbeat[sess_id]) == 0:
                                 _server_heartbeat.pop(sess_id)
-                setattr(self._app, '_pgadmin_server_heartbeat',
-                        _server_heartbeat)
+                setattr(
+                    self._app,
+                    '_pgadmin_server_heartbeat',
+                    _server_heartbeat
+                )
 
     @staticmethod
     def _release_connections(server_conn, sess_id, sid):
@@ -110,7 +117,9 @@ class ServerHeartbeatTimer():
                         "Heartbeat not received. Released "
                         "connection for the session "
                         "id##server id: {0}##{1}".format(
-                            sess_id, sid))
+                            sess_id, sid
+                        )
+                    )
             except Exception as e:
                 current_app.logger.exception(e)
 
@@ -120,5 +129,7 @@ class ServerHeartbeatTimer():
 
 def init_app(app):
     setattr(app, '_pgadmin_server_heartbeat', {})
-    ServerHeartbeatTimer(sec=config.SERVER_HEARTBEAT_TIMEOUT,
-                         _app=app)
+    ServerHeartbeatTimer(
+        sec=config.SERVER_HEARTBEAT_TIMEOUT,
+        _app=app
+    )

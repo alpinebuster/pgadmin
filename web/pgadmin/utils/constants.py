@@ -1,4 +1,5 @@
 """Application wide constants."""
+
 from flask_babel import gettext
 
 # Mimetypes
@@ -54,11 +55,13 @@ KERBEROS = 'kerberos'
 OAUTH2 = 'oauth2'
 WEBSERVER = 'webserver'
 
-SUPPORTED_AUTH_SOURCES = [INTERNAL,
-                          LDAP,
-                          KERBEROS,
-                          OAUTH2,
-                          WEBSERVER]
+SUPPORTED_AUTH_SOURCES = [
+    INTERNAL,
+    LDAP,
+    KERBEROS,
+    OAUTH2,
+    WEBSERVER
+]
 
 BINARY_PATHS = {
     "as_bin_paths": [
@@ -116,8 +119,8 @@ PSYCOPG3 = 'psycopg3'
 MY_STORAGE = 'my_storage'
 ACCESS_DENIED_MESSAGE = gettext(
     "Access denied: You’re having limited access. You’re not allowed to "
-    "Rename, Delete or Create any files/folders")
-
+    "Rename, Delete or Create any files/folders"
+)
 
 KEY_RING_SERVICE_NAME = 'pgAdmin4'
 KEY_RING_USERNAME_FORMAT = KEY_RING_SERVICE_NAME + '-{0}-{1}'

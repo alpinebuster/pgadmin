@@ -87,7 +87,9 @@ define([
               ReactDOM.unmountComponentAtNode(j[0]);
               panel.close();
             }}/>
-        </Theme>, j[0]);
+        </Theme>,
+        j[0]
+      );
     },
   };
 

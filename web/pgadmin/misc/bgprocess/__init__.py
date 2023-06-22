@@ -2,6 +2,7 @@
 A blueprint module providing utility functions for the notify the user about
 the long running background-processes.
 """
+
 from flask import url_for
 from flask_security import login_required
 from pgadmin.utils import PgAdminModule

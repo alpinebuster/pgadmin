@@ -80,9 +80,11 @@ def index():
 @login_required
 def script():
     """Render the required Javascript"""
-    return Response(response=render_template("settings/settings.js"),
-                    status=200,
-                    mimetype=MIMETYPE_APP_JS)
+    return Response(
+        response=render_template("settings/settings.js"),
+        status=200,
+        mimetype=MIMETYPE_APP_JS
+    )
 
 
 @blueprint.route("/store", methods=['POST'], endpoint='store_bulk')

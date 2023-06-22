@@ -12,7 +12,10 @@ import 'wcdocker';
 import Theme from '../../../static/js/theme';
 
 /* The entry point for rendering React based view in properties, called in node.js */
-export function getNodeView(nodeType, treeNodeInfo, actionType, itemNodeData, formType, container, containerPanel, onEdit, onSave) {
+export function getNodeView(
+  nodeType, treeNodeInfo, actionType, itemNodeData,
+  formType, container, containerPanel, onEdit, onSave
+) {
   let nodeObj = pgAdmin.Browser.Nodes[nodeType];
   let serverInfo = treeNodeInfo && ('server' in treeNodeInfo) &&
       pgAdmin.Browser.serverInfo && pgAdmin.Browser.serverInfo[treeNodeInfo.server._id];
@@ -207,7 +210,9 @@ export function getNodeView(nodeType, treeNodeInfo, actionType, itemNodeData, fo
         disableSqlHelp={nodeObj.sqlAlterHelp == '' && nodeObj.sqlCreateHelp == '' && !nodeObj.epasHelp}
         disableDialogHelp={nodeObj.dialogHelp == undefined || nodeObj.dialogHelp == ''}
       />
-    </Theme>, container);
+    </Theme>,
+    container
+  );
 }
 
 /* When switching from normal node to collection node, clean up the React mounted DOM */

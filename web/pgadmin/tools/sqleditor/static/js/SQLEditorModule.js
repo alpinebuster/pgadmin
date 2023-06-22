@@ -371,7 +371,11 @@ export default class SQLEditor {
     ReactDOM.render(
       <Theme>
         <ModalProvider>
-          <QueryToolComponent params={params} pgWindow={pgWindow} pgAdmin={pgAdmin} panel={panel} selectedNodeInfo={selectedNodeInfo}/>
+          <QueryToolComponent
+            params={params} pgWindow={pgWindow}
+            pgAdmin={pgAdmin} panel={panel}
+            selectedNodeInfo={selectedNodeInfo}
+          />
         </ModalProvider>
       </Theme>,
       container

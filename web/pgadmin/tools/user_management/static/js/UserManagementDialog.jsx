@@ -411,5 +411,7 @@ export function showUserManagement() {
       <UserManagementDialog
         onClose={onClose}
       />
-    </Theme>, j[0]);
+    </Theme>,
+    j[0]
+  );
 }

@@ -59,8 +59,8 @@ define('pgadmin.browser', [
   panelEvents[wcDocker.EVENT.VISIBILITY_CHANGED] = function() {
     if (this.isVisible()) {
       let obj = pgAdmin.Browser,
-        i   = obj.tree ? obj.tree.selected() : undefined,
-        d   = i ? obj.tree.itemData(i) : undefined;
+        i = obj.tree ? obj.tree.selected() : undefined,
+        d = i ? obj.tree.itemData(i) : undefined;
 
       if (d && obj.Nodes[d._type].callbacks['selected'] &&
         _.isFunction(obj.Nodes[d._type].callbacks['selected'])) {
@@ -533,7 +533,8 @@ define('pgadmin.browser', [
       obj.add_panels();
       // Initialize the Docker
       obj.docker = new wcDocker(
-        '#dockerContainer', {
+        '#dockerContainer',
+        {
           allowContextMenu: true,
           allowCollapse: false,
           loadingClass: 'pg-loading-icon',
@@ -541,7 +542,8 @@ define('pgadmin.browser', [
             'filename': 'css',
           }),
           theme: 'webcabin.overrides.css',
-        });
+        }
+      );
       if (obj.docker) {
         // Initialize all the panels
         _.each(obj.panels, function(panel, name) {
