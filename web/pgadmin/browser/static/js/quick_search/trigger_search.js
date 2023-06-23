@@ -103,7 +103,7 @@ export function Search({closeModal}) {
     });
   };
 
-  // Debounse logic to avoid multiple re-render with each keypress
+  // Debounce logic to avoid multiple re-render with each keypress
   useDelayDebounce(initSearch, searchTerm, 1000);
 
   const toggleDropdownMenu = () => {

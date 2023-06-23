@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -76,6 +77,12 @@ const useStyles = makeStyles((theme)=>({
     marginLeft: theme.spacing(1),
     marginRight: 0,
     flex: 1,
+    '&:hover': {
+      color: theme.palette.primary.contrastText,
+    },
+    '&:active': {
+      color: theme.palette.primary.contrastText,
+    },
   },
   iconButton: {
     paddingLeft: theme.spacing(0.6),
@@ -89,14 +96,16 @@ const useStyles = makeStyles((theme)=>({
     border: '0px solid',
     borderRadius: '4px',
     '&:hover': {
-      border: '1px solid',
+      border: '0px solid',
       boxShadow: 'none',
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.background.default,
       borderColor: theme.palette.primary.hoverMain,
     },
     '&:active': {
-      border: '1px solid',
+      border: '0px solid',
       boxShadow: 'none',
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.background.default,
       borderColor: theme.palette.primary.main,
     },
@@ -238,3 +247,7 @@ export default function AppMenuBar({onSearchClick}) {
     </div>
   );
 }
+
+AppMenuBar.propTypes = {
+  onSearchClick: PropTypes.func,
+};

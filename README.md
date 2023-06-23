@@ -227,6 +227,13 @@ The docs can then be built using the Makefile in *$PGADMIN4_SRC*, e.g.
 make docs
 ```
 
+or
+
+```bash
+cd docs/en_US
+python build_code_snippet.py && sphinx-build -W -b html -d _build/doctrees . _build/html
+```
+
 The output can be found in *$PGADMIN4_SRC/docs/en_US/_build/html/index.html*
 
 # Building packages

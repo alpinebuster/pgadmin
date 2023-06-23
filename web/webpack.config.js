@@ -120,7 +120,9 @@ for(let value of webpackShimConfig.css_bundle_include) {
 
 pushModulesStyles(path.join(__dirname,'./pgadmin'), pgadminScssStyles, '.scss');
 pushModulesStyles(path.join(__dirname,'./pgadmin'), pgadminCssStyles, '.css');
-pgadminCssStyles.push(path.join(__dirname,'./pgadmin/static/js/pgadmin.fonticon.js'));
+pgadminCssStyles.push(
+  path.join(__dirname, './pgadmin/static/js/pgadmin.fonticon.js')
+);
 
 /* Get all the themes */
 
@@ -234,7 +236,9 @@ let themeCssRules = function(theme_name) {
               './pgadmin/static/scss/resources/pgadmin.resources.scss',
             ];
             if(_theme_name!='standard') {
-              ret_res.unshift('./pgadmin/static/scss/resources/' + _theme_name + '/_theme.variables.scss');
+              ret_res.unshift(
+                './pgadmin/static/scss/resources/' + _theme_name + '/_theme.variables.scss'
+              );
             }
             return ret_res;
           }(theme_name),
@@ -406,8 +410,22 @@ module.exports = [{
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [['@babel/preset-env', {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}], '@babel/preset-react', '@babel/preset-typescript'],
-          plugins: ['@babel/plugin-proposal-class-properties', '@babel/proposal-object-rest-spread'],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                'modules': 'commonjs',
+                'useBuiltIns': 'usage',
+                'corejs': 3
+              }
+            ],
+            '@babel/preset-react',
+            '@babel/preset-typescript'
+          ],
+          plugins: [
+            '@babel/plugin-proposal-class-properties',
+            '@babel/proposal-object-rest-spread'
+          ],
         },
       },
     },{
@@ -420,8 +438,22 @@ module.exports = [{
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [['@babel/preset-env', {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}], '@babel/preset-react', '@babel/preset-typescript'],
-          plugins: ['@babel/plugin-proposal-class-properties', '@babel/proposal-object-rest-spread'],
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                'modules': 'commonjs',
+                'useBuiltIns': 'usage',
+                'corejs': 3
+              }
+            ],
+            '@babel/preset-react',
+            '@babel/preset-typescript'
+          ],
+          plugins: [
+            '@babel/plugin-proposal-class-properties',
+            '@babel/proposal-object-rest-spread'
+          ],
         },
       },
     }, {
@@ -429,7 +461,10 @@ module.exports = [{
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [['@babel/preset-env', {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}]],
+          presets: [[
+            '@babel/preset-env',
+            {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}
+          ]],
         },
       },
     }, {
@@ -591,7 +626,9 @@ module.exports = [{
           minChunks: 2,
           enforce: true,
           test(module) {
-            return webpackShimConfig.matchModules(module, ['wcdocker', 'jquery', 'bootstrap', 'popper']);
+            return webpackShimConfig.matchModules(
+              module, ['wcdocker', 'jquery', 'bootstrap', 'popper']
+            );
           },
         },
         vendor_others: {

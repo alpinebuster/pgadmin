@@ -3,10 +3,12 @@
 }
 
 .icon-server-connecting {
-  background-image: $loader-icon-small !important;
-  background-repeat: no-repeat;
-  background-size: 18px !important;
-  align-content: center;
-  vertical-align: middle;
-  height: 1.3em;
+  content: '' !important;
+  font-family: $font-family-icon;
+  border-style: none;
+  background: $loader-icon-small 0 0 no-repeat;
+  background-position: center !important;
+  // align-content: center;
+  // vertical-align: middle;
+  // background-size: 18px !important;
 }

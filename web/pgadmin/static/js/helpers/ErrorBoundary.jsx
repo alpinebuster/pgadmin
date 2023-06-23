@@ -1,4 +1,5 @@
 /* https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html */
+
 import React from 'react';
 import CustomPropTypes from '../custom_prop_types';
 
