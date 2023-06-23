@@ -227,4 +227,5 @@ let webpackShimConfig = {
     './pgadmin/static/css/pgadmin.css',
   ],
 };
+
 module.exports = webpackShimConfig;

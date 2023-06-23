@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import gettext from 'sources/gettext';
+import { Search } from 'pgbrowser/quick_search/trigger_search';
+
 import MainMenuFactory from '../../browser/static/js/MainMenuFactory';
 import AppMenuBar from '../js/AppMenuBar';
 import ObjectBreadcrumbs from '../js/components/ObjectBreadcrumbs';
 import Theme from '../js/theme';
+import Notify from '../js/helpers/Notifier';
 
 define('app', [
   'sources/pgadmin', 'bundled_browser'
@@ -50,10 +54,27 @@ define('app', [
   const menuContainerEle = document.querySelector(
     '#main-menu-container'
   );
+
+  const onSearchClick = () => {
+    Notify.showModal(
+      gettext('Quick Search'),
+      (closeModal) => {
+        return <Search closeModal={closeModal}/>;
+      },
+      {
+        isFullScreen: false,
+        isResizeable: false,
+        showFullScreen: false,
+        isFullWidth: false,
+        showTitle: false
+      }
+    );
+  };
+
   if(menuContainerEle) {
     ReactDOM.render(
       <Theme>
-        <AppMenuBar />
+        <AppMenuBar onSearchClick={onSearchClick} />
       </Theme>,
       menuContainerEle
     );

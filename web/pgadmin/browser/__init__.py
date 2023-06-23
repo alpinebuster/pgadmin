@@ -1126,7 +1126,8 @@ if hasattr(config, 'SECURITY_CHANGEABLE') and config.SECURITY_CHANGEABLE:
         return _security.render_template(
             config_value('CHANGE_PASSWORD_TEMPLATE'),
             change_password_form=form,
-            **_ctx('change_password'))
+            **_ctx('change_password')
+        )
 
 # Only register route if SECURITY_RECOVERABLE is set to True
 if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:

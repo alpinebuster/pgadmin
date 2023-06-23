@@ -111,7 +111,9 @@ _.extend(pgBrowser.keyboardNavigation, {
     }
 
     if(menuLabel) {
-      document.querySelector(`#main-menu-container button[data-label="${menuLabel}"]`)?.click();
+      document.querySelector(
+        `#main-menu-container button[data-label="${menuLabel}"]`
+      )?.click();
     }
   },
   bindRightPanel: function(event, combo) {

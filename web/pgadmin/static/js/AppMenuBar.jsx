@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme)=>({
   },
 }));
 
-export default function AppMenuBar() {
+export default function AppMenuBar({onSearchClick}) {
   const classes = useStyles();
   const [,setRefresh] = useState(false);
 
@@ -118,22 +118,6 @@ export default function AppMenuBar() {
     });
   }, []);
 
-  const onSearchClick = () => {
-    // console.log('onClick');
-    // Notify.showModal(
-    //   gettext('Quick Search'),
-    //   (closeModal) => {
-    //     return <Search closeModal={closeModal}/>;
-    //   },
-    //   {
-    //     isFullScreen: false,
-    //     isResizeable: false,
-    //     showFullScreen: false,
-    //     isFullWidth: false,
-    //     showTitle: false
-    //   }
-    // );
-  };
   const getPgMenuItem = (menuItem, i)=>{
     if(menuItem.type == 'separator') {
       return <PgMenuDivider key={i}/>;
