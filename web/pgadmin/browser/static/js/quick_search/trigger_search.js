@@ -25,7 +25,9 @@ function HelpArticleContents({isHelpLoading, isMenuLoading, helpSearchResult}) {
           Show all &nbsp;<span className='fas fa-external-link-alt' ></span></a> : ''
         }
       </div>
-      <div className='pad-12'><div className="search-icon">{gettext('Searching...')}</div></div>
+      <div className='pad-12'>
+        <div className="search-icon">{gettext('Searching...')}</div>
+      </div>
     </div>) : '';
 }
 
@@ -203,7 +205,11 @@ export function Search({closeModal}) {
   useOutsideAlerter(wrapperRef);
 
   const showLoader = (loading) => {
-    return loading ? <div className='pad-12'><div className="search-icon">{gettext('Searching...')}</div></div> : '';
+    return loading ? (
+      <div className='pad-12'>
+        <div className="search-icon">{gettext('Searching...')}</div>
+      </div>
+    ) : '';
   };
 
   useEffect(() => {
