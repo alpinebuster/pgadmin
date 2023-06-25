@@ -10914,9 +10914,8 @@ watchpack@^2.4.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-"webcabin-docker@https://github.com/pgadmin-org/wcdocker#460fc6d90ba170bb177faaa8277f5fbb8279522a":
-  version "2.2.5"
-  resolved "https://github.com/pgadmin-org/wcdocker#460fc6d90ba170bb177faaa8277f5fbb8279522a"
+webcabin-docker@./pgadmin/static/vendor/wcdocker:
+  version "2.2.6"
   dependencies:
     "@fortawesome/fontawesome-free" "^5.14.0"
     FileSaver "^0.10.0"
