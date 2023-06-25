@@ -1,7 +1,7 @@
 define(['pgadmin.browser.endpoints'], function(endpoints) {
   /***
    * This method behaves as a drop-in replacement for flask url_for function.
-   * It uses the exposed URLs file under the hood, and replace the substitions provided by the modules.
+   * It uses the exposed URLs file under the hood, and replace the substitutions provided by the modules.
    *
    * ex.
    * url_for("help.static", {filename: "server_dialog.html"}) will produce the
@@ -12,7 +12,6 @@ define(['pgadmin.browser.endpoints'], function(endpoints) {
    * @param {Object} substitutions
    */
   return function url_for(endpoint, substitutions) {
-
     let rawURL = endpoints[endpoint];
 
     // captures things of the form <path:substitutionName>
@@ -34,5 +33,4 @@ define(['pgadmin.browser.endpoints'], function(endpoints) {
 
     return interpolated;
   };
-
 });

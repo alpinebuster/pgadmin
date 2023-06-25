@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{ _('Debugger - ') + title }}{% endblock %}
 {% block init_script %}
-
 try {
   require(
     ['sources/generated/debugger', 'sources/pgadmin', 'sources/generated/codemirror'],

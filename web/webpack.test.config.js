@@ -1,4 +1,5 @@
 /* eslint-env node */
+
 const path = require('path');
 const webpack = require('webpack');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');

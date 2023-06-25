@@ -1,6 +1,9 @@
 import _ from 'lodash';
 
-function generate_url(baseUrl, treeInfo, actionType, nodeType, pickFunction, itemDataID) {
+function generate_url(
+  baseUrl, treeInfo, actionType, nodeType,
+  pickFunction, itemDataID
+) {
   let ref = '';
   _.each(
     _.sortBy(

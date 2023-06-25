@@ -1,4 +1,4 @@
-define('bundled_browser',[
+define('bundled_browser', [
   'pgadmin.browser',
   'sources/browser/index',
   'top/tools/erd/static/js/index',
