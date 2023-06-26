@@ -1,4 +1,5 @@
 // Karma configuration
+
 const webpackConfig = require('./webpack.test.config.js');
 const isDocker = require('is-docker')();
 const webpack = require('webpack');

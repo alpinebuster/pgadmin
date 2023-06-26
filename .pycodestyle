@@ -1,6 +1,6 @@
 [pycodestyle]
 ignore = E402,W504,W605
-max-line-length = 79
+max-line-length = 99
 statistics = True
 show-source = False
 show-pep8 = False

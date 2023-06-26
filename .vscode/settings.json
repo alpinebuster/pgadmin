@@ -13,10 +13,12 @@
 		"mymodule",
 		"pgbrowser",
 		"preinstall",
+		"pycodestyle",
 		"stylesheet",
 		"treeview",
 		"wcdocker",
 		"webcabin",
+		"webpacker",
 		"WEBSERVER"
 	],
 	"esbonio.sphinx.confDir": ""
