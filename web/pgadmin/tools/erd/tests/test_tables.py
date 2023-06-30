@@ -11,7 +11,7 @@ from pgadmin.browser.server_groups.servers.databases.schemas.tables.tests \
     import utils as tables_utils
 from pgadmin.browser.server_groups.servers.databases.schemas.tests import \
     utils as schema_utils
-from pgAdmin4 import app
+from pgAdmin import app
 from .... import socketio
 
 

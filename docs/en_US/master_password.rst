@@ -4,8 +4,8 @@
 `Master Password`:index:
 ************************
 
-.. note:: pgAdmin 4 uses the operating system password store by default to store the saved server passwords in desktop mode from version 7.2 onwards and Master password will not be required.
-          If the operating system password store is not available then pgAdmin 4 will continue to use a master password as per the configuration settings.
+.. note:: pgAdmin uses the operating system password store by default to store the saved server passwords in desktop mode from version 7.2 onwards and Master password will not be required.
+          If the operating system password store is not available then pgAdmin will continue to use a master password as per the configuration settings.
 
 A master password is required to secure and later unlock the saved server
 passwords. This is applicable for desktop mode and in server mode if authentication source contains OAuth2 or Kerberos or Webserver.

@@ -33,7 +33,7 @@ jobs:
         run: |
           cat <<EOF > sonar-project.properties
           sonar.projectKey=${{ vars.SONARQUBE_PROJECT_KEY }}
-          sonar.projectName=pgAdmin 4
+          sonar.projectName=pgAdmin
           sonar.projectVersion=%VERSION%
 
           # Ignore templates and SQL scripts as they confuse the scanner

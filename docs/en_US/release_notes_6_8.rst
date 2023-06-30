@@ -4,7 +4,7 @@ Version 6.8
 
 Release date: 2022-04-07
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 6.7.
+This release contains a number of bug fixes and new features since the release of pgAdmin 6.7.
 
 New features
 ************
@@ -37,5 +37,5 @@ Bug fixes
   | `Issue #7264 <https://redmine.postgresql.org/issues/7264>`_ -  Ensure that the correct user should be selected in the new connection dialog.
   | `Issue #7265 <https://redmine.postgresql.org/issues/7265>`_ -  Fixed schema diff issue in which the option 'null' doesn't appear in the DDL statement for the foreign table.
   | `Issue #7267 <https://redmine.postgresql.org/issues/7267>`_ -  Fixed an issue where unexpected error messages are displayed when users change the language via preferences.
-  | `Issue #7269 <https://redmine.postgresql.org/issues/7269>`_ -  Ensure that pgAdmin4 should work with latest jinja2 version.
+  | `Issue #7269 <https://redmine.postgresql.org/issues/7269>`_ -  Ensure that pgAdmin should work with latest jinja2 version.
   | `Issue #7275 <https://redmine.postgresql.org/issues/7275>`_ -  Fixed 'Cannot read properties of undefined' error while creating the table via the ERD tool.

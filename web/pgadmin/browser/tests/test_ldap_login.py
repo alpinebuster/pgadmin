@@ -66,13 +66,13 @@ class LDAPLoginTestCase(BaseTestGenerator):
 
     def runTest(self):
         """This function checks login functionality."""
-        username = config_data['pgAdmin4_ldap_credentials']['login_username']
-        password = config_data['pgAdmin4_ldap_credentials']['login_password']
+        username = config_data['pgAdmin_ldap_credentials']['login_username']
+        password = config_data['pgAdmin_ldap_credentials']['login_password']
 
         res = self.tester.login(username, password, True)
 
         respdata = 'Gravatar image for %s' %\
-                   config_data['pgAdmin4_ldap_credentials']['login_username']
+                   config_data['pgAdmin_ldap_credentials']['login_username']
         self.assertTrue(respdata in res.data.decode('utf8'))
 
     def tearDown(self):

@@ -4,7 +4,7 @@ Version 4.22
 
 Release date: 2020-05-28
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.21.
+This release contains a number of bug fixes and new features since the release of pgAdmin.21.
 
 New features
 ************
@@ -20,7 +20,7 @@ Housekeeping
 | `Issue #5335 <https://redmine.postgresql.org/issues/5335>`_ -  Improve code coverage and API test cases for Triggers and Compound Triggers.
 | `Issue #5443 <https://redmine.postgresql.org/issues/5443>`_ -  Remove support for Python 2.
 | `Issue #5444 <https://redmine.postgresql.org/issues/5444>`_ -  Cleanup Python detection in the runtime project file.
-| `Issue #5455 <https://redmine.postgresql.org/issues/5455>`_ -  Refactor pgAdmin4.py so it can be imported and is a lot more readable.
+| `Issue #5455 <https://redmine.postgresql.org/issues/5455>`_ -  Refactor pgAdmin.py so it can be imported and is a lot more readable.
 | `Issue #5493 <https://redmine.postgresql.org/issues/5493>`_ -  Search object UI improvements.
 | `Issue #5525 <https://redmine.postgresql.org/issues/5525>`_ -  Cleanup and refactor the macOS build scripts.
 | `Issue #5552 <https://redmine.postgresql.org/issues/5552>`_ -  Update dependencies in the Docker container.

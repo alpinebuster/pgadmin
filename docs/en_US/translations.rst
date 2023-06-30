@@ -55,20 +55,20 @@ updated and compiled. This can be achieved using the following commands from the
 
 .. code-block:: bash
 
-    (pgadmin4) user$ pybabel extract -F babel.cfg -o pgadmin/messages.pot pgadmin
+    (pgadmin) user$ pybabel extract -F babel.cfg -o pgadmin/messages.pot pgadmin
 
 Once the template has been updated it needs to be merged into the existing
 message catalogues:
 
 .. code-block:: bash
 
-    (pgadmin4) user$ pybabel update -i pgadmin/messages.pot -d pgadmin/translations
+    (pgadmin) user$ pybabel update -i pgadmin/messages.pot -d pgadmin/translations
 
 Finally, the message catalogues can be compiled for use:
 
 .. code-block:: bash
 
-    (pgadmin4) user$ pybabel compile -d pgadmin/translations
+    (pgadmin) user$ pybabel compile -d pgadmin/translations
 
 Adding a New Language
 *********************
@@ -89,4 +89,4 @@ tree in the Python virtual environment for pgAdmin:
 
 .. code-block:: bash
 
-    (pgadmin4) user$ pybabel init -i pgadmin/messages.pot -d pgadmin/translations -l $LANG
+    (pgadmin) user$ pybabel init -i pgadmin/messages.pot -d pgadmin/translations -l $LANG

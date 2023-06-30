@@ -70,11 +70,11 @@ pgadmin_credentials = test_setup.config_data
 os.environ['PGADMIN_SETUP_EMAIL'] = ''
 os.environ['PGADMIN_SETUP_PASSWORD'] = ''
 if pgadmin_credentials and \
-    'pgAdmin4_login_credentials' in pgadmin_credentials and \
-        all(item in pgadmin_credentials['pgAdmin4_login_credentials']
+    'pgAdmin_login_credentials' in pgadmin_credentials and \
+        all(item in pgadmin_credentials['pgAdmin_login_credentials']
             for item in ['login_username', 'login_password']):
     pgadmin_credentials = pgadmin_credentials[
-        'pgAdmin4_login_credentials']
+        'pgAdmin_login_credentials']
     os.environ['PGADMIN_SETUP_EMAIL'] = str(pgadmin_credentials[
         'login_username'])
     os.environ['PGADMIN_SETUP_PASSWORD'] = str(pgadmin_credentials[
@@ -351,7 +351,7 @@ def add_arguments():
     :rtype: argparse namespace
     """
 
-    parser = argparse.ArgumentParser(description='Test suite for pgAdmin4')
+    parser = argparse.ArgumentParser(description='Test suite for pgAdmin')
     parser.add_argument(
         '--pkg',
         help='Executes the test cases of particular package and subpackages'

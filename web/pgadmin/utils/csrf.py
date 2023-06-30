@@ -13,7 +13,6 @@ class _PGCSRFProtect(CSRFProtect):
     def _pg_csrf_exempt(self, app):
         """Exempt some of the Views/blueprints from CSRF protection
         """
-
         exempt_views = [
             'flask.app.<lambda>',
             'flask.scaffold.send_static_file',

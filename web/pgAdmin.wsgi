@@ -4,7 +4,7 @@ import sys
 if sys.version_info < (3, 4):
     raise Exception('This application must be run under Python 3.4 or later.')
 
-os.environ['SCRIPT_NAME'] = '/pgadmin4'
+os.environ['SCRIPT_NAME'] = '/pgadmin'
 
 import builtins
 
@@ -26,4 +26,4 @@ Required configuration file is not present!
 Please run setup.py first!"""
     )
 
-from pgAdmin4 import app as application
+from pgAdmin import app as application

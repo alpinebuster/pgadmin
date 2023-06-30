@@ -11,7 +11,7 @@ import config
 
 class TestSQLASCIIEncoding(BaseTestGenerator):
     """
-    This class validates character support in pgAdmin4 for
+    This class validates character support in pgAdmin for
     SQL_ASCII encodings
     """
     scenarios = [

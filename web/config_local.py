@@ -21,10 +21,10 @@ UPGRADE_CHECK_ENABLED = True
 if SERVER_MODE == False:
     SQLITE_PATH = os.path.join(
         DATA_DIR,
-        'pgadmin4-desktop.db'
+        'pgadmin-desktop.db'
     )
 else:
     SQLITE_PATH = os.path.join(
         DATA_DIR,
-        'pgadmin4-server.db'
+        'pgadmin-server.db'
     )

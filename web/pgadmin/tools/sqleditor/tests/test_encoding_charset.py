@@ -10,7 +10,7 @@ import secrets
 
 class TestEncodingCharset(BaseTestGenerator):
     """
-    This class validates character support in pgAdmin4 for
+    This class validates character support in pgAdmin for
     different PostgresDB encodings
     """
     scenarios = [

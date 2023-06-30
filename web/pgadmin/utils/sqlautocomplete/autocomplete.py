@@ -151,7 +151,7 @@ class SQLAutoComplete():
         self.extend_schemata(schema_names)
 
         # Below are the configurable options in pgcli which we don't have
-        # in pgAdmin4 at the moment. Setting the default value from the pgcli's
+        # in pgAdmin at the moment. Setting the default value from the pgcli's
         # config file.
         self.signature_arg_style = '{arg_name} {arg_type}'
         self.call_arg_style = '{arg_name: <{max_arg_len}} := {arg_default}'

@@ -5,7 +5,7 @@ Version 1.2
 Release date: 2017-02-10
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.1.
+of pgAdmin 1.1.
 
 Features
 ********
@@ -88,7 +88,7 @@ Bug fixes
 | `Issue #2032 <https://redmine.postgresql.org/issues/2032>`_ - Fix time formatting on dashboards
 | `Issue #2033 <https://redmine.postgresql.org/issues/2033>`_ - Show icons for unique and exclusion constraints in the dependency/dependents panels
 | `Issue #2045 <https://redmine.postgresql.org/issues/2045>`_ - Update copyright year on doc page
-| `Issue #2046 <https://redmine.postgresql.org/issues/2046>`_ - Fix error when setting up regression on Windows for pgadmin4
+| `Issue #2046 <https://redmine.postgresql.org/issues/2046>`_ - Fix error when setting up regression on Windows for pgadmin
 | `Issue #2047 <https://redmine.postgresql.org/issues/2047>`_ - Ensure dialogues cannot be moved under the navbar
 | `Issue #2061 <https://redmine.postgresql.org/issues/2061>`_ - Enable/disable NULLs and ASC/DESC options for index columns and exclusion constraints appropriately
 | `Issue #2065 <https://redmine.postgresql.org/issues/2065>`_ - Improve display of columns of exclusion contraints and foreign keys in the properties lists

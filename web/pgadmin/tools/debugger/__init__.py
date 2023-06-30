@@ -825,7 +825,7 @@ def initialize_target(debug_type, trans_id, sid, did,
     if not status:
         return debugger_version
 
-    # Add the debugger version information to pgadmin4 log file
+    # Add the debugger version information to pgadmin log file
     current_app.logger.debug("Debugger version is: %d", debugger_version)
 
     de_inst = DebuggerInstance(trans_id)

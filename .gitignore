@@ -22,7 +22,7 @@
 /win-temp
 _build
 /build-*
-pgadmin4.log
+pgadmin.log
 pkg/win32/installer.iss
 pkg/mac/codesign.confx
 pkg/mac/framework.conf
@@ -33,9 +33,9 @@ runtime/Makefile.Debug
 runtime/Makefile.Release
 runtime/moc_TrayIcon.cpp
 runtime/moc_Server.cpp
-runtime/pgAdmin4.app/
-runtime/pgAdmin4.pro.user*
-runtime/pgAdmin4_resource.rc
+runtime/pgAdmin.app/
+runtime/pgAdmin.pro.user*
+runtime/pgAdmin_resource.rc
 runtime/release/
 runtime/ui_BrowserWindow.h
 web/pgadmin/misc/themes/pgadmin.themes.json

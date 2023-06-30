@@ -4,7 +4,7 @@ Version 4.21
 
 Release date: 2020-04-30
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.20.
+This release contains a number of bug fixes and new features since the release of pgAdmin.20.
 
 New features
 ************
@@ -73,7 +73,7 @@ Bug fixes
 | `Issue #5351 <https://redmine.postgresql.org/issues/5351>`_ -  Fixed compilation warnings while building pgAdmin.
 | `Issue #5352 <https://redmine.postgresql.org/issues/5352>`_ -  Fixed the rightmost and bottom tooltip crop issues in the explain query plan.
 | `Issue #5356 <https://redmine.postgresql.org/issues/5356>`_ -  Fixed modified SQL issue while adding an exception in pgAgent job schedule.
-| `Issue #5361 <https://redmine.postgresql.org/issues/5361>`_ -  Fixes an issue where pgAdmin4 GUI does not display properly in IE 11.
+| `Issue #5361 <https://redmine.postgresql.org/issues/5361>`_ -  Fixes an issue where pgAdmin GUI does not display properly in IE 11.
 | `Issue #5362 <https://redmine.postgresql.org/issues/5362>`_ -  Fixed an issue where the identical packages and sequences visible as different in the schema diff tool.
 | `Issue #5366 <https://redmine.postgresql.org/issues/5366>`_ -  Added alert message to Reset Layout if any of the panels from Query Tool failed to load.
 | `Issue #5371 <https://redmine.postgresql.org/issues/5371>`_ -  Fixed tab key navigation for some dialogs.

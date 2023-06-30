@@ -4,11 +4,11 @@
 `User Interface`:index:
 ***********************
 
-pgAdmin 4 supports all PostgreSQL features, from writing simple SQL queries to
+pgAdmin supports all PostgreSQL features, from writing simple SQL queries to
 developing complex databases. It is designed to query an active database (in
 real-time), allowing you to stay current with modifications and implementations.
 
-Features of pgAdmin 4 include:
+Features of pgAdmin include:
 
 * auto-detection and support for objects discovered at run-time
 * a live SQL Query Tool with direct data editing
@@ -26,7 +26,7 @@ two panes: the *Object Explorer* tree control in the left pane, and a tabbed bro
 the right pane.
 
 .. image:: images/welcome.png
-    :alt: pgAdmin4 welcome page
+    :alt: pgAdmin welcome page
     :align: center
 
 Select an icon from the *Quick Links* panel on the *Dashboard* tab to:

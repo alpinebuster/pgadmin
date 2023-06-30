@@ -33,13 +33,13 @@ _setup_env() {
 
 _cleanup() {
     echo "Cleaning up the old environment and app..."
-    if test -f "${SOURCEDIR}/runtime/pgAdmin4"; then
-        rm -rf "${SOURCEDIR}/runtime/pgAdmin4"
+    if test -f "${SOURCEDIR}/runtime/pgAdmin"; then
+        rm -rf "${SOURCEDIR}/runtime/pgAdmin"
     fi
     if test -d "${BUILDROOT}"; then
         rm -rf "${BUILDROOT}"
     fi
-    rm -f "${DISTROOT}/pgadmin4"*".$1"
+    rm -f "${DISTROOT}/pgadmin"*".$1"
 }
 
 _setup_dirs() {
@@ -74,15 +74,15 @@ _create_python_virtualenv() {
     pip3 install --no-cache-dir --no-binary psycopg -r "${SOURCEDIR}/requirements.txt"
 
     # Fixup the paths in the venv activation scripts
-    sed -i 's/VIRTUAL_ENV=.*/VIRTUAL_ENV="\/usr\/pgadmin4\/venv"/g' venv/bin/activate
-    sed -i 's/setenv VIRTUAL_ENV .*/setenv VIRTUAL_ENV "\/usr\/pgadmin4\/venv"/g' venv/bin/activate.csh
-    sed -i 's/set -gx VIRTUAL_ENV .*/set -gx VIRTUAL_ENV "\/usr\/pgadmin4\/venv"/g' venv/bin/activate.fish
+    sed -i 's/VIRTUAL_ENV=.*/VIRTUAL_ENV="\/usr\/pgadmin\/venv"/g' venv/bin/activate
+    sed -i 's/setenv VIRTUAL_ENV .*/setenv VIRTUAL_ENV "\/usr\/pgadmin\/venv"/g' venv/bin/activate.csh
+    sed -i 's/set -gx VIRTUAL_ENV .*/set -gx VIRTUAL_ENV "\/usr\/pgadmin\/venv"/g' venv/bin/activate.fish
 
     # Remove __pycache__
     find . -name "__pycache__" -type d -print0 | xargs -0 rm -rf
 
     # Fixup hash bangs
-    sed -i 's/#!.*\/python3/#\!\/usr\/pgadmin4\/venv\/bin\/python3/g' venv/bin/*
+    sed -i 's/#!.*\/python3/#\!\/usr\/pgadmin\/venv\/bin\/python3/g' venv/bin/*
 
     # Figure out some paths for use when completing the venv
     # Use "python3" here as we want the venv path
@@ -180,18 +180,18 @@ _build_runtime() {
 
     # Create the icon
     mkdir -p "${DESKTOPROOT}/usr/share/icons/hicolor/128x128/apps/"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4-128x128.png" "${DESKTOPROOT}/usr/share/icons/hicolor/128x128/apps/${APP_NAME}.png"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin-128x128.png" "${DESKTOPROOT}/usr/share/icons/hicolor/128x128/apps/${APP_NAME}.png"
     mkdir -p "${DESKTOPROOT}/usr/share/icons/hicolor/64x64/apps/"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4-64x64.png" "${DESKTOPROOT}/usr/share/icons/hicolor/64x64/apps/${APP_NAME}.png"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin-64x64.png" "${DESKTOPROOT}/usr/share/icons/hicolor/64x64/apps/${APP_NAME}.png"
     mkdir -p "${DESKTOPROOT}/usr/share/icons/hicolor/48x48/apps/"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4-48x48.png" "${DESKTOPROOT}/usr/share/icons/hicolor/48x48/apps/${APP_NAME}.png"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin-48x48.png" "${DESKTOPROOT}/usr/share/icons/hicolor/48x48/apps/${APP_NAME}.png"
     mkdir -p "${DESKTOPROOT}/usr/share/icons/hicolor/32x32/apps/"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4-32x32.png" "${DESKTOPROOT}/usr/share/icons/hicolor/32x32/apps/${APP_NAME}.png"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin-32x32.png" "${DESKTOPROOT}/usr/share/icons/hicolor/32x32/apps/${APP_NAME}.png"
     mkdir -p "${DESKTOPROOT}/usr/share/icons/hicolor/16x16/apps/"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4-16x16.png" "${DESKTOPROOT}/usr/share/icons/hicolor/16x16/apps/${APP_NAME}.png"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin-16x16.png" "${DESKTOPROOT}/usr/share/icons/hicolor/16x16/apps/${APP_NAME}.png"
 
     mkdir -p "${DESKTOPROOT}/usr/share/applications"
-    cp "${SOURCEDIR}/pkg/linux/pgadmin4.desktop" "${DESKTOPROOT}/usr/share/applications"
+    cp "${SOURCEDIR}/pkg/linux/pgadmin.desktop" "${DESKTOPROOT}/usr/share/applications"
 }
 
 _build_docs() {
@@ -219,7 +219,7 @@ _copy_code() {
     cp -r "${SOURCEDIR}/web" "${SERVERROOT}/usr/${APP_NAME}/web/"
     cp "${SOURCEDIR}/pkg/linux/config_distro.py" "${SERVERROOT}/usr/${APP_NAME}/web/"
     cd "${SERVERROOT}/usr/${APP_NAME}/web/" || exit
-    rm -f pgadmin4.db config_local.*
+    rm -f pgadmin.db config_local.*
     rm -rf karma.conf.js package.json node_modules/ regression/ tools/ pgadmin/static/js/generated/.cache
     find . -name "tests" -type d -print0 | xargs -0 rm -rf
     find . -name "feature_tests" -type d -print0 | xargs -0 rm -rf

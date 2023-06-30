@@ -13,7 +13,7 @@ from regression.feature_utils.tree_area_locators import TreeAreaLocators
 
 class CheckForXssFeatureTest(BaseFeatureTest):
     """
-    Tests to check if pgAdmin4 is vulnerable to XSS.
+    Tests to check if pgAdmin is vulnerable to XSS.
 
     Here we will check html source code for escaped characters if we
     found them in the code then we are not vulnerable otherwise we might.

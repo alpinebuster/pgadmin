@@ -24,8 +24,8 @@ class ResetPasswordTestCase(BaseTestGenerator):
 
         # This test case validates the valid email id
         ('TestCase for Validating Valid_Email', dict(
-            email=config_data['pgAdmin4_login_credentials']
-            ['login_username'], respdata='pgAdmin 4'))
+            email=config_data['pgAdmin_login_credentials']
+            ['login_username'], respdata='pgAdmin'))
     ]
 
     @classmethod

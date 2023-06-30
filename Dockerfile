@@ -22,18 +22,18 @@ RUN apk add --no-cache \
     yarn \
     zlib-dev
 
-# Create the /pgadmin4 directory and copy the source into it. Explicitly
+# Create the /pgadmin directory and copy the source into it. Explicitly
 # remove the node_modules directory as we'll recreate a clean version, as well
 # as various other files we don't want
-COPY web /pgadmin4/web
-RUN rm -rf /pgadmin4/web/*.log \
-           /pgadmin4/web/config_*.py \
-           /pgadmin4/web/node_modules \
-           /pgadmin4/web/regression \
-           `find /pgadmin4/web -type d -name tests` \
-           `find /pgadmin4/web -type f -name .DS_Store`
+COPY web /pgadmin/web
+RUN rm -rf /pgadmin/web/*.log \
+           /pgadmin/web/config_*.py \
+           /pgadmin/web/node_modules \
+           /pgadmin/web/regression \
+           `find /pgadmin/web -type d -name tests` \
+           `find /pgadmin/web -type f -name .DS_Store`
 
-WORKDIR /pgadmin4/web
+WORKDIR /pgadmin/web
 
 # Build the JS vendor code in the app-builder, and then remove the vendor source.
 RUN export CPPFLAGS="-DPNG_ARM_NEON_OPT=0" && \
@@ -89,17 +89,17 @@ RUN /venv/bin/python3 -m pip install --no-cache-dir sphinxcontrib-youtube
 
 # Copy the docs from the local tree. Explicitly remove any existing builds that
 # may be present
-COPY docs /pgadmin4/docs
-COPY web /pgadmin4/web
-RUN rm -rf /pgadmin4/docs/en_US/_build
+COPY docs /pgadmin/docs
+COPY web /pgadmin/web
+RUN rm -rf /pgadmin/docs/en_US/_build
 
 # Build the docs
-RUN LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 /venv/bin/sphinx-build /pgadmin4/docs/en_US /pgadmin4/docs/en_US/_build/html
+RUN LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 /venv/bin/sphinx-build /pgadmin/docs/en_US /pgadmin/docs/en_US/_build/html
 
 # Cleanup unwanted files
-RUN rm -rf /pgadmin4/docs/en_US/_build/html/.doctrees
-RUN rm -rf /pgadmin4/docs/en_US/_build/html/_sources
-RUN rm -rf /pgadmin4/docs/en_US/_build/html/_static/*.png
+RUN rm -rf /pgadmin/docs/en_US/_build/html/.doctrees
+RUN rm -rf /pgadmin/docs/en_US/_build/html/_sources
+RUN rm -rf /pgadmin/docs/en_US/_build/html/_static/*.png
 
 #########################################################################
 # Create additional builders to get all of the PostgreSQL utilities
@@ -160,19 +160,19 @@ COPY --from=pg15-builder /usr/local/lib/libpq.so.5.15 /usr/lib/
 RUN ln -s libpq.so.5.15 /usr/lib/libpq.so.5 && \
     ln -s libpq.so.5.15 /usr/lib/libpq.so
 
-WORKDIR /pgadmin4
-ENV PYTHONPATH=/pgadmin4
+WORKDIR /pgadmin
+ENV PYTHONPATH=/pgadmin
 
 # Copy in the code and docs
-COPY --from=app-builder /pgadmin4/web /pgadmin4
-COPY --from=docs-builder /pgadmin4/docs/en_US/_build/html/ /pgadmin4/docs
-COPY pkg/docker/run_pgadmin.py /pgadmin4
-COPY pkg/docker/gunicorn_config.py /pgadmin4
+COPY --from=app-builder /pgadmin/web /pgadmin
+COPY --from=docs-builder /pgadmin/docs/en_US/_build/html/ /pgadmin/docs
+COPY pkg/docker/run_pgadmin.py /pgadmin
+COPY pkg/docker/gunicorn_config.py /pgadmin
 COPY pkg/docker/entrypoint.sh /entrypoint.sh
 
 # License files
-COPY LICENSE /pgadmin4/LICENSE
-COPY DEPENDENCIES /pgadmin4/DEPENDENCIES
+COPY LICENSE /pgadmin/LICENSE
+COPY DEPENDENCIES /pgadmin/DEPENDENCIES
 
 # Install runtime dependencies and configure everything in one RUN step
 RUN apk add \
@@ -192,9 +192,9 @@ RUN apk add \
     mkdir -p /var/lib/pgadmin && \
     chown pgadmin:root /var/lib/pgadmin && \
     chmod g=u /var/lib/pgadmin && \
-    touch /pgadmin4/config_distro.py && \
-    chown pgadmin:root /pgadmin4/config_distro.py && \
-    chmod g=u /pgadmin4/config_distro.py && \
+    touch /pgadmin/config_distro.py && \
+    chown pgadmin:root /pgadmin/config_distro.py && \
+    chmod g=u /pgadmin/config_distro.py && \
     chmod g=u /etc/passwd && \
     setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/python3.11 && \
     echo "pgadmin ALL = NOPASSWD: /usr/sbin/postfix start" > /etc/sudoers.d/postfix && \

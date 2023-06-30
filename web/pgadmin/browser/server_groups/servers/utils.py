@@ -208,7 +208,7 @@ def validate_options(options, option_name, option_value):
 
 
 def _password_check(server, manager, old_key, new_key):
-    # Check if old password was stored in pgadmin4 sqlite database.
+    # Check if old password was stored in pgadmin sqlite database.
     # If yes then update that password.
     if server.password is not None:
         password = decrypt(server.password, old_key)

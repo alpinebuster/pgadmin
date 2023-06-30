@@ -5,7 +5,7 @@ Version 1.3
 Release date: 2017-03-10
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.2.
+of pgAdmin 1.2.
 
 Features
 ********
@@ -40,7 +40,7 @@ Bug fixes
 | `Issue #2200 <https://redmine.postgresql.org/issues/2200>`_ - Properly handle event trigger functions in different schemas
 | `Issue #2201 <https://redmine.postgresql.org/issues/2201>`_ - Fix renaming of check constraints when the table name is changed at the same time
 | `Issue #2202 <https://redmine.postgresql.org/issues/2202>`_ - Fix issue where Dependents query fails due to non ascii characters
-| `Issue #2204 <https://redmine.postgresql.org/issues/2204>`_ - Fixed issue where pgadmin 4 jobs not showing any activity
+| `Issue #2204 <https://redmine.postgresql.org/issues/2204>`_ - Fixed issue where pgadmin  jobs not showing any activity
 | `Issue #2205 <https://redmine.postgresql.org/issues/2205>`_ - Fix display of boolean nulls in the Query Tool
 | `Issue #2208 <https://redmine.postgresql.org/issues/2208>`_ - Ensure primary key column names are quoted in View Data mode of the Query Tool
 | `Issue #2212 <https://redmine.postgresql.org/issues/2212>`_ - Ensure servers are deleted when their parent group is deleted

@@ -85,7 +85,7 @@ def setup_db(app):
 
     create_app_data_directory(config)
 
-    print("pgAdmin 4 - Application Initialisation")
+    print("pgAdmin - Application Initialisation")
     print("======================================\n")
 
     def run_migration_for_sqlite():

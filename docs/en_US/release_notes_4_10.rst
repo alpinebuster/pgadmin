@@ -4,13 +4,13 @@ Version 4.10
 
 Release date: 2019-07-04
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.9.
+This release contains a number of bug fixes and new features since the release of pgAdmin.9.
 
 New features
 ************
 
 | `Issue #4139 <https://redmine.postgresql.org/issues/4139>`_ -  Allow some objects to be dragged/dropped into the Query Tool to insert their signature into the query text.
-| `Issue #4400 <https://redmine.postgresql.org/issues/4400>`_ -  Allow the path to /pgadmin4/servers.json to be overridden in the container distribution.
+| `Issue #4400 <https://redmine.postgresql.org/issues/4400>`_ -  Allow the path to /pgadmin/servers.json to be overridden in the container distribution.
 
 Bug fixes
 *********

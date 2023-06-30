@@ -30,7 +30,7 @@ def create_app_data_directory(config):
             "HINT :   Create the directory {}, ensure it is writeable by\n"
             "         '{}', and try again, or, create a config_local.py file\n"
             "         and override the SQLITE_PATH setting per\n"
-            "         https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+            "         https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
             format(
                 os.path.dirname(config.SQLITE_PATH),
                 getpass.getuser(),
@@ -61,7 +61,7 @@ def create_app_data_directory(config):
             "HINT   : Create the directory {}, ensure it is writeable by\n"
             "         '{}', and try again, or, create a config_local.py file\n"
             "         and override the LOG_FILE setting per\n"
-            "         https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+            "         https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
             format(
                 os.path.dirname(config.LOG_FILE),
                 getpass.getuser(),
@@ -78,7 +78,7 @@ def create_app_data_directory(config):
             "HINT   : Create the directory {}, ensure it is writeable by\n"
             "         '{}', and try again, or, create a config_local.py file\n"
             "         and override the SESSION_DB_PATH setting per\n"
-            "         https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+            "         https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
             format(
                 config.SESSION_DB_PATH,
                 getpass.getuser(),
@@ -97,7 +97,7 @@ def create_app_data_directory(config):
             "HINT   : Create the directory {}, ensure it is writable by\n"
             "         '{}', and try again, or, create a config_local.py file\n"
             "         and override the STORAGE_DIR setting per\n"
-            "         https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+            "         https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
             format(
                 config.STORAGE_DIR,
                 getpass.getuser(),
@@ -113,7 +113,7 @@ def create_app_data_directory(config):
             "HINT   : Create the directory {}, ensure it is writable by\n"
             "'{}', and try again, or, create a config_local.py file\n"
             " and override the AZURE_CREDENTIAL_CACHE_DIR setting per\n"
-            " https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+            " https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
             format(
                 config.AZURE_CREDENTIAL_CACHE_DIR,
                 getpass.getuser(),
@@ -130,7 +130,7 @@ def create_app_data_directory(config):
                 "HINT   : Create the directory {}, ensure it is writable by\n"
                 "'{}', and try again, or, create a config_local.py file\n"
                 " and override the KERBEROS_CCACHE_DIR setting per\n"
-                " https://www.pgadmin.org/docs/pgadmin4/{}/config_py.html".
+                " https://www.pgadmin.org/docs/pgadmin/{}/config_py.html".
                 format(
                     config.KERBEROS_CCACHE_DIR,
                     getpass.getuser(),

@@ -32,7 +32,7 @@ function saveConfiguration() {
 
   document.getElementById('status-text').innerHTML = 'Configuration Saved';
 
-  if (confirm('pgAdmin 4 must be restarted for changes to take effect.\n\n Do you want to quit the application?') === true) {
+  if (confirm('pgAdmin must be restarted for changes to take effect.\n\n Do you want to quit the application?') === true) {
     misc.cleanupAndQuitApp();
   }
   configWindow.close();

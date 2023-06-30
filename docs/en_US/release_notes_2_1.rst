@@ -5,7 +5,7 @@ Version 2.1
 Release date: 2018-01-11
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 2.0
+of pgAdmin 2.0
 
 
 Features

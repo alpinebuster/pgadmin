@@ -5,7 +5,7 @@ Version 2.0
 Release date: 2017-10-05
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.6
+of pgAdmin 1.6
 
 
 Features
@@ -34,7 +34,7 @@ Bug fixes
 | `Issue #2170 <https://redmine.postgresql.org/issues/2170>`_ - Support SSL in the regression tests
 | `Issue #2324 <https://redmine.postgresql.org/issues/2324>`_ - Fix PostGIS Datatypes in SQL tab, Create / Update dialogues for Table, Column, Foreign Table and Type node
 | `Issue #2447 <https://redmine.postgresql.org/issues/2447>`_ - Update CodeMirror version
-| `Issue #2452 <https://redmine.postgresql.org/issues/2452>`_ - Install pgadmin4-v1 1.5 on Centos7
+| `Issue #2452 <https://redmine.postgresql.org/issues/2452>`_ - Install pgadmin-v1 1.5 on Centos7
 | `Issue #2501 <https://redmine.postgresql.org/issues/2501>`_ - Fix collation tests on Windows, replace use of default 'POSIX' collation with 'C' collation for testing
 | `Issue #2541 <https://redmine.postgresql.org/issues/2541>`_ - Fix issues using special keys on MacOS
 | `Issue #2544 <https://redmine.postgresql.org/issues/2544>`_ - Correct malformed query generated when using custom type
@@ -78,13 +78,13 @@ Bug fixes
 | `Issue #2671 <https://redmine.postgresql.org/issues/2671>`_ - Fix array data type formating for bigint, real, float, double precision
 | `Issue #2681 <https://redmine.postgresql.org/issues/2681>`_ - Reset Query Tool options before running tests
 | `Issue #2684 <https://redmine.postgresql.org/issues/2684>`_ - Fix layout of password prompt dialogue
-| `Issue #2691 <https://redmine.postgresql.org/issues/2691>`_ - View data option is missing from pgAdmin4 2.0 version
-| `Issue #2692 <https://redmine.postgresql.org/issues/2692>`_ - Base type is missing for Domain on pgAdmin4
-| `Issue #2693 <https://redmine.postgresql.org/issues/2693>`_ - User list is not available on User mapping pgAdmin4
+| `Issue #2691 <https://redmine.postgresql.org/issues/2691>`_ - View data option is missing from pgAdmin 2.0 version
+| `Issue #2692 <https://redmine.postgresql.org/issues/2692>`_ - Base type is missing for Domain on pgAdmin
+| `Issue #2693 <https://redmine.postgresql.org/issues/2693>`_ - User list is not available on User mapping pgAdmin
 | `Issue #2698 <https://redmine.postgresql.org/issues/2698>`_ - User can not create function due to missing return type
-| `Issue #2699 <https://redmine.postgresql.org/issues/2699>`_ - Filtered Rows issue on pgAdmin4
+| `Issue #2699 <https://redmine.postgresql.org/issues/2699>`_ - Filtered Rows issue on pgAdmin
 | `Issue #2700 <https://redmine.postgresql.org/issues/2700>`_ - Cancel button is visible after query executed succesfully
-| `Issue #2707 <https://redmine.postgresql.org/issues/2707>`_ - Disable trigger button does not work on pgAdmin4
+| `Issue #2707 <https://redmine.postgresql.org/issues/2707>`_ - Disable trigger button does not work on pgAdmin
 | `Issue #2708 <https://redmine.postgresql.org/issues/2708>`_ - Tablespace name should displayed instead of %s(new_tablespace)s with Move Objects to another tablespace
 | `Issue #2709 <https://redmine.postgresql.org/issues/2709>`_ - Display user relations in schema prefixed by 'pg'
 | `Issue #2713 <https://redmine.postgresql.org/issues/2713>`_ - Fix an exception seen sometimes when the server is restarted

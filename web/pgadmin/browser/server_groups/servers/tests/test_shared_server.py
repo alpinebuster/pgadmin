@@ -10,7 +10,7 @@ import config
 
 test_user_details = None
 if config.SERVER_MODE:
-    test_user_details = config_data['pgAdmin4_test_non_admin_credentials']
+    test_user_details = config_data['pgAdmin_test_non_admin_credentials']
 
 
 class SharedServersGetTestCase(BaseTestGenerator):

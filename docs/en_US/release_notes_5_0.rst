@@ -4,14 +4,14 @@ Version 5.0
 
 Release date: 2021-02-25
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.30.
+This release contains a number of bug fixes and new features since the release of pgAdmin.30.
 
 New features
 ************
 
 | `Issue #5091 <https://redmine.postgresql.org/issues/5091>`_ -  Make Statistics, Dependencies, Dependants tabs closable and the user can add them back using the 'Add panel' option.
 | `Issue #5912 <https://redmine.postgresql.org/issues/5912>`_ -  Added support for Logical Replication.
-| `Issue #5967 <https://redmine.postgresql.org/issues/5967>`_ -  Implemented runtime using NWjs to open pgAdmin4 in a standalone window instead of the system tray and web browser.
+| `Issue #5967 <https://redmine.postgresql.org/issues/5967>`_ -  Implemented runtime using NWjs to open pgAdmin in a standalone window instead of the system tray and web browser.
 | `Issue #6148 <https://redmine.postgresql.org/issues/6148>`_ -  Added Quick Search functionality for menu items and help articles.
 | `Issue #6153 <https://redmine.postgresql.org/issues/6153>`_ -  Added publication and subscription support in Schema Diff.
 | `Issue #6170 <https://redmine.postgresql.org/issues/6170>`_ -  Ensure logs are not stored in the container, and only sent to the console.
@@ -19,7 +19,7 @@ New features
 Housekeeping
 ************
 
-| `Issue #5017 <https://redmine.postgresql.org/issues/5017>`_ -  Use cheroot as the default production server for pgAdmin4.
+| `Issue #5017 <https://redmine.postgresql.org/issues/5017>`_ -  Use cheroot as the default production server for pgAdmin.
 | `Issue #6145 <https://redmine.postgresql.org/issues/6145>`_ -  Documentation of Logical Replication.
 | `Issue #6195 <https://redmine.postgresql.org/issues/6195>`_ -  Documentation of runtime with NWjs.
 | `Issue #6196 <https://redmine.postgresql.org/issues/6196>`_ -  Documentation of Quick Search support.

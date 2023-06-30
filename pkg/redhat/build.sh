@@ -68,9 +68,9 @@ Requires:	${PYTHON_BINARY}, libpq5, krb5-libs
 The core server package for pgAdmin. pgAdmin is the most popular and feature rich Open Source administration and development platform for PostgreSQL, the most advanced Open Source database in the world.
 
 %pre
-rm -rf /usr/pgadmin4/venv
-if [ -d /usr/pgadmin4/web ]; then
-  cd /usr/pgadmin4/web && rm -rf \$(ls -A -I config_local.py)
+rm -rf /usr/pgadmin/venv
+if [ -d /usr/pgadmin/web ]; then
+  cd /usr/pgadmin/web && rm -rf \$(ls -A -I config_local.py)
 fi
 
 %build
@@ -79,7 +79,7 @@ fi
 cp -rfa %{pga_build_root}/server/* \${RPM_BUILD_ROOT}
 
 %files
-/usr/pgadmin4/*
+/usr/pgadmin/*
 EOF
 
 # Build the Redhat package for the server
@@ -120,7 +120,7 @@ cp -rfa %{pga_build_root}/desktop/* \${RPM_BUILD_ROOT}
 /bin/xdg-icon-resource forceupdate
 
 %files
-/usr/pgadmin4/bin/*
+/usr/pgadmin/bin/*
 /usr/share/icons/hicolor/128x128/apps/*
 /usr/share/icons/hicolor/64x64/apps/*
 /usr/share/icons/hicolor/48x48/apps/*
@@ -166,12 +166,12 @@ The web interface for pgAdmin, hosted under Apache HTTPD. pgAdmin is the most po
 cp -rfa %{pga_build_root}/web/* \${RPM_BUILD_ROOT}
 
 %files
-/usr/pgadmin4/bin/*
+/usr/pgadmin/bin/*
 %config(noreplace) /etc/httpd/conf.d/*
 EOF
 
 mkdir -p "${WEBROOT}/etc/httpd/conf.d"
-cp "${SOURCEDIR}/pkg/redhat/pgadmin4.conf" "${WEBROOT}/etc/httpd/conf.d"
+cp "${SOURCEDIR}/pkg/redhat/pgadmin.conf" "${WEBROOT}/etc/httpd/conf.d"
 
 # Build the Redhat package for the web
 rpmbuild --define "pga_build_root ${BUILDROOT}" -bb "${BUILDROOT}/web.spec"

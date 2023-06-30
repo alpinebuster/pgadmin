@@ -8,7 +8,7 @@ from selenium.common.exceptions import WebDriverException
 
 
 class AppStarter:
-    """ Helper for starting the full pgadmin4 app and loading the page via
+    """ Helper for starting the full pgadmin app and loading the page via
     selenium
     """
 
@@ -27,7 +27,7 @@ class AppStarter:
 
         # Add OS check for pass value for 'preexec_fn'
         self.pgadmin_process = subprocess.Popen(
-            ["python", "pgAdmin4.py"],
+            ["python", "pgAdmin.py"],
             shell=False,
             preexec_fn=None if os.name == 'nt' else os.setsid,
             stderr=open(os.devnull, 'w'),

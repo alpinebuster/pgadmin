@@ -7,7 +7,7 @@ import config
 
 test_user_details = None
 if config.SERVER_MODE:
-    test_user_details = config_data['pgAdmin4_test_non_admin_credentials']
+    test_user_details = config_data['pgAdmin_test_non_admin_credentials']
 
 CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 with open(CURRENT_PATH + "/preferences_test_data.json") as data_file:

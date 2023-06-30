@@ -35,5 +35,5 @@ jobs:
       - name: Archive source tarball
         uses: actions/upload-artifact@v3
         with:
-          name: pgadmin4-tarball-build-output
+          name: pgadmin-tarball-build-output
           path: dist/*

@@ -5,7 +5,7 @@ Version 3.3
 Release date: 2018-09-06
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 3.2
+of pgAdmin 3.2
 
 
 Features

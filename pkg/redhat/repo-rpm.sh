@@ -6,8 +6,8 @@ REPO_RPM_BUILD=1
 
 # Set the repo base directory
 if [ "${PGADMIN_REPO_DIR}" == "" ]; then
-    echo "PGADMIN_REPO_DIR not set. Setting it to the default: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/repos/yum"
-    export PGADMIN_REPO_DIR=https://ftp.postgresql.org/pub/pgadmin/pgadmin4/repos/yum
+    echo "PGADMIN_REPO_DIR not set. Setting it to the default: https://ftp.postgresql.org/pub/pgadmin/pgadmin/repos/yum"
+    export PGADMIN_REPO_DIR=https://ftp.postgresql.org/pub/pgadmin/pgadmin/repos/yum
 fi
 
 # Exit when any command fails
@@ -43,9 +43,9 @@ _create_repo_rpm() {
     echo "Creating the repo package for ${DISTRO}..."
     test -d "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d" || mkdir -p "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d"
 
-    cat << EOF > "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin4.repo"
-[pgAdmin4]
-name=pgadmin4
+    cat << EOF > "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin.repo"
+[pgAdmin]
+name=pgadmin
 baseurl=${PGADMIN_REPO_DIR}/${DISTRO}/${PLATFORM}-\$releasever-\$basearch
 enabled=1
 EOF
@@ -55,9 +55,9 @@ EOF
             echo repo_gpgcheck=1
             echo gpgcheck=1
             echo gpgkey=file:///etc/pki/rpm-gpg/PGADMIN_PKG_KEY
-        } >> "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin4.repo"
+        } >> "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin.repo"
     else
-        echo gpgcheck=0 >> "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin4.repo"
+        echo gpgcheck=0 >> "${BUILDROOT}/${DISTRO}-repo/etc/yum.repos.d/pgadmin.repo"
     fi
 
     echo "Creating the spec file for ${DISTRO}..."
@@ -82,7 +82,7 @@ The yum repository configuration for ${DISTRO^} platforms.
 cp -rfa %{pga_build_root}/${DISTRO}-repo/* \${RPM_BUILD_ROOT}
 
 %files
-/etc/yum.repos.d/pgadmin4.repo
+/etc/yum.repos.d/pgadmin.repo
 EOF
 
     if [ ${INCLUDE_KEY} -eq 1 ]; then

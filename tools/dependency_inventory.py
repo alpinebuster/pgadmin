@@ -177,10 +177,10 @@ def get_js_deps(is_runtime=False, hardcoded_deps=0):
 
 
 def dump_header():
-    print_title("pgAdmin 4 Dependency Inventory")
+    print_title("pgAdmin Dependency Inventory")
 
     print(textwrap.fill(
-        "pgAdmin 4 is built on Python, Javascript and NW.js (node-webkit), "
+        "pgAdmin is built on Python, Javascript and NW.js (node-webkit), "
         "and is dependent on various third party libraries. These are "
         "automatically compiled from the system, requirements.txt "
         "and packages.json and listed below.",

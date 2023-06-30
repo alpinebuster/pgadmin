@@ -5,7 +5,7 @@ Version 4.4
 Release date: 2019-04-04
 
 This release contains a number of new features and fixes reported since the
-release of pgAdmin4 4.3.
+release of pgAdmin.3.
 
 .. warning:: This release includes a bug fix
     (`Issue #3887 <https://redmine.postgresql.org/issues/3887>`_) which will
@@ -14,17 +14,17 @@ release of pgAdmin4 4.3.
     *STORAGE_DIR* in a sub-directory named after the username part of the user's
     email address. From this version onwards, the full email address is used,
     with the @ replaced with an underscore. For example, in v.4.3 with
-    *STORAGE_DIR* set to */var/lib/pgadmin4* user files may be stored in:
+    *STORAGE_DIR* set to */var/lib/pgadmin* user files may be stored in:
 
     .. code-block:: bash
 
-        /var/lib/pgadmin4/storage/username/
+        /var/lib/pgadmin/storage/username/
 
     With the fix, that directory will be renamed (or created for new users) as:
 
     .. code-block:: bash
 
-        /var/lib/pgadmin4/storage/username_example.com/
+        /var/lib/pgadmin/storage/username_example.com/
 
 Features
 ********

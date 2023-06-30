@@ -11,7 +11,7 @@ Source Initiative. The copyright for the project source code, website and
 documentation is attributed to the
 `pgAdmin Development Team <https://www.pgadmin.org/development/team/>`_
 
-.. topic:: pgAdmin 4
+.. topic:: pgAdmin
 
     Copyright (C) 2013 - 2023, The pgAdmin Development Team
 

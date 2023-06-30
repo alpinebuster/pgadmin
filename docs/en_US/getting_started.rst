@@ -4,7 +4,7 @@
 `Getting Started`:index:
 ************************
 
-Pre-compiled and configured installation packages for pgAdmin 4 are available
+Pre-compiled and configured installation packages for pgAdmin are available
 for a number of desktop environments; we recommend using an installer
 whenever possible.
 
@@ -49,7 +49,7 @@ Mode is pre-configured for security.
      possible - the following information is useful for the maintainers of those
      packages and users interested in understanding how pgAdmin works.
 
-The pgAdmin 4 client features a highly-customizable display that features
+The pgAdmin client features a highly-customizable display that features
 drag-and-drop panels that you can arrange to make the best use of your desktop
 environment.
 

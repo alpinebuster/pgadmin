@@ -1,4 +1,4 @@
-"""This is the main application entry point for pgAdmin 4. If running on
+"""This is the main application entry point for pgAdmin. If running on
 a webserver, this will provide the WSGI interface, otherwise, we're going
 to start a web server."""
 

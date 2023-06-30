@@ -5,7 +5,7 @@ Version 4.0
 Release date: 2019-01-10
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 3.6
+of pgAdmin 3.6
 
 
 Features

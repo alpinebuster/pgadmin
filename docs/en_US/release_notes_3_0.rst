@@ -5,7 +5,7 @@ Version 3.0
 Release date: 2018-03-22
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 2.1
+of pgAdmin 2.1
 
 
 Features
@@ -51,7 +51,7 @@ Bug fixes
 | `Issue #2480 <https://redmine.postgresql.org/issues/2480>`_ - Runtime update fix to Context Menus on Mac that do not work
 | `Issue #2578 <https://redmine.postgresql.org/issues/2578>`_ - Runtime update fix to HTML access keys that don't work
 | `Issue #2581 <https://redmine.postgresql.org/issues/2581>`_ - Fix keyboard shortcut for text selection
-| `Issue #2677 <https://redmine.postgresql.org/issues/2677>`_ - Update Elephant icon for pgAdmin4 on Windows
+| `Issue #2677 <https://redmine.postgresql.org/issues/2677>`_ - Update Elephant icon for pgAdmin on Windows
 | `Issue #2776 <https://redmine.postgresql.org/issues/2776>`_ - Fix unreadable font via Remote Desktop
 | `Issue #2777 <https://redmine.postgresql.org/issues/2777>`_ - Fix spacing issue on server tree
 | `Issue #2783 <https://redmine.postgresql.org/issues/2783>`_ - Runtime update fixed blank screen on Windows Desktop
@@ -63,10 +63,10 @@ Bug fixes
 | `Issue #2983 <https://redmine.postgresql.org/issues/2983>`_ - Fix intermittent specified_version_number ValueError issue on restart
 | `Issue #2985 <https://redmine.postgresql.org/issues/2985>`_ - Fix drag and drop issues
 | `Issue #2998 <https://redmine.postgresql.org/issues/2998>`_ - Don't listen on port 443 if TLS is not enabled when launching the container
-| `Issue #3001 <https://redmine.postgresql.org/issues/3001>`_ - Runtime update fix scrolling with mouse wheel on mac pgAdmin 4.2.1
+| `Issue #3001 <https://redmine.postgresql.org/issues/3001>`_ - Runtime update fix scrolling with mouse wheel on mac pgAdmin.2.1
 | `Issue #3002 <https://redmine.postgresql.org/issues/3002>`_ - Fix block indent/outdent with configurable width
 | `Issue #3003 <https://redmine.postgresql.org/issues/3003>`_ - Runtime update fix copy to clipboard
-| `Issue #3005 <https://redmine.postgresql.org/issues/3005>`_ - Runtime update fix unable to select tabs in pgAdmin 4.2.1
+| `Issue #3005 <https://redmine.postgresql.org/issues/3005>`_ - Runtime update fix unable to select tabs in pgAdmin.2.1
 | `Issue #3013 <https://redmine.postgresql.org/issues/3013>`_ - Fix a minor UI issue on dashboard while displaying subnode control in Backgrid
 | `Issue #3014 <https://redmine.postgresql.org/issues/3014>`_ - Fix validation of sequence parameters
 | `Issue #3015 <https://redmine.postgresql.org/issues/3015>`_ - Support Properties on Greenplum databases

@@ -4,7 +4,7 @@ Version 6.0
 
 Release date: 2021-10-07
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 5.7.
+This release contains a number of bug fixes and new features since the release of pgAdmin 5.7.
 
 New features
 ************

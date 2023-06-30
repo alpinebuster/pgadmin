@@ -57,7 +57,7 @@ jobs:
         run: |
           FOR /f "delims=" %%F IN ('python tools\get_sb_package.py "${{ secrets.EDB_SBP_URL }}" "edb_as${{ matrix.pgver }}_dbserver" "windows-x64"') DO SET INSTALLER_EXE=%%F
           ECHO Running %INSTALLER_EXE%...
-          %INSTALLER_EXE% --prefix C:\EPAS\${{ matrix.pgver }} --datadir C:\EPAS\${{ matrix.pgver }}\data --serverport 58${{ matrix.pgver }} --superpassword enterprisedb --create_samples no --install_runtimes 0 --mode unattended --unattendedmodeui none --disable-components stackbuilderplus${{ matrix.pgver < 15 && ',pgadmin4' || '' }}
+          %INSTALLER_EXE% --prefix C:\EPAS\${{ matrix.pgver }} --datadir C:\EPAS\${{ matrix.pgver }}\data --serverport 58${{ matrix.pgver }} --superpassword enterprisedb --create_samples no --install_runtimes 0 --mode unattended --unattendedmodeui none --disable-components stackbuilderplus${{ matrix.pgver < 15 && ',pgadmin' || '' }}
           
           choco install -y mitkerberos
           
@@ -130,27 +130,27 @@ jobs:
           
           UPGRADE_CHECK_ENABLED = False
           
-          LOG_FILE = "$(pwd)/var/pgadmin4.log"
+          LOG_FILE = "$(pwd)/var/pgadmin.log"
           SESSION_DB_PATH = "$(pwd)/var/sessions"
           STORAGE_DIR = "$(pwd)/var/storage"
-          SQLITE_PATH = "$(pwd)/var/pgadmin4.db"
-          TEST_SQLITE_PATH = "$(pwd)/var/pgadmin4.db"
+          SQLITE_PATH = "$(pwd)/var/pgadmin.db"
+          TEST_SQLITE_PATH = "$(pwd)/var/pgadmin.db"
           AZURE_CREDENTIAL_CACHE_DIR = "$(pwd)/var/azurecredentialcache"
           EOF
           
           cat <<EOF > web/regression/test_config.json
           {
-            "pgAdmin4_login_credentials": {
+            "pgAdmin_login_credentials": {
               "new_password": "NEWPASSWORD",
               "login_password": "PASSWORD",
               "login_username": "USER@EXAMPLE.COM"
             },
-            "pgAdmin4_test_user_credentials": {
+            "pgAdmin_test_user_credentials": {
               "new_password": "NEWPASSWORD",
               "login_password": "PASSWORD",
               "login_username": "USER2@EXAMPLE.COM"
             },
-            "pgAdmin4_test_non_admin_credentials": {
+            "pgAdmin_test_non_admin_credentials": {
               "new_password": "NEWPASSWORD",
               "login_password": "PASSWORD",
               "login_username": "USER@EXAMPLE.COM"
@@ -204,27 +204,27 @@ jobs:
             @echo.
             @echo.UPGRADE_CHECK_ENABLED = False
             @echo.
-            @echo.LOG_FILE = "%WORKING_DIR%\\var\\pgadmin4.log"
+            @echo.LOG_FILE = "%WORKING_DIR%\\var\\pgadmin.log"
             @echo.SESSION_DB_PATH = "%WORKING_DIR%\\var\\sessions"
             @echo.STORAGE_DIR = "%WORKING_DIR%\\var\\storage"
-            @echo.SQLITE_PATH = "%WORKING_DIR%\\var\\pgadmin4.db"
-            @echo.TEST_SQLITE_PATH = "%WORKING_DIR%\\var\\test_pgadmin4.db"
+            @echo.SQLITE_PATH = "%WORKING_DIR%\\var\\pgadmin.db"
+            @echo.TEST_SQLITE_PATH = "%WORKING_DIR%\\var\\test_pgadmin.db"
             @echo.AZURE_CREDENTIAL_CACHE_DIR = "%WORKING_DIR%\\var\\azurecredentialcache"
           )
           
           > web\regression\test_config.json (
             @echo.{
-            @echo.  "pgAdmin4_login_credentials": {
+            @echo.  "pgAdmin_login_credentials": {
             @echo.    "new_password": "NEWPASSWORD",
             @echo.    "login_password": "PASSWORD",
             @echo.    "login_username": "USER@EXAMPLE.COM"
             @echo.  },
-            @echo.  "pgAdmin4_test_user_credentials": {
+            @echo.  "pgAdmin_test_user_credentials": {
             @echo.    "new_password": "NEWPASSWORD",
             @echo.    "login_password": "PASSWORD",
             @echo.    "login_username": "USER2@EXAMPLE.COM"
             @echo.  },
-            @echo.  "pgAdmin4_test_non_admin_credentials": {
+            @echo.  "pgAdmin_test_non_admin_credentials": {
             @echo.    "new_password": "NEWPASSWORD",
             @echo.    "login_password": "PASSWORD",
             @echo.    "login_username": "USER@EXAMPLE.COM"
@@ -275,7 +275,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: server-log-epas${{ matrix.pgver }}
-          path: var/pgadmin4.log
+          path: var/pgadmin.log
 
       - name: Archive regression log
         if: success() || failure()

@@ -413,7 +413,7 @@ class BatchProcess():
             # We've faced an issue with Windows 2008 R2 (x86) regarding,
             # not honouring the environment variables set under the Qt
             # (e.g. runtime), and also setting PYTHONHOME same as
-            # sys.executable (i.e. pgAdmin4.exe).
+            # sys.executable (i.e. pgAdmin.exe).
             #
             # As we know, we're running it under the runtime, we can assume
             # that 'venv' directory will be available outside of 'bin'

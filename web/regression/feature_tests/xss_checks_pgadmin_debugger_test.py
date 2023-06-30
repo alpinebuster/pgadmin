@@ -101,7 +101,7 @@ class CheckDebuggerForXssFeatureTest(BaseFeatureTest):
             )
 
             wait.until(EC.presence_of_element_located(
-                (By.XPATH, "//span[contains(.,'Hello, pgAdmin4')]"))
+                (By.XPATH, "//span[contains(.,'Hello, pgAdmin')]"))
             )
             self.page.click_element(
                 self.page.driver.find_elements(By.XPATH, "//button")[2]
@@ -109,7 +109,7 @@ class CheckDebuggerForXssFeatureTest(BaseFeatureTest):
 
             wait.until(EC.presence_of_element_located(
                 (By.XPATH, "//div[@id='id-results']//td "
-                           "[contains(.,'Hello, pgAdmin4')]"))
+                           "[contains(.,'Hello, pgAdmin')]"))
             )
 
             # Only this tab is vulnerable rest are Code Mirror

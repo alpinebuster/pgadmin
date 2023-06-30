@@ -42,7 +42,7 @@ for index, req in enumerate(all_requires):
 config = load_source('APP_VERSION', '../web/config.py')
 
 setup(
-    name='pgadmin4',
+    name='pgadmin',
 
     version=config.APP_VERSION,
 
@@ -73,9 +73,9 @@ setup(
         'Programming Language :: Python :: 3.11'
     ],
 
-    keywords='pgadmin4,postgresql,postgres',
+    keywords='pgadmin,postgresql,postgres',
 
-    packages=["pgadmin4"],
+    packages=["pgadmin"],
 
     include_package_data=True,
 
@@ -86,7 +86,7 @@ setup(
     },
 
     entry_points={
-        'console_scripts': ['pgadmin4=pgadmin4.pgAdmin4:main'],
+        'console_scripts': ['pgadmin=pgadmin.pgAdmin:main'],
     },
 
 )

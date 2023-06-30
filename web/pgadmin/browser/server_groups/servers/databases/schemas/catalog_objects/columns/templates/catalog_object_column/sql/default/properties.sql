@@ -9,14 +9,14 @@ SELECT
 	ns.nspname AS serschema,
 	(SELECT count(1) FROM pg_catalog.pg_type t2 WHERE t2.typname=ty.typname) > 1 AS isdup,
 	indkey, coll.collname, nspc.nspname as collnspname , attoptions,
-	-- Start pgAdmin4, added to save time on client side parsing
+	-- Start pgAdmin, added to save time on client side parsing
 	CASE WHEN length(coll.collname::text) > 0 AND length(nspc.nspname::text) > 0  THEN
 	  pg_catalog.concat(pg_catalog.quote_ident(nspc.nspname),'.',pg_catalog.quote_ident(coll.collname))
 	ELSE '' END AS collspcname,
 	CASE WHEN strpos(pg_catalog.format_type(ty.oid,att.atttypmod), '.') > 0 THEN
 	  pg_catalog.split_part(format_type(ty.oid,att.atttypmod), '.', 2)
 	ELSE pg_catalog.format_type(ty.oid,att.atttypmod) END AS cltype,
-	-- End pgAdmin4
+	-- End pgAdmin
 	EXISTS(SELECT 1 FROM pg_catalog.pg_constraint WHERE conrelid=att.attrelid AND contype='f' AND att.attnum=ANY(conkey)) As isfk,
 	(SELECT pg_catalog.array_agg(label) FROM pg_catalog.pg_seclabels sl1 WHERE sl1.objoid=att.attrelid AND sl1.objsubid=att.attnum) AS labels,
 	(SELECT pg_catalog.array_agg(provider) FROM pg_catalog.pg_seclabels sl2 WHERE sl2.objoid=att.attrelid AND sl2.objsubid=att.attnum) AS providers

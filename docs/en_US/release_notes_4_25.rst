@@ -4,7 +4,7 @@ Version 4.25
 
 Release date: 2020-08-20
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.24.
+This release contains a number of bug fixes and new features since the release of pgAdmin.24.
 
 New features
 ************

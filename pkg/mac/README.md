@@ -31,7 +31,7 @@ Either build the sources or get them from macports or similar:
    *notarization.conf* and set the values accordingly. Note that notarization
    will fail if the code isn't signed.
    
-4. To build, go to pgAdmin4 source root directory and execute:
+4. To build, go to pgAdmin source root directory and execute:
 
        make appbundle
        

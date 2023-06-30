@@ -25,7 +25,7 @@ or ``Gunicorn``, or under ``NGINX`` using using ``uWSGI`` or ``Gunicorn``.
 .. seealso:: For detailed instructions on building and configuring pgAdmin from
     scratch, please see the README file in the top level directory of the source code.
     For convenience, you can find the latest version of the file
-    `here <https://github.com/pgadmin-org/pgadmin4/blob/master/README.md>`_,
+    `here <https://github.com/pgadmin-org/pgadmin/blob/master/README.md>`_,
     but be aware that this may differ from the version included with the source code
     for a specific version of pgAdmin.
 
@@ -73,7 +73,7 @@ See :ref:`config_py` for more information on configuration settings.
 Python
 ------
 
-From pgAdmin 4 v2 onwards, server mode is the default configuration. If running under
+From pgAdmin v2 onwards, server mode is the default configuration. If running under
 the desktop runtime, this is overridden automatically. There should typically be no
 need to modify the configuration simply to enable server mode to work, however it may
 be desirable to adjust some of the paths used.
@@ -92,12 +92,12 @@ In order to configure the Python code, follow these steps:
 
    .. code-block:: python
 
-       LOG_FILE = '/var/log/pgadmin4/pgadmin4.log'
-       SQLITE_PATH = '/var/lib/pgadmin4/pgadmin4.db'
-       SESSION_DB_PATH = '/var/lib/pgadmin4/sessions'
-       STORAGE_DIR = '/var/lib/pgadmin4/storage'
-       AZURE_CREDENTIAL_CACHE_DIR = '/var/lib/pgadmin4/azurecredentialcache'
-       KERBEROS_CCACHE_DIR = '/var/lib/pgadmin4/kerberoscache'
+       LOG_FILE = '/var/log/pgadmin/pgadmin.log'
+       SQLITE_PATH = '/var/lib/pgadmin/pgadmin.db'
+       SESSION_DB_PATH = '/var/lib/pgadmin/sessions'
+       STORAGE_DIR = '/var/lib/pgadmin/storage'
+       AZURE_CREDENTIAL_CACHE_DIR = '/var/lib/pgadmin/azurecredentialcache'
+       KERBEROS_CCACHE_DIR = '/var/lib/pgadmin/kerberoscache'
 
 4. Run the following command to create the configuration database:
 
@@ -107,11 +107,11 @@ In order to configure the Python code, follow these steps:
 
 5. Change the ownership of the configuration database to the user that the web server
    processes will run as, for example, assuming that the web server runs as user
-   www-data in group www-data, and that the SQLite path is ``/var/lib/pgadmin4/pgadmin4.db``:
+   www-data in group www-data, and that the SQLite path is ``/var/lib/pgadmin/pgadmin.db``:
 
    .. code-block:: bash
 
-       # chown www-data:www-data /var/lib/pgadmin4/pgadmin4.db
+       # chown www-data:www-data /var/lib/pgadmin/pgadmin.db
 
 Hosting
 *******
@@ -129,22 +129,22 @@ application may be configured similarly to the example below:
 
     <VirtualHost *>
         ServerName pgadmin.example.com
-        WSGIScriptAlias / "C:\Program Files\pgAdmin4\web\pgAdmin4.wsgi"
-        <Directory "C:\Program Files\pgAdmin4\web">
+        WSGIScriptAlias / "C:\Program Files\pgAdmin\web\pgAdmin.wsgi"
+        <Directory "C:\Program Files\pgAdmin\web">
                 Order deny,allow
                 Allow from all
         </Directory>
     </VirtualHost>
 
-Now open the file ``C:\Program Files\pgAdmin4\web\pgAdmin4.wsgi`` with your favorite editor and add the code
+Now open the file ``C:\Program Files\pgAdmin\web\pgAdmin.wsgi`` with your favorite editor and add the code
 below which will activate Python virtual environment when Apache server runs.
 
 .. code-block:: python
 
-    activate_this = 'C:\Program Files\pgAdmin4\venv\Scripts\activate_this.py'
+    activate_this = 'C:\Program Files\pgAdmin\venv\Scripts\activate_this.py'
     exec(open(activate_this).read())
 
-**Note:** The changes made in ``pgAdmin4.wsgi`` file will revert when pgAdmin4 is either upgraded or downgraded.
+**Note:** The changes made in ``pgAdmin.wsgi`` file will revert when pgAdmin is either upgraded or downgraded.
     
 Apache HTTPD Configuration (Linux/Unix)
 ---------------------------------------
@@ -158,9 +158,9 @@ application may be configured similarly to the example below:
         ServerName pgadmin.example.com
 
         WSGIDaemonProcess pgadmin processes=1 threads=25 python-home=/path/to/python/virtualenv
-        WSGIScriptAlias / /opt/pgAdmin4/web/pgAdmin4.wsgi
+        WSGIScriptAlias / /opt/pgAdmin/web/pgAdmin.wsgi
 
-        <Directory /opt/pgAdmin4/web>
+        <Directory /opt/pgAdmin/web>
             WSGIProcessGroup pgadmin
             WSGIApplicationGroup %{GLOBAL}
             Order deny,allow
@@ -195,8 +195,8 @@ the Python Wheel (you may need to adjust the path to suit your installation):
     gunicorn  --bind 0.0.0.0:80 \
               --workers=1 \
               --threads=25 \
-              --chdir /usr/lib/python3.7/dist-packages/pgadmin4 \
-              pgAdmin4:app
+              --chdir /usr/lib/python3.7/dist-packages/pgadmin \
+              pgAdmin:app
 
 Standalone uWSGI Configuration
 ------------------------------
@@ -210,8 +210,8 @@ the Python Wheel (you may need to adjust the path to suit your installation):
     uwsgi --http-socket 0.0.0.0:80 \
           --processes 1 \
           --threads 25 \
-          --chdir /usr/lib/python3.7/dist-packages/pgadmin4/ \
-          --mount /=pgAdmin4:app
+          --chdir /usr/lib/python3.7/dist-packages/pgadmin/ \
+          --mount /=pgAdmin:app
 
 NGINX Configuration with Gunicorn
 ---------------------------------
@@ -225,11 +225,11 @@ command similar to:
 
 .. code-block:: bash
 
-    gunicorn --bind unix:/tmp/pgadmin4.sock \
+    gunicorn --bind unix:/tmp/pgadmin.sock \
              --workers=1 \
              --threads=25 \
-             --chdir /usr/lib/python3.7/dist-packages/pgadmin4 \
-             pgAdmin4:app
+             --chdir /usr/lib/python3.7/dist-packages/pgadmin \
+             pgAdmin:app
 
 And configure NGINX:
 
@@ -237,19 +237,19 @@ And configure NGINX:
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/tmp/pgadmin4.sock;
+        proxy_pass http://unix:/tmp/pgadmin.sock;
     }
 
-Alternatively, pgAdmin can be hosted in a sub-directory (/pgadmin4 in this case)
+Alternatively, pgAdmin can be hosted in a sub-directory (/pgadmin in this case)
 on the server. Start Gunicorn as when using the root directory, but configure
 NGINX as follows:
 
 .. code-block:: nginx
 
-    location /pgadmin4/ {
+    location /pgadmin/ {
         include proxy_params;
-        proxy_pass http://unix:/tmp/pgadmin4.sock;
-        proxy_set_header X-Script-Name /pgadmin4;
+        proxy_pass http://unix:/tmp/pgadmin.sock;
+        proxy_set_header X-Script-Name /pgadmin;
     }
 
 NGINX Configuration with uWSGI
@@ -264,45 +264,45 @@ command similar to:
 
 .. code-block:: bash
 
-    uwsgi --socket /tmp/pgadmin4.sock \
+    uwsgi --socket /tmp/pgadmin.sock \
           --processes 1 \
           --threads 25 \
-          --chdir /usr/lib/python3.7/dist-packages/pgadmin4/ \
+          --chdir /usr/lib/python3.7/dist-packages/pgadmin/ \
           --manage-script-name \
-          --mount /=pgAdmin4:app
+          --mount /=pgAdmin:app
 
 And configure NGINX:
 
 .. code-block:: nginx
 
-    location / { try_files $uri @pgadmin4; }
-    location @pgadmin4 {
+    location / { try_files $uri @pgadmin; }
+    location @pgadmin {
         include uwsgi_params;
-        uwsgi_pass unix:/tmp/pgadmin4.sock;
+        uwsgi_pass unix:/tmp/pgadmin.sock;
     }
 
-Alternatively, pgAdmin can be hosted in a sub-directory (/pgadmin4 in this case)
+Alternatively, pgAdmin can be hosted in a sub-directory (/pgadmin in this case)
 on the server. Start uWSGI, noting that the directory name is specified in the
 ``mount`` parameter:
 
 .. code-block:: bash
 
-    uwsgi --socket /tmp/pgadmin4.sock \
+    uwsgi --socket /tmp/pgadmin.sock \
           --processes 1 \
           --threads 25 \
-          --chdir /usr/lib/python3.7/dist-packages/pgadmin4/ \
+          --chdir /usr/lib/python3.7/dist-packages/pgadmin/ \
           --manage-script-name \
-          --mount /pgadmin4=pgAdmin4:app
+          --mount /pgadmin=pgAdmin:app
 
 Then, configure NGINX:
 
 .. code-block:: nginx
 
-    location = /pgadmin4 { rewrite ^ /pgadmin4/; }
-    location /pgadmin4 { try_files $uri @pgadmin4; }
-    location @pgadmin4 {
+    location = /pgadmin { rewrite ^ /pgadmin/; }
+    location /pgadmin { try_files $uri @pgadmin; }
+    location @pgadmin {
       include uwsgi_params;
-      uwsgi_pass unix:/tmp/pgadmin4.sock;
+      uwsgi_pass unix:/tmp/pgadmin.sock;
     }
 
 Additional Information

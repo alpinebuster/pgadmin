@@ -43,7 +43,7 @@ from pgadmin.utils.security_headers import SecurityHeaders
 from pgadmin.utils.constants import KERBEROS, OAUTH2, INTERNAL, LDAP, WEBSERVER
 
 # Explicitly set the mime-types so that a corrupted windows registry will not
-# affect pgAdmin 4 to be load properly. This will avoid the issues that may
+# affect pgAdmin to be load properly. This will avoid the issues that may
 # occur due to security fix of X_CONTENT_TYPE_OPTIONS = "nosniff".
 import mimetypes
 
@@ -115,7 +115,7 @@ class PgAdmin(Flask):
         #############################################################
         # To handle WSGI paths
         # If user has setup application under WSGI alias
-        # like 'localhost/pgadmin4' then we have to append '/pgadmin4'
+        # like 'localhost/pgadmin' then we have to append '/pgadmin'
         # into endpoints
         #############################################################
         wsgi_root_path = ''

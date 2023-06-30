@@ -29,19 +29,19 @@ or
 
 Four (or five) .rpm packages will be created in the dist/ directory:
 
-*pgadmin4-<version>.<distro>_noarch.rpm*
+*pgadmin-<version>.<distro>_noarch.rpm*
 
 A convenience package that depends on all the others.
 
-*pgadmin4-server-<version>.<distro>.<arch>.rpm*
+*pgadmin-server-<version>.<distro>.<arch>.rpm*
 
 The core server, e.g. the Python and JS code and the online documentation.
 
-*pgadmin4-desktop-<version>.<distro>.<arch>.rpm*
+*pgadmin-desktop-<version>.<distro>.<arch>.rpm*
 
 The desktop runtime. Requires the server package.
 
-*pgadmin4-web-<version>.<distro>.<arch>.rpm*
+*pgadmin-web-<version>.<distro>.<arch>.rpm*
 
 The server mode setup script for configuring Apache HTTPD. Requires the server 
 package.
@@ -97,17 +97,17 @@ tool over that directory. The pgAdmin repos use the following structure:
     <root>
       redhat/
         rhel-7-x86_64/
-          pgadmin4-4.21-1.el7.noarch.rpm
-          pgadmin4-desktop-4.21-1.el7.x86_64.rpm
-          pgadmin4-python3-mod_wsgi-4.7.1-2.el7.x86_64.rpm
-          pgadmin4-server-4.21-1.el7.x86_64.rpm
-          pgadmin4-web-4.21-1.el7.noarch.rpm
+          pgadmin-4.21-1.el7.noarch.rpm
+          pgadmin-desktop-4.21-1.el7.x86_64.rpm
+          pgadmin-python3-mod_wsgi-4.7.1-2.el7.x86_64.rpm
+          pgadmin-server-4.21-1.el7.x86_64.rpm
+          pgadmin-web-4.21-1.el7.noarch.rpm
         rhel-8-x86_64/
           <...>
       fedora/
         <...>
-      pgadmin4-fedora-repo-1-1.noarch.rpm
-      pgadmin4-redhat-repo-1-1.noarch.rpm
+      pgadmin-fedora-repo-1-1.noarch.rpm
+      pgadmin-redhat-repo-1-1.noarch.rpm
       README
 
 Note that only the first branches are shown above; other branches (e.g. for

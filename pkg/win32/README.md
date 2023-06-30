@@ -141,17 +141,17 @@ want to build an installer.
 
 1. Check out the source code:
 
-        git clone https://github.com/pgadmin-org/pgadmin4.git
+        git clone https://github.com/pgadmin-org/pgadmin.git
 
 2. Install and build the JS dependencies:
 
-        cd pgadmin4\web
+        cd pgadmin\web
         yarn install
         yarn run bundle
 
 3. Create a virtual env:
 
-        cd pgadmin4
+        cd pgadmin
         python -m venv venv
         pip install -r web\regression\requirements.txt
         pip install sphinx

@@ -20,7 +20,7 @@ Web Application
 ***************
 
 The web application forms the bulk of pgAdmin and can be found in the **/web**
-directory in the source tree. The main file is **pgAdmin4.py** which can be used
+directory in the source tree. The main file is **pgAdmin.py** which can be used
 to run the built-in standalone web server, or as a WSGI application for production
 use.
 

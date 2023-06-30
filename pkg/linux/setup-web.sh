@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Setup pgadmin4 in server mode
+# Setup pgadmin in server mode
 #
 
 if [ "$EUID" -ne 0 ]
@@ -41,18 +41,18 @@ fi
 
 case ${PLATFORM_TYPE} in
     redhat)
-        echo "Setting up pgAdmin 4 in web mode on a Redhat based platform..."
+        echo "Setting up pgAdmin in web mode on a Redhat based platform..."
         IS_REDHAT=1
         APACHE=httpd
         ;;
 
     debian)
-        echo "Setting up pgAdmin 4 in web mode on a Debian based platform..."
+        echo "Setting up pgAdmin in web mode on a Debian based platform..."
         IS_DEBIAN=1
         APACHE=apache2
         ;;
     suse)
-        echo "Setting up pgAdmin 4 in web mode on a SUSE based platform..."
+        echo "Setting up pgAdmin in web mode on a SUSE based platform..."
         IS_SUSE=1
         APACHE=apache2
         ;;
@@ -72,7 +72,7 @@ fi
 
 # Run setup script first:
 echo "Creating configuration database..."
-if ! /usr/pgadmin4/venv/bin/python3 /usr/pgadmin4/web/setup.py;
+if ! /usr/pgadmin/venv/bin/python3 /usr/pgadmin/web/setup.py;
 then
 	echo "Error setting up server mode. Please examine the output above."
 	exit 1
@@ -106,13 +106,13 @@ if [ ${IS_DEBIAN} == 1 ]; then
     if [ ${AUTOMATED} == 1 ]; then
 	      RESPONSE=Y
     else
-        read -r -p "We can now configure the Apache Web server for you. This involves enabling the wsgi module and configuring the pgAdmin 4 application to mount at /pgadmin4. Do you wish to continue (y/n)? " RESPONSE
+        read -r -p "We can now configure the Apache Web server for you. This involves enabling the wsgi module and configuring the pgAdmin application to mount at /pgadmin. Do you wish to continue (y/n)? " RESPONSE
     fi
 
     case ${RESPONSE} in
         y|Y )
             a2enmod wsgi 1> /dev/null
-            a2enconf pgadmin4 1> /dev/null
+            a2enconf pgadmin 1> /dev/null
             ;;
         * )
             exit 1;;
@@ -123,7 +123,7 @@ if pgrep ${APACHE} > /dev/null; then
     if [ ${AUTOMATED} == 1 ]; then
         RESPONSE=Y
     else
-        read -r -p "The Apache web server is running and must be restarted for the pgAdmin 4 installation to complete. Continue (y/n)? " RESPONSE
+        read -r -p "The Apache web server is running and must be restarted for the pgAdmin installation to complete. Continue (y/n)? " RESPONSE
     fi
 
     case ${RESPONSE} in
@@ -138,7 +138,7 @@ if pgrep ${APACHE} > /dev/null; then
             if ! ${COMMAND}; then
                 echo "Error restarting ${APACHE}. Please check the systemd logs"
             else
-                echo "Apache successfully restarted. You can now start using pgAdmin 4 in web mode at http://127.0.0.1/pgadmin4"
+                echo "Apache successfully restarted. You can now start using pgAdmin in web mode at http://127.0.0.1/pgadmin"
             fi;;
         * ) 
             exit 1;;
@@ -147,7 +147,7 @@ else
     if [ ${AUTOMATED} == 1 ]; then
         RESPONSE=Y
     else
-        read -r -p "The Apache web server is not running. We can enable and start the web server for you to finish pgAdmin 4 installation. Continue (y/n)? " RESPONSE
+        read -r -p "The Apache web server is not running. We can enable and start the web server for you to finish pgAdmin installation. Continue (y/n)? " RESPONSE
     fi
 
     case ${RESPONSE} in
@@ -162,7 +162,7 @@ else
                 echo "Error starting ${APACHE}. Please check the systemd logs"
             else
                 echo "Apache successfully started."
-                echo "You can now start using pgAdmin 4 in web mode at http://127.0.0.1/pgadmin4"
+                echo "You can now start using pgAdmin in web mode at http://127.0.0.1/pgadmin"
             fi;;
         * ) 
             exit 1;;

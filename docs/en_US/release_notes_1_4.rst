@@ -5,7 +5,7 @@ Version 1.4
 Release date: 2017-04-13
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.3.
+of pgAdmin 1.3.
 
 Features
 ********
@@ -28,7 +28,7 @@ Bug fixes
 | `Issue #2244 <https://redmine.postgresql.org/issues/2244>`_ - Prevent an error being displayed if the user views data on a table with no columns
 | `Issue #2246 <https://redmine.postgresql.org/issues/2246>`_ - Add missing braces to reverse engineered SQL header block for Functions
 | `Issue #2258 <https://redmine.postgresql.org/issues/2258>`_ - Fix handling of DATERANGE[] type
-| `Issue #2264 <https://redmine.postgresql.org/issues/2264>`_ - Resolve error message *ExtDeprecationWarning* displayed on new pgAdmin4 setup for Python 3.4 on ubuntu 14.04 Linux 64
+| `Issue #2264 <https://redmine.postgresql.org/issues/2264>`_ - Resolve error message *ExtDeprecationWarning* displayed on new pgAdmin setup for Python 3.4 on ubuntu 14.04 Linux 64
 | `Issue #2265 <https://redmine.postgresql.org/issues/2265>`_ - Resolved import/Export issue for a table
 | `Issue #2274 <https://redmine.postgresql.org/issues/2274>`_ - Properly handle truncated table names
 | `Issue #2277 <https://redmine.postgresql.org/issues/2277>`_ - Resolved various file-system encoding/decoding related cases
@@ -41,6 +41,6 @@ Bug fixes
 | `Issue #2304 <https://redmine.postgresql.org/issues/2304>`_ - Resolve the issue for restoring the table from the backup
 | `Issue #2305 <https://redmine.postgresql.org/issues/2305>`_ - Resolve the issue where Generic function qtLiteral was not adapting values properly when they contain non ascii characters
 | `Issue #2310 <https://redmine.postgresql.org/issues/2310>`_ - Fix Dialog Help where Query Tool/Debugger opens in new browser tab
-| `Issue #2319 <https://redmine.postgresql.org/issues/2319>`_ - Resolve issue where Click on pgAdmin4 logo leads to unauthorized error
+| `Issue #2319 <https://redmine.postgresql.org/issues/2319>`_ - Resolve issue where Click on pgAdmin logo leads to unauthorized error
 | `Issue #2321 <https://redmine.postgresql.org/issues/2321>`_ - Improved functionality of browser tree when adding new nodes if parent collection node has not loaded
 | `Issue #2330 <https://redmine.postgresql.org/issues/2330>`_ - Ensure the Query Tool displays but does not render HTML returned by the server in the results grid

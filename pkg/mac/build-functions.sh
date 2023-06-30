@@ -260,7 +260,7 @@ _complete_bundle() {
     cp Info.plist.in "${BUNDLE_DIR}/Contents/Info.plist"
     sed -i '' "s/%APPNAME%/${APP_NAME}/g" "${BUNDLE_DIR}/Contents/Info.plist"
     sed -i '' "s/%APPVER%/${APP_LONG_VERSION}/g" "${BUNDLE_DIR}/Contents/Info.plist"
-    sed -i '' "s/%APPID%/org.pgadmin.pgadmin4/g" "${BUNDLE_DIR}/Contents/Info.plist"
+    sed -i '' "s/%APPID%/org.pgadmin.pgadmin/g" "${BUNDLE_DIR}/Contents/Info.plist"
     for FILE in "${BUNDLE_DIR}"/Contents/Resources/*.lproj/InfoPlist.strings; do
         sed -i '' 's/CFBundleGetInfoString =.*/CFBundleGetInfoString = "Copyright (C) 2013 - 2023, The pgAdmin Development Team";/g' "${FILE}"
         sed -i '' 's/NSHumanReadableCopyright =.*/NSHumanReadableCopyright = "Copyright (C) 2013 - 2023, The pgAdmin Development Team";/g' "${FILE}"
@@ -271,13 +271,13 @@ _complete_bundle() {
     echo APPLPGA4 > "${BUNDLE_DIR}/Contents/PkgInfo"
 
     # Icon
-    cp pgAdmin4.icns "${BUNDLE_DIR}/Contents/Resources/app.icns"
+    cp pgAdmin.icns "${BUNDLE_DIR}/Contents/Resources/app.icns"
 
     # Rename the executable
     mv "${BUNDLE_DIR}/Contents/MacOS/nwjs" "${BUNDLE_DIR}/Contents/MacOS/${APP_NAME}"
 
     # Rename the app in package.json so the menu looks as it should
-    sed -i '' "s/\"name\": \"pgadmin4\"/\"name\": \"${APP_NAME}\"/g" "${BUNDLE_DIR}/Contents/Resources/app.nw/package.json"
+    sed -i '' "s/\"name\": \"pgadmin\"/\"name\": \"${APP_NAME}\"/g" "${BUNDLE_DIR}/Contents/Resources/app.nw/package.json"
 
     # Import the dependencies, and rewrite any library references
         _fixup_imports "${BUNDLE_DIR}"
@@ -293,7 +293,7 @@ _complete_bundle() {
     # copy the web directory to the bundle as it is required by runtime
     cp -r "${SOURCE_DIR}/web" "${BUNDLE_DIR}/Contents/Resources/"
     cd "${BUNDLE_DIR}/Contents/Resources/web" || exit
-    rm -f pgadmin4.db config_local.*
+    rm -f pgadmin.db config_local.*
     rm -rf karma.conf.js package.json node_modules/ regression/ tools/ pgadmin/static/js/generated/.cache
     find . -name "tests" -type d -print0 | xargs -0 rm -rf
     find . -name "feature_tests" -type d -print0 | xargs -0 rm -rf
@@ -347,7 +347,7 @@ _codesign_binaries() {
         codesign --deep --force --verify --verbose --timestamp \
                  --options runtime \
                  --entitlements "${BUILD_ROOT}/entitlements.plist" \
-                 -i org.pgadmin.pgadmin4 \
+                 -i org.pgadmin.pgadmin \
                  --sign "${DEVELOPER_ID}" \
                  "$i"
     done
@@ -357,7 +357,7 @@ _codesign_binaries() {
         codesign --deep --force --verify --verbose --timestamp \
                  --options runtime \
                  --entitlements "${BUILD_ROOT}/entitlements.plist" \
-                 -i org.pgadmin.pgadmin4 \
+                 -i org.pgadmin.pgadmin \
                  --sign "${DEVELOPER_ID}" \
                  {} \;
 }
@@ -372,7 +372,7 @@ _codesign_bundle() {
     codesign --deep --force --verify --verbose --timestamp \
              --options runtime \
              --entitlements "${BUILD_ROOT}/entitlements.plist" \
-             -i org.pgadmin.pgadmin4 \
+             -i org.pgadmin.pgadmin \
              --sign "${DEVELOPER_ID}" \
              "${BUNDLE_DIR}"
 }
@@ -411,7 +411,7 @@ _codesign_dmg() {
     echo Signing disk image...
     codesign --force --verify --verbose --timestamp \
              --options runtime \
-             -i org.pgadmin.pgadmin4 \
+             -i org.pgadmin.pgadmin \
              --sign "${DEVELOPER_ID}" \
              "${DMG_NAME}"
 }
@@ -428,7 +428,7 @@ _notarize_pkg() {
         STATUS=$(xcrun altool --notarize-app \
                               -f "${DMG_NAME}" \
                               --asc-provider "${DEVELOPER_NAME}" \
-                              --primary-bundle-id org.pgadmin.pgadmin4 \
+                              --primary-bundle-id org.pgadmin.pgadmin \
                               -u "${DEVELOPER_USER}" \
                               -p "${DEVELOPER_ASP}" 2>&1)
         RETVAL=$?

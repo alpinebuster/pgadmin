@@ -4,7 +4,7 @@
 `Managing Cluster Objects`:index:
 *********************************
    
-Some object definitions reside at the cluster level; pgAdmin 4 provides dialogs
+Some object definitions reside at the cluster level; pgAdmin provides dialogs
 that allow you to create these objects, manage them, and control their
 relationships to each other.  To access a dialog that allows you to create a
 database object, right-click on the object type in the pgAdmin tree control,

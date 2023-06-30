@@ -18,7 +18,7 @@ from pgadmin.utils import env, IS_WIN, fs_short_path
 ##########################################################################
 
 # Name of the application to display in the UI
-APP_NAME = 'pgAdmin 4'
+APP_NAME = 'pgAdmin'
 APP_ICON = 'pg-icon'
 
 ##########################################################################
@@ -115,11 +115,11 @@ WTF_CSRF_HEADERS = ['X-pgA-CSRFToken']
 
 # User ID (email address) to use for the default user in desktop mode.
 # The default should be fine here, as it's not exposed in the app.
-DESKTOP_USER = 'pgadmin4@pgadmin.org'
+DESKTOP_USER = 'pgadmin@pgadmin.org'
 
 # This option allows the user to host the application on a LAN
 # Default hosting is on localhost (DEFAULT_SERVER='localhost').
-# To host pgAdmin4 over LAN set DEFAULT_SERVER='0.0.0.0' (or a specific
+# To host pgAdmin over LAN set DEFAULT_SERVER='0.0.0.0' (or a specific
 # adaptor address.
 #
 # NOTE: This is NOT recommended for production use, only for debugging
@@ -237,7 +237,7 @@ APP_VERSION_EXTN = ('.css', '.js', '.html', '.svg', '.png', '.gif', '.ico')
 if IS_WIN:
     # Use the short path on windows
     DATA_DIR = os.path.realpath(
-        # `C:\Users\zzz\AppData\Roaming\pgAdmin\pgadmin4-server.db`
+        # `C:\Users\zzz\AppData\Roaming\pgAdmin\pgadmin-server.db`
         os.path.join(fs_short_path(env('APPDATA')), "pgAdmin")
     )
 else:
@@ -278,9 +278,9 @@ FILE_LOG_FORMAT = '%(asctime)s: %(levelname)s\t%(name)s:\t%(message)s'
 # Log file name. This goes in the data directory, except on non-Windows
 # platforms in server mode.
 if SERVER_MODE and not IS_WIN:
-    LOG_FILE = '/var/log/pgadmin/pgadmin4.log'
+    LOG_FILE = '/var/log/pgadmin/pgadmin.log'
 else:
-    LOG_FILE = os.path.join(DATA_DIR, 'pgadmin4.log')
+    LOG_FILE = os.path.join(DATA_DIR, 'pgadmin.log')
 
 # Log rotation setting
 # Log file will be rotated considering values for LOG_ROTATION_SIZE
@@ -324,7 +324,7 @@ CONFIG_DATABASE_URI = ''
 # The default path to the SQLite database used to store user accounts and
 # settings. This default places the file in the same directory as this
 # config file, but generates an absolute path for use througout the app.
-SQLITE_PATH = env('SQLITE_PATH') or os.path.join(DATA_DIR, 'pgadmin4.db')
+SQLITE_PATH = env('SQLITE_PATH') or os.path.join(DATA_DIR, 'pgadmin.db')
 
 # SQLITE_TIMEOUT will define how long to wait before throwing the error -
 # OperationError due to database lock. On slower system, you may need to change
@@ -342,7 +342,7 @@ MAX_QUERY_HIST_STORED = 20
 ##########################################################################
 # Server-side session storage path
 #
-# SESSION_DB_PATH (Default: $HOME/.pgadmin4/sessions)
+# SESSION_DB_PATH (Default: $HOME/.pgadmin/sessions)
 ##########################################################################
 #
 # We use SQLite for server-side session storage. There will be one
@@ -356,7 +356,7 @@ MAX_QUERY_HIST_STORED = 20
 # On certain systems, you can use shared memory (tmpfs) for maximum
 # scalability, for example, on Ubuntu:
 #
-# SESSION_DB_PATH = '/run/shm/pgAdmin4_session'
+# SESSION_DB_PATH = '/run/shm/pgAdmin_session'
 #
 ##########################################################################
 SESSION_DB_PATH = os.path.join(DATA_DIR, 'sessions')
@@ -416,7 +416,7 @@ UPGRADE_CHECK_ENABLED = True
 UPGRADE_CHECK_URL = 'https://www.pgadmin.org/versions.json'
 
 # What key should we look at in the upgrade data file?
-UPGRADE_CHECK_KEY = 'pgadmin4'
+UPGRADE_CHECK_KEY = 'pgadmin'
 
 # Which CA file should we use?
 # Default to cacert.pem in the same directory as config.py et al.
@@ -453,7 +453,7 @@ STORAGE_DIR = os.path.join(DATA_DIR, 'storage')
 #
 # In cases where it may be difficult to know what the working directory
 # is, "$DIR" can be specified. This will be replaced with the path to the
-# top-level pgAdmin4.py file. For example, on macOS we might use:
+# top-level pgAdmin.py file. For example, on macOS we might use:
 #
 # $DIR/../../SharedSupport
 #
@@ -480,7 +480,7 @@ DEFAULT_BINARY_PATHS = {
 ##########################################################################
 
 # The default path for SQLite database for testing
-TEST_SQLITE_PATH = os.path.join(DATA_DIR, 'test_pgadmin4.db')
+TEST_SQLITE_PATH = os.path.join(DATA_DIR, 'test_pgadmin.db')
 
 ##########################################################################
 # Allows flask application to response to the each request asynchronously
@@ -585,7 +585,7 @@ MASTER_PASSWORD_HOOK = None
 
 ##########################################################################
 
-# Allows pgAdmin4 to create session cookies based on IP address, so even
+# Allows pgAdmin to create session cookies based on IP address, so even
 # if a cookie is stolen, the attacker will not be able to connect to the
 # server using that stolen cookie.
 # Note: This can cause problems when the server is deployed in dynamic IP
@@ -819,7 +819,7 @@ MFA_SUPPORTED_METHODS = ["email", "authenticator"]
 
 # Subject for the email verification code
 # Default: <APP_NAME> - Verification Code
-# e.g.  pgAdmin 4 - Verification Code
+# e.g.  pgAdmin - Verification Code
 MFA_EMAIL_SUBJECT = None
 
 ##########################################################################

@@ -30,12 +30,12 @@ if [ ! -d pip-build ]; then
     mkdir pip-build
 fi
 
-if [ -d pip-build/pgadmin4 ]; then
-    rm -rf pip-build/pgadmin4
+if [ -d pip-build/pgadmin ]; then
+    rm -rf pip-build/pgadmin
 fi
 
-mkdir pip-build/pgadmin4
-mkdir pip-build/pgadmin4/docs
+mkdir pip-build/pgadmin
+mkdir pip-build/pgadmin/docs
 
 # Build the clean tree
 cd web || exit
@@ -44,7 +44,7 @@ do
     echo Adding "${FILE}"
     # We use tar here to preserve the path, as Mac (for example) doesn't support cp --parents
     # shellcheck disable=SC2164
-    tar cf - "${FILE}" | (cd ../pip-build/pgadmin4; tar xf -)
+    tar cf - "${FILE}" | (cd ../pip-build/pgadmin; tar xf -)
 done
 
 yarn install
@@ -54,7 +54,7 @@ for FILE in pgadmin/static/js/generated/*
 do
     echo Adding "${FILE}"
     # shellcheck disable=SC2164
-    tar cf - "${FILE}" | (cd ../pip-build/pgadmin4; tar xf -)
+    tar cf - "${FILE}" | (cd ../pip-build/pgadmin; tar xf -)
 done
 
 cd ../docs || exit
@@ -63,14 +63,14 @@ do
     echo Adding "${FILE}"
     # We use tar here to preserve the path, as Mac (for example) doesn't support cp --parents
     # shellcheck disable=SC2164
-    tar cf - "${FILE}" | (cd ../pip-build/pgadmin4/docs; tar xf -)
+    tar cf - "${FILE}" | (cd ../pip-build/pgadmin/docs; tar xf -)
 done
 
 for DIR in ./??_??/
 do
     if [ -d "${DIR}"/_build/html ]; then
-        mkdir -p "../pip-build/pgadmin4/docs/${DIR}/_build"
-        cp -R "${DIR}/_build/html" "../pip-build/pgadmin4/docs/${DIR}/_build"
+        mkdir -p "../pip-build/pgadmin/docs/${DIR}/_build"
+        cp -R "${DIR}/_build/html" "../pip-build/pgadmin/docs/${DIR}/_build"
     fi
 done
 
@@ -80,17 +80,17 @@ do
     echo Adding ${FILE}
     # We use tar here to preserve the path, as Mac (for example) doesn't support cp --parents
     # shellcheck disable=SC2164
-    tar cf - ${FILE} | (cd pip-build/pgadmin4; tar xf -)
+    tar cf - ${FILE} | (cd pip-build/pgadmin; tar xf -)
 done
 
 # Create the distro config
 echo Creating distro config...
-echo HELP_PATH = \'../../docs/en_US/_build/html/\' > pip-build/pgadmin4/config_distro.py
-echo MINIFY_HTML = False >> pip-build/pgadmin4/config_distro.py
+echo HELP_PATH = \'../../docs/en_US/_build/html/\' > pip-build/pgadmin/config_distro.py
+echo MINIFY_HTML = False >> pip-build/pgadmin/config_distro.py
 
 # Create the manifest
 echo Creating manifest...
-echo recursive-include pgadmin4 \* > pip-build/MANIFEST.in
+echo recursive-include pgadmin \* > pip-build/MANIFEST.in
 
 # Run the build
 echo Building wheel...

@@ -14,7 +14,7 @@ access to.
 
 Setup two-factor authentication
 ===============================
-To set up 2FA for pgAdmin 4, you must configure the Two-factor Authentication
+To set up 2FA for pgAdmin, you must configure the Two-factor Authentication
 settings in *config_local.py* or *config_system.py* (see the
 :ref:`config.py <config_py>` documentation) on the system where pgAdmin is
 installed in Server mode. You can copy these settings from *config.py* file and
@@ -28,7 +28,7 @@ modify the values for the following parameters.
    "MFA_ENABLED","The default value for this parameter is True.
    To disable 2FA, set the value to *False*"
    "SUPPORTED_MFA_LIST", "Set the authentication methods to be supported "
-   "MFA_EMAIL_SUBJECT", "<APP_NAME> - Verification Code e.g. pgAdmin 4 -
+   "MFA_EMAIL_SUBJECT", "<APP_NAME> - Verification Code e.g. pgAdmin -
    Verification Code"
    "MFA_FORCE_REGISTRATION", "Force the user to configure the authentication
    method on login (if no authentication is already configured)."

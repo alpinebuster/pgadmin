@@ -8,7 +8,7 @@ Server definitions (and their groups) can be exported to a JSON file and
 re-imported to the same or a different system to enable easy pre-configuration
 of pgAdmin.
 
-Using pgAdmin 4 GUI
+Using pgAdmin GUI
 ###################
 
 To launch the *Import/Export Servers...* tool, navigate through *Tools* on the
@@ -63,7 +63,7 @@ Exporting Servers
 To export the servers defined in an installation, simply invoke ``setup.py`` with
 the ``--dump-servers`` command line option, followed by the name (and if required,
 path) to the desired output file. By default, servers owned by the desktop mode
-user will be dumped (pgadmin4@pgadmin.org by default - see the DESKTOP_USER
+user will be dumped (pgadmin@pgadmin.org by default - see the DESKTOP_USER
 setting in ``config.py``). This can be overridden with the ``--user`` command
 line option. There can be multiple configurations of pgAdmin on the same system.
 To dump the servers from specific pgAdmin config DB file, ``--sqlite-path`` option
@@ -81,7 +81,7 @@ For example:
 
     # to specify a pgAdmin config DB file:
 
-    /path/to/python /path/to/setup.py --dump-servers output_file.json --sqlite-path /path/to/pgadmin4.db
+    /path/to/python /path/to/setup.py --dump-servers output_file.json --sqlite-path /path/to/pgadmin.db
 
 To export only certain servers, use the ``--servers`` option and list one or
 more server IDs. For example:
@@ -96,7 +96,7 @@ Importing Servers
 To import the servers defined in a JSON file, simply invoke ``setup.py`` with
 the ``--load-servers`` command line option, followed by the name (and if required,
 path) of the JSON file containing the server definitions. Servers will be owned
-by the desktop mode user (pgadmin4@pgadmin.org by default - see the DESKTOP_USER
+by the desktop mode user (pgadmin@pgadmin.org by default - see the DESKTOP_USER
 setting in ``config.py``). This can be overridden with the ``--user`` command
 line option. There can be multiple configurations of pgAdmin on the same system.
 The default behaviour is for the imported servers to be added to the existent list,
@@ -120,7 +120,7 @@ desktop mode. By default SQLITE_PATH setting in ``config.py`` is taken. For exam
 
     # to specify a pgAdmin config DB file:
 
-    /path/to/python /path/to/setup.py --load-servers input_file.json --sqlite-path /path/to/pgadmin4.db
+    /path/to/python /path/to/setup.py --load-servers input_file.json --sqlite-path /path/to/pgadmin.db
 
 If any Servers are defined with a Server Group that is not already present in
 the configuration database, the required Group will be created.

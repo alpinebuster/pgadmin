@@ -4,7 +4,7 @@
 `Creating or Modifying a Table`:index:
 **************************************
 
-pgAdmin 4 provides dialogs that allow you to modify all table properties and
+pgAdmin provides dialogs that allow you to modify all table properties and
 attributes.
 
 To access a dialog that allows you to create a database object, right-click on

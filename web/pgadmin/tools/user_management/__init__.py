@@ -1,4 +1,4 @@
-"""Implements pgAdmin4 User Management Utility"""
+"""Implements pgAdmin User Management Utility"""
 
 import json
 from flask import render_template, request, \
@@ -111,7 +111,7 @@ def user(uid):
     Args:
       uid: User id
 
-    Returns: List of pgAdmin4 users or single user if uid is provided.
+    Returns: List of pgAdmin users or single user if uid is provided.
 
     """
 
@@ -330,7 +330,7 @@ def role(rid):
     Args:
       rid: Role id
 
-    Returns: List of pgAdmin4 users roles or single role if rid is provided.
+    Returns: List of pgAdmin users roles or single role if rid is provided.
 
     """
 

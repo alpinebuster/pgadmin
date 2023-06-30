@@ -17,13 +17,13 @@ class TestLoginUserImage(BaseTestGenerator):
         (
             'Verify gravatar image on the page', dict(
                 email=(
-                    tconfig['pgAdmin4_login_credentials']['login_username']
+                    tconfig['pgAdmin_login_credentials']['login_username']
                 ),
                 password=(
-                    tconfig['pgAdmin4_login_credentials']['login_password']
+                    tconfig['pgAdmin_login_credentials']['login_password']
                 ),
                 respdata='Gravatar image for %s' %
-                         tconfig['pgAdmin4_login_credentials']
+                         tconfig['pgAdmin_login_credentials']
                          ['login_username'],
             )
         )

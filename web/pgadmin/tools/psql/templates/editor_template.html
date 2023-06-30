@@ -22,7 +22,7 @@ require(
         const term = self.pgAdmin.Browser.psql.psql_terminal();
         <!--Addon for fitAddon, webLinkAddon, SearchAddon  -->
         const fitAddon = self.pgAdmin.Browser.psql.psql_Addon(term);
-        <!-- Update the theme for terminal as per pgAdmin 4 theme.-->
+        <!-- Update the theme for terminal as per pgAdmin theme.-->
         self.pgAdmin.Browser.psql.set_theme(term);
         <!-- Open the terminal -->
         term.open(document.getElementById('psql-terminal'));

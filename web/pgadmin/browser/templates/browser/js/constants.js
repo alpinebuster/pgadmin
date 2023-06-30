@@ -1,4 +1,3 @@
-
 define('pgadmin.browser.constants', [], function() {
   return {
     'INTERNAL': '{{ INTERNAL }}',

@@ -17,7 +17,7 @@ class LoginTestCase(BaseTestGenerator):
         # This test case validates the invalid/incorrect password
         ('TestCase for Checking Invalid_Password', dict(
             email=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_username']),
             password=str(uuid.uuid4())[4:8],
             is_gravtar_image_check=False,
@@ -26,7 +26,7 @@ class LoginTestCase(BaseTestGenerator):
         # This test case validates the empty password field
         ('Empty_Password', dict(
             email=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_username']), password='',
             is_gravtar_image_check=False,
             respdata='Password not provided')),
@@ -34,7 +34,7 @@ class LoginTestCase(BaseTestGenerator):
         # This test case validates blank email field
         ('Empty_Email', dict(
             email='', password=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_password']),
             is_gravtar_image_check=False,
             respdata='Email/Username is not valid')),
@@ -49,7 +49,7 @@ class LoginTestCase(BaseTestGenerator):
         ('Invalid_Email', dict(
             email=str(uuid.uuid4())[1:8] + '@xyz.com',
             password=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_password']),
             is_gravtar_image_check=False,
             respdata='Incorrect username or password')),
@@ -62,19 +62,19 @@ class LoginTestCase(BaseTestGenerator):
             respdata='Incorrect username or password')),
 
         # This test case validates the valid/correct credentials and allow user
-        # to login pgAdmin 4
+        # to login pgAdmin
         ('Valid_Credentials', dict(
             email=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_username']),
             password=(
-                config_data['pgAdmin4_login_credentials']
+                config_data['pgAdmin_login_credentials']
                 ['login_password']),
             is_gravtar_image_check=True,
-            respdata_without_gravtar=config_data['pgAdmin4_login_credentials']
+            respdata_without_gravtar=config_data['pgAdmin_login_credentials']
             ['login_username'],
             respdata='Gravatar image for %s' %
-                     config_data['pgAdmin4_login_credentials']
+                     config_data['pgAdmin_login_credentials']
                      ['login_username']),
          )
     ]

@@ -1,19 +1,19 @@
-# pgAdmin 4
+# pgAdmin
 
-pgAdmin 4 is a rewrite of the popular pgAdmin3 management tool for the
+pgAdmin is a rewrite of the popular pgAdmin3 management tool for the
 PostgreSQL (http://www.postgresql.org) database.
 
-In the following documentation and examples, *$PGADMIN4_SRC/* is used to denote
+In the following documentation and examples, *$PGADMIN_SRC/* is used to denote
 the top-level directory of a copy of the pgAdmin source tree, either from a
 tarball or a git checkout.
 
 ## Architecture
 
-pgAdmin 4 is written as a web application in Python, using jQuery and Bootstrap
+pgAdmin is written as a web application in Python, using jQuery and Bootstrap
 for the client side processing and UI. On the server side, Flask is being
 utilised.
 
-Although developed using web technologies, pgAdmin 4 can be deployed either on
+Although developed using web technologies, pgAdmin can be deployed either on
 a web server using a browser, or standalone on a workstation. The runtime/
 subdirectory contains an NWjs based runtime application intended to allow this,
 which will execute the Python server and display the UI.
@@ -91,7 +91,7 @@ simple - adapt as required for your distribution:
    ```
 
 5. Create a local configuration file for pgAdmin. Edit
-   $PGADMIN4_SRC/web/config_local.py and add any desired configuration options
+   $PGADMIN_SRC/web/config_local.py and add any desired configuration options
    (use the config.py file as a reference - any settings duplicated in
    config_local.py will override those in config.py). A typical development
    configuration may look like:
@@ -120,12 +120,12 @@ simple - adapt as required for your distribution:
     if SERVER_MODE == False:
         SQLITE_PATH = os.path.join(
             DATA_DIR,
-            'pgadmin4-desktop.db'
+            'pgadmin-desktop.db'
         )
     else:
         SQLITE_PATH = os.path.join(
             DATA_DIR,
-            'pgadmin4-server.db'
+            'pgadmin-server.db'
         )
    ```
 
@@ -137,20 +137,20 @@ simple - adapt as required for your distribution:
    running:
 
    ```bash
-   python $PGADMIN4_SRC/web/setup.py
+   python $PGADMIN_SRC/web/setup.py
    ```
 
-   or by starting pgAdmin 4:
+   or by starting pgAdmin:
 
    ```bash
-   python $PGADMIN4_SRC/web/pgAdmin4.py
+   python $PGADMIN_SRC/web/pgAdmin.py
    ```
 
    Whilst it is possible to automatically run setup in desktop mode by running
    the runtime, that will not work in server mode as the runtime doesn't allow
    command line interaction with the setup program.
 
-At this point you will be able to run pgAdmin 4 from the command line in either
+At this point you will be able to run pgAdmin from the command line in either
 server or desktop mode, and access it from a web browser using the URL shown in
 the terminal once pgAdmin has started up.
 
@@ -170,7 +170,7 @@ installed. Then, you can run the following commands on a *nix system to
 download the required packages and build the bundle:
 
 ```bash
-cd $PGADMIN4_SRC
+cd $PGADMIN_SRC
 # Install prerequisites for `imagemin-mozjpeg`
 sudo apt-get install libtool automake autoconf nasm
 make install-node
@@ -181,7 +181,7 @@ On Windows systems (where "make" is not available), the following commands
 can be used:
 
 ```bash
-cd $PGADMIN4_SRC\web
+cd $PGADMIN_SRC\web
 yarn install
 yarn run bundle
 ```
@@ -221,7 +221,7 @@ hyphens (-) will be replaced with spaces and the result will be camel cased.
 In order to build the docs, an additional Python package is required in the
 virtual environment. This can be installed with the pip package manager:
 
-The docs can then be built using the Makefile in *$PGADMIN4_SRC*, e.g.
+The docs can then be built using the Makefile in *$PGADMIN_SRC*, e.g.
 
 ```bash
 make docs
@@ -234,11 +234,11 @@ cd docs/en_US
 python build_code_snippet.py && sphinx-build -W -b html -d _build/doctrees . _build/html
 ```
 
-The output can be found in *$PGADMIN4_SRC/docs/en_US/_build/html/index.html*
+The output can be found in *$PGADMIN_SRC/docs/en_US/_build/html/index.html*
 
 # Building packages
 
-Most packages can be built using the Makefile in $PGADMIN4_SRC, provided all
+Most packages can be built using the Makefile in $PGADMIN_SRC, provided all
 the setup and configuration above has been completed.
 
 To build a source tarball:
@@ -263,17 +263,17 @@ To build the Windows installer, please see *pkg/win32/README.txt*.
 In order to make changes to the SQLite DB, navigate to the 'web' directory:
 
 ```bash
-cd $PGADMIN4_SRC/web
+cd $PGADMIN_SRC/web
 ```
 
 Create a migration file with the following command:
 
 ```bash
-FLASK_APP=pgAdmin4.py flask db revision
+FLASK_APP=pgAdmin.py flask db revision
 ```
 
-This will create a file in: $PGADMIN4_SRC/web/migrations/versions/ .
+This will create a file in: $PGADMIN_SRC/web/migrations/versions/ .
 Add any changes to the 'upgrade' function.
-Increment the SCHEMA_VERSION in $PGADMIN4_SRC/web/pgadmin/model/__init__.py file.
+Increment the SCHEMA_VERSION in $PGADMIN_SRC/web/pgadmin/model/__init__.py file.
 
 There is no need to increment the SETTINGS_SCHEMA_VERSION.

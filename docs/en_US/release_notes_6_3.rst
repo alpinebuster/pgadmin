@@ -4,7 +4,7 @@ Version 6.3
 
 Release date: 2021-12-16
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 6.2.
+This release contains a number of bug fixes and new features since the release of pgAdmin 6.2.
 
 New features
 ************

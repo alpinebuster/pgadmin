@@ -17,17 +17,17 @@ you're working with the latest code on the branch and makes it easier to
 generate Pull Requests correctly.
 
 As of September 2022, the pgAdmin source repository can found at
-https://github.com/pgadmin-org/pgadmin4. A typical workflow for a relatively
+https://github.com/pgadmin-org/pgadmin. A typical workflow for a relatively
 simple change might look as follows:
 
-1. Visit the pgAdmin 4 project on GitHub, and click the *Fork* button to create
+1. Visit the pgAdmin project on GitHub, and click the *Fork* button to create
    your own development repository in your GitHub account.
 
 2.  Checkout a local copy of the source code with a command like:
 
    .. code-block:: bash
 
-      $ git clone https://github.com/<your GitHub username>/pgadmin4.git
+      $ git clone https://github.com/<your GitHub username>/pgadmin.git
 
 3. Develop and test your change in your local development environment.
 
@@ -41,7 +41,7 @@ simple change might look as follows:
 
 6. Push your changes to your fork of the repository.
 
-7. Back in GitHub, create a new Pull Request against the *pgadmin-org/pgadmin4*
+7. Back in GitHub, create a new Pull Request against the *pgadmin-org/pgadmin*
    *master* branch.
 
    .. note::

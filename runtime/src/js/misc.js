@@ -136,7 +136,7 @@ const getAvailablePort = (fixedPort) => {
 
 // Get the app data folder path
 const currentTime = (new Date()).getTime();
-const serverLogFile = path.join(getLocalAppDataPath(), 'pgadmin4.' + currentTime.toString() + '.log');
+const serverLogFile = path.join(getLocalAppDataPath(), 'pgadmin.' + currentTime.toString() + '.log');
 const configFileName = path.join(getAppDataPath(), 'runtime_config.json');
 const DEFAULT_CONFIG_DATA = {'fixedPort': false, 'portNo': 5050, 'connectionTimeout': 90, 'zoomLevel': 0, 'openDocsInBrowser': true};
 
@@ -198,7 +198,7 @@ const cleanupAndQuitApp = () => {
   // Remove the server log file on exit
   removeLogFile();
 
-  // Killing pgAdmin4 server process if application quits
+  // Killing pgAdmin server process if application quits
   if (pgadminServerProcess != null) {
     try {
       process.kill(pgadminServerProcess.pid);

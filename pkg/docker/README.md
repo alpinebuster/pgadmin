@@ -12,7 +12,7 @@ From the top level directory of the pgAdmin source tree, simply run:
 You can also run *make docker*, which will call *docker build .* but also tag
 the image like:
 
-    pgadmin4 pgadmin4:latest pgadmin4:4 pgadmin4:4.12
+    pgadmin pgadmin:latest pgadmin:4 pgadmin:4.12
 
 ### WARNING 
 

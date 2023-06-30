@@ -4,7 +4,7 @@ Version 4.24
 
 Release date: 2020-07-23
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.23.
+This release contains a number of bug fixes and new features since the release of pgAdmin.23.
 
 New features
 ************
@@ -41,7 +41,7 @@ Bug fixes
 | `Issue #5577 <https://redmine.postgresql.org/issues/5577>`_ -  Include LICENSE and DEPENDENCIES [inventory] files in official packages.
 | `Issue #5621 <https://redmine.postgresql.org/issues/5621>`_ -  Remove extra brackets from reverse engineering SQL of RLS Policy.
 | `Issue #5629 <https://redmine.postgresql.org/issues/5629>`_ -  Fixed an issue where the user is able to edit properties when some of the collection nodes are selected.
-| `Issue #5630 <https://redmine.postgresql.org/issues/5630>`_ -  Fixed an issue where installation of pgadmin4 not working on 32-bit Windows.
+| `Issue #5630 <https://redmine.postgresql.org/issues/5630>`_ -  Fixed an issue where installation of pgadmin not working on 32-bit Windows.
 | `Issue #5631 <https://redmine.postgresql.org/issues/5631>`_ -  Fixed 'cant execute empty query' issue when remove the value of 'USING' or 'WITH CHECK' option of RLS Policy.
 | `Issue #5633 <https://redmine.postgresql.org/issues/5633>`_ -  Ensure that create RLS Policy menu should not be visible for catalog objects.
 | `Issue #5647 <https://redmine.postgresql.org/issues/5647>`_ -  Fixed an issue where difference DDL is showing the wrong SQL when changing the policy owner.

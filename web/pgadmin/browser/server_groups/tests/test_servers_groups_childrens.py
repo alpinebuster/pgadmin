@@ -10,7 +10,7 @@ from regression.python_test_utils.test_utils import \
 
 test_user_details = None
 if config.SERVER_MODE:
-    test_user_details = config_data['pgAdmin4_test_non_admin_credentials']
+    test_user_details = config_data['pgAdmin_test_non_admin_credentials']
 
 
 class ServerGroupsChildren(BaseTestGenerator):

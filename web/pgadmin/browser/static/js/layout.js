@@ -54,7 +54,7 @@ _.extend(pgBrowser, {
       try {
         docker.restore(layout);
         if(checkLayout) {
-          // Check restore layout is restored pgAdmin 4 layout successfully if not then reset layout to default pgAdmin 4 layout.
+          // Check restore layout is restored pgAdmin layout successfully if not then reset layout to default pgAdmin layout.
           if((docker.findPanels('properties').length == 0 || docker.findPanels('browser').length == 0) && defaultLayoutCallback){
             // clear the wcDocker before reset layout.
             docker.clear();

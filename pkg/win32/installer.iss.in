@@ -1,15 +1,15 @@
-#define MyAppName "pgAdmin 4"
+#define MyAppName "pgAdmin"
 #define MyAppVersion MYAPP_VERSION
 #define MyAppPublisher "The pgAdmin Development Team"
 #define MyAppURL "www.pgadmin.org"
-#define MyAppExeName "pgAdmin4.exe"
+#define MyAppExeName "pgAdmin.exe"
 #define MyAppID "C14F64E7-DCB9-4DE1-8560-16F08FCFF64E"
 #define MyAppFullVersion MYAPP_FULLVERSION
 #define MyAppArchitecturesMode "x64"
 #define MyAppVCDist MYAPP_VCDIST
 #define MyAppInvalidPath "Please provide a valid path."
-#define MyAppErrorMsgIsWin32 "You already have a 32 bit installation of pgAdmin 4. Please uninstall this before installing the 64 bit version."
-#define MyAppErrorMsgIsWin64 "You already have a 64 bit installation of pgAdmin 4. Please uninstall this before installing the 32 bit version."
+#define MyAppErrorMsgIsWin32 "You already have a 32 bit installation of pgAdmin. Please uninstall this before installing the 64 bit version."
+#define MyAppErrorMsgIsWin64 "You already have a 64 bit installation of pgAdmin. Please uninstall this before installing the 32 bit version."
 #define MinimumWindowsVer "6.2.9200"
 
 [Setup]
@@ -25,8 +25,8 @@ DefaultGroupName={#MyAppName}
 DisableWelcomePage=no
 DisableProgramGroupPage=auto
 LicenseFile=Resources\license.rtf
-OutputBaseFilename=pgadmin4-setup
-SetupIconFile=Resources\pgAdmin4.ico
+OutputBaseFilename=pgadmin-setup
+SetupIconFile=Resources\pgAdmin.ico
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=lowest
@@ -51,7 +51,7 @@ english.NewerVersionExists=A newer version of {#MyAppName}
 english.InvalidPath={#MyAppInvalidPath}
 
 [Icons]
-Name: {group}\{#MyAppName} {#MyAppVersion}; Filename: {app}\runtime\{#MyAppExeName}; IconFilename: {app}\pgAdmin4.ico; WorkingDir: {app}\runtime;
+Name: {group}\{#MyAppName} {#MyAppVersion}; Filename: {app}\runtime\{#MyAppExeName}; IconFilename: {app}\pgAdmin.ico; WorkingDir: {app}\runtime;
 
 [Files]
 Source: "..\..\win-build\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs;

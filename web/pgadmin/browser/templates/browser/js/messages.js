@@ -1,7 +1,6 @@
-define(
- 'pgadmin.browser.messages',
-  ['sources/gettext', 'sources/pgadmin'],
-  function(gettext, pgAdmin) {
+define('pgadmin.browser.messages', [
+  'sources/gettext', 'sources/pgadmin'
+], function(gettext, pgAdmin) {
 
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script to create Mac App Bundle and DMG for pgAdmin4 runtime
+# Build script to create Mac App Bundle and DMG for pgAdmin runtime
 
 # Exit when any command fails
 set -e -E

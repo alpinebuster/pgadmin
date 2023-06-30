@@ -4,7 +4,7 @@ Version 5.3
 
 Release date: 2021-05-20
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 5.2.
+This release contains a number of bug fixes and new features since the release of pgAdmin 5.2.
 
 New features
 ************
@@ -38,7 +38,7 @@ Bug fixes
 | `Issue #6414 <https://redmine.postgresql.org/issues/6414>`_ -  Fixed an issue where the Help message not displaying correctly on Login/Group role.
 | `Issue #6416 <https://redmine.postgresql.org/issues/6416>`_ -  Added comment column in the properties panel for View and Materialized View collection node.
 | `Issue #6417 <https://redmine.postgresql.org/issues/6417>`_ -  Fixed an issue where query editor is not being closed if the user clicks on the 'Don't Save' button.
-| `Issue #6420 <https://redmine.postgresql.org/issues/6420>`_ -  Ensure that pgAdmin4 shut down completely on the Quit command.
+| `Issue #6420 <https://redmine.postgresql.org/issues/6420>`_ -  Ensure that pgAdmin shut down completely on the Quit command.
 | `Issue #6443 <https://redmine.postgresql.org/issues/6443>`_ -  Fixed an issue where file dialog showing incorrect files for the selected file types.
 | `Issue #6444 <https://redmine.postgresql.org/issues/6444>`_ -  Fixed an issue where the user is not warned if Kerberos ticket expiration is less than 30 min while initiating a global backup.
 | `Issue #6445 <https://redmine.postgresql.org/issues/6445>`_ -  Ensure that proper identification should be there when the server is connected using Kerberos or without Kerberos.

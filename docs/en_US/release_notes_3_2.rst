@@ -5,7 +5,7 @@ Version 3.2
 Release date: 2018-08-09
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 3.1
+of pgAdmin 3.1
 
 
 Features
@@ -34,7 +34,7 @@ Bug fixes
 | `Issue #3446 <https://redmine.postgresql.org/issues/3446>`_ - Various procedure/function related fixes for EPAS/PG 11.
 | `Issue #3448 <https://redmine.postgresql.org/issues/3448>`_ - Exclude system columns in Import/Export.
 | `Issue #3457 <https://redmine.postgresql.org/issues/3457>`_ - Fix debugging of procedures in EPAS packages.
-| `Issue #3458 <https://redmine.postgresql.org/issues/3458>`_ - pgAdmin4 should work with python 3.7.
+| `Issue #3458 <https://redmine.postgresql.org/issues/3458>`_ - pgAdmin should work with python 3.7.
 | `Issue #3468 <https://redmine.postgresql.org/issues/3468>`_ - Support SSH tunneling with keys that don't have a passphrase.
 | `Issue #3471 <https://redmine.postgresql.org/issues/3471>`_ - Ensure the SSH tunnel port number is honoured.
 | `Issue #3511 <https://redmine.postgresql.org/issues/3511>`_ - Add support to save and clear SSH Tunnel password.

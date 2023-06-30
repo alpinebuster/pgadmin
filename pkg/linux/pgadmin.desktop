@@ -1,8 +1,8 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=pgAdmin 4
-Exec=/usr/pgadmin4/bin/pgadmin4
-Icon=pgadmin4
+Name=pgAdmin
+Exec=/usr/pgadmin/bin/pgadmin
+Icon=pgadmin
 Type=Application
 Categories=Application;Development;
 MimeType=text/html

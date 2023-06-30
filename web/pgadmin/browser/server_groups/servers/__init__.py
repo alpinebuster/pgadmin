@@ -1883,7 +1883,7 @@ class ServerNode(PGChildNodeView):
             # Store password in sqlite only if no pgpass file
             if not is_passfile:
                 password = encrypt(data['newPassword'], crypt_key)
-                # Check if old password was stored in pgadmin4 sqlite database.
+                # Check if old password was stored in pgadmin sqlite database.
                 # If yes then update that password.
                 if server.password is not None and config.ALLOW_SAVE_PASSWORD:
                     setattr(server, 'password', password)

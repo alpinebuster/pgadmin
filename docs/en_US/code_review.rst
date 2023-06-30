@@ -26,7 +26,7 @@ review process for any changes submitted for inclusion in pgAdmin.
 * Ensure that any generated SQL does not have any leading or trailing blank lines
   and consistently uses 4 space indents for nice formatting.
 
-* Don't special-case any Slony objects. pgAdmin 4 will have no direct knowledge
+* Don't special-case any Slony objects. pgAdmin will have no direct knowledge
   of Slony, unlike pgAdmin 3.
 
 * If you copy/paste modules, please ensure any comments are properly updated.

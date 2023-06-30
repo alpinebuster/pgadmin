@@ -35,9 +35,9 @@ echo "Creating preinst script..."
 cat << EOF > "${SERVERROOT}/DEBIAN/preinst"
 #!/bin/sh
 
-rm -rf /usr/pgadmin4/venv
-if [ -d /usr/pgadmin4/web ]; then
-  cd /usr/pgadmin4/web && rm -rf \$(ls -A -I config_local.py)
+rm -rf /usr/pgadmin/venv
+if [ -d /usr/pgadmin/web ]; then
+  cd /usr/pgadmin/web && rm -rf \$(ls -A -I config_local.py)
 fi
 EOF
 
@@ -89,7 +89,7 @@ echo "Creating the web package..."
 mkdir "${WEBROOT}/DEBIAN"
 
 cat << EOF > "${WEBROOT}/DEBIAN/conffiles"
-/etc/apache2/conf-available/pgadmin4.conf
+/etc/apache2/conf-available/pgadmin.conf
 EOF
 
 cat << EOF > "${WEBROOT}/DEBIAN/control"
@@ -104,7 +104,7 @@ Description: The web interface for pgAdmin, hosted under Apache HTTPD. pgAdmin i
 EOF
 
 mkdir -p "${WEBROOT}/etc/apache2/conf-available"
-cp "${SOURCEDIR}/pkg/debian/pgadmin4.conf" "${WEBROOT}/etc/apache2/conf-available"
+cp "${SOURCEDIR}/pkg/debian/pgadmin.conf" "${WEBROOT}/etc/apache2/conf-available"
 
 # Build the Debian package for the web
 fakeroot dpkg-deb --build "${WEBROOT}" "${DISTROOT}/${APP_NAME}-web_${APP_LONG_VERSION}_all.deb"

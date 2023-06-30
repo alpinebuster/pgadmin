@@ -4,7 +4,7 @@ Version 6.13
 
 Release date: 2022-08-25
 
-This release contains a number of bug fixes and new features since the release of pgAdmin 4 v6.12.
+This release contains a number of bug fixes and new features since the release of pgAdmin v6.12.
 
 Supported Database Servers
 **************************

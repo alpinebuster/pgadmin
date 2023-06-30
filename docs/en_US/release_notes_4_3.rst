@@ -5,12 +5,12 @@ Version 4.3
 Release date: 2019-03-07
 
 This release contains a number of new features and fixes reported since the
-release of pgAdmin4 4.2
+release of pgAdmin.2
 
 Features
 ********
 
-| `Issue #1825 <https://redmine.postgresql.org/issues/1825>`_ - Install a script to start pgAdmin (pgadmin4) from the command line when installed from the Python wheel.
+| `Issue #1825 <https://redmine.postgresql.org/issues/1825>`_ - Install a script to start pgAdmin (pgadmin) from the command line when installed from the Python wheel.
 | `Issue #2233 <https://redmine.postgresql.org/issues/2233>`_ - Add a "scratch pad" to the Query Tool to hold text snippets whilst editing.
 | `Issue #2418 <https://redmine.postgresql.org/issues/2418>`_ - Add Commit and Rollback buttons to the Query Tool.
 | `Issue #3439 <https://redmine.postgresql.org/issues/3439>`_ - Allow X-FRAME-OPTIONS to be set for security. Default to SAMEORIGIN.

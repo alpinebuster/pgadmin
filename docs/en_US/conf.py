@@ -103,7 +103,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'pgadmin4'
+html_theme = 'pgadmin'
 
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = ['./theme']   # make sphinx search for themes in current dir
@@ -193,7 +193,7 @@ html_show_copyright = True
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pgadmin4'
+htmlhelp_basename = 'pgadmin'
 
 
 # -- Options for LaTeX output -------------------------------------------------
@@ -208,7 +208,7 @@ htmlhelp_basename = 'pgadmin4'
 # (source start file, target name, title, author, documentclass
 # [howto/manual]).
 latex_documents = [
-    ('index', 'pgadmin4.tex', 'pgAdmin 4 Documentation',
+    ('index', 'pgadmin.tex', 'pgAdmin Documentation',
      'The pgAdmin Development Team', 'manual'),
 ]
 
@@ -247,6 +247,6 @@ latex_elements = {
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pgadmin4', 'pgAdmin 4 Documentation',
+    ('index', 'pgadmin', 'pgAdmin Documentation',
      ['The pgAdmin Development Team'], 1)
 ]

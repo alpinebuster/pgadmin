@@ -28,9 +28,9 @@ OR
 
 By updating configuration database
 
-SQLite DB (pgAdmin4.db):
+SQLite DB (pgAdmin.db):
 
-* Locate the pgAdmin4.db file and open it using any DB Browser (or DB Browser for SQLite)
+* Locate the pgAdmin.db file and open it using any DB Browser (or DB Browser for SQLite)
 * After opening the DB file, head towards 'Execute SQL' section.
 * Run below query -
 

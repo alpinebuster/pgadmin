@@ -1,4 +1,4 @@
-pgAdmin 4 Test Framework
+pgAdmin Test Framework
 ========================
 
 This regression framework is designed to execute unit tests for all modules to
@@ -16,15 +16,15 @@ Environment
 -----------
 
 Regression tests should be run in a Python environment that has all the
-pre-requisite packages installed from $PGADMIN4_SRC/requirements.txt. There
+pre-requisite packages installed from $PGADMIN_SRC/requirements.txt. There
 are some additional dependencies for running the test suite; these can be
 installed with:
 
-(pgadmin4) $ pip install -r $PGADMIN4_SRC/web/regression/requirements.txt
+(pgadmin) $ pip install -r $PGADMIN_SRC/web/regression/requirements.txt
 
 While running in Linux environments install:
 
-(pgadmin4) $ sudo apt-get install xsel
+(pgadmin) $ sudo apt-get install xsel
 
 Otherwise the following error happens:
 "Pyperclip could not find a copy/paste mechanism for your system"
@@ -43,7 +43,7 @@ General Information
 	3. Change Password Page
 	4. Logout Page
 
-  - 'pgAdmin4/web/pgadmin/browser/server_groups/tests/' shows an example of
+  - 'pgAdmin/web/pgadmin/browser/server_groups/tests/' shows an example of
      tree traversal of the pgAdmin modules and how the test folder is required
      for each individual module.
 
@@ -55,11 +55,11 @@ General Information
     3. test_server_get.py
     4. test_server_update.py
 
-2) The pgAdmin4 source tree includes 2 different configuration file templates.
+2) The pgAdmin source tree includes 2 different configuration file templates.
    One file template for the server configuration
    named ‘test_config.json.in' and another for test configuration named
-   'test_advanced_config.json.in' in the ‘pgAdmin4/web/regression’ directory.
-   After completing the pgAdmin4 configuration, you must make a working copy of
+   'test_advanced_config.json.in' in the ‘pgAdmin/web/regression’ directory.
+   After completing the pgAdmin configuration, you must make a working copy of
    the templates called test_config.json and test_advance_config.json
    before modifying the file contents.
 
@@ -67,11 +67,11 @@ General Information
         configuration file named test_config.json (same way user can copy
         test_advance_config.json.in file into test_advance_config.json)
 
-             $ cp pgadmin4/web/regression/test_config.json.in \
-               pgadmin4/web/regression/test_config.json
+             $ cp pgadmin/web/regression/test_config.json.in \
+               pgadmin/web/regression/test_config.json
 
     2b) After creating the server and test configuration file, add (or modify)
-        parameter values as per requirements. The pgAdmin4 regression framework
+        parameter values as per requirements. The pgAdmin regression framework
         expects to find the files in the  directory
         '/<installation dir>/web/regression/'. If you move the file to another
         location, you must create a symbolic link that specifies the new location.
@@ -92,13 +92,13 @@ General Information
 Test Data Details
 -----------------
 
-	"pgAdmin4 Login Credentials" (used to login to pgAdmin):
+	"pgAdmin Login Credentials" (used to login to pgAdmin):
 
 	 login_username = login id
 	 login_password = login password
 	 new_password = new login password
 
-	"pgAdmin4 Test User Credentials" (dummy user used for testing user management):
+	"pgAdmin Test User Credentials" (dummy user used for testing user management):
 
 	 login_username = login id
 	 login_password = login password
@@ -139,7 +139,7 @@ Python Tests:
 - The test framework is modular and pluggable and dynamically locates tests
   for modules which are discovered at runtime. All test cases are found
   and registered automatically by its module name in
-  'pgadmin4/web/pgadmin/utils/test.py' file.
+  'pgadmin/web/pgadmin/utils/test.py' file.
 
 - To run Feature Tests in parallel using selenoid(grid + docker), selenoid
   need to be installed nad should be run only with SERVER_MODE=True.
@@ -263,13 +263,13 @@ Code Coverage:
 ---------------
 
 - Test framework is able to calculate the code coverage.
-- Coverage package(coverage) is added in $PGADMIN4_SRC/web/regression/requirements.txt file
+- Coverage package(coverage) is added in $PGADMIN_SRC/web/regression/requirements.txt file
 
 How to generate code coverage report for API test-suite?
 -------------------------------------
 
 - Change to the regression test directory:
-    run 'cd $PGADMIN4_SRC/web/regression'
+    run 'cd $PGADMIN_SRC/web/regression'
 
 - Before running code coverage we need to configure 'regression/.coveragerc' file.
    i). Create 'regression/.coveragerc' file.

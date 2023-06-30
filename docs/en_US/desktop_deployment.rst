@@ -19,14 +19,14 @@ pgAdmin server and opens a window to render the user interface.
 .. seealso:: For detailed instructions on building and configuring pgAdmin from
     scratch, please see the README file in the top level directory of the source code.
     For convenience, you can find the latest version of the file
-    `here <https://github.com/pgadmin-org/pgadmin4/blob/master/README.md>`_,
+    `here <https://github.com/pgadmin-org/pgadmin/blob/master/README.md>`_,
     but be aware that this may differ from the version included with the source code
     for a specific version of pgAdmin.
 
 Configuration
 *************
 
-From pgAdmin 4 v2 onwards, the default configuration mode is server, however,
+From pgAdmin v2 onwards, the default configuration mode is server, however,
 this is overridden by the desktop runtime at startup. In most environments, no
 Python configuration is required unless you wish to override other default
 settings.
@@ -57,7 +57,7 @@ Use the *File Menu* to access the *Runtime Menu*:
 +=========================+=========================================================================================================+
 | *Configure...*          | Click to open configuration dialog to configure fixed port, port number and connection timeout.         |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
-| *View log...*           | Click to open the view log dialog to view the pgAdmin 4 logs.                                           |
+| *View log...*           | Click to open the view log dialog to view the pgAdmin logs.                                           |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
 | *Enter Full Screen*     | Click to enter/exit the full screen mode. Keyboard Shortcuts: OSX (Cmd + Ctrl + F), Other OS (F10).     |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
@@ -107,7 +107,7 @@ Use the *Runtime Menu* to access the *Log* dialog:
     :alt: Runtime View Log
     :align: center
 
-Click on the *Reload* button at the bottom to view the latest logs of pgAdmin 4
+Click on the *Reload* button at the bottom to view the latest logs of pgAdmin
 Server.
 
 When executed, the runtime will automatically try to execute the pgAdmin Python
@@ -127,7 +127,7 @@ create a file named 'dev_config.json' and specify the following entries:
 
     {
         "pythonPath": "/path/to/python.exe",
-        "pgadminFile": "/path/to/pgAdmin4.py"
+        "pgadminFile": "/path/to/pgAdmin.py"
     }
 
 Note that the *dev_config.py* file should only be required by developers who are

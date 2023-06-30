@@ -395,7 +395,7 @@ def create_debug_function(server, db_name, function_name="test_func"):
                 RAISE INFO 'This is a test function';
                 RAISE NOTICE '<img src="x" onerror="console.log(1)">';
                 RAISE NOTICE '<h1 onmouseover="console.log(1);">';
-                RETURN 'Hello, pgAdmin4';
+                RETURN 'Hello, pgAdmin';
               END;
             $function$;
             ''' % function_name)
@@ -1360,12 +1360,12 @@ def is_feature_test_included(arguments):
     return feature_test_tobe_included
 
 
-def launch_url_in_browser(driver_instance, url, title='pgAdmin 4', timeout=50):
+def launch_url_in_browser(driver_instance, url, title='pgAdmin', timeout=50):
     """
     Function launches urls in specified driver instance
     :param driver_instance:browser instance
     :param url:url to be launched
-    :param title:web-page tile on successful launch default is 'pgAdmin 4'
+    :param title:web-page tile on successful launch default is 'pgAdmin'
     :param timeout:in seconds for getting specified title default is 20sec
     :return:
     """

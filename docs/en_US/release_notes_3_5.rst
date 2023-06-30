@@ -5,7 +5,7 @@ Version 3.5
 Release date: 2018-11-01
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 3.4
+of pgAdmin 3.4
 
 
 Features
@@ -26,4 +26,4 @@ Bug fixes
 | `Issue #3700 <https://redmine.postgresql.org/issues/3700>`_ - Fix connection garbage collector.
 | `Issue #3703 <https://redmine.postgresql.org/issues/3703>`_ - Purge connections from the cache on logout.
 | `Issue #3722 <https://redmine.postgresql.org/issues/3722>`_ - Ensure that utility existence check should work for schema and other child objects while taking Backup/Restore.
-| `Issue #3730 <https://redmine.postgresql.org/issues/3730>`_ - Fixed fatal error while launching the pgAdmin4 3.5. Update the version of the Flask to 0.12.4 for release.
+| `Issue #3730 <https://redmine.postgresql.org/issues/3730>`_ - Fixed fatal error while launching the pgAdmin 3.5. Update the version of the Flask to 0.12.4 for release.

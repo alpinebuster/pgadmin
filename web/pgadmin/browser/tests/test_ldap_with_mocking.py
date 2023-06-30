@@ -28,9 +28,9 @@ class LDAPLoginMockTestCase(BaseTestGenerator):
             auth_source=[LDAP, INTERNAL],
             auto_create_user=False,
             username=config_data[
-                'pgAdmin4_login_credentials']['login_username'],
+                'pgAdmin_login_credentials']['login_username'],
             password=config_data[
-                'pgAdmin4_login_credentials']['login_password']
+                'pgAdmin_login_credentials']['login_password']
         ))
     ]
 

@@ -35,7 +35,7 @@ jobs:
       - name: Archive HTML
         uses: actions/upload-artifact@v3
         with:
-          name: pgadmin4-html-build-output
+          name: pgadmin-html-build-output
           path: docs/en_US/_build/html/*
 
       - name: Check the ePub build
@@ -46,8 +46,8 @@ jobs:
       - name: Archive ePub
         uses: actions/upload-artifact@v3
         with:
-          name: pgadmin4-epub-build-output
-          path: docs/en_US/_build/epub/pgAdmin4.epub
+          name: pgadmin-epub-build-output
+          path: docs/en_US/_build/epub/pgAdmin.epub
 
       - name: Check the PDF build
         run: |
@@ -57,5 +57,5 @@ jobs:
       - name: Archive PDF
         uses: actions/upload-artifact@v3
         with:
-          name: pgadmin4-pdf-build-output
-          path: docs/en_US/_build/latex/pgadmin4.pdf
+          name: pgadmin-pdf-build-output
+          path: docs/en_US/_build/latex/pgadmin.pdf

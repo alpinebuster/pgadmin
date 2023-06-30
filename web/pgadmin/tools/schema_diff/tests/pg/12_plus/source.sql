@@ -560,7 +560,7 @@ ALTER DOMAIN test_schema_diff.dom_type_diff
     ADD CONSTRAINT cons1 CHECK (VALUE::text <> 'pgAdmin3'::text);
 
 ALTER DOMAIN test_schema_diff.dom_type_diff
-    ADD CONSTRAINT cons2 CHECK (VALUE::text <> 'pgAdmin4'::text);
+    ADD CONSTRAINT cons2 CHECK (VALUE::text <> 'pgAdmin'::text);
 
 COMMENT ON DOMAIN test_schema_diff.dom_type_diff
     IS 'Test comment';

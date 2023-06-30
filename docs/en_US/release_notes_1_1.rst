@@ -5,7 +5,7 @@ Version 1.1
 Release date: 2016-10-27
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.0;
+of pgAdmin 1.0;
 
 Features
 ********

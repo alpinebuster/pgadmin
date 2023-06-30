@@ -4,7 +4,7 @@ Version 4.18
 
 Release date: 2020-02-06
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.17.
+This release contains a number of bug fixes and new features since the release of pgAdmin.17.
 
 New features
 ************
@@ -13,7 +13,7 @@ New features
 | `Issue #3452 <https://redmine.postgresql.org/issues/3452>`_ -  Added a Schema Diff tool to compare two schemas and generate a diff script.
 | `Issue #4762 <https://redmine.postgresql.org/issues/4762>`_ -  Allow screen-reader to read label & description of non-textable elements.
 | `Issue #4763 <https://redmine.postgresql.org/issues/4763>`_ -  Allow screen-reader to identify the alert errors.
-| `Issue #4770 <https://redmine.postgresql.org/issues/4770>`_ -  Added labels and titles after parsing and validating all the pgAdmin4 web pages for accessibility.
+| `Issue #4770 <https://redmine.postgresql.org/issues/4770>`_ -  Added labels and titles after parsing and validating all the pgAdmin web pages for accessibility.
 | `Issue #4993 <https://redmine.postgresql.org/issues/4993>`_ -  Set input controls as read-only instead of disabled will allow tab navigation in the properties tab and also allow screen readers to read it.
 
 

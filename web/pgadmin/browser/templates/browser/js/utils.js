@@ -27,8 +27,9 @@
 ]
 {%- endmacro %}
 
-define('pgadmin.browser.utils',
-  ['sources/pgadmin'], function(pgAdmin) {
+define('pgadmin.browser.utils', [
+  'sources/pgadmin'
+], function (pgAdmin) {
 
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
@@ -67,10 +68,10 @@ define('pgadmin.browser.utils',
 
   // Define list of nodes on which Query tool option doesn't appears
   let unsupported_nodes = pgAdmin.unsupported_nodes = [
-     'server_group', 'server', 'coll-tablespace', 'tablespace',
-     'coll-role', 'role', 'coll-resource_group', 'resource_group',
-     'coll-database', 'coll-pga_job', 'coll-pga_schedule', 'coll-pga_jobstep',
-     'pga_job', 'pga_schedule', 'pga_jobstep'
+    'server_group', 'server', 'coll-tablespace', 'tablespace',
+    'coll-role', 'role', 'coll-resource_group', 'resource_group',
+    'coll-database', 'coll-pga_job', 'coll-pga_schedule', 'coll-pga_jobstep',
+    'pga_job', 'pga_schedule', 'pga_jobstep'
   ];
 
   pgBrowser.utils = {

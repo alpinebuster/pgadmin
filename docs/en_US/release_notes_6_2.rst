@@ -4,7 +4,7 @@ Version 6.2
 
 Release date: 2021-11-18
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 6.1.
+This release contains a number of bug fixes and new features since the release of pgAdmin 6.1.
 
 New features
 ************
@@ -38,4 +38,4 @@ Bug fixes
 | `Issue #6974 <https://redmine.postgresql.org/issues/6974>`_ -  Added operators and aggregates in search objects.
 | `Issue #6976 <https://redmine.postgresql.org/issues/6976>`_ -  Fixed an issue where textarea should be allowed to resize and have more than 255 chars.
 | `Issue #6981 <https://redmine.postgresql.org/issues/6981>`_ -  Fixed an issue where SQL for index shows the same column multiple times.
-| `Issue #6988 <https://redmine.postgresql.org/issues/6988>`_ -  Reset the layout if pgAdmin4 detects the layout is in an inconsistent state.
+| `Issue #6988 <https://redmine.postgresql.org/issues/6988>`_ -  Reset the layout if pgAdmin detects the layout is in an inconsistent state.

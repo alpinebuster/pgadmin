@@ -35,5 +35,5 @@ jobs:
       - name: Archive Python wheel
         uses: actions/upload-artifact@v3
         with:
-          name: pgadmin4-python-build-output
+          name: pgadmin-python-build-output
           path: dist/*

@@ -13,8 +13,8 @@ fi
 # provided by the user through the PGADMIN_CONFIG_* environment variables.
 # Only update the file on first launch. The empty file is created during the
 # container build so it can have the required ownership.
-if [ "$(wc -m /pgadmin4/config_distro.py | awk '{ print $1 }')" = "0" ]; then
-    cat << EOF > /pgadmin4/config_distro.py
+if [ "$(wc -m /pgadmin/config_distro.py | awk '{ print $1 }')" = "0" ]; then
+    cat << EOF > /pgadmin/config_distro.py
 CA_FILE = '/etc/ssl/certs/ca-certificates.crt'
 LOG_FILE = '/dev/null'
 HELP_PATH = '../../docs'
@@ -34,11 +34,11 @@ EOF
     for var in $(env | grep PGADMIN_CONFIG_ | cut -d "=" -f 1); do
         # shellcheck disable=SC2086
         # shellcheck disable=SC2046
-        echo ${var#PGADMIN_CONFIG_} = $(eval "echo \$$var") >> /pgadmin4/config_distro.py
+        echo ${var#PGADMIN_CONFIG_} = $(eval "echo \$$var") >> /pgadmin/config_distro.py
     done
 fi
 
-if [ ! -f /var/lib/pgadmin/pgadmin4.db ]; then
+if [ ! -f /var/lib/pgadmin/pgadmin.db ]; then
     if [ -z "${PGADMIN_DEFAULT_EMAIL}" ] || { [ -z "${PGADMIN_DEFAULT_PASSWORD}" ] && [ -z "${PGADMIN_DEFAULT_PASSWORD_FILE}" ]; }; then
         echo 'You need to define the PGADMIN_DEFAULT_EMAIL and PGADMIN_DEFAULT_PASSWORD or PGADMIN_DEFAULT_PASSWORD_FILE environment variables.'
         exit 1
@@ -61,19 +61,19 @@ if [ ! -f /var/lib/pgadmin/pgadmin4.db ]; then
     export PGADMIN_SETUP_PASSWORD="${PGADMIN_DEFAULT_PASSWORD}"
 
     # Initialize DB before starting Gunicorn
-    # Importing pgadmin4 (from this script) is enough
+    # Importing pgadmin (from this script) is enough
     /venv/bin/python3 run_pgadmin.py
 
-    export PGADMIN_SERVER_JSON_FILE="${PGADMIN_SERVER_JSON_FILE:-/pgadmin4/servers.json}"
+    export PGADMIN_SERVER_JSON_FILE="${PGADMIN_SERVER_JSON_FILE:-/pgadmin/servers.json}"
 
     # Pre-load any required servers
     if [ -f "${PGADMIN_SERVER_JSON_FILE}" ]; then
         # When running in Desktop mode, no user is created
         # so we have to import servers anonymously
         if [ "${PGADMIN_CONFIG_SERVER_MODE}" = "False" ]; then
-            /venv/bin/python3 /pgadmin4/setup.py --load-servers "${PGADMIN_SERVER_JSON_FILE}"
+            /venv/bin/python3 /pgadmin/setup.py --load-servers "${PGADMIN_SERVER_JSON_FILE}"
         else
-            /venv/bin/python3 /pgadmin4/setup.py --load-servers "${PGADMIN_SERVER_JSON_FILE}" --user "${PGADMIN_DEFAULT_EMAIL}"
+            /venv/bin/python3 /pgadmin/setup.py --load-servers "${PGADMIN_SERVER_JSON_FILE}" --user "${PGADMIN_DEFAULT_EMAIL}"
         fi
     fi
 fi
@@ -85,7 +85,7 @@ fi
 
 # Get the session timeout from the pgAdmin config. We'll use this (in seconds)
 # to define the Gunicorn worker timeout
-TIMEOUT=$(cd /pgadmin4 && /venv/bin/python3 -c 'import config; print(config.SESSION_EXPIRATION_TIME * 60 * 60 * 24)')
+TIMEOUT=$(cd /pgadmin && /venv/bin/python3 -c 'import config; print(config.SESSION_EXPIRATION_TIME * 60 * 60 * 24)')
 
 # NOTE: currently pgadmin can run only with 1 worker due to sessions implementation
 # Using --threads to have multi-threaded single-process worker

@@ -18,7 +18,7 @@ let docsURLSubStrings = ['www.enterprisedb.com', 'www.postgresql.org', 'www.pgad
 
 // Paths to the rest of the app
 let pythonPath = misc.getPythonPath();
-let pgadminFile = '../web/pgAdmin4.py';
+let pgadminFile = '../web/pgAdmin.py';
 let configFile = '../web/config.py';
 
 // Override the paths above, if a developer needs to
@@ -32,7 +32,7 @@ if (fs.existsSync('dev_config.json')) {
   }
 }
 
-// This functions is used to start the pgAdmin4 server by spawning a
+// This functions is used to start the pgAdmin server by spawning a
 // separate process.
 function startDesktopMode() {
   // Return if pgAdmin server process is already spawned
@@ -41,7 +41,7 @@ function startDesktopMode() {
     return;
 
   let UUID = crypto.randomUUID();
-  // Set the environment variables so that pgAdmin 4 server
+  // Set the environment variables so that pgAdmin server
   // starts listening on the appropriate port.
   process.env.PGADMIN_INT_PORT = serverPort;
   process.env.PGADMIN_INT_KEY = UUID;
@@ -51,7 +51,7 @@ function startDesktopMode() {
   startPageUrl = 'http://127.0.0.1:' + serverPort + '/?key=' + UUID;
   serverCheckUrl = 'http://127.0.0.1:' + serverPort + '/misc/ping?key=' + UUID;
 
-  document.getElementById('loader-text-status').innerHTML = 'Starting pgAdmin 4...';
+  document.getElementById('loader-text-status').innerHTML = 'Starting pgAdmin...';
 
   // Write Python Path, pgAdmin file path and command in log file.
   misc.writeServerLog('pgAdmin Runtime Environment');
@@ -81,16 +81,16 @@ function startDesktopMode() {
   });
   misc.writeServerLog('--------------------------------------------------------\n');
 
-  // Spawn the process to start pgAdmin4 server.
+  // Spawn the process to start pgAdmin server.
   let spawnStartTime = (new Date).getTime();
   pgadminServerProcess = spawn(path.resolve(pythonPath), ['-s', path.resolve(pgadminFile)]);
   pgadminServerProcess.on('error', function (err) {
     // Log the error into the log file if process failed to launch
-    misc.writeServerLog('Failed to launch pgAdmin4. Error:');
+    misc.writeServerLog('Failed to launch pgAdmin. Error:');
     misc.writeServerLog(err);
   });
   let spawnEndTime = (new Date).getTime();
-  misc.writeServerLog('Total spawn time to start the pgAdmin4 server: ' + (spawnEndTime - spawnStartTime) / 1000 + ' Sec');
+  misc.writeServerLog('Total spawn time to start the pgAdmin server: ' + (spawnEndTime - spawnStartTime) / 1000 + ' Sec');
 
   pgadminServerProcess.stdout.setEncoding('utf8');
   pgadminServerProcess.stdout.on('data', (chunk) => {
@@ -102,7 +102,7 @@ function startDesktopMode() {
     misc.writeServerLog(chunk);
   });
 
-  // This function is used to ping the pgAdmin4 server whether it
+  // This function is used to ping the pgAdmin server whether it
   // it is started or not.
   function pingServer() {
     return axios.get(serverCheckUrl);
@@ -125,16 +125,16 @@ function startDesktopMode() {
 
     pingServer().then(() => {
       pingInProgress = false;
-      document.getElementById('loader-text-status').innerHTML = 'pgAdmin 4 started';
+      document.getElementById('loader-text-status').innerHTML = 'pgAdmin started';
       // Set the pgAdmin process object to misc
       misc.setProcessObject(pgadminServerProcess);
 
       clearInterval(intervalID);
       let appEndTime = (new Date).getTime();
       misc.writeServerLog('------------------------------------------');
-      misc.writeServerLog('Total time taken to ping pgAdmin4 server: ' + (appEndTime - pingStartTime) / 1000 + ' Sec');
+      misc.writeServerLog('Total time taken to ping pgAdmin server: ' + (appEndTime - pingStartTime) / 1000 + ' Sec');
       misc.writeServerLog('------------------------------------------');
-      misc.writeServerLog('Total launch time of pgAdmin4: ' + (appEndTime - appStartTime) / 1000 + ' Sec');
+      misc.writeServerLog('Total launch time of pgAdmin: ' + (appEndTime - appStartTime) / 1000 + ' Sec');
       misc.writeServerLog('------------------------------------------');
       launchPgAdminWindow();
     }).catch(() => {
@@ -164,7 +164,7 @@ function startDesktopMode() {
           document.getElementById('loader-text-status').innerHTML = 'Almost there...';
         }
       } else {
-        document.getElementById('loader-text-status').innerHTML = 'Waiting for pgAdmin 4 to start...';
+        document.getElementById('loader-text-status').innerHTML = 'Waiting for pgAdmin to start...';
       }
     });
 
@@ -173,13 +173,13 @@ function startDesktopMode() {
 }
 
 // This function is used to hide the splash screen and create/launch
-// new window to render pgAdmin4 page.
+// new window to render pgAdmin page.
 function launchPgAdminWindow() {
   // Create and launch new window and open pgAdmin url
   misc.writeServerLog('Application Server URL: ' + startPageUrl);
   nw.Window.open(startPageUrl, {
     'id': 'pgadmin-main',
-    'icon': '../../assets/pgAdmin4.png',
+    'icon': '../../assets/pgAdmin.png',
     'frame': true,
     'position': 'center',
     'resizable': true,
@@ -191,7 +191,7 @@ function launchPgAdminWindow() {
     'show': false,
   }, (pgadminWindow) => {
     pgAdminMainScreen = pgadminWindow;
-    // Set pgAdmin4 Windows Object
+    // Set pgAdmin Windows Object
     misc.setPgAdminWindowObject(pgadminWindow);
 
     // Set the zoom level stored in the config file.
@@ -225,7 +225,7 @@ function launchPgAdminWindow() {
           nw.Shell.openExternal(url);
         } else {
           policy.setNewWindowManifest({
-            'icon': '../../assets/pgAdmin4.png',
+            'icon': '../../assets/pgAdmin.png',
             'frame': true,
             'position': 'center',
             'min_width': 640,
@@ -255,7 +255,7 @@ function launchPgAdminWindow() {
       nativeMenu = new gui.Menu({ type: 'menubar' });
       // Create Mac Builtin Menu
       if (platform() === 'darwin') {
-        nativeMenu.createMacBuiltin('pgAdmin 4');
+        nativeMenu.createMacBuiltin('pgAdmin');
         nativeMenu?.items[0].submenu.removeAt(0)
         pgAdminMainScreen.menu = nativeMenu;
       }

@@ -5,7 +5,7 @@ Version 1.6
 Release date: 2017-07-13
 
 This release contains a number of features and fixes reported since the release
-of pgAdmin4 1.5
+of pgAdmin 1.5
 
 
 Features

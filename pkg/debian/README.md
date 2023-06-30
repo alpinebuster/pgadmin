@@ -27,19 +27,19 @@ or:
 
 Four .deb packages will be created in the dist/ directory:
 
-*pgadmin4_<version>_<distro>_<distro_version>_all.deb*
+*pgadmin_<version>_<distro>_<distro_version>_all.deb*
 
 A convenience package that depends on all the others.
 
-*pgadmin4-server_<version>_<distro>_<distro_version>_<arch>.deb*
+*pgadmin-server_<version>_<distro>_<distro_version>_<arch>.deb*
 
 The core server, e.g. the Python and JS code and the online documentation.
 
-*pgadmin4-desktop_<version>_<distro>_<distro_version>_<arch>.deb*
+*pgadmin-desktop_<version>_<distro>_<distro_version>_<arch>.deb*
 
 The desktop runtime. Requires the server package.
 
-*pgadmin4-web_<version>_<distro>_<distro_version>_<arch>.deb*
+*pgadmin-web_<version>_<distro>_<distro_version>_<arch>.deb*
 
 The server mode setup script for configuring Apache HTTPD. Requires the server 
 package.
@@ -55,19 +55,19 @@ does seem to work well unlike other attempts):
     <root>
       bionic
         dists
-          pgadmin4
+          pgadmin
             InRelease
             main
               binary-all
                 Packages
                 Packages.gz
-                pgadmin4_4.21_all.deb
-                pgadmin4-web_4.21_all.deb
+                pgadmin_4.21_all.deb
+                pgadmin-web_4.21_all.deb
               binary-amd64
                 Packages
                 Packages.gz
-                pgadmin4-desktop_4.21_amd64.deb
-                pgadmin4-server_4.21_amd64.deb
+                pgadmin-desktop_4.21_amd64.deb
+                pgadmin-server_4.21_amd64.deb
               binary-i386
                 Packages
                 Packages.gz
@@ -105,11 +105,11 @@ program in *$HOME/aptftp.conf* (without the start/end markers):
 
     APT::FTPArchive::Release {
       Origin "pgAdmin Development Team";
-      Label "pgAdmin 4";
-      Suite "pgadmin4";
+      Label "pgAdmin";
+      Suite "pgadmin";
       Architectures "amd64 all";
       Components "main";
-      Description "pgAdmin 4 - Development Tools for PostgreSQL";
+      Description "pgAdmin - Development Tools for PostgreSQL";
     };
     Default {
         Packages::Compress ". gzip bzip2";
@@ -120,18 +120,18 @@ program in *$HOME/aptftp.conf* (without the start/end markers):
 Next, we create the package indexes. Run the following command for each OS
 release to be included (in the example, we're using bionic):
 
-    for ARCH in all amd64 i386; do cd <root>/bionic && apt-ftparchive packages -c=$HOME/aptftp.conf dists/pgadmin4/main/binary-${ARCH}  > dists/pgadmin4/main/binary-${ARCH}/Packages && gzip -k dists/pgadmin4/main/binary-${ARCH}/Packages; done
+    for ARCH in all amd64 i386; do cd <root>/bionic && apt-ftparchive packages -c=$HOME/aptftp.conf dists/pgadmin/main/binary-${ARCH}  > dists/pgadmin/main/binary-${ARCH}/Packages && gzip -k dists/pgadmin/main/binary-${ARCH}/Packages; done
 
 Now we need to create the release file for each OS release (again, using bionic
 in the example:
 
-    cd <root>/bionic/dists/pgadmin4 && apt-ftparchive release -c=$HOME/aptftp.conf . > Release && gzip -k Release
+    cd <root>/bionic/dists/pgadmin && apt-ftparchive release -c=$HOME/aptftp.conf . > Release && gzip -k Release
 
 Finally, we can sign the release files. Replace <key name> with the email
 address on your signing key:
 
-    cd <root>/bionic/dists/pgadmin4 && gpg -u <key name> -bao Release.gpg Release
-    cd <root>/bionic/dists/pgadmin4 && gpg -u <key name> --clear-sign --output InRelease Release
+    cd <root>/bionic/dists/pgadmin && gpg -u <key name> -bao Release.gpg Release
+    cd <root>/bionic/dists/pgadmin && gpg -u <key name> --clear-sign --output InRelease Release
 
 Note that it is important to run each command in the correct directory (hence
 the cd commands) to ensure the relative paths are created correctly in the
@@ -139,10 +139,10 @@ indexes.
 
 ## Repository Configuration
 
-pgAdmin repo configurations live in */etc/apt/sources.list.d/pgadmin4.list*. The
+pgAdmin repo configurations live in */etc/apt/sources.list.d/pgadmin.list*. The
 file can be created with a command such as:
 
-    sudo sh -c 'echo "deb https://server.company.com/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+    sudo sh -c 'echo "deb https://server.company.com/apt/$(lsb_release -cs) pgadmin main" > /etc/apt/sources.list.d/pgadmin.list && apt update'
 
 Assuming that <root> in the repository structure corresponds to
 https://server.company.com/apt/ from the client's perspective.

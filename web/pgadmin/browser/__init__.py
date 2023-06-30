@@ -55,7 +55,7 @@ from pgadmin.utils.exception import CryptKeyMissing
 
 try:
     from flask_security.views import default_render_json
-except ImportError as e:
+except ImportError:
     # Support Flask-Security-Too == 3.2
     if sys.version_info < (3, 8):
         from flask_security.views import _render_json as default_render_json
@@ -66,12 +66,14 @@ BROWSER_INDEX = 'browser.index'
 PGADMIN_BROWSER = 'pgAdmin.Browser'
 PASS_ERROR_MSG = gettext('Your password has not been changed.')
 SMTP_SOCKET_ERROR = gettext(
-    'SMTP Socket error: {error}\n {pass_error}').format(
-        error={}, pass_error=PASS_ERROR_MSG)
+    'SMTP Socket error: {error}\n {pass_error}'
+).format(error={}, pass_error=PASS_ERROR_MSG)
 SMTP_ERROR = gettext('SMTP error: {error}\n {pass_error}').format(
-    error={}, pass_error=PASS_ERROR_MSG)
+    error={}, pass_error=PASS_ERROR_MSG
+)
 PASS_ERROR = gettext('Error: {error}\n {pass_error}').format(
-    error={}, pass_error=PASS_ERROR_MSG)
+    error={}, pass_error=PASS_ERROR_MSG
+)
 
 
 class BrowserModule(PgAdminModule):
@@ -369,7 +371,9 @@ class BrowserPluginModule(PgAdminModule, metaclass=ABCMeta):
 
 def _get_logout_url():
     return '{0}?next={1}'.format(
-        url_for(current_app.login_manager.logout_view), url_for(BROWSER_INDEX))
+        url_for(current_app.login_manager.logout_view),
+        url_for(BROWSER_INDEX)
+    )
 
 
 def _get_supported_browser():
@@ -542,8 +546,10 @@ def validate_shared_storage_config(data, shared_storage_keys):
     """
     if shared_storage_keys.issubset(data.keys()):
         if isinstance(data['name'], str) and isinstance(
-                data['path'], str) and \
-                isinstance(data['restricted_access'], bool):
+            data['path'], str
+        ) and isinstance(
+            data['restricted_access'], bool
+        ):
             return True
     return False
 
@@ -674,9 +680,12 @@ def utils():
             current_ui_lock=current_ui_lock,
             shared_storage_list=shared_storage_list,
             restricted_shared_storage_list=[] if current_user.has_role(
-                "Administrator") else restricted_shared_storage_list,
+                "Administrator"
+            ) else restricted_shared_storage_list,
         ),
-        200, {'Content-Type': MIMETYPE_APP_JS})
+        200,
+        {'Content-Type': MIMETYPE_APP_JS}
+    )
 
 
 @blueprint.route("/js/endpoints.js")
@@ -684,7 +693,8 @@ def utils():
 def exposed_urls():
     return make_response(
         render_template('browser/js/endpoints.js'),
-        200, {'Content-Type': MIMETYPE_APP_JS}
+        200,
+        {'Content-Type': MIMETYPE_APP_JS}
     )
 
 
@@ -692,12 +702,15 @@ def exposed_urls():
 @pgCSRFProtect.exempt
 def app_constants():
     return make_response(
-        render_template('browser/js/constants.js',
-                        INTERNAL=INTERNAL,
-                        LDAP=LDAP,
-                        KERBEROS=KERBEROS,
-                        OAUTH2=OAUTH2),
-        200, {'Content-Type': MIMETYPE_APP_JS}
+        render_template(
+            'browser/js/constants.js',
+            INTERNAL=INTERNAL,
+            LDAP=LDAP,
+            KERBEROS=KERBEROS,
+            OAUTH2=OAUTH2
+        ),
+        200,
+        {'Content-Type': MIMETYPE_APP_JS}
     )
 
 
@@ -707,7 +720,9 @@ def app_constants():
 def error_js():
     return make_response(
         render_template('browser/js/error.js', _=gettext),
-        200, {'Content-Type': MIMETYPE_APP_JS})
+        200,
+        {'Content-Type': MIMETYPE_APP_JS}
+    )
 
 
 @blueprint.route("/js/messages.js")
@@ -715,7 +730,9 @@ def error_js():
 def messages_js():
     return make_response(
         render_template('browser/js/messages.js', _=gettext),
-        200, {'Content-Type': MIMETYPE_APP_JS})
+        200,
+        {'Content-Type': MIMETYPE_APP_JS}
+    )
 
 
 @blueprint.route("/browser.css")
@@ -752,14 +769,16 @@ def form_master_password_response(
     keyring_name='',
     invalid_master_password_hook=False
 ):
-    return make_json_response(data={
-        'present': present,
-        'reset': existing,
-        'errmsg': errmsg,
-        'keyring_name': keyring_name,
-        'invalid_master_password_hook': invalid_master_password_hook,
-        'is_error': True if errmsg else False
-    })
+    return make_json_response(
+        data={
+            'present': present,
+            'reset': existing,
+            'errmsg': errmsg,
+            'keyring_name': keyring_name,
+            'invalid_master_password_hook': invalid_master_password_hook,
+            'is_error': True if errmsg else False
+        }
+    )
 
 
 @blueprint.route(
@@ -778,8 +797,9 @@ def check_corrupted_db_file():
     return make_json_response(data=file_location)
 
 
-@blueprint.route("/master_password", endpoint="check_master_password",
-                 methods=["GET"])
+@blueprint.route(
+    "/master_password", endpoint="check_master_password", methods=["GET"]
+)
 def check_master_password():
     """
     Checks if the master password is available in the memory
@@ -788,8 +808,9 @@ def check_master_password():
     return make_json_response(data=get_crypt_key()[0])
 
 
-@blueprint.route("/master_password", endpoint="reset_master_password",
-                 methods=["DELETE"])
+@blueprint.route(
+    "/master_password", endpoint="reset_master_password", methods=["DELETE"]
+)
 def reset_master_password():
     """
     Removes the master password and remove all saved passwords
@@ -798,9 +819,11 @@ def reset_master_password():
     if not config.DISABLED_LOCAL_PASSWORD_STORAGE:
         # This is to set the Desktop user password so it will not ask for
         # migrate exiting passwords as those are getting cleared
-        keyring.set_password(KEY_RING_SERVICE_NAME,
-                             KEY_RING_DESKTOP_USER.format(
-                                 current_user.username), 'test')
+        keyring.set_password(
+            KEY_RING_SERVICE_NAME,
+            KEY_RING_DESKTOP_USER.format(current_user.username),
+            'test'
+        )
     cleanup_master_password()
     status, crypt_key = get_crypt_key()
     # Set masterpass_check if MASTER_PASSWORD_HOOK is set which provides
@@ -810,8 +833,9 @@ def reset_master_password():
     return make_json_response(data=status)
 
 
-@blueprint.route("/master_password", endpoint="set_master_password",
-                 methods=["POST"])
+@blueprint.route(
+    "/master_password", endpoint="set_master_password", methods=["POST"]
+)
 def set_master_password():
     """
     Set the master password and store in the memory
@@ -1030,7 +1054,8 @@ def set_master_password():
         from pgadmin.browser.server_groups.servers.utils \
             import reencrpyt_server_passwords
         reencrpyt_server_passwords(
-            current_user.id, current_user.password, crypt_key)
+            current_user.id, current_user.password, crypt_key
+        )
 
         set_masterpass_check_text(crypt_key)
 
@@ -1060,8 +1085,11 @@ def lock_layout():
 
 
 if hasattr(config, 'SECURITY_CHANGEABLE') and config.SECURITY_CHANGEABLE:
-    @blueprint.route("/change_password", endpoint="change_password",
-                     methods=['GET', 'POST'])
+    @blueprint.route(
+        "/change_password",
+        endpoint="change_password",
+        methods=['GET', 'POST']
+    )
     @pgCSRFProtect.exempt
     @login_required
     def change_password():
@@ -1083,8 +1111,7 @@ if hasattr(config, 'SECURITY_CHANGEABLE') and config.SECURITY_CHANGEABLE:
             except SOCKETErrorException as e:
                 # Handle socket errors which are not covered by SMTPExceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_SOCKET_ERROR).format(e),
-                      'danger')
+                flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
                 has_error = True
             except (SMTPConnectError, SMTPResponseException,
                     SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
@@ -1092,8 +1119,7 @@ if hasattr(config, 'SECURITY_CHANGEABLE') and config.SECURITY_CHANGEABLE:
                     SMTPRecipientsRefused) as e:
                 # Handle smtp specific exceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_ERROR).format(e),
-                      'danger')
+                flash(gettext(SMTP_ERROR).format(e), 'danger')
                 has_error = True
             except Exception as e:
                 # Handle other exceptions.
@@ -1149,8 +1175,11 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
             current_app._get_current_object(),
             user=user, token=token)
 
-    @blueprint.route("/reset_password", endpoint="forgot_password",
-                     methods=['GET', 'POST'])
+    @blueprint.route(
+        "/reset_password",
+        endpoint="forgot_password",
+        methods=['GET', 'POST']
+    )
     @pgCSRFProtect.exempt
     @anonymous_user_required
     def forgot_password():
@@ -1187,8 +1216,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
                     # Handle socket errors which are not
                     # covered by SMTPExceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(SMTP_SOCKET_ERROR).format(e),
-                          'danger')
+                    flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
                     has_error = True
                 except (SMTPConnectError, SMTPResponseException,
                         SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
@@ -1197,19 +1225,21 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
 
                     # Handle smtp specific exceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(SMTP_ERROR).format(e),
-                          'danger')
+                    flash(gettext(SMTP_ERROR).format(e), 'danger')
                     has_error = True
                 except Exception as e:
                     # Handle other exceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(PASS_ERROR).format(e),
-                          'danger')
+                    flash(gettext(PASS_ERROR).format(e), 'danger')
                     has_error = True
 
             if request.get_json(silent=True) is None and not has_error:
-                do_flash(*get_message('PASSWORD_RESET_REQUEST',
-                                      email=form.user.email))
+                do_flash(
+                    *get_message(
+                        'PASSWORD_RESET_REQUEST',
+                        email=form.user.email
+                    )
+                )
 
         if request.get_json(silent=True) and not has_error:
             return default_render_json(form, include_user=False)
@@ -1239,8 +1269,13 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
         if invalid:
             do_flash(*get_message('INVALID_RESET_PASSWORD_TOKEN'))
         if expired:
-            do_flash(*get_message('PASSWORD_RESET_EXPIRED', email=user.email,
-                                  within=_security.reset_password_within))
+            do_flash(
+                *get_message(
+                    'PASSWORD_RESET_EXPIRED',
+                    email=user.email,
+                    within=_security.reset_password_within
+                )
+            )
         if invalid or expired:
             return redirect(url_for('browser.forgot_password'))
         has_error = False
@@ -1253,8 +1288,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
             except SOCKETErrorException as e:
                 # Handle socket errors which are not covered by SMTPExceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_SOCKET_ERROR).format(e),
-                      'danger')
+                flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
                 has_error = True
             except (SMTPConnectError, SMTPResponseException,
                     SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
@@ -1263,14 +1297,12 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
 
                 # Handle smtp specific exceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_ERROR).format(e),
-                      'danger')
+                flash(gettext(SMTP_ERROR).format(e), 'danger')
                 has_error = True
             except Exception as e:
                 # Handle other exceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(PASS_ERROR).format(e),
-                      'danger')
+                flash(gettext(PASS_ERROR).format(e), 'danger')
                 has_error = True
 
             if not has_error:
@@ -1279,10 +1311,14 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
                 session['_auth_source_manager_obj'] = auth_obj.as_dict()
 
                 if user.login_attempts >= config.MAX_LOGIN_ATTEMPTS > 0:
-                    flash(gettext('You successfully reset your password but'
-                                  ' your account is locked. Please contact '
-                                  'the Administrator.'),
-                          'warning')
+                    flash(
+                        gettext(
+                            'You successfully reset your password but'
+                            ' your account is locked. Please contact '
+                            'the Administrator.'
+                        ),
+                        'warning'
+                    )
                     return redirect(get_post_logout_redirect())
                 do_flash(*get_message('PASSWORD_RESET'))
                 login_user(user)

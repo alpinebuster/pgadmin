@@ -5,7 +5,7 @@
 [run]
 # Mention paths in 'source' to measure code coverage(Full project path)
 source =
-    $PGADMIN4_SRC/web/pgadmin/
+    $PGADMIN_SRC/web/pgadmin/
 
 # Mention patterns in 'omit' to omit code from the coverage measurement
 # Here, omit code which contains pattern '/tests/', 'feature_tests' etc.

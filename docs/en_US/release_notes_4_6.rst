@@ -5,7 +5,7 @@ Version 4.6
 Release date: 2019-05-02
 
 This release contains a number of new features and fixes reported since the
-release of pgAdmin4 4.5
+release of pgAdmin.5
 
 Features
 ********

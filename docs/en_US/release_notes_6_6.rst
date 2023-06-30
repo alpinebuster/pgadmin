@@ -4,7 +4,7 @@ Version 6.6
 
 Release date: 2022-03-10
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 6.5.
+This release contains a number of bug fixes and new features since the release of pgAdmin 6.5.
 
 New features
 ************

@@ -6,14 +6,14 @@
 
 pgAdmin can be deployed in a container using the image at:
 
-    https://hub.docker.com/r/dpage/pgadmin4/
+    https://hub.docker.com/r/dpage/pgadmin/
 
 There are various tags that you can select from to get the version of pgAdmin
 that you want, using a command such as this if you're using Docker:
 
 .. code-block:: bash
 
-   docker pull dpage/pgadmin4:<tag name>
+   docker pull dpage/pgadmin:<tag name>
 
 where *<tag name>* is one of the following:
 
@@ -129,11 +129,11 @@ than using the default.
 
 **PGADMIN_SERVER_JSON_FILE**
 
-*Default: /pgadmin4/servers.json*
+*Default: /pgadmin/servers.json*
 
 Override the default file path for the server definition list. See the
-/pgadmin4/servers.json mapped file below for more information. See the format
-of the `JSON file <https://www.pgadmin.org/docs/pgadmin4/latest/import_export_servers.html#json-format>`_.
+/pgadmin/servers.json mapped file below for more information. See the format
+of the `JSON file <https://www.pgadmin.org/docs/pgadmin/latest/import_export_servers.html#json-format>`_.
 
 **GUNICORN_ACCESS_LOGFILE**
 
@@ -167,16 +167,16 @@ variable name from *config.py* and give the value in the format 'string value'
 for strings, True/False for booleans or 123 for numbers. See below for an
 example.
 
-Settings are written to */pgadmin4/config_distro.py* within the container, which
-is read after */pgadmin4/config.py* and before */pgadmin4/config_local.py*.
+Settings are written to */pgadmin/config_distro.py* within the container, which
+is read after */pgadmin/config.py* and before */pgadmin/config_local.py*.
 Any settings given will therefore override anything in config.py, but can be
 overridden by settings in config_local.py.
 
-Settings are only written to */pgadmin4/config_distro.py* once, typically on
-first launch of the container. If */pgadmin4/config_distro.py* contains one or
+Settings are only written to */pgadmin/config_distro.py* once, typically on
+first launch of the container. If */pgadmin/config_distro.py* contains one or
 more lines, then no changes are made; for example, if the container instance is
-restarted, or */pgadmin4/config_distro.py* is mapped to a file on persistent
-storage (not recommended - use */pgadmin4/config_local.py* instead)!
+restarted, or */pgadmin/config_distro.py* is mapped to a file on persistent
+storage (not recommended - use */pgadmin/config_local.py* instead)!
 
 See :ref:`config_py` for more information on the available configuration settings.
 
@@ -214,14 +214,14 @@ configuration files, and it's configuration database. Mapping this directory
 onto the host machine gives you an easy way to maintain configuration between
 invocations of the container.
 
-**/pgadmin4/config_local.py**
+**/pgadmin/config_local.py**
 
 This file can be used to override configuration settings in pgAdmin. Settings
 found in config.py can be overridden with deployment specific values if
 required. Settings in config_local.py will also override anything specified in
 the container environment through *PGADMIN_CONFIG_* prefixed variables.
 
-**/pgadmin4/servers.json**
+**/pgadmin/servers.json**
 
 If this file is mapped, server definitions found in it will be loaded at launch
 time. This allows connection information to be pre-loaded into the instance of
@@ -245,24 +245,24 @@ Run a simple container over port 80:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
+    docker pull dpage/pgadmin
     docker run -p 80:80 \
         -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
         -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
-        -d dpage/pgadmin4
+        -d dpage/pgadmin
 
 Run a simple container over port 80, setting some configuration options:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
+    docker pull dpage/pgadmin
     docker run -p 80:80 \
         -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
         -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
         -e 'PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True' \
         -e 'PGADMIN_CONFIG_LOGIN_BANNER="Authorised users only!"' \
         -e 'PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10' \
-        -d dpage/pgadmin4
+        -d dpage/pgadmin
 
 Run a TLS secured container using a shared config/storage directory in
 /private/var/lib/pgadmin on the host, and servers pre-loaded from
@@ -270,16 +270,16 @@ Run a TLS secured container using a shared config/storage directory in
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
+    docker pull dpage/pgadmin
     docker run -p 443:443 \
         -v /private/var/lib/pgadmin:/var/lib/pgadmin \
         -v /path/to/certificate.cert:/certs/server.cert \
         -v /path/to/certificate.key:/certs/server.key \
-        -v /tmp/servers.json:/pgadmin4/servers.json \
+        -v /tmp/servers.json:/pgadmin/servers.json \
         -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' \
         -e 'PGADMIN_DEFAULT_PASSWORD=SuperSecret' \
         -e 'PGADMIN_ENABLE_TLS=True' \
-        -d dpage/pgadmin4
+        -d dpage/pgadmin
 
 Reverse Proxying
 ****************
@@ -293,11 +293,11 @@ for example:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
+    docker pull dpage/pgadmin
     docker run -p 5050:80 \
         -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" \
         -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
-        -d dpage/pgadmin4
+        -d dpage/pgadmin
 
 pgAdmin X-Forwarded-* Configuration
 -----------------------------------
@@ -359,8 +359,8 @@ tells the pgAdmin container how to rewrite paths:
         listen 80;
         server_name _;
 
-        location /pgadmin4/ {
-            proxy_set_header X-Script-Name /pgadmin4;
+        location /pgadmin/ {
+            proxy_set_header X-Script-Name /pgadmin;
             proxy_set_header Host $host;
             proxy_pass http://localhost:5050/;
             proxy_redirect off;
@@ -402,8 +402,8 @@ adjusted as appropriate to the specific deployment:
         ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
         ssl_prefer_server_ciphers on;
 
-        location /pgadmin4/ {
-            proxy_set_header X-Script-Name /pgadmin4;
+        location /pgadmin/ {
+            proxy_set_header X-Script-Name /pgadmin;
             proxy_set_header X-Scheme $scheme;
             proxy_set_header Host $host;
             proxy_pass http://localhost:5050/;
@@ -423,11 +423,11 @@ launched per the example below:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
-    docker run --name "pgadmin4" \
+    docker pull dpage/pgadmin
+    docker run --name "pgadmin" \
         -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" \
         -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
-        -d dpage/pgadmin4
+        -d dpage/pgadmin
 
 Note that the TCP/IP port has not been mapped to the host as it was in the
 Nginx example, and the container name has been set to a known value as it will
@@ -456,19 +456,19 @@ documentation for options to use certificates from LetsEncrypt or other issuers.
 
 If you wish to host pgAdmin under a subdirectory using Traefik, the
 configuration changes are typically made to the way the container is launched
-and not to Traefik itself. For example, to host pgAdmin under */pgadmin4/*
+and not to Traefik itself. For example, to host pgAdmin under */pgadmin/*
 instead of at the root directory, the Traefik configuration above may be used if
 the container is launched like this while using the version v1 of Traefik:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
-    docker run --name "pgadmin4" \
+    docker pull dpage/pgadmin
+    docker run --name "pgadmin" \
         -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" \
         -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
-        -e "SCRIPT_NAME=/pgadmin4" \
-        -l "traefik.frontend.rule=PathPrefix:/pgadmin4" \
-        -d dpage/pgadmin4
+        -e "SCRIPT_NAME=/pgadmin" \
+        -l "traefik.frontend.rule=PathPrefix:/pgadmin" \
+        -d dpage/pgadmin
 
 The *SCRIPT_NAME* environment variable has been set to tell the container it is
 being hosted under a subdirectory (in the same way as the *X-Script-Name* header
@@ -480,10 +480,10 @@ the container is typically launched per the example below:
 
 .. code-block:: bash
 
-    docker pull dpage/pgadmin4
-    docker run --name "pgadmin4" \
+    docker pull dpage/pgadmin
+    docker run --name "pgadmin" \
         -e "PGADMIN_DEFAULT_EMAIL=user@domain.com" \
         -e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
-        -e "SCRIPT_NAME=/pgadmin4" \
-        -l "traefik.frontend.pgadmin4.rule=Host(`host.example.com`) && PathPrefix(`/pgadmin4`)" \
-        -d dpage/pgadmin4
+        -e "SCRIPT_NAME=/pgadmin" \
+        -l "traefik.frontend.pgadmin.rule=Host(`host.example.com`) && PathPrefix(`/pgadmin`)" \
+        -d dpage/pgadmin

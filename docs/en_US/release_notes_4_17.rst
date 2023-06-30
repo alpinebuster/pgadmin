@@ -4,7 +4,7 @@ Version 4.17
 
 Release date: 2020-01-09
 
-This release contains a number of bug fixes and new features since the release of pgAdmin4 4.16.
+This release contains a number of bug fixes and new features since the release of pgAdmin.16.
 
 New features
 ************
