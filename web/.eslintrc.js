@@ -14,7 +14,6 @@ module.exports = {
     */
     // "plugin:react-hooks/recommended",
   ],
-  // FIXME: `Parsing error: Cannot find module '@babel/plugin-syntax-jsx'`
   'parser': '@babel/eslint-parser',
   'parserOptions': {
     'requireConfigFile': false,
@@ -33,6 +32,8 @@ module.exports = {
   'plugins': [
     'react',
     '@babel',
+    // FIX `Parsing error: Cannot find module '@babel/plugin-syntax-jsx'`
+    '@babel/plugin-syntax-jsx',
   ],
   'overrides': [
     {
