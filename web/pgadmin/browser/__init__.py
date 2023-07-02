@@ -438,6 +438,9 @@ def check_browser_upgrade():
 
         if response.getcode() == 200:
             data = json.loads(response.read().decode('utf-8'))
+            # FIXME:
+            # data['pgadmin'] = data['pgadmin4']
+            # data['edb-pgadmin'] = data['edb-pgadmin4']
             current_app.logger.debug('Response data: %s' % data)
     except Exception:
         current_app.logger.exception('Exception when checking for update')
