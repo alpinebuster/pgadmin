@@ -627,7 +627,8 @@ module.exports = [{
           enforce: true,
           test(module) {
             return webpackShimConfig.matchModules(
-              module, ['wcdocker', 'jquery', 'bootstrap', 'popper']
+              module,
+              ['wcdocker', 'jquery', 'bootstrap', 'popper']
             );
           },
         },

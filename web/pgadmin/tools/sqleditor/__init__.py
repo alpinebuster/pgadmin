@@ -66,12 +66,14 @@ class SqlEditorModule(PgAdminModule):
 
     def get_own_menuitems(self):
         return {'tools': [
-            MenuItem(name='mnu_query_tool',
-                     label=gettext('Query tool'),
-                     priority=100,
-                     callback='show_query_tool',
-                     icon='fa fa-question',
-                     url=url_for('help.static', filename='index.html'))
+            MenuItem(
+                name='mnu_query_tool',
+                label=gettext('Query tool'),
+                priority=100,
+                callback='show_query_tool',
+                icon='fa fa-question',
+                url=url_for('help.static', filename='index.html')
+            )
         ]}
 
     def get_panels(self):

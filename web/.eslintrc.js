@@ -24,6 +24,7 @@ module.exports = {
     'sourceType': 'module',
     'babelOptions': {
       'plugins': [
+        // FIXME: `Parsing error: Cannot find module '@babel/plugin-syntax-jsx'`
         '@babel/plugin-syntax-jsx',
         '@babel/plugin-proposal-class-properties',
       ],
@@ -32,8 +33,6 @@ module.exports = {
   'plugins': [
     'react',
     '@babel',
-    // FIX `Parsing error: Cannot find module '@babel/plugin-syntax-jsx'`
-    '@babel/plugin-syntax-jsx',
   ],
   'overrides': [
     {

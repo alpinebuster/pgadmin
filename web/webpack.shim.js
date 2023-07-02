@@ -31,6 +31,7 @@ let webpackShimConfig = {
     'pgbrowser': path.join(__dirname, './pgadmin/browser/static/js/'),
 
     // Vendor JS
+    // 'requirejs': path.join(__dirname, './node_modules/requirejs/require.js'),
     'wcdocker': path.join(__dirname, './node_modules/webcabin-docker/Build/wcDocker.min'),
     'moment': path.join(__dirname, './node_modules/moment/moment'),
     'jquery.contextmenu': path.join(__dirname, './node_modules/jquery-contextmenu/dist/jquery.contextMenu'),
