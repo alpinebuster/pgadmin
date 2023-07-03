@@ -14,12 +14,13 @@ echo Activating the virtual environment...
 
 echo Installing requirements...
 pip install --upgrade pip
+pip install poetry
 
 if [ ${TEST} -eq 1 ];
 then
   echo Installing requirements for running Python tests...
-  pip install --no-cache-dir wheel sphinx==6.1.3 sphinxcontrib-youtube -r web/regression/requirements.txt || { echo 'ERROR: Failed to install Python requirements.' ; exit 1; }
+  pip install --no-cache-dir wheel sphinx==6.1.3 sphinxcontrib-youtube & poetry install -E all || { echo 'ERROR: Failed to install Python requirements.' ; exit 1; }
 else
   echo Installing requirements for executing and building only...
-  pip install --no-cache-dir wheel sphinx==6.1.3 sphinxcontrib-youtube -r requirements.txt || { echo 'ERROR: Failed to install Python requirements.' ; exit 1; }
+  pip install --no-cache-dir wheel sphinx==6.1.3 sphinxcontrib-youtube & poetry install || { echo 'ERROR: Failed to install Python requirements.' ; exit 1; }
 fi
