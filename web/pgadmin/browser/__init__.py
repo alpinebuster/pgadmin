@@ -49,7 +49,7 @@ from pgadmin.utils.master_password import validate_master_password, \
 from pgadmin.model import User, db
 from pgadmin.utils.constants import MIMETYPE_APP_JS, PGADMIN_NODE,\
     INTERNAL, KERBEROS, LDAP, QT_DEFAULT_PLACEHOLDER, OAUTH2, WEBSERVER,\
-    VW_EDT_DEFAULT_PLACEHOLDER
+    VW_EDT_DEFAULT_PLACEHOLDER, MessageType
 from pgadmin.authenticate import AuthSourceManager
 from pgadmin.utils.exception import CryptKeyMissing
 
