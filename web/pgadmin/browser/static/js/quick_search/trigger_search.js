@@ -129,7 +129,7 @@ export function Search({closeModal}) {
       let menuItemsHtmlElement = [];
       items.forEach((i) => {
         menuItemsHtmlElement.push(
-          <li key={'li-menu-' + i}>
+          <li key={'li-menu-' + i.label}>
             <a
               tabIndex='0' id={'li-menu-' + i.label} href={'#'}
               className={(i.isDisabled ? 'dropdown-item menu-groups-a disabled' : 'dropdown-item menu-groups-a')}
@@ -272,7 +272,7 @@ export function Search({closeModal}) {
                     </div>
 
                     {Object.keys(helpSearchResult.data).map( (value, index) => {
-                      if(index <= 9) {  return <li key={ 'li-help-' + index }><a tabIndex='0' href={helpSearchResult.data[value]} key={ 'help-' + index } className='dropdown-item' target='_blank' rel='noreferrer'>{value}</a></li>; }
+                      if(index <= 9) {  return <li key={ 'li-help-' + value }><a tabIndex='0' href={helpSearchResult.data[value]} className='dropdown-item' target='_blank' rel='noreferrer'>{value}</a></li>; }
                     })}
 
                     {(Object.keys(helpSearchResult.data).length == 0) ? (<div className='pad-12 no-results'><span className='fa fa-info-circle'></span> {gettext('No search results')}</div>):''}

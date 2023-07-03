@@ -125,7 +125,7 @@ export default function GridView({items, operation, onItemSelect, onItemEnter}) 
     <Box flexGrow={1} overflow="hidden auto">
       <ul ref={gridRef} className={classes.grid}>
         {items.map((item, i)=>(
-          <ItemView key={i} idx={i} row={item} selected={selectedIdx==i} onItemSelect={setSelectedIdx}
+          <ItemView key={item.Filename} idx={i} row={item} selected={selectedIdx==i} onItemSelect={setSelectedIdx}
             onItemEnter={onItemEnter} onEditComplete={operation.idx==i ? onEditComplete : null} />)
         )}
       </ul>

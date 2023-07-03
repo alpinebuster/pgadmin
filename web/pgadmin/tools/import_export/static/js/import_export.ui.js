@@ -12,7 +12,7 @@ export default class ImportExportSchema extends BaseUISchema {
       oid: undefined,
       header: undefined,
       delimiter: ',',
-      quote: '\"',
+      quote: '"',
       escape: '\'',
       file: undefined,
       format: 'csv',
@@ -147,8 +147,8 @@ export default class ImportExportSchema extends BaseUISchema {
         type: 'select',
         controlProps: {creatable: true},
         options: [{
-          'label': '\"',
-          'value': '\"',
+          'label': '"',
+          'value': '"',
         },
         {
           'label': '\'',
@@ -165,8 +165,8 @@ export default class ImportExportSchema extends BaseUISchema {
         type: 'select',
         controlProps: {creatable: true},
         options: [{
-          'label': '\"',
-          'value': '\"',
+          'label': '"',
+          'value': '"',
         },
         {
           'label': '\'',

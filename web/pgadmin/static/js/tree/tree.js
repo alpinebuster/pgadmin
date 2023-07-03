@@ -214,8 +214,8 @@ export class Tree {
     }
   }
 
-  deselect(item) {
-    this.tree.deSelectActiveFile(item);
+  async deselect(item) {
+    await this.tree.deSelectActiveFile(item);
   }
 
   wasInit() {
@@ -444,6 +444,12 @@ export class Tree {
     if (parent !== null && parent !== undefined)
       parent.children.push(node);
     return node;
+  }
+
+  async updateAndReselectNode(item, data) {
+    await this.update(item, data);
+    await this.deselect(item);
+    await this.select(item);
   }
 
   translateTreeNodeIdFromReactTree(treeNode) {

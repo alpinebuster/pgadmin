@@ -36,7 +36,6 @@ class QueryToolFeatureTest(BaseFeatureTest):
 
     def runTest(self):
         self._reset_options()
-        skip_warning = "Skipped."
         # on demand result set on scrolling.
         print("\nOn demand query result... ",
               file=sys.stderr, end="")
