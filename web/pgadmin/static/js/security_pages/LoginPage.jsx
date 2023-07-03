@@ -1,12 +1,19 @@
 import { Box, Icon } from '@material-ui/core';
 import React, { useState } from 'react';
 import LoginImage from '../../img/login.svg?svgr';
-import { InputSelectNonSearch, InputText, MESSAGE_TYPE, NotifierMessage } from '../components/FormComponents';
+import {
+  InputSelectNonSearch, InputText, MESSAGE_TYPE, NotifierMessage
+} from '../components/FormComponents';
 import BasePage, { SecurityButton } from './BasePage';
 import gettext from 'sources/gettext';
 import PropTypes from 'prop-types';
 
-export default function LoginPage({userLanguage, langOptions, forgotPassUrl, csrfToken, loginUrl, authSources, authSourcesEnum, oauth2Config, loginBanner, ...props}) {
+export default function LoginPage({
+  userLanguage, langOptions, forgotPassUrl,
+  csrfToken, loginUrl, authSources,
+  authSourcesEnum, oauth2Config, loginBanner,
+  ...props
+}) {
   const [form, setForm] = useState(({email: '', password: '', language: userLanguage}));
   const showLoginForm = authSources?.includes('internal');
 
@@ -16,15 +23,21 @@ export default function LoginPage({userLanguage, langOptions, forgotPassUrl, csr
 
   return (
     <>
-      {loginBanner && <NotifierMessage showIcon={false} closable={false} type={MESSAGE_TYPE.ERROR} message={loginBanner} style={{
-        position: 'absolute',
-        width: '80%',
-        top: '30px',
-        left: 0,
-        right: 0,
-        marginRight: 'auto',
-        marginLeft: 'auto'
-      }} textCenter />}
+      {loginBanner && (
+        <NotifierMessage
+          showIcon={false} closable={false}
+          type={MESSAGE_TYPE.ERROR} message={loginBanner}
+          style={{
+            position: 'absolute',
+            width: '80%',
+            top: '30px',
+            left: 0,
+            right: 0,
+            marginRight: 'auto',
+            marginLeft: 'auto'
+          }}
+          textCenter />
+      )}
       <BasePage title={gettext('Login')} pageImage={<LoginImage style={{height: '100%', width: '100%'}} />} {...props}>
         <form style={{display:'flex', gap:'15px', flexDirection:'column'}} action={loginUrl} method="POST">
           {showLoginForm &&

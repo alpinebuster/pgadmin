@@ -191,10 +191,15 @@ class KerberosAuthentication(BaseAuthentication):
                             str(negotiate.initiator_name))
                     elif isinstance(negotiate, Exception):
                         flash(gettext(negotiate), MessageType.ERROR)
-                        retval = [status,
-                                  Response(render_template(
-                                      "security/login_user.html",
-                                      login_user_form=form))]
+                        retval = [
+                            status,
+                            Response(
+                                render_template(
+                                    "security/login_user.html",
+                                    login_user_form=form
+                                )
+                            )
+                        ]
                     else:
                         headers.add('WWW-Authenticate', 'Negotiate ' +
                                     str(base64.b64encode(negotiate), 'utf-8'))
@@ -203,10 +208,16 @@ class KerberosAuthentication(BaseAuthentication):
                 flash(gettext("Kerberos authentication failed. Couldn't find "
                               "kerberos ticket."), MessageType.ERROR)
                 headers.add('WWW-Authenticate', 'Negotiate')
-                retval = [False,
-                          Response(render_template(
-                              "security/login_user.html",
-                              login_user_form=form), 401, headers)]
+                retval = [
+                    False,
+                    Response(
+                        render_template(
+                            "security/login_user.html",
+                            login_user_form=form
+                        ),
+                        401, headers
+                    )
+                ]
         finally:
             if negotiate is not False:
                 self.negotiate_end(negotiate)

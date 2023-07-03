@@ -27,11 +27,11 @@ window.renderSecurityPage = function(pageName, pageProps, otherProps) {
           anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
           <Page {...pageProps} {...otherProps} />
         </SnackbarProvider>
-      </Theme>
-      , document.querySelector('#root'));
+      </Theme>,
+      document.querySelector('#root'));
   } else {
     ReactDOM.render(
-      <h1>Invalid Page</h1>
-      , document.querySelector('#root'));
+      <h1>Invalid Page</h1>,
+      document.querySelector('#root'));
   }
 };
