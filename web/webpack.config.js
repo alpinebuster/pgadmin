@@ -482,7 +482,7 @@ module.exports = [{
       // at the beginning of module it is dependency of like:
       // let jQuery = require('jquery'); let browser = require('pgadmin.browser')
       // It solves number of problems
-      // Ref: http:/github.com/webpack-contrib/imports-loader/
+      // Ref: <http:/github.com/webpack-contrib/imports-loader/>
       test: require.resolve('./pgadmin/tools/sqleditor/static/js/index'),
       use: {
         loader: 'imports-loader',

@@ -39,5 +39,4 @@ define('pgadmin.browser.messages', [
 {% endfor %}
 
   return pgBrowser.messages;
-
 });
