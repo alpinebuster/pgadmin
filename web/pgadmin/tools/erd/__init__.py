@@ -482,8 +482,6 @@ def panel(trans_id):
     return render_template(
         "erd/index.html",
         title=underscore_unescape(params['title']),
-        requirejs=True,
-        basejs=True,
         params=json.dumps(params),
     )
 

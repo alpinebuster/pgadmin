@@ -94,8 +94,6 @@ def panel(trans_id):
                            title=underscore_unescape(params['title']),
                            theme=params['theme'],
                            o_db_name=o_db_name,
-                           requirejs=True,
-                           basejs=True,
                            platform=_platform
                            )
 

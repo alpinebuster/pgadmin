@@ -326,8 +326,6 @@ def panel(trans_id):
         "sqleditor/index.html",
         title=underscore_unescape(params['title']),
         params=json.dumps(params),
-        requirejs=True,
-        basejs=True,
     )
 
 

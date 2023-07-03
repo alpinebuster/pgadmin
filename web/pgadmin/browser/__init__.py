@@ -456,7 +456,7 @@ def check_browser_upgrade():
             download_url=data[config.UPGRADE_CHECK_KEY]['download_url']
         )
 
-        flash(msg, 'warning')
+        flash(msg, MessageType.WARNING)
 
 
 @blueprint.route("/")
@@ -491,7 +491,7 @@ def index():
                 known=browser_known
             )
 
-            flash(msg, 'warning')
+            flash(msg, MessageType.WARNING)
 
     # Get the current version info from the website, and flash a message if
     # the user is out of date, and the check is enabled.
@@ -511,8 +511,6 @@ def index():
     response = Response(render_template(
         MODULE_NAME + "/index.html",
         username=current_user.username,
-        requirejs=True,
-        basejs=True,
         _=gettext
     ))
 
@@ -1098,65 +1096,55 @@ if hasattr(config, 'SECURITY_CHANGEABLE') and config.SECURITY_CHANGEABLE:
     def change_password():
         """View function which handles a change password request."""
 
-        has_error = False
         form_class = _security.forms.get('change_password_form').cls
         req_json = request.get_json(silent=True)
 
-        if req_json:
-            form = form_class(MultiDict(req_json))
-        else:
+        if not req_json:
             form = form_class()
+            return {
+                'csrf_token': form.csrf_token._value()
+            }
+        elif req_json:
+            form = form_class(MultiDict(req_json))
+            if form.validate_on_submit():
+                errormsg = None
+                try:
+                    change_user_password(current_user._get_current_object(),
+                                         form.new_password.data,
+                                         autologin=False)
+                except SOCKETErrorException as e:
+                    # Handle socket errors which are not covered by
+                    # SMTPExceptions.
+                    logging.exception(str(e), exc_info=True)
+                    errormsg = gettext(SMTP_SOCKET_ERROR).format(e)
+                except (SMTPConnectError, SMTPResponseException,
+                        SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
+                        SMTPException, SMTPAuthenticationError,
+                        SMTPSenderRefused, SMTPRecipientsRefused) as ex:
+                    # Handle smtp specific exceptions.
+                    logging.exception(str(ex), exc_info=True)
+                    errormsg = gettext(SMTP_ERROR).format(ex)
+                except Exception as e:
+                    # Handle other exceptions.
+                    logging.exception(str(e), exc_info=True)
+                    errormsg = gettext(PASS_ERROR).format(e)
 
-        if form.validate_on_submit():
-            try:
-                change_user_password(current_user._get_current_object(),
-                                     form.new_password.data)
-            except SOCKETErrorException as e:
-                # Handle socket errors which are not covered by SMTPExceptions.
-                logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
-                has_error = True
-            except (SMTPConnectError, SMTPResponseException,
-                    SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
-                    SMTPException, SMTPAuthenticationError, SMTPSenderRefused,
-                    SMTPRecipientsRefused) as e:
-                # Handle smtp specific exceptions.
-                logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_ERROR).format(e), 'danger')
-                has_error = True
-            except Exception as e:
-                # Handle other exceptions.
-                logging.exception(str(e), exc_info=True)
-                flash(
-                    gettext(PASS_ERROR).format(e),
-                    'danger'
-                )
-                has_error = True
+                if request.get_json(silent=True) is None and errormsg is None:
+                    old_key = get_crypt_key()[1]
+                    set_crypt_key(form.new_password.data, False)
 
-            if request.get_json(silent=True) is None and not has_error:
-                after_this_request(view_commit)
-                do_flash(*get_message('PASSWORD_CHANGE'))
+                    from pgadmin.browser.server_groups.servers.utils \
+                        import reencrpyt_server_passwords
+                    reencrpyt_server_passwords(
+                        current_user.id, old_key, form.new_password.data)
 
-                old_key = get_crypt_key()[1]
-                set_crypt_key(form.new_password.data, False)
+                    return redirect(get_url(_security.post_change_view) or
+                                    get_url(_security.post_login_view))
+                else:
+                    return internal_server_error(errormsg)
+            else:
+                return bad_request(list(form.errors.values())[0][0])
 
-                from pgadmin.browser.server_groups.servers.utils \
-                    import reencrpyt_server_passwords
-                reencrpyt_server_passwords(
-                    current_user.id, old_key, form.new_password.data)
-
-                return redirect(get_url(_security.post_change_view) or
-                                get_url(_security.post_login_view))
-
-        if request.get_json(silent=True) and not has_error:
-            form.user = current_user
-            return default_render_json(form)
-
-        return _security.render_template(
-            config_value('CHANGE_PASSWORD_TEMPLATE'),
-            change_password_form=form,
-            **_ctx('change_password')
-        )
 
 # Only register route if SECURITY_RECOVERABLE is set to True
 if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
@@ -1210,7 +1198,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
                               'Please contact the administrators of this '
                               'service if you need to reset your password.'
                               ).format(form.user.auth_source),
-                      'danger')
+                      MessageType.ERROR)
                 has_error = True
             if not has_error:
                 try:
@@ -1219,7 +1207,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
                     # Handle socket errors which are not
                     # covered by SMTPExceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
+                    flash(gettext(SMTP_SOCKET_ERROR).format(e), MessageType.ERROR)
                     has_error = True
                 except (SMTPConnectError, SMTPResponseException,
                         SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
@@ -1228,12 +1216,12 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
 
                     # Handle smtp specific exceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(SMTP_ERROR).format(e), 'danger')
+                    flash(gettext(SMTP_ERROR).format(e), MessageType.ERROR)
                     has_error = True
                 except Exception as e:
                     # Handle other exceptions.
                     logging.exception(str(e), exc_info=True)
-                    flash(gettext(PASS_ERROR).format(e), 'danger')
+                    flash(gettext(PASS_ERROR).format(e), MessageType.ERROR)
                     has_error = True
 
             if request.get_json(silent=True) is None and not has_error:
@@ -1291,7 +1279,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
             except SOCKETErrorException as e:
                 # Handle socket errors which are not covered by SMTPExceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_SOCKET_ERROR).format(e), 'danger')
+                flash(gettext(SMTP_SOCKET_ERROR).format(e), MessageType.ERROR)
                 has_error = True
             except (SMTPConnectError, SMTPResponseException,
                     SMTPServerDisconnected, SMTPDataError, SMTPHeloError,
@@ -1300,12 +1288,12 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
 
                 # Handle smtp specific exceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(SMTP_ERROR).format(e), 'danger')
+                flash(gettext(SMTP_ERROR).format(e), MessageType.ERROR)
                 has_error = True
             except Exception as e:
                 # Handle other exceptions.
                 logging.exception(str(e), exc_info=True)
-                flash(gettext(PASS_ERROR).format(e), 'danger')
+                flash(gettext(PASS_ERROR).format(e), MessageType.ERROR)
                 has_error = True
 
             if not has_error:
@@ -1320,7 +1308,7 @@ if hasattr(config, 'SECURITY_RECOVERABLE') and config.SECURITY_RECOVERABLE:
                             ' your account is locked. Please contact '
                             'the Administrator.'
                         ),
-                        'warning'
+                        MessageType.WARNING
                     )
                     return redirect(get_post_logout_redirect())
                 do_flash(*get_message('PASSWORD_RESET'))

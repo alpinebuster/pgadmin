@@ -126,3 +126,11 @@ KEY_RING_SERVICE_NAME = 'pgAdmin'
 KEY_RING_USERNAME_FORMAT = KEY_RING_SERVICE_NAME + '-{0}-{1}'
 KEY_RING_TUNNEL_FORMAT = KEY_RING_SERVICE_NAME + '-tunnel-{0}-{1}'
 KEY_RING_DESKTOP_USER = KEY_RING_SERVICE_NAME + '-desktop-user-{0}'
+
+
+class MessageType:
+    SUCCESS = 'Success',
+    ERROR = 'Error',
+    INFO = 'Info',
+    CLOSE = 'Close',
+    WARNING = 'Warning'
