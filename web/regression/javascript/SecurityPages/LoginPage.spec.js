@@ -3,7 +3,7 @@ import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import Theme from '../../../pgadmin/static/js/Theme';
-import LoginPage from '../../../pgadmin/static/js/SecurityPages/LoginPage';
+import LoginPage from '../../../pgadmin/static/js/security_pages/LoginPage';
 
 describe('LoginPage', ()=>{
   let mount;

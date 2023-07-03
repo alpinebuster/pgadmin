@@ -3,7 +3,7 @@ import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import Theme from '../../../pgadmin/static/js/Theme';
-import MfaRegisterPage from '../../../pgadmin/static/js/SecurityPages/MfaRegisterPage';
+import MfaRegisterPage from '../../../pgadmin/static/js/security_pages/MfaRegisterPage';
 
 describe('MfaRegisterPage', ()=>{
   let mount;

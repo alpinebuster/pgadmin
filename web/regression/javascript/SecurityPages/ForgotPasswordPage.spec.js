@@ -3,7 +3,7 @@ import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import Theme from '../../../pgadmin/static/js/Theme';
-import ForgotPasswordPage from '../../../pgadmin/static/js/SecurityPages/ForgotPasswordPage';
+import ForgotPasswordPage from '../../../pgadmin/static/js/security_pages/ForgotPasswordPage';
 
 describe('ForgotPasswordPage', ()=>{
   let mount;

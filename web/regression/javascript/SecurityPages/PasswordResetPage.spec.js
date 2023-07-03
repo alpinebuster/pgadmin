@@ -3,7 +3,7 @@ import React from 'react';
 import '../helper/enzyme.helper';
 import { createMount } from '@material-ui/core/test-utils';
 import Theme from '../../../pgadmin/static/js/Theme';
-import PasswordResetPage from '../../../pgadmin/static/js/SecurityPages/PasswordResetPage';
+import PasswordResetPage from '../../../pgadmin/static/js/security_pages/PasswordResetPage';
 
 describe('PasswordResetPage', ()=>{
   let mount;

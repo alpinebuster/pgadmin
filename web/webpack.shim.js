@@ -29,7 +29,7 @@ let webpackShimConfig = {
     'sources/utils': path.join(__dirname, './pgadmin/static/js/utils'),
     'tools': path.join(__dirname, './pgadmin/tools/'),
     'pgbrowser': path.join(__dirname, './pgadmin/browser/static/js/'),
-    'security.pages': path.join(__dirname, './pgadmin/static/js/SecurityPages/index.jsx'),
+    'security.pages': path.join(__dirname, './pgadmin/static/js/security_pages/index.jsx'),
 
     // Vendor JS
     // 'requirejs': path.join(__dirname, './node_modules/requirejs/require.js'),
