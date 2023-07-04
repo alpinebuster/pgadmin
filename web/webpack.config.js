@@ -66,7 +66,7 @@ const copyFiles = new CopyPlugin({
   ],
 });
 
-function cssToBeSkiped(curr_path) {
+function cssToBeSkipped(curr_path) {
   /** Skip all templates **/
   if(curr_path.indexOf('template') > -1) {
     return true;
@@ -85,13 +85,13 @@ function cssToBeSkiped(curr_path) {
  */
 function pushModulesStyles(curr_path, pgadminStyles, extn) {
   /** Skip Directories */
-  if(cssToBeSkiped(curr_path)) {
+  if(cssToBeSkipped(curr_path)) {
     return;
   }
 
   fs.readdirSync(curr_path).map(function(curr_file) {
     /** Skip Files */
-    if(cssToBeSkiped(path.join(curr_path, curr_file))) {
+    if(cssToBeSkipped(path.join(curr_path, curr_file))) {
       return;
     }
 
@@ -125,7 +125,6 @@ pgadminCssStyles.push(
 );
 
 /* Get all the themes */
-
 let all_themes_dir = path.join(
   __dirname, './pgadmin/static/scss/resources'
 );
@@ -166,8 +165,7 @@ let themeCssRules = function(theme_name) {
         issuer: /\.[jt]sx?$/,
         resourceQuery: /svgr/,
         use: ['@svgr/webpack'],
-      },
-      {
+      }, {
         type: 'asset',
         parser: {
           dataUrlCondition: {
@@ -209,15 +207,13 @@ let themeCssRules = function(theme_name) {
         options: {
           publicPath: '',
         },
-      },
-      {
+      }, {
         loader: 'css-loader',
         options: {
           url: false,
           sourceMap: true,
         },
-      },
-      {
+      }, {
         loader: 'postcss-loader',
         options: {
           postcssOptions: () =>({
@@ -226,9 +222,9 @@ let themeCssRules = function(theme_name) {
             ],
           }),
         },
-      },
-      {loader: 'sass-loader'},
-      {
+      }, {
+        loader: 'sass-loader'
+      }, {
         loader: 'sass-resources-loader',
         options: {
           resources: function(_theme_name){
@@ -274,15 +270,10 @@ let getThemeWebpackConfig = function(theme_name) {
     mode: envType,
     devtool: devToolVal,
     stats: { children: false },
-    // The base directory, an absolute path, for resolving entry points and loaders
-    // from configuration.
     context: __dirname,
-    // Specify entry points of application
     entry: {
       [pgadminThemes[theme_name].cssfile]: pgadminScssStyles,
     },
-    // path: The output directory for generated bundles(defined in entry)
-    // Ref: https://webpack.js.org/configuration/output/#output-library
     output: {
       libraryTarget: 'amd',
       path: outputPath,
@@ -290,15 +281,8 @@ let getThemeWebpackConfig = function(theme_name) {
       libraryExport: 'default',
       publicPath: '',
     },
-    // Templates files which contains python code needs to load dynamically
-    // Such files specified in externals are loaded at first and defined in
-    // the start of generated bundle within define(['libname'],fn) etc.
     externals: webpackShimConfig.externals,
     module: {
-      // References:
-      // Module and Rules: https://webpack.js.org/configuration/module/
-      // Loaders: https://webpack.js.org/loaders/
-      //
       rules: themeCssRules(theme_name),
     },
     optimization: {
@@ -325,17 +309,11 @@ let getThemeWebpackConfig = function(theme_name) {
         'fs': false
       },
     },
-    // Watch mode Configuration: After initial build, webpack will watch for
-    // changes in files and compiles only files which are changed,
-    // if watch is set to True
-    // Reference: https://webpack.js.org/configuration/watch/#components/sidebar/sidebar.jsx
     watchOptions: {
       aggregateTimeout: 300,
       poll: 1000,
       ignored: /node_modules/,
     },
-    // Define list of Plugins used in Production or development mode
-    // Ref:https://webpack.js.org/concepts/plugins/#components/sidebar/sidebar.jsx
     plugins: [
       extractStyle,
       sourceMapDevToolPlugin,
@@ -369,7 +347,7 @@ module.exports = [{
     pgadmin: pgadminScssStyles,
     style: './pgadmin/static/css/style.css',
   },
-  // path: The output directory for generated bundles(defined in entry)
+  // `path`: The output directory for generated bundles(defined in entry)
   // Ref: https://webpack.js.org/configuration/output/#output-library
   output: {
     libraryTarget: 'amd',
@@ -577,17 +555,25 @@ module.exports = [{
   },
   resolve: {
     alias: webpackShimConfig.resolveAlias,
+    // Tell webpack what directories should be searched when resolving modules.
+    // Reference: https://webpack.js.org/configuration/resolve/#resolvemodules
     modules: ['node_modules', '.'],
+    // Attempt to resolve these extensions in order. If multiple files share the same name
+    // but have different extensions, webpack will resolve the one with the extension
+    // listed first in the array and skip the rest.
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    // Enable aggressive, but unsafe, caching of modules.
+    // Passing `true` will cache everything.
     unsafeCache: true,
+    // Redirect module requests when normal resolving fails.
     fallback: {
-      'fs': false
+      'fs': false,
     },
   },
   // Watch mode Configuration: After initial build, webpack will watch for
   // changes in files and compiles only files which are changed,
   // if watch is set to True
-  // Reference: https://webpack.js.org/configuration/watch/#components/sidebar/sidebar.jsx
+  // Reference: https://webpack.js.org/configuration/watch
   watchOptions: {
     aggregateTimeout: 300,
     poll: 1000,
@@ -671,17 +657,11 @@ module.exports = [{
     },
   },
   // Define list of Plugins used in Production or development mode
-  // Ref:https://webpack.js.org/concepts/plugins/#components/sidebar/sidebar.jsx
-  plugins: PRODUCTION ? [
-    extractStyle,
-    providePlugin,
-    sourceMapDevToolPlugin,
-    bundleAnalyzer,
-    copyFiles,
-  ]: [
+  // Reference: https://webpack.js.org/concepts/plugins
+  plugins: [
     extractStyle,
     providePlugin,
     sourceMapDevToolPlugin,
     copyFiles,
-  ],
+  ].concat(PRODUCTION ? [bundleAnalyzer] : []),
 }].concat(pgadminThemesWebpack);

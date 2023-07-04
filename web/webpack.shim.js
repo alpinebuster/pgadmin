@@ -183,6 +183,7 @@ let webpackShimConfig = {
     'pgadmin.browser.node',
     'pgadmin.settings', 'pgadmin.preferences', 'pgadmin.sqlfoldcode',
   ],
+
   // Checks whether JS module is npm module or not
   isExternal: function(module) {
     let context = module.context;
@@ -221,7 +222,6 @@ let webpackShimConfig = {
   css_bundle_skip: [
     './pgadmin/static',
   ],
-
   /* These will be included in array formed by recursive traversing for css/scss files */
   css_bundle_include: [
     './pgadmin/static/js/components/pg_tree/scss/styles.scss',
