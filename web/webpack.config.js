@@ -118,8 +118,12 @@ for(let value of webpackShimConfig.css_bundle_include) {
   }
 }
 
-pushModulesStyles(path.join(__dirname,'./pgadmin'), pgadminScssStyles, '.scss');
-pushModulesStyles(path.join(__dirname,'./pgadmin'), pgadminCssStyles, '.css');
+pushModulesStyles(
+  path.join(__dirname, './pgadmin'), pgadminScssStyles, '.scss'
+);
+pushModulesStyles(
+  path.join(__dirname, './pgadmin'), pgadminCssStyles, '.css'
+);
 pgadminCssStyles.push(
   path.join(__dirname, './pgadmin/static/js/pgadmin.fonticon.js')
 );
@@ -155,7 +159,7 @@ fs.readdirSync(all_themes_dir).map(function(curr_dir) {
   }
 });
 
-fs.writeFileSync(pgadminThemesJson, JSON.stringify(pgadminThemes, null, 4));
+fs.writeFileSync(pgadminThemesJson, JSON.stringify(pgadminThemes, null, 2));
 
 let themeCssRules = function(theme_name) {
   return [{
@@ -348,7 +352,7 @@ module.exports = [{
     style: './pgadmin/static/css/style.css',
   },
   // `path`: The output directory for generated bundles(defined in entry)
-  // Ref: https://webpack.js.org/configuration/output/#output-library
+  // Ref: https://webpack.js.org/configuration/output/
   output: {
     libraryTarget: 'amd',
     path: outputPath,
@@ -370,187 +374,213 @@ module.exports = [{
     // at the beginning of module it is dependency of like:
     // let jQuery = require('jquery'); let browser = require('pgadmin.browser')
     // It solves number of problems
-    // Ref: http:/github.com/webpack-contrib/imports-loader/
-    rules: [{
-      test: /\.fonticon\.js/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader',
+    // Ref: http://github.com/webpack-contrib/imports-loader/
+    rules: [
+      {
+        test: /\.fonticon\.js/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false,
+            },
+          },
+          'webfonts-loader',
+        ],
+      }, {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/, /vendor/],
+        use: {
+          loader: 'babel-loader',
           options: {
-            url: false,
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  'modules': 'commonjs',
+                  'useBuiltIns': 'usage',
+                  'corejs': 3
+                }
+              ],
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              '@babel/proposal-object-rest-spread'
+            ],
           },
         },
-        'webfonts-loader',
-      ],
-    },{
-      test: /\.jsx?$/,
-      exclude: [/node_modules/, /vendor/],
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                'modules': 'commonjs',
-                'useBuiltIns': 'usage',
-                'corejs': 3
-              }
+      }, {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false
+        },
+      }, {
+        test: /\.tsx?$|\.ts?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  'modules': 'commonjs',
+                  'useBuiltIns': 'usage',
+                  'corejs': 3
+                }
+              ],
+              '@babel/preset-react',
+              '@babel/preset-typescript'
             ],
-            '@babel/preset-react',
-            '@babel/preset-typescript'
-          ],
-          plugins: [
-            '@babel/plugin-proposal-class-properties',
-            '@babel/proposal-object-rest-spread'
-          ],
-        },
-      },
-    },{
-      test: /\.m?js$/,
-      resolve: {
-        fullySpecified: false
-      },
-    },{
-      test: /\.tsx?$|\.ts?$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            [
-              '@babel/preset-env',
-              {
-                'modules': 'commonjs',
-                'useBuiltIns': 'usage',
-                'corejs': 3
-              }
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              '@babel/proposal-object-rest-spread'
             ],
-            '@babel/preset-react',
-            '@babel/preset-typescript'
-          ],
-          plugins: [
-            '@babel/plugin-proposal-class-properties',
-            '@babel/proposal-object-rest-spread'
-          ],
+          },
         },
-      },
-    }, {
-      test: /external_table.*\.js/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [[
-            '@babel/preset-env',
-            {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}
-          ]],
+      }, {
+        test: /external_table.*\.js/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [[
+              '@babel/preset-env',
+              {'modules': 'commonjs', 'useBuiltIns': 'usage', 'corejs': 3}
+            ]],
+          },
         },
-      },
-    }, {
-      // Transforms the code in a way that it works in the webpack environment.
-      // It uses imports-loader internally to load dependency. Its
-      // configuration is specified in webpack.shim.js
-      // Ref: https://www.npmjs.com/package/shim-loader
-      test: /\.js/,
-      exclude: [/external_table/],
-      loader: 'shim-loader',
-      options: webpackShimConfig,
-      include: path.join(__dirname, '/pgadmin/browser'),
-    }, {
-      // imports-loader: it adds dependent modules(use:imports-loader?module1)
-      // at the beginning of module it is dependency of like:
-      // let jQuery = require('jquery'); let browser = require('pgadmin.browser')
-      // It solves number of problems
-      // Ref: <http:/github.com/webpack-contrib/imports-loader/>
-      test: require.resolve('./pgadmin/tools/sqleditor/static/js/index'),
-      use: {
-        loader: 'imports-loader',
-        options: {
-          type: 'commonjs',
-          imports: [
-            'pure|pgadmin.tools.user_management',
-            'pure|pgadmin.browser.bgprocessmanager',
-            'pure|pgadmin.node.server_group',
-            'pure|pgadmin.node.server',
-            'pure|pgadmin.node.database',
-            'pure|pgadmin.node.role',
-            'pure|pgadmin.node.cast',
-            'pure|pgadmin.node.publication',
-            'pure|pgadmin.node.subscription',
-            'pure|pgadmin.node.tablespace',
-            'pure|pgadmin.node.resource_group',
-            'pure|pgadmin.node.event_trigger',
-            'pure|pgadmin.node.extension',
-            'pure|pgadmin.node.language',
-            'pure|pgadmin.node.foreign_data_wrapper',
-            'pure|pgadmin.node.foreign_server',
-            'pure|pgadmin.node.user_mapping',
-            'pure|pgadmin.node.schema',
-            'pure|pgadmin.node.catalog',
-            'pure|pgadmin.node.catalog_object',
-            'pure|pgadmin.node.collation',
-            'pure|pgadmin.node.domain',
-            'pure|pgadmin.node.domain_constraints',
-            'pure|pgadmin.node.foreign_table',
-            'pure|pgadmin.node.fts_configuration',
-            'pure|pgadmin.node.fts_dictionary',
-            'pure|pgadmin.node.fts_parser',
-            'pure|pgadmin.node.fts_template',
-            'pure|pgadmin.node.function',
-            'pure|pgadmin.node.procedure',
-            'pure|pgadmin.node.edbfunc',
-            'pure|pgadmin.node.edbproc',
-            'pure|pgadmin.node.edbvar',
-            'pure|pgadmin.node.trigger_function',
-            'pure|pgadmin.node.package',
-            'pure|pgadmin.node.sequence',
-            'pure|pgadmin.node.synonym',
-            'pure|pgadmin.node.type',
-            'pure|pgadmin.node.rule',
-            'pure|pgadmin.node.index',
-            'pure|pgadmin.node.row_security_policy',
-            'pure|pgadmin.node.trigger',
-            'pure|pgadmin.node.catalog_object_column',
-            'pure|pgadmin.node.view',
-            'pure|pgadmin.node.mview',
-            'pure|pgadmin.node.table',
-            'pure|pgadmin.node.partition',
-            'pure|pgadmin.node.compound_trigger',
-            'pure|pgadmin.node.aggregate',
-            'pure|pgadmin.node.operator',
-          ],
+      }, {
+        // Transforms the code in a way that it works in the webpack environment.
+        // It uses imports-loader internally to load dependency. Its
+        // configuration is specified in webpack.shim.js
+        // Ref: https://www.npmjs.com/package/shim-loader
+        test: /\.js/,
+        exclude: [/external_table/],
+        loader: 'shim-loader',
+        options: webpackShimConfig,
+        include: path.join(__dirname, '/pgadmin/browser'),
+      }, {
+        // imports-loader: it adds dependent modules(use:imports-loader?module1)
+        // at the beginning of module it is dependency of like:
+        // let jQuery = require('jquery'); let browser = require('pgadmin.browser')
+        // It solves number of problems
+        // Ref: http://github.com/webpack-contrib/imports-loader
+        test: require.resolve('./pgadmin/tools/sqleditor/static/js/index'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            // If `type` is `module`:
+            //   can be `default`, `named`, `namespace` or `side-effects`, the default value is `default`.
+            //
+            // [Foo] - generates `import Foo from "Foo";`.
+            // [default Foo] - generates `import Foo from "Foo";`.
+            // [default ./my-lib Foo] - generates `import Foo from "./my-lib";`.
+            // [named Foo FooA] - generates `import { FooA } from "Foo";`.
+            // [named Foo FooA Bar] - generates `import { FooA as Bar } from "Foo";`.
+            // [namespace Foo FooA] - generates `import * as FooA from "Foo";`.
+            // [side-effects Foo] - generates `import "Foo";`.
+            //
+            //
+            // If `type` is `commonjs`:
+            //   can be `single`, `multiple` or `pure`, the default value is `single`.
+            //
+            // [Foo] - generates `const Foo = require("Foo");`.
+            // [single Foo] - generates `const Foo = require("Foo");`.
+            // [single ./my-lib Foo] - generates `const Foo = require("./my-lib");`.
+            // [multiple Foo FooA Bar] - generates `const { FooA: Bar } = require("Foo");`.
+            // [pure Foo] - generates `require("Foo");`.
+            //
+            type: 'commonjs',
+            imports: [
+              'pure|pgadmin.tools.user_management',
+              'pure|pgadmin.browser.bgprocessmanager',
+              'pure|pgadmin.node.server_group',
+              'pure|pgadmin.node.server',
+              'pure|pgadmin.node.database',
+              'pure|pgadmin.node.role',
+              'pure|pgadmin.node.cast',
+              'pure|pgadmin.node.publication',
+              'pure|pgadmin.node.subscription',
+              'pure|pgadmin.node.tablespace',
+              'pure|pgadmin.node.resource_group',
+              'pure|pgadmin.node.event_trigger',
+              'pure|pgadmin.node.extension',
+              'pure|pgadmin.node.language',
+              'pure|pgadmin.node.foreign_data_wrapper',
+              'pure|pgadmin.node.foreign_server',
+              'pure|pgadmin.node.user_mapping',
+              'pure|pgadmin.node.schema',
+              'pure|pgadmin.node.catalog',
+              'pure|pgadmin.node.catalog_object',
+              'pure|pgadmin.node.collation',
+              'pure|pgadmin.node.domain',
+              'pure|pgadmin.node.domain_constraints',
+              'pure|pgadmin.node.foreign_table',
+              'pure|pgadmin.node.fts_configuration',
+              'pure|pgadmin.node.fts_dictionary',
+              'pure|pgadmin.node.fts_parser',
+              'pure|pgadmin.node.fts_template',
+              'pure|pgadmin.node.function',
+              'pure|pgadmin.node.procedure',
+              'pure|pgadmin.node.edbfunc',
+              'pure|pgadmin.node.edbproc',
+              'pure|pgadmin.node.edbvar',
+              'pure|pgadmin.node.trigger_function',
+              'pure|pgadmin.node.package',
+              'pure|pgadmin.node.sequence',
+              'pure|pgadmin.node.synonym',
+              'pure|pgadmin.node.type',
+              'pure|pgadmin.node.rule',
+              'pure|pgadmin.node.index',
+              'pure|pgadmin.node.row_security_policy',
+              'pure|pgadmin.node.trigger',
+              'pure|pgadmin.node.catalog_object_column',
+              'pure|pgadmin.node.view',
+              'pure|pgadmin.node.mview',
+              'pure|pgadmin.node.table',
+              'pure|pgadmin.node.partition',
+              'pure|pgadmin.node.compound_trigger',
+              'pure|pgadmin.node.aggregate',
+              'pure|pgadmin.node.operator',
+            ],
+          },
         },
-      },
-    },{
-      test: require.resolve('./pgadmin/static/bundle/browser'),
-      use: {
-        loader: 'imports-loader',
-        options: {
-          type: 'commonjs',
-          imports: [
-            'pure|pgadmin.about',
-            'pure|pgadmin.preferences',
-            'pure|pgadmin.settings',
-            'pure|pgadmin.tools.backup',
-            'pure|pgadmin.tools.restore',
-            'pure|pgadmin.tools.grant_wizard',
-            'pure|pgadmin.tools.maintenance',
-            'pure|pgadmin.tools.import_export',
-            'pure|pgadmin.tools.import_export_servers',
-            'pure|pgadmin.tools.debugger',
-            'pure|pgadmin.node.pga_job',
-            'pure|pgadmin.tools.schema_diff',
-            'pure|pgadmin.tools.file_manager',
-            'pure|pgadmin.tools.search_objects',
-            'pure|pgadmin.tools.erd',
-            'pure|pgadmin.tools.psql_module',
-            'pure|pgadmin.tools.sqleditor',
-            'pure|pgadmin.misc.cloud',
-          ],
+      }, {
+        test: require.resolve('./pgadmin/static/bundle/browser'),
+        use: {
+          loader: 'imports-loader',
+          options: {
+            type: 'commonjs',
+            imports: [
+              'pure|pgadmin.about',
+              'pure|pgadmin.preferences',
+              'pure|pgadmin.settings',
+              'pure|pgadmin.tools.backup',
+              'pure|pgadmin.tools.restore',
+              'pure|pgadmin.tools.grant_wizard',
+              'pure|pgadmin.tools.maintenance',
+              'pure|pgadmin.tools.import_export',
+              'pure|pgadmin.tools.import_export_servers',
+              'pure|pgadmin.tools.debugger',
+              'pure|pgadmin.node.pga_job',
+              'pure|pgadmin.tools.schema_diff',
+              'pure|pgadmin.tools.file_manager',
+              'pure|pgadmin.tools.search_objects',
+              'pure|pgadmin.tools.erd',
+              'pure|pgadmin.tools.psql_module',
+              'pure|pgadmin.tools.sqleditor',
+              'pure|pgadmin.misc.cloud',
+            ],
+          },
         },
-      },
-    }].concat(themeCssRules('standard')),
-    // Prevent module from parsing through webpack, helps in reducing build time
+      }
+    ].concat(themeCssRules('standard')),
+    // Prevent webpack from parsing any files matching the given regular expression(s).
+    // Helps in reducing build time.
+    // Ignored files should not have calls to import, require, define or any other importing mechanism.
+    // REF: https://webpack.js.org/configuration/module/#modulenoparse
     noParse: [/moment.js/],
   },
   resolve: {
