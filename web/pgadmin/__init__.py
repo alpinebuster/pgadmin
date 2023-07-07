@@ -721,7 +721,7 @@ def create_app(app_name=None):
 
     @user_logged_in.connect_via(app)
     def store_crypt_key(app, user):
-        # in desktop mode, master password is used to encrypt/decrypt
+        # In desktop mode, master password is used to encrypt/decrypt
         # and is stored in the keyManager memory
         if config.SERVER_MODE and 'password' in request.form:
             current_app.keyManager.set(request.form['password'])
@@ -769,9 +769,12 @@ def create_app(app_name=None):
             regex = re.compile(
                 r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(?:/\d{1,2}|)')
             # Create separate list for ip addresses and host names
-            ip_set = list(filter(lambda ip: regex.match(ip), allowed_hosts))
-            host_set = list(filter(lambda ip: not regex.match(ip),
-                                   allowed_hosts))
+            ip_set = list(
+                filter(lambda ip: regex.match(ip), allowed_hosts)
+            )
+            host_set = list(
+                filter(lambda ip: not regex.match(ip), allowed_hosts)
+            )
             is_ip = regex.match(client_host)
             if is_ip:
                 ip_address = []
@@ -792,7 +795,6 @@ def create_app(app_name=None):
     ##########################################################################
     # Handle the desktop login
     ##########################################################################
-
     @app.before_request
     def before_request():
         """Login the default user if running in desktop mode"""
@@ -842,12 +844,14 @@ def create_app(app_name=None):
             if config.COOKIE_DEFAULT_DOMAIN and \
                     config.COOKIE_DEFAULT_DOMAIN != 'localhost':
                 domain['domain'] = config.COOKIE_DEFAULT_DOMAIN
-            response.set_cookie('PGADMIN_INT_KEY', value=request.args['key'],
-                                path=config.COOKIE_DEFAULT_PATH,
-                                secure=config.SESSION_COOKIE_SECURE,
-                                httponly=config.SESSION_COOKIE_HTTPONLY,
-                                samesite=config.SESSION_COOKIE_SAMESITE,
-                                **domain)
+            response.set_cookie(
+                'PGADMIN_INT_KEY', value=request.args['key'],
+                path=config.COOKIE_DEFAULT_PATH,
+                secure=config.SESSION_COOKIE_SECURE,
+                httponly=config.SESSION_COOKIE_HTTPONLY,
+                samesite=config.SESSION_COOKIE_SAMESITE,
+                **domain
+            )
 
         SecurityHeaders.set_response_headers(response)
         return response
@@ -901,7 +905,6 @@ def create_app(app_name=None):
         """
         Inject a reference to the current blueprint, if any.
         """
-
         return {
             'current_app': current_app,
             'current_blueprint': current_blueprint,
@@ -920,7 +923,7 @@ def create_app(app_name=None):
         current_app.logger.error(e, exc_info=True)
         return e
 
-    # Intialize the key manager
+    # Initialize the key manager
     app.keyManager = KeyManager()
 
     ##########################################################################

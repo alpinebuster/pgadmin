@@ -3,12 +3,14 @@ a webserver, this will provide the WSGI interface, otherwise, we're going
 to start a web server."""
 
 import sys
+
 if sys.version_info <= (3, 9):
     import select
 
 if sys.version_info < (3, 4):
     raise RuntimeError('This application must be run under Python 3.4 '
                        'or later.')
+
 import builtins
 import os
 
@@ -209,7 +211,9 @@ def main():
                 socketio.stop()
 
     except IOError:
-        app.logger.error("Error starting the app server: %s", sys.exc_info())
+        app.logger.error(
+            "Error starting the app server: %s", sys.exc_info()
+        )
 
 
 ##########################################################################

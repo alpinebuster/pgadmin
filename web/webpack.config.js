@@ -68,7 +68,7 @@ const copyFiles = new CopyPlugin({
 
 function cssToBeSkipped(curr_path) {
   /** Skip all templates **/
-  if(curr_path.indexOf('template') > -1) {
+  if(curr_path.indexOf('templates') > -1) {
     return true;
   }
 

@@ -320,7 +320,7 @@ class Process(db.Model):
     process_state = db.Column(db.Integer, nullable=False)
     server_id = db.Column(
         db.Integer,
-        db.ForeignKey('server.id'),
+        db.ForeignKey(SERVER_ID),
         nullable=True
     )
 
