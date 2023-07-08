@@ -78,10 +78,10 @@ const useStyles = makeStyles((theme)=>({
     marginRight: 0,
     flex: 1,
     '&:hover': {
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.primary.hoverContrastText,
     },
     '&:active': {
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.primary.hoverContrastText,
     },
   },
   iconButton: {
@@ -98,14 +98,14 @@ const useStyles = makeStyles((theme)=>({
     '&:hover': {
       border: '0px solid',
       boxShadow: 'none',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.primary.hoverContrastText,
       backgroundColor: theme.palette.background.default,
       borderColor: theme.palette.primary.hoverMain,
     },
     '&:active': {
       border: '0px solid',
       boxShadow: 'none',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.primary.hoverContrastText,
       backgroundColor: theme.palette.background.default,
       borderColor: theme.palette.primary.main,
     },
