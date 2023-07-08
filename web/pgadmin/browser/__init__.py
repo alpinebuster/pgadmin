@@ -37,7 +37,8 @@ from pgadmin.authenticate import get_logout_url
 from pgadmin.authenticate.mfa.utils import mfa_required, is_mfa_enabled
 from pgadmin.settings import get_setting, store_setting
 from pgadmin.utils import PgAdminModule
-from pgadmin.utils.ajax import make_json_response
+from pgadmin.utils.ajax import make_json_response, \
+    internal_server_error, bad_request
 from pgadmin.utils.csrf import pgCSRFProtect
 from pgadmin.utils.preferences import Preferences
 from pgadmin.utils.menu import MenuItem

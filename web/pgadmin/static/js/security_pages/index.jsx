@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { SnackbarProvider } from 'notistack';
-import Theme from '../Theme/index';
+import Theme from '../theme/index';
 import LoginPage from './LoginPage';
 import ForgotPasswordPage from './ForgotPasswordPage';
 import PasswordResetPage from './PasswordResetPage';

@@ -71,7 +71,7 @@ module.exports = {
       'error',
       'only-multiline',
     ],
-    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     // We need to exclude below for RegEx case
     'no-useless-escape': 0,
     'no-prototype-builtins': 0,
