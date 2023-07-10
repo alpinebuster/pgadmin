@@ -28,7 +28,7 @@ Use the *File* menu to access the following options:
 | *Lock Layout*           | Click to open a submenu to select the level for locking the UI layout                                   |
 |                         | This can also be changed from browser display :ref:`preferences <preferences>`                          |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
-| *Runtime*               | Click to open a submenu to Configure, View Log and Zoom settings. Only visible when pgAdmin runs in    |
+| *Runtime*               | Click to open a submenu to Configure, View Log and Zoom settings. Only visible when pgAdmin runs in     |
 |                         | desktop mode. To know more about runtime menu :ref:`click here <desktop_deployment>`                    |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
 
@@ -156,7 +156,7 @@ information about the pgAdmin installation (in alphabetical order):
 |                      |                                                                                                                                         |
 |                      | **Note**:- If any of the option under Menu items is disabled, then it will provide information via info icon.                           |
 +----------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
-| *About pgAdmin*    | Click to open a window where you will find information about pgAdmin; this includes the current version and the current user.           |
+| *About pgAdmin*      | Click to open a window where you will find information about pgAdmin; this includes the current version and the current user.           |
 +----------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
 | *Online Help*        | Click to open documentation support for using pgAdmin utilities, tools and dialogs.                                                     |
 |                      | Navigate (in the newly opened tab?) help documents in the left browser pane or use the search bar to specify a topic.                   |

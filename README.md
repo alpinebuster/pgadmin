@@ -231,7 +231,7 @@ or
 
 ```bash
 cd docs/en_US
-python build_code_snippet.py && sphinx-build -W -b html -d _build/doctrees . _build/html
+python build_code_snippet.py && LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 sphinx-build -W -b html -d _build/doctrees . _build/html
 ```
 
 The output can be found in *$PGADMIN_SRC/docs/en_US/_build/html/index.html*

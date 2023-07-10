@@ -57,7 +57,7 @@ Use the *File Menu* to access the *Runtime Menu*:
 +=========================+=========================================================================================================+
 | *Configure...*          | Click to open configuration dialog to configure fixed port, port number and connection timeout.         |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
-| *View log...*           | Click to open the view log dialog to view the pgAdmin logs.                                           |
+| *View log...*           | Click to open the view log dialog to view the pgAdmin logs.                                             |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
 | *Enter Full Screen*     | Click to enter/exit the full screen mode. Keyboard Shortcuts: OSX (Cmd + Ctrl + F), Other OS (F10).     |
 +-------------------------+---------------------------------------------------------------------------------------------------------+
