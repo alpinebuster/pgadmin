@@ -1,6 +1,5 @@
-"""
-Implements the routes for creating Preferences/Options Dialog on the client
-side and for getting/setting preferences.
+"""Implements the routes for creating Preferences/Options Dialog on the client
+   side and for getting/setting preferences.
 """
 
 import config
@@ -8,6 +7,7 @@ import json
 from flask import render_template, url_for, Response, request, session
 from flask_babel import gettext
 from flask_security import login_required
+
 from pgadmin.utils import PgAdminModule
 from pgadmin.utils.ajax import success_return, \
     make_response as ajax_response, internal_server_error

@@ -6,6 +6,7 @@ import { FileType } from 'react-aspen';
 import { Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+
 import SchemaView from '../../../../static/js/schema_view';
 import getApiInstance from '../../../../static/js/api_instance';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
@@ -16,6 +17,7 @@ import Notify from '../../../../static/js/helpers/Notifier';
 import pgAdmin from 'sources/pgadmin';
 import { DefaultButton, PgIconButton, PrimaryButton } from '../../../../static/js/components/Buttons';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
+
 import { getBinaryPathSchema } from '../../../../browser/server_groups/servers/static/js/binary_path.ui';
 import { _set_dynamic_tab } from '../../../../tools/sqleditor/static/js/show_query_tool';
 import { getBrowserAccesskey } from '../../../../static/js/components/ShortcutTitle';
@@ -116,7 +118,6 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-
 function RightPanel({ schema, ...props }) {
   let initData = () => new Promise((resolve, reject) => {
     try {
@@ -146,7 +147,6 @@ RightPanel.propTypes = {
   initValues: PropTypes.object,
   onDataChange: PropTypes.func
 };
-
 
 export default function PreferencesComponent({ ...props }) {
   const classes = useStyles();
