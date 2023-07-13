@@ -28,8 +28,8 @@ from werkzeug.local import LocalProxy
 from werkzeug.utils import find_modules
 from jinja2 import select_autoescape
 
-from pgadmin.model import db, Role, Server, SharedServer, ServerGroup, \
-    User, Keys, Version, SCHEMA_VERSION as CURRENT_SCHEMA_VERSION
+from pgadmin.model import db, Role, Server, ServerGroup, \
+    User, Keys, SCHEMA_VERSION as CURRENT_SCHEMA_VERSION
 from pgadmin.utils import PgAdminModule, driver, KeyManager, heartbeat
 from pgadmin.utils.preferences import Preferences
 from pgadmin.utils.session import create_session_interface, pga_unauthorised

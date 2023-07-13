@@ -5,7 +5,6 @@ import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PgIconButton } from '../components/Buttons';
 import AddIcon from '@material-ui/icons/AddOutlined';
-import { MappedCellControl } from './MappedControl';
 import DragIndicatorRoundedIcon from '@material-ui/icons/DragIndicatorRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
@@ -17,10 +16,12 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import gettext from 'sources/gettext';
-import { SCHEMA_STATE_ACTIONS, StateUtilsContext } from '.';
-import FormView, { getFieldMetaData } from './FormView';
 import CustomPropTypes from 'sources/custom_prop_types';
 import { evalFunc } from 'sources/utils';
+
+import { MappedCellControl } from './MappedControl';
+import { SCHEMA_STATE_ACTIONS, StateUtilsContext } from '.';
+import FormView, { getFieldMetaData } from './FormView';
 import { DepListenerContext } from './DepListener';
 import { useIsMounted } from '../custom_hooks';
 import Notify from '../helpers/Notifier';
@@ -158,7 +159,10 @@ DataTableHeader.propTypes = {
   headerGroups: PropTypes.array.isRequired,
 };
 
-function DataTableRow({index, row, totalRows, isResizing, isHovered, schema, schemaRef, accessPath, moveRow, setHoverIndex}) {
+function DataTableRow({
+  index, row, totalRows, isResizing, isHovered,
+  schema, schemaRef, accessPath, moveRow, setHoverIndex
+}) {
   const classes = useStyles();
   const [key, setKey] = useState(false);
   const depListener = useContext(DepListenerContext);
@@ -191,7 +195,11 @@ function DataTableRow({index, row, totalRows, isResizing, isHovered, schema, sch
     schemaRef.current.fields.forEach((field)=>{
       /* Self change is also dep change */
       if(field.depChange || field.deferredDepChange) {
-        depListener?.addDepListener(accessPath.concat(field.id), accessPath.concat(field.id), field.depChange, field.deferredDepChange);
+        depListener?.addDepListener(
+          accessPath.concat(field.id),
+          accessPath.concat(field.id),
+          field.depChange, field.deferredDepChange
+        );
       }
       (evalFunc(null, field.deps) || []).forEach((dep)=>{
         let source = accessPath.concat(dep);
@@ -199,7 +207,9 @@ function DataTableRow({index, row, totalRows, isResizing, isHovered, schema, sch
           source = dep;
         }
         if(field.depChange) {
-          depListener?.addDepListener(source, accessPath.concat(field.id), field.depChange);
+          depListener?.addDepListener(
+            source, accessPath.concat(field.id), field.depChange
+          );
         }
       });
     });
@@ -280,7 +290,10 @@ function DataTableRow({index, row, totalRows, isResizing, isHovered, schema, sch
             classNames.push(classes.expandedIconCell);
           }
           return (
-            <div ref={cell.column.id == 'btn-reorder' ? dragHandleRef : null} key={ci} {...cell.getCellProps()} className={clsx(classNames)}>
+            <div
+              ref={cell.column.id == 'btn-reorder' ? dragHandleRef : null}
+              key={ci} {...cell.getCellProps()} className={clsx(classNames)}
+            >
               {cell.render('Cell', {
                 reRenderRow: ()=>{setKey((currKey)=>!currKey);}
               })}
@@ -292,7 +305,9 @@ function DataTableRow({index, row, totalRows, isResizing, isHovered, schema, sch
     </>, depsMap);
 }
 
-export function DataGridHeader({label, canAdd, onAddClick, canSearch, onSearchTextChange}) {
+export function DataGridHeader({
+  label, canAdd, onAddClick, canSearch, onSearchTextChange
+}) {
   const classes = useStyles();
   const [searchText, setSearchText] = useState('');
 
@@ -331,8 +346,11 @@ DataGridHeader.propTypes = {
 };
 
 export default function DataGridView({
-  value, viewHelperProps, schema, accessPath, dataDispatch, containerClassName,
-  fixedRows, ...props}) {
+  value, viewHelperProps, schema,
+  accessPath, dataDispatch,
+  containerClassName,
+  fixedRows, ...props
+}) {
   const classes = useStyles();
   const stateUtils = useContext(StateUtilsContext);
   const checkIsMounted = useIsMounted();
@@ -380,11 +398,17 @@ export default function DataGridView({
             if(props.canEditRow) {
               canEditRow = evalFunc(schemaRef.current, props.canEditRow, row.original || {});
             }
-            return <PgIconButton data-test="expand-row" title={gettext('Edit row')} icon={<EditRoundedIcon fontSize="small" />} className={classes.gridRowButton}
-              onClick={()=>{
-                row.toggleRowExpanded(!row.isExpanded);
-              }} disabled={!canEditRow}
-            />;
+            return (
+              <PgIconButton
+                data-test="expand-row" title={gettext('Edit row')}
+                icon={<EditRoundedIcon fontSize="small" />}
+                className={classes.gridRowButton}
+                onClick={()=>{
+                  row.toggleRowExpanded(!row.isExpanded);
+                }}
+                disabled={!canEditRow}
+              />
+            );
           }
         };
         colInfo.Cell.displayName = 'Cell';
@@ -411,7 +435,9 @@ export default function DataGridView({
             }
 
             return (
-              <PgIconButton data-test="delete-row" title={gettext('Delete row')} icon={<DeleteRoundedIcon fontSize="small" />}
+              <PgIconButton
+                data-test="delete-row" title={gettext('Delete row')}
+                icon={<DeleteRoundedIcon fontSize="small" />}
                 onClick={()=>{
                   const deleteRow = ()=> {
                     dataDispatch({
@@ -434,7 +460,10 @@ export default function DataGridView({
                       }
                     );
                   }
-                }} className={classes.gridRowButton} disabled={!canDeleteRow} />
+                }}
+                className={classes.gridRowButton}
+                disabled={!canDeleteRow}
+              />
             );
           }
         };
@@ -481,34 +510,39 @@ export default function DataGridView({
               /* Make sure to take the latest field info from schema */
               field = _.find(schemaRef.current.fields, (f)=>f.id==field.id) || field;
 
-              let {editable, disabled} = getFieldMetaData(field, schemaRef.current, row.original || {}, viewHelperProps);
+              let {editable, disabled} = getFieldMetaData(
+                field, schemaRef.current, row.original || {}, viewHelperProps
+              );
 
               if(_.isUndefined(field.cell)) {
                 console.error('cell is required ', field);
               }
 
-              return <MappedCellControl rowIndex={row.index} value={value}
-                row={row.original} {...field}
-                readonly={!editable}
-                disabled={disabled}
-                visible={true}
-                onCellChange={(changeValue)=>{
-                  if(field.radioType) {
+              return (
+                <MappedCellControl
+                  rowIndex={row.index} value={value}
+                  row={row.original} {...field}
+                  readonly={!editable}
+                  disabled={disabled}
+                  visible={true}
+                  onCellChange={(changeValue)=>{
+                    if(field.radioType) {
+                      dataDispatch({
+                        type: SCHEMA_STATE_ACTIONS.BULK_UPDATE,
+                        path: accessPath,
+                        value: changeValue,
+                        id: field.id
+                      });
+                    }
                     dataDispatch({
-                      type: SCHEMA_STATE_ACTIONS.BULK_UPDATE,
-                      path: accessPath,
+                      type: SCHEMA_STATE_ACTIONS.SET_VALUE,
+                      path: accessPath.concat([row.index, field.id]),
                       value: changeValue,
-                      id: field.id
                     });
-                  }
-                  dataDispatch({
-                    type: SCHEMA_STATE_ACTIONS.SET_VALUE,
-                    path: accessPath.concat([row.index, field.id]),
-                    value: changeValue,
-                  });
-                }}
-                reRenderRow={other.reRenderRow}
-              />;
+                  }}
+                  reRenderRow={other.reRenderRow}
+                />
+              );
             },
           };
           colInfo.Cell.displayName = 'Cell';
@@ -605,7 +639,10 @@ export default function DataGridView({
     });
   };
 
-  const isResizing = _.flatMap(headerGroups, headerGroup => headerGroup.headers.map(col=>col.isResizing)).includes(true);
+  const isResizing = _.flatMap(
+    headerGroups,
+    headerGroup => headerGroup.headers.map(col => col.isResizing)
+  ).includes(true);
 
   if(!props.visible) {
     return <></>;
@@ -614,28 +651,52 @@ export default function DataGridView({
   return (
     <Box className={containerClassName}>
       <Box className={classes.grid}>
-        {(props.label || props.canAdd) && <DataGridHeader label={props.label} canAdd={props.canAdd} onAddClick={onAddClick}
-          canSearch={props.canSearch}
-          onSearchTextChange={(value)=>{
-            setGlobalFilter(value || undefined);
-          }}
-        />}
+        {(props.label || props.canAdd) && (
+          <DataGridHeader
+            label={props.label}
+            canAdd={props.canAdd}
+            onAddClick={onAddClick}
+            canSearch={props.canSearch}
+            onSearchTextChange={(value)=>{
+              setGlobalFilter(value || undefined);
+            }}
+          />
+        )}
         <DndProvider backend={HTML5Backend}>
-          <div {...getTableProps(()=>({style: {minWidth: 'unset'}}))} className={classes.table}>
+          <div
+            {...getTableProps(() => ({style: {minWidth: 'unset'}}))}
+            className={classes.table}
+          >
             <DataTableHeader headerGroups={headerGroups} />
             <div {...getTableBodyProps()} className={classes.tableContentWidth}>
               {rows.map((row, i) => {
                 prepareRow(row);
-                return <React.Fragment key={row.index}>
-                  <DataTableRow index={i} row={row} totalRows={rows.length} isResizing={isResizing}
-                    schema={schemaRef.current} schemaRef={schemaRef} accessPath={accessPath.concat([row.index])}
-                    moveRow={moveRow} isHovered={i == hoverIndex} setHoverIndex={setHoverIndex} />
-                  {props.canEdit && row.isExpanded &&
-                    <FormView value={row.original} viewHelperProps={viewHelperProps} dataDispatch={dataDispatch}
-                      schema={schemaRef.current} accessPath={accessPath.concat([row.index])} isNested={true} className={classes.expandedForm}
-                      isDataGridForm={true}/>
-                  }
-                </React.Fragment>;
+                return (
+                  <React.Fragment key={row.index}>
+                    <DataTableRow
+                      index={i} row={row}
+                      totalRows={rows.length}
+                      isResizing={isResizing}
+                      schema={schemaRef.current}
+                      schemaRef={schemaRef}
+                      accessPath={accessPath.concat([row.index])}
+                      moveRow={moveRow}
+                      isHovered={i == hoverIndex}
+                      setHoverIndex={setHoverIndex}
+                    />
+                    {props.canEdit && row.isExpanded && (
+                      <FormView
+                        value={row.original}
+                        viewHelperProps={viewHelperProps}
+                        dataDispatch={dataDispatch}
+                        schema={schemaRef.current}
+                        accessPath={accessPath.concat([row.index])}
+                        isNested={true} className={classes.expandedForm}
+                        isDataGridForm={true}
+                      />
+                    )}
+                  </React.Fragment>
+                );
               })}
             </div>
           </div>
@@ -652,8 +713,14 @@ DataGridView.propTypes = {
   schema: CustomPropTypes.schemaUI,
   accessPath: PropTypes.array.isRequired,
   dataDispatch: PropTypes.func,
-  containerClassName: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  fixedRows: PropTypes.oneOfType([PropTypes.array, PropTypes.instanceOf(Promise), PropTypes.func]),
+  containerClassName: PropTypes.oneOfType(
+    [PropTypes.object, PropTypes.string]
+  ),
+  fixedRows: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.instanceOf(Promise),
+    PropTypes.func
+  ]),
   columns: PropTypes.array,
   canEdit: PropTypes.bool,
   canAdd: PropTypes.bool,

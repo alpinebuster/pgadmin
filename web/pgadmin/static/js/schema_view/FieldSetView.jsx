@@ -11,7 +11,10 @@ import { getFieldMetaData } from './FormView';
 import FieldSet from '../components/FieldSet';
 
 export default function FieldSetView({
-  value, schema={}, viewHelperProps, accessPath, dataDispatch, controlClassName, isDataGridForm=false, label, visible}) {
+  value, schema = {}, viewHelperProps,
+  accessPath, dataDispatch, controlClassName,
+  isDataGridForm = false, label, visible
+}) {
   const depListener = useContext(DepListenerContext);
   const stateUtils = useContext(StateUtilsContext);
 
@@ -21,7 +24,12 @@ export default function FieldSetView({
       schema.fields.forEach((field)=>{
         /* Self change is also dep change */
         if(field.depChange || field.deferredDepChange) {
-          depListener.addDepListener(accessPath.concat(field.id), accessPath.concat(field.id), field.depChange, field.deferredDepChange);
+          depListener.addDepListener(
+            accessPath.concat(field.id),
+            accessPath.concat(field.id),
+            field.depChange,
+            field.deferredDepChange
+          );
         }
         (evalFunc(null, field.deps) || []).forEach((dep)=>{
           let source = accessPath.concat(dep);
@@ -29,7 +37,9 @@ export default function FieldSetView({
             source = dep;
           }
           if(field.depChange) {
-            depListener.addDepListener(source, accessPath.concat(field.id), field.depChange);
+            depListener.addDepListener(
+              source, accessPath.concat(field.id), field.depChange
+            );
           }
         });
       });

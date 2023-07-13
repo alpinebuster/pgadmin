@@ -24,6 +24,7 @@ To build the runtime, the following packages must be installed:
 
 * NodeJS 12+
 * Yarn
+* `sudo apt-get install libkrb5-dev gcc python3-dev`
 
 Change into the runtime directory, and run *yarn install*. This will install the
 dependencies required.

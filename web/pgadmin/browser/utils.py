@@ -241,7 +241,7 @@ class NodeView(View, metaclass=type(MethodView)):
     def __init__(self, **kwargs):
         self.cmd = kwargs['cmd']
 
-    # Check the existance of all the required arguments from parent_ids
+    # Check the existence of all the required arguments from parent_ids
     # and return combination of has parent arguments, and has id arguments
     def check_args(self, **kwargs):
         has_id = has_args = True
@@ -308,9 +308,7 @@ class NodeView(View, metaclass=type(MethodView)):
                 success=0,
                 errormsg=gettext(
                     'Unimplemented method ({0}) for this url ({1})'
-                ).format(
-                    meth, flask.request.path
-                )
+                ).format(meth, flask.request.path)
             )
 
         return method(*args, **kwargs)

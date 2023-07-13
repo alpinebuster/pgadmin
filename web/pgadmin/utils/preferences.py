@@ -18,7 +18,7 @@ from pgadmin.model import db, Preferences as PrefTable, \
 
 class _Preference():
     """
-    Internal class representing module, and categoy bound preference.
+    Internal class representing module, and category bound preference.
     """
 
     def __init__(

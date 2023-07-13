@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import pgAdmin from 'sources/pgadmin';
 
 import { FileType } from 'react-aspen';
@@ -8,12 +9,12 @@ function manageTreeEvents(event, eventName, item) {
   let d = item ? item._metadata.data : [];
   let node_metadata = item ? item._metadata : {};
   let node;
-  let obj = pgAdmin.Browser;
+  let pgBrowser = pgAdmin.Browser;
 
   // Events for preferences tree.
-  if (node_metadata.parent && node_metadata.parent.includes('/preferences') && obj.ptree.tree.type == 'preferences') {
+  if (node_metadata.parent && node_metadata.parent.includes('/preferences') && pgBrowser.ptree.tree.type == 'preferences') {
     try {
-      obj.Events.trigger(
+      pgBrowser.Events.trigger(
         'preferences:tree:' + eventName, event, item, d
       );
     } catch (e) {
@@ -23,7 +24,7 @@ function manageTreeEvents(event, eventName, item) {
   } else if(eventName == 'hovered') {
     /* Raise tree events for the nodes */
     try {
-      obj.Events.trigger(
+      pgBrowser.Events.trigger(
         'pgadmin-browser:tree:' + eventName, item, d, node
       );
     } catch (e) {
@@ -32,32 +33,32 @@ function manageTreeEvents(event, eventName, item) {
     }
   } else {
     // Events for browser tree.
-    if (d && obj.Nodes[d._type]) {
-      node = obj.Nodes[d._type];
+    if (d && pgBrowser.Nodes[d._type]) {
+      node = pgBrowser.Nodes[d._type];
 
       // If the Browser tree is not initialised yet
-      if (obj.tree === null) return;
+      if (pgBrowser.tree === null) return;
 
       if (eventName == 'dragstart') {
-        obj.tree.handleDraggable(event, item);
+        pgBrowser.tree.handleDraggable(event, item);
       }
       if (eventName == 'added' || eventName == 'beforeopen' || eventName == 'loaded') {
-        obj.tree.addNewNode(item.getMetadata('data').id, item.getMetadata('data'), item, item.parent.path);
+        pgBrowser.tree.addNewNode(item.getMetadata('data').id, item.getMetadata('data'), item, item.parent.path);
       }
       if(eventName == 'copied') {
-        obj.tree.copyHandler?.(item.getMetadata('data'), item);
+        pgBrowser.tree.copyHandler?.(item.getMetadata('data'), item);
       }
       if (_.isObject(node.callbacks) &&
         eventName in node.callbacks &&
         typeof node.callbacks[eventName] == 'function' &&
         !node.callbacks[eventName].apply(
-          node, [item, d, obj, [], eventName])) {
+          node, [item, d, pgBrowser, [], eventName])) {
         return true;
       }
 
       /* Raise tree events for the nodes */
       try {
-        obj.Events.trigger(
+        pgBrowser.Events.trigger(
           'pgadmin-browser:tree:' + eventName, item, d, node
         );
       } catch (e) {
@@ -352,37 +353,39 @@ export class Tree {
         && (basepath.startsWith(`${matchPath}/`) || path === matchPath));
     };
 
-    return (function findInNode(currentNode) {
-      return new Promise((resolve, reject) => {
-        if (path === null || path === undefined || path.length === 0) {
-          resolve(null);
-        }
-        /* No point in checking the children if
-         * the path for currentNode itself is not matching
-         */
-        if (currentNode.path !== undefined && !onCorrectPath(currentNode.path)) {
-          reject(null);
-        } else if (currentNode.path === path) {
-          resolve(currentNode);
-        } else {
-          tree.open(currentNode)
-            .then(() => {
-              let children = currentNode.children;
-              for (let i = 0, length = children.length; i < length; i++) {
-                let childNode = children[i];
-                if (onCorrectPath(childNode.path)) {
-                  resolve(findInNode(childNode));
-                  return;
+    return (
+      function findInNode(currentNode) {
+        return new Promise((resolve, reject) => {
+          if (path === null || path === undefined || path.length === 0) {
+            resolve(null);
+          }
+          /* No point in checking the children if
+          * the path for currentNode itself is not matching
+          */
+          if (currentNode.path !== undefined && !onCorrectPath(currentNode.path)) {
+            reject(null);
+          } else if (currentNode.path === path) {
+            resolve(currentNode);
+          } else {
+            tree.open(currentNode)
+              .then(() => {
+                let children = currentNode.children;
+                for (let i = 0, length = children.length; i < length; i++) {
+                  let childNode = children[i];
+                  if (onCorrectPath(childNode.path)) {
+                    resolve(findInNode(childNode));
+                    return;
+                  }
                 }
-              }
-              reject(null);
-            })
-            .catch(() => {
-              reject(null);
-            });
-        }
-      });
-    })(tree.tree.getModel().root);
+                reject(null);
+              })
+              .catch(() => {
+                reject(null);
+              });
+          }
+        });
+      }
+    )(tree.tree.getModel().root);
   }
 
   getNodeDisplayPath(item, separator='/', skip_coll=false) {
@@ -585,8 +588,6 @@ export class Tree {
 function mapType(type, idx) {
   return (type === 'partition' && idx > 0) ? 'table' : type;
 }
-
-
 
 /**
  * Given an initial node and a path, it will navigate through

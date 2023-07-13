@@ -12,16 +12,17 @@ import EditIcon from '@material-ui/icons/Edit';
 import diffArray from 'diff-arrays-of-objects';
 import _ from 'lodash';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
 import {FormFooterMessage, MESSAGE_TYPE } from 'sources/components/FormComponents';
 import { PrimaryButton, DefaultButton, PgIconButton } from 'sources/components/Buttons';
 import Loader from 'sources/components/Loader';
-import { minMaxValidator, numberValidator, integerValidator, emptyValidator, checkUniqueCol, isEmptyString} from '../validators';
-import { MappedFormControl } from './MappedControl';
 import gettext from 'sources/gettext';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
+
+import { minMaxValidator, numberValidator, integerValidator, emptyValidator, checkUniqueCol, isEmptyString} from '../validators';
+import { MappedFormControl } from './MappedControl';
 import FormView, { getFieldMetaData } from './FormView';
-import PropTypes from 'prop-types';
 import CustomPropTypes from '../custom_prop_types';
 import { parseApiError } from '../api_instance';
 import DepListener, {DepListenerContext} from './DepListener';

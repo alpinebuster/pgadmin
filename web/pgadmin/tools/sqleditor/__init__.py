@@ -1,4 +1,5 @@
 """A blueprint module implementing the sqleditor frame."""
+
 import os
 import pickle
 import re
@@ -25,7 +26,7 @@ from pgadmin.tools.sqleditor.utils.update_session_grid_transaction import \
 from pgadmin.utils import PgAdminModule
 from pgadmin.utils import get_storage_directory
 from pgadmin.utils.ajax import make_json_response, bad_request, \
-    success_return, internal_server_error
+    internal_server_error
 from pgadmin.utils.driver import get_driver
 from pgadmin.utils.exception import ConnectionLost, SSHTunnelConnectionLost, \
     CryptKeyMissing, ObjectGone
@@ -40,8 +41,8 @@ from pgadmin.tools.sqleditor.utils.filter_dialog import FilterDialog
 from pgadmin.tools.sqleditor.utils.query_history import QueryHistory
 from pgadmin.tools.sqleditor.utils.macros import get_macros,\
     get_user_macros, set_macros
-from pgadmin.utils.constants import MIMETYPE_APP_JS, \
-    SERVER_CONNECTION_CLOSED, ERROR_MSG_TRANS_ID_NOT_FOUND, \
+from pgadmin.utils.constants import SERVER_CONNECTION_CLOSED, \
+    ERROR_MSG_TRANS_ID_NOT_FOUND, \
     ERROR_FETCHING_DATA, MY_STORAGE, ACCESS_DENIED_MESSAGE
 from pgadmin.model import Server, ServerGroup
 from pgadmin.tools.schema_diff.node_registry import SchemaDiffRegistry
@@ -1062,7 +1063,8 @@ def fetch(trans_id, fetch_all=None):
     rows_fetched_from = 0
     rows_fetched_to = 0
     on_demand_record_count = Preferences.module(MODULE_NAME).preference(
-        'on_demand_record_count').get()
+        'on_demand_record_count'
+    ).get()
     fetch_row_cnt = -1 if fetch_all == 1 else on_demand_record_count
 
     # Check the transaction and connection status
@@ -1070,9 +1072,11 @@ def fetch(trans_id, fetch_all=None):
         check_transaction_status(trans_id)
 
     if error_msg == ERROR_MSG_TRANS_ID_NOT_FOUND:
-        return make_json_response(success=0, errormsg=error_msg,
-                                  info='DATAGRID_TRANSACTION_REQUIRED',
-                                  status=404)
+        return make_json_response(
+            success=0, errormsg=error_msg,
+            info='DATAGRID_TRANSACTION_REQUIRED',
+            status=404
+        )
 
     if status and conn is not None and session_obj is not None:
         status, result = conn.async_fetchmany_2darray(fetch_row_cnt)

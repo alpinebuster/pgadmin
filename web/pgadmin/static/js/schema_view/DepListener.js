@@ -19,9 +19,11 @@ export default class DepListener {
     });
   }
 
-
   removeDepListener(dest) {
-    this._depListeners = _.filter(this._depListeners, (l)=>!_.join(l.dest, '|').startsWith(_.join(dest, '|')));
+    this._depListeners = _.filter(
+      this._depListeners,
+      (l) => !_.join(l.dest, '|').startsWith(_.join(dest, '|'))
+    );
   }
 
   _getListenerData(state, listener, actionObj) {
@@ -31,7 +33,12 @@ export default class DepListener {
     if(dataPath.length > 0) {
       data = _.get(state, dataPath);
     }
-    _.assign(data, listener.callback && listener.callback(data, listener.source, state, actionObj) || {});
+    _.assign(
+      data,
+      listener.callback && listener.callback(
+        data, listener.source, state, actionObj
+      ) || {}
+    );
     return state;
   }
 
@@ -42,16 +49,25 @@ export default class DepListener {
     if(dataPath.length > 0) {
       data = _.get(state, dataPath);
     }
-    return (listener.defCallback && listener.defCallback(data, listener.source, state, actionObj));
+    return (
+      listener.defCallback && listener.defCallback(
+        data, listener.source, state, actionObj
+      )
+    );
   }
 
   /* Called when any field changed and trigger callbacks */
   getDepChange(currPath, state, actionObj) {
     /* If this comes from deferred change */
     if(actionObj.listener?.callback) {
-      state = this._getListenerData(state, actionObj.listener, actionObj);
+      state = this._getListenerData(
+        state, actionObj.listener, actionObj
+      );
     } else {
-      let allListeners = _.filter(this._depListeners, (entry)=>_.join(currPath, '|').startsWith(_.join(entry.source, '|')));
+      let allListeners = _.filter(
+        this._depListeners,
+        (entry) => _.join(currPath, '|').startsWith(_.join(entry.source, '|'))
+      );
       if(allListeners) {
         for(const listener of allListeners) {
           state = this._getListenerData(state, listener, actionObj);
@@ -63,11 +79,16 @@ export default class DepListener {
 
   getDeferredDepChange(currPath, state, actionObj) {
     let deferredList = [];
-    let allListeners = _.filter(this._depListeners, (entry)=>_.join(currPath, '|').startsWith(_.join(entry.source, '|')));
+    let allListeners = _.filter(
+      this._depListeners,
+      (entry) => _.join(currPath, '|').startsWith(_.join(entry.source, '|'))
+    );
     if(allListeners) {
       for(const listener of allListeners) {
         if(listener.defCallback) {
-          let thePromise = this._getDefListenerPromise(state, listener, actionObj);
+          let thePromise = this._getDefListenerPromise(
+            state, listener, actionObj
+          );
           if(thePromise) {
             deferredList.push({
               action: actionObj,

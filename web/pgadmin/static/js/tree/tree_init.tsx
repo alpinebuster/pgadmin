@@ -1,10 +1,11 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import {Tree} from './tree';
-
 import { IBasicFileSystemHost, Directory, FileOrDir } from 'react-aspen';
-import { ManageTreeNodes } from './tree_nodes';
+
 import pgAdmin from 'sources/pgadmin';
+
+import { ManageTreeNodes } from './tree_nodes';
+import {Tree} from './tree';
 import { FileTreeX, TreeModelX } from '../components/pg_tree';
 import Theme from '../theme';
 import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from '../components/Menu';
@@ -97,38 +98,52 @@ function BrowserTree(props) {
   const [contextPos, setContextPos] = React.useState<{x: number, y: number} | null>(null);
   const contextMenuItems = pgAdmin.Browser.BrowserContextMenu;
 
-  const getPgMenuItem = (menuItem, i)=>{
+  const getPgMenuItem = (menuItem, i) => {
     if(menuItem.type == 'separator') {
       return <PgMenuDivider key={i}/>;
     }
     if(menuItem.isDisabled) {
-      return <React.Fragment key={i}><div style={{padding: '0 0.7rem',opacity: '0.5'}}>{menuItem.label}</div></React.Fragment>;
+      return (
+        <React.Fragment key={i}>
+          <div style={{ padding: '0 0.7rem', opacity: '0.5' }}>
+            {menuItem.label}
+          </div>
+        </React.Fragment>
+      );
     }
     const hasCheck = typeof menuItem.checked == 'boolean';
 
-    return <PgMenuItem
-      key={i}
-      disabled={menuItem.isDisabled}
-      onClick={()=>{
-        menuItem.callback();
-      }}
-      hasCheck={hasCheck}
-      checked={menuItem.checked}
-    >{menuItem.label}</PgMenuItem>;
+    return (
+      <PgMenuItem
+        key={i}
+        disabled={menuItem.isDisabled}
+        onClick={()=>{
+          menuItem.callback();
+        }}
+        hasCheck={hasCheck}
+        checked={menuItem.checked}
+      >
+        {menuItem.label}
+      </PgMenuItem>
+    );
   };
 
-  const onContextMenu = React.useCallback(async (ev: MouseEvent, item: FileOrDir)=>{
-    ev.preventDefault();
-    if(item) {
-      await pgAdmin.Browser.tree.select(item);
-      setContextPos({x: ev.clientX, y: ev.clientY});
-    }
-  }, []);
+  const onContextMenu = React.useCallback(
+    async (ev: MouseEvent, item: FileOrDir) => {
+      ev.preventDefault();
+      if(item) {
+        await pgAdmin.Browser.tree.select(item);
+        setContextPos({x: ev.clientX, y: ev.clientY});
+      }
+    },
+    []
+  );
 
   return (
     <Theme>
       <FileTreeX
-        {...props} height={'100%'} disableCache={true} onContextMenu={onContextMenu}
+        {...props} height={'100%'}
+        disableCache={true} onContextMenu={onContextMenu}
         onScroll={()=>{
           contextPos && setContextPos(null);
         }}

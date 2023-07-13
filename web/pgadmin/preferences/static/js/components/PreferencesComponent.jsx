@@ -1,23 +1,23 @@
-import gettext from 'sources/gettext';
 import _ from 'lodash';
-import url_for from 'sources/url_for';
 import React, { useEffect, useMemo } from 'react';
 import { FileType } from 'react-aspen';
 import { Box } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-
-import SchemaView from '../../../../static/js/schema_view';
-import getApiInstance from '../../../../static/js/api_instance';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
 import HelpIcon from '@material-ui/icons/HelpRounded';
 import SaveSharpIcon from '@material-ui/icons/SaveSharp';
 import clsx from 'clsx';
-import Notify from '../../../../static/js/helpers/Notifier';
+
+import url_for from 'sources/url_for';
+import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
-import { DefaultButton, PgIconButton, PrimaryButton } from '../../../../static/js/components/Buttons';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
 
+import SchemaView from '../../../../static/js/schema_view';
+import getApiInstance from '../../../../static/js/api_instance';
+import Notify from '../../../../static/js/helpers/Notifier';
+import { DefaultButton, PgIconButton, PrimaryButton } from '../../../../static/js/components/Buttons';
 import { getBinaryPathSchema } from '../../../../browser/server_groups/servers/static/js/binary_path.ui';
 import { _set_dynamic_tab } from '../../../../tools/sqleditor/static/js/show_query_tool';
 import { getBrowserAccesskey } from '../../../../static/js/components/ShortcutTitle';
@@ -224,6 +224,7 @@ export default function PreferencesComponent({ ...props }) {
       Notify.alert(err);
     });
   }, []);
+
   function setPreferences(node, subNode, nodeData, preferencesValues, preferencesData) {
     let addBinaryPathNote = false;
     subNode.preferences.forEach((element) => {
@@ -304,13 +305,13 @@ export default function PreferencesComponent({ ...props }) {
       });
     }
   }
+
   function setControlProps(element) {
     if (element.control_props !== undefined) {
       element.controlProps = element.control_props;
     } else {
       element.controlProps = {};
     }
-
   }
 
   function getKeyboardShortcuts(element, preferencesValues, node) {
@@ -326,6 +327,7 @@ export default function PreferencesComponent({ ...props }) {
       preferencesValues[element.id] = element.value;
     }
   }
+
   function addNote(node, subNode, nodeData, preferencesData, note = '') {
     // Check and add the note for the element.
     if (subNode.label == gettext('Nodes') && node.label == gettext('Browser')) {
@@ -347,7 +349,6 @@ export default function PreferencesComponent({ ...props }) {
         },
       );
     }
-
   }
 
   function selectChildNode(item, prefTreeInit) {
@@ -644,6 +645,7 @@ export default function PreferencesComponent({ ...props }) {
             }
           </Box>
         </Box>
+        
         <Box className={classes.footer}>
           <Box>
             <PgIconButton data-test="dialog-help" onClick={onDialogHelp} icon={<HelpIcon />} title={gettext('Help for this dialog.')} />

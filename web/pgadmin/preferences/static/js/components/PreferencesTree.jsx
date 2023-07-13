@@ -1,11 +1,12 @@
-import gettext from 'sources/gettext';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Directory} from 'react-aspen';
 
+import gettext from 'sources/gettext';
+import pgAdmin from 'sources/pgadmin';
+
 import { Tree } from '../../../../static/js/tree/tree';
 import { ManagePreferenceTreeNodes } from '../../../../static/js/tree/preference_nodes';
-import pgAdmin from 'sources/pgadmin';
 import { FileTreeX, TreeModelX } from '../../../../static/js/components/pg_tree';
 
 export default function PreferencesTree({ pgBrowser, data }) {
@@ -49,8 +50,10 @@ export default function PreferencesTree({ pgBrowser, data }) {
     pTreeModelX.current = new TreeModelX(host, MOUNT_POINT);
     onReadyRef.current = function onReady(handler) {
       // Initialize preferences Tree
-      pgBrowser.ptree = new Tree(handler, ptree, pgBrowser, 'preferences');
-      // Expand directoy on loading.
+      pgBrowser.ptree = new Tree(
+        handler, ptree, pgBrowser, 'preferences'
+      );
+      // Expand directory on loading.
       pTreeModelX.current.root._children.forEach((_d)=> {
         _d.root.expandDirectory(_d);
       });
@@ -66,7 +69,12 @@ export default function PreferencesTree({ pgBrowser, data }) {
   if (!loaded || _.isUndefined(pTreeModelX.current) || _.isUndefined(onReadyRef.current)) {
     return (gettext('Loading...'));
   }
-  return (<FileTreeX model={pTreeModelX.current} height={'100%'} onReady={onReadyRef.current} />);
+  return (
+    <FileTreeX
+      model={pTreeModelX.current} height={'100%'}
+      onReady={onReadyRef.current}
+    />
+  );
 }
 
 PreferencesTree.propTypes = {

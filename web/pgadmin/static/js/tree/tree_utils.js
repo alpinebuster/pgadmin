@@ -1,7 +1,10 @@
 import gettext from 'sources/gettext';
+
 import Notify from '../helpers/Notifier';
 
-export function retrieveAncestorOfTypeServer(pgBrowser, item, errorAlertTitle) {
+export function retrieveAncestorOfTypeServer(
+  pgBrowser, item, errorAlertTitle
+) {
   let serverInformation = null;
   let treeItem = item || pgBrowser.tree.selected();
   let treeNode = pgBrowser.tree.findNodeByDomElement(treeItem);
@@ -48,7 +51,9 @@ export function retrieveAncestorOfTypeServer(pgBrowser, item, errorAlertTitle) {
   return serverInformation;
 }
 
-export function retrieveAncestorOfTypeDatabase(pgBrowser, item, errorAlertTitle) {
+export function retrieveAncestorOfTypeDatabase(
+  pgBrowser, item, errorAlertTitle
+) {
   let databaseInfo = null;
   let treeItem = item || pgBrowser.tree.selected();
   let treeNode = pgBrowser.tree.findNodeByDomElement(treeItem);

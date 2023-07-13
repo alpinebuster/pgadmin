@@ -1,7 +1,9 @@
 import * as BrowserFS from 'browserfs';
-import pgAdmin from 'sources/pgadmin';
 import _ from 'lodash';
 import { FileType } from 'react-aspen';
+
+import pgAdmin from 'sources/pgadmin';
+
 import { findInTree } from './tree';
 
 export class ManagePreferenceTreeNodes {
@@ -32,7 +34,9 @@ export class ManagePreferenceTreeNodes {
 
     if (item && item.parentNode) {
       item.children = [];
-      item.parentNode.children.splice(item.parentNode.children.indexOf(item), 1);
+      item.parentNode.children.splice(
+        item.parentNode.children.indexOf(item), 1
+      );
     }
     return true;
   };
@@ -45,73 +49,79 @@ export class ManagePreferenceTreeNodes {
     return findInTree(this.tempTree, path);
   }
 
-  public addNode = (_parent: string, _path: string, _data: []) => new Promise((res) => {
-    _data.type = _data.inode ? FileType.Directory : FileType.File;
-    _data._label = _data.label;
-    _data.label = _.escape(_data.label);
+  public addNode = (
+    _parent: string, _path: string, _data: []
+  ) => {
+    new Promise((res) => {
+      _data.type = _data.inode ? FileType.Directory : FileType.File;
+      _data._label = _data.label;
+      _data.label = _.escape(_data.label);
 
-    _data.is_collection = isCollectionNode(_data._type);
-    const nodeData = { parent: _parent, children: _data?.children ? _data.children : [], data: _data };
+      _data.is_collection = isCollectionNode(_data._type);
+      const nodeData = { parent: _parent, children: _data?.children ? _data.children : [], data: _data };
 
-    const tmpParentNode = this.findNode(_parent);
-    const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
+      const tmpParentNode = this.findNode(_parent);
+      const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
 
-    if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
+      if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
 
-    res(treeNode);
-  });
+      res(treeNode);
+    });
+  };
 
-  public readNode = (_path: string) => new Promise<string[]>((res, rej) => {
-    const temp_tree_path = _path,
-      node = this.findNode(_path);
-    node.children = [];
+  public readNode = (_path: string) => {
+    new Promise<string[]>(
+      (res, rej) => {
+        const temp_tree_path = _path,
+          node = this.findNode(_path);
+        node.children = [];
 
-    if (node && node.children.length > 0) {
-      if (!node.type === FileType.File) {
-        rej('It\'s a leaf node');
-      }
-      else {
-        if (node?.children.length != 0) res(node.children);
-      }
-    }
-
-    const self = this;
-
-    async function loadData() {
-      const Path = BrowserFS.BFSRequire('path');
-      const fill = async (tree) => {
-        for (const idx in tree) {
-          const _node = tree[idx];
-          const _pathl = Path.join(_path, _node.id);
-          await self.addNode(temp_tree_path, _pathl, _node);
+        if (node && node.children.length > 0) {
+          if (!node.type === FileType.File) {
+            rej('It\'s a leaf node');
+          }
+          else {
+            if (node?.children.length != 0) res(node.children);
+          }
         }
-      };
 
-      if (node && !_.isUndefined(node.id)) {
-        const _data = self.treeData.find((el) => el.id == node.id);
-        const subNodes = [];
+        const self = this;
 
-        _data.childrenNodes.forEach(element => {
-          subNodes.push(element);
-        });
+        async function loadData() {
+          const Path = BrowserFS.BFSRequire('path');
+          const fill = async (tree) => {
+            for (const idx in tree) {
+              const _node = tree[idx];
+              const _pathl = Path.join(_path, _node.id);
+              await self.addNode(temp_tree_path, _pathl, _node);
+            }
+          };
 
-        await fill(subNodes);
-      } else {
-        await fill(self.treeData);
+          if (node && !_.isUndefined(node.id)) {
+            const _data = self.treeData.find((el) => el.id == node.id);
+            const subNodes = [];
+
+            _data.childrenNodes.forEach(element => {
+              subNodes.push(element);
+            });
+
+            await fill(subNodes);
+          } else {
+            await fill(self.treeData);
+          }
+
+          self.returnChildrens(node, res);
+        }
+        loadData();
       }
-
-      self.returnChildrens(node, res);
-    }
-    loadData();
-  });
+    );
+  };
 
   public returnChildrens = (node: any, res: any)  =>{
     if (node?.children.length > 0) return res(node.children);
     else return res(null);
   };
 }
-
-
 
 export class TreeNode {
   constructor(id, data, domNode, parent, metadata, type) {
@@ -216,7 +226,6 @@ export class TreeNode {
     });
   }
 
-
   open(tree, suppressNoDom) {
     return new Promise((resolve, reject) => {
       if (suppressNoDom && (this.domNode == null || typeof (this.domNode) === 'undefined')) {
@@ -228,7 +237,6 @@ export class TreeNode {
       }
     });
   }
-
 }
 
 export function isCollectionNode(node) {

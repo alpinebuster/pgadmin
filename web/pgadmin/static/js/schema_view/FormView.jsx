@@ -4,13 +4,14 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import gettext from 'sources/gettext';
+import {evalFunc} from 'sources/utils';
+
 import { MappedFormControl } from './MappedControl';
 import TabPanel from '../components/TabPanel';
 import DataGridView from './DataGridView';
 import { SCHEMA_STATE_ACTIONS, StateUtilsContext } from '.';
 import { InputSQL } from '../components/FormComponents';
-import gettext from 'sources/gettext';
-import { evalFunc } from 'sources/utils';
 import CustomPropTypes from '../custom_prop_types';
 import { useOnScreen } from '../custom_hooks';
 import { DepListenerContext } from './DepListener';
