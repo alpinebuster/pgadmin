@@ -1,19 +1,23 @@
-import { useSnackbar, SnackbarProvider, SnackbarContent } from 'notistack';
+import {
+  useSnackbar, SnackbarProvider, SnackbarContent
+} from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import {Box} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/CloseRounded';
-import { DefaultButton, PrimaryButton } from '../components/Buttons';
 import HTMLReactParser from 'html-react-parser';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
+
 import Theme from 'sources/theme';
+import gettext from 'sources/gettext';
+import pgWindow from 'sources/window';
+
+import { DefaultButton, PrimaryButton } from '../components/Buttons';
 import { NotifierMessage, MESSAGE_TYPE } from '../components/FormComponents';
 import CustomPropTypes from '../custom_prop_types';
-import gettext from 'sources/gettext';
-import _ from 'lodash';
-import pgWindow from 'sources/window';
 import ModalProvider, { useModal } from './ModalProvider';
 import { parseApiError } from '../api_instance';
 
@@ -38,7 +42,9 @@ export function initializeNotifier(notifierContainer) {
     <Theme>
       <SnackbarProvider
         maxSnack={30}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+        anchorOrigin={{
+          horizontal: 'right', vertical: 'bottom'
+        }}>
         <RefLoad />
       </SnackbarProvider>
     </Theme>,
@@ -71,9 +77,19 @@ export function initializeModalProvider(modalContainer) {
   );
 }
 
-export const FinalNotifyContent = React.forwardRef(({children}, ref) => {
-  return <SnackbarContent style= {{justifyContent:'end', maxWidth: '700px'}} ref={ref}>{children}</SnackbarContent>;
-});
+export const FinalNotifyContent = React.forwardRef(
+  ({children}, ref) => {
+    return (
+      <SnackbarContent
+        style={{justifyContent: 'end', maxWidth: '700px'}}
+        ref={ref}
+      >
+        {children}
+      </SnackbarContent>
+    );
+  }
+);
+
 FinalNotifyContent.displayName = 'FinalNotifyContent';
 FinalNotifyContent.propTypes = {
   children: CustomPropTypes.children,
@@ -101,10 +117,21 @@ function AlertContent({
     <Box display="flex" flexDirection="column" height="100%">
       <Box flexGrow="1" p={2}>{HTMLReactParser(text)}</Box>
       <Box className={classes.footer}>
-        {confirm &&
-          <DefaultButton startIcon={<CloseIcon />} onClick={onCancelClick} >{cancelLabel}</DefaultButton>
-        }
-        <PrimaryButton className={classes.margin} startIcon={<CheckRoundedIcon />} onClick={onOkClick} autoFocus={true} >{okLabel}</PrimaryButton>
+        {confirm && (
+          <DefaultButton
+            startIcon={<CloseIcon />}
+            onClick={onCancelClick}
+          >
+            {cancelLabel}
+          </DefaultButton>
+        )}
+        <PrimaryButton
+          className={classes.margin}
+          startIcon={<CheckRoundedIcon />}
+          onClick={onOkClick} autoFocus={true}
+        >
+          {okLabel}
+        </PrimaryButton>
       </Box>
     </Box>
   );
@@ -137,8 +164,13 @@ let Notifier = {
       if(!notifierInitialized) {
         initializeNotifier();
       }
-      let  options = {autoHideDuration, content:(key) => (
-        <FinalNotifyContent>{React.cloneElement(content, {onClose:()=>{snackbarRef.closeSnackbar(key);}})}</FinalNotifyContent>
+      let options = {autoHideDuration, content:(key) => (
+        <FinalNotifyContent>
+          {React.cloneElement(
+            content,
+            {onClose: () => {snackbarRef.closeSnackbar(key);}}
+          )}
+        </FinalNotifyContent>
       )};
       options.content.displayName = 'content';
       snackbarRef.enqueueSnackbar(null, options);
@@ -146,13 +178,23 @@ let Notifier = {
   },
   _callNotify(msg, type, autoHideDuration) {
     this.notify(
-      <NotifierMessage style={{maxWidth: '50vw'}} type={type} message={msg} closable={true} />,
+      <NotifierMessage
+        style={{maxWidth: '50vw'}}
+        type={type} message={msg}
+        closable={true}
+      />,
       autoHideDuration
     );
   },
   pgRespErrorNotify(error, prefixMsg='') {
     if (error.response?.status === 410) {
-      this.alert(gettext('Error: Object not found - %s.', error.response.statusText), parseApiError(error));
+      this.alert(
+        gettext(
+          'Error: Object not found - %s.',
+          error.response.statusText
+        ),
+        parseApiError(error)
+      );
     } else {
       this.error(prefixMsg + ' ' + parseApiError(error));
     }
@@ -193,7 +235,10 @@ let Notifier = {
     if(type == 'error-noalert' && onJSONResult && typeof(onJSONResult) == 'function') {
       return onJSONResult();
     }
-    this.alert(promptmsg, msg.replace(new RegExp(/\r?\n/, 'g'), '<br />'));
+    this.alert(
+      promptmsg,
+      msg.replace(new RegExp(/\r?\n/, 'g'), '<br />')
+    );
   },
   alert: (title, text, onOkClick, okLabel=gettext('OK'))=>{
     /* Use this if you want to use pgAdmin global notifier.
@@ -209,7 +254,8 @@ let Notifier = {
     cancelLabel=gettext('No')
   ) => {
     /* Use this if you want to use pgAdmin global notifier.
-    Or else, if you want to use modal inside iframe only then use ModalProvider eg- query tool */
+    Or else, if you want to use modal inside iframe only
+    then use ModalProvider eg- query tool */
     if(!modalInitialized) {
       initializeModalProvider();
     }

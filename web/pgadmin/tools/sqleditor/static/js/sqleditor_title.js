@@ -1,5 +1,6 @@
 import gettext from 'sources/gettext';
 import pgWindow from 'sources/window';
+
 import { retrieveNameSpaceName, retrieveNodeName } from './show_view_data';
 import Notify from '../../../../static/js/helpers/Notifier';
 
@@ -14,7 +15,12 @@ function isServerInformationAvailable(parentData) {
   return parentData.server === undefined;
 }
 
-export function getTitle(pgAdmin, browserPref, parentData=null, isConnTitle=false, server=null, database=null, username=null, isQueryTool=true) {
+export function getTitle(
+  pgAdmin, browserPref, parentData = null,
+  isConnTitle = false, server = null,
+  database = null, username = null,
+  isQueryTool = true
+) {
   let titleTemplate = isQueryTool ? pgAdmin['qt_default_placeholder'] : pgAdmin['vw_edt_default_placeholder'];
   if (!isConnTitle) {
     if(!isQueryTool) {
@@ -33,7 +39,10 @@ export function getTitle(pgAdmin, browserPref, parentData=null, isConnTitle=fals
   });
 }
 
-export function getPanelTitle(pgBrowser, selected_item=null, custom_title=null, parentData=null, conn_title=false, db_label=null) {
+export function getPanelTitle(
+  pgBrowser, selected_item = null, custom_title = null,
+  parentData = null, conn_title = false, db_label = null
+) {
   let preferences = pgBrowser.get_preferences_for_module('browser');
   if(selected_item == null && parentData == null) {
     selected_item = pgBrowser.tree.selected();
@@ -72,7 +81,9 @@ export function getPanelTitle(pgBrowser, selected_item=null, custom_title=null, 
   return generateTitle(qt_title_placeholder, title_data);
 }
 
-export function setQueryToolDockerTitle(panel, is_query_tool, panel_title, is_file) {
+export function setQueryToolDockerTitle(
+  panel, is_query_tool, panel_title, is_file
+) {
   let panel_icon = '', panel_tooltip = '';
   // Enable/ Disabled the rename panel option if file is open.
   set_renamable_option(panel, is_file);
@@ -93,7 +104,6 @@ export function setQueryToolDockerTitle(panel, is_query_tool, panel_title, is_fi
 
   panel.title('<span title="'+ _.escape(panel_tooltip) +'">'+ _.escape(panel_title) +'</span>');
   panel.icon(panel_icon);
-
 }
 
 export function set_renamable_option(panel, is_file) {
@@ -105,7 +115,6 @@ export function set_renamable_option(panel, is_file) {
 }
 
 export function generateTitle(title_placeholder, title_data) {
-
   if(title_data.type == 'query_tool' || title_data.type == 'psql_tool') {
     title_placeholder = title_placeholder.replace('%DATABASE%', title_data.database);
     title_placeholder = title_placeholder.replace('%USERNAME%', title_data.username);

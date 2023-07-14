@@ -31,7 +31,9 @@ export default class EventBus {
         return true;
       });
     } else {
-      this._eventListeners = this._eventListeners.filter((e)=>e.event!=event);
+      this._eventListeners = this._eventListeners.filter(
+        (e) => e.event != event
+      );
     }
   }
 
@@ -41,11 +43,14 @@ export default class EventBus {
 
   fireEvent(event, ...args) {
     let self = this;
-    Promise.resolve(0).then(()=>{
-      let allListeners = _.filter(this._eventListeners, (e)=>e.event==event);
+    Promise.resolve(0).then(() => {
+      let allListeners = _.filter(
+        this._eventListeners,
+        (e) => e.event == event
+      );
       if(allListeners) {
         for(const listener of allListeners) {
-          Promise.resolve(0).then(()=>{
+          Promise.resolve(0).then(() => {
             listener.callback(...args);
             if(listener.fired == 'pending') {
               self.deregisterListener(event, listener.callback);

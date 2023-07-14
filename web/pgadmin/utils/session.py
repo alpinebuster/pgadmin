@@ -42,8 +42,11 @@ LAST_CHECK_SESSION_FILES = None
 
 
 class ManagedSession(CallbackDict, SessionMixin):
-    def __init__(self, initial=None, sid=None, new=False, randval=None,
-                 hmac_digest=None):
+    def __init__(
+        self, initial=None, sid=None,
+        new=False, randval=None,
+        hmac_digest=None
+    ):
         def on_update(self):
             self.modified = True
 
@@ -287,8 +290,10 @@ class ManagedSessionInterface(SessionInterface):
         if not session:
             self.manager.remove(session.sid)
             if session.modified:
-                response.delete_cookie(app.config['SESSION_COOKIE_NAME'],
-                                       domain=domain)
+                response.delete_cookie(
+                    app.config['SESSION_COOKIE_NAME'],
+                    domain=domain
+                )
             return
 
         if not session.modified:
@@ -327,7 +332,6 @@ def create_session_interface(app, skip_paths=[]):
 
 
 def pga_unauthorised():
-
     lm = current_app.login_manager
     login_message = None
 
@@ -374,8 +378,9 @@ def cleanup_session_files():
         LAST_CHECK_SESSION_FILES = datetime.datetime.now()
 
     if iterate_session_files:
-        for root, dirs, files in os.walk(
-                current_app.config['SESSION_DB_PATH']):
+        for root, _, files in os.walk(
+            current_app.config['SESSION_DB_PATH']
+        ):
             for file_name in files:
                 absolute_file_name = os.path.join(root, file_name)
                 st = os.stat(absolute_file_name)

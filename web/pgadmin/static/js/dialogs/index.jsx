@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import pgAdmin from 'sources/pgadmin';
 import ConnectServerContent from './ConnectServerContent';
 import Theme from 'sources/theme';
@@ -23,10 +24,14 @@ function mountDialog(
   let panel;
   if (docker) {
     pgAdmin.Browser.Node.registerUtilityPanel(docker);
-    panel = pgAdmin.Browser.Node.addUtilityPanel(width||pgAdmin.Browser.stdW.md, height||undefined, docker);
+    panel = pgAdmin.Browser.Node.addUtilityPanel(
+      width || pgAdmin.Browser.stdW.md, height || undefined, docker
+    );
   } else {
     pgAdmin.Browser.Node.registerUtilityPanel();
-    panel = pgAdmin.Browser.Node.addUtilityPanel(width||pgAdmin.Browser.stdW.md);
+    panel = pgAdmin.Browser.Node.addUtilityPanel(
+      width || pgAdmin.Browser.stdW.md
+    );
   }
 
   let j = panel.$container.find('.obj_properties').first();
@@ -37,7 +42,7 @@ function mountDialog(
     panel.close();
   };
 
-  const setNewSize = (width, height)=> {
+  const setNewSize = (width, height) => {
     // Add height of the header
     let newHeight = height + 31;
     // Set min and max size of the panel
@@ -136,7 +141,9 @@ export function showSchemaDiffServerPassword() {
         data={formJson}
         onOK={(formData)=>{
           const api = getApiInstance();
-          let _url = url_for('schema_diff.connect_server', {'sid': serverID});
+          let _url = url_for(
+            'schema_diff.connect_server', {'sid': serverID}
+          );
 
           api.post(_url, formData)
             .then(res=>{
@@ -161,7 +168,9 @@ function masterPassCallbacks(masterpass_callback_queue) {
   }
 }
 
-export function checkMasterPassword(data, masterpass_callback_queue, cancel_callback) {
+export function checkMasterPassword(
+  data, masterpass_callback_queue, cancel_callback
+) {
   const api = getApiInstance();
   api.post(url_for('browser.set_master_password'), data).then((res)=> {
     let isKeyring = res.data.data.keyring_name.length > 0;
@@ -171,7 +180,8 @@ export function checkMasterPassword(data, masterpass_callback_queue, cancel_call
         if(res.data.data.is_error){
           Notify.error(res.data.data.errmsg);
         }else{
-          Notify.confirm(gettext('Reset Master Password'),
+          Notify.confirm(
+            gettext('Reset Master Password'),
             gettext('The master password retrieved from the master password hook utility is different from what was previously retrieved.') + '<br>'
             + gettext('Do you want to reset your master password to match?') + '<br><br>'
             + gettext('Note that this will close all open database connections and remove all saved passwords.'),
@@ -189,15 +199,21 @@ export function checkMasterPassword(data, masterpass_callback_queue, cancel_call
             function() {/* If user clicks No */ return true;}
           );}
       }else{
-        showMasterPassword(res.data.data.reset, res.data.data.errmsg, masterpass_callback_queue, cancel_callback, res.data.data.keyring_name);
+        showMasterPassword(
+          res.data.data.reset, res.data.data.errmsg,
+          masterpass_callback_queue, cancel_callback,
+          res.data.data.keyring_name
+        );
       }
 
     } else {
       masterPassCallbacks(masterpass_callback_queue);
 
       if(isKeyring) {
-        Notify.alert(gettext('Migration successful'),
-          gettext(`Passwords previously saved by pgAdmin have been successfully migrated to ${res.data.data.keyring_name} and removed from the pgAdmin store.`));
+        Notify.alert(
+          gettext('Migration successful'),
+          gettext(`Passwords previously saved by pgAdmin have been successfully migrated to ${res.data.data.keyring_name} and removed from the pgAdmin store.`)
+        );
       }
     }
   }).catch(function(error) {
@@ -206,9 +222,16 @@ export function checkMasterPassword(data, masterpass_callback_queue, cancel_call
 }
 
 // This functions is used to show the master password dialog.
-export function showMasterPassword(isPWDPresent, errmsg, masterpass_callback_queue, cancel_callback, keyring_name='') {
+export function showMasterPassword(
+  isPWDPresent, errmsg, masterpass_callback_queue,
+  cancel_callback, keyring_name = ''
+) {
   const api = getApiInstance();
-  let title =  keyring_name.length > 0 ? gettext('Migrate Saved Passwords') : isPWDPresent ? gettext('Unlock Saved Passwords') : gettext('Set Master Password');
+  let title = keyring_name.length > 0 ? gettext(
+    'Migrate Saved Passwords'
+  ) : isPWDPresent ? gettext(
+    'Unlock Saved Passwords'
+  ) : gettext('Set Master Password');
 
   Notify.showModal(title, (onClose)=> {
     return <Theme>
@@ -219,23 +242,26 @@ export function showMasterPassword(isPWDPresent, errmsg, masterpass_callback_que
         closeModal={() => {
           onClose();
         }}
-        onResetPassowrd={(isKeyRing=false)=>{
-          Notify.confirm(gettext('Reset Master Password'),
+        onResetPassowrd={(isKeyRing=false) => {
+          Notify.confirm(
+            gettext('Reset Master Password'),
             gettext('This will remove all the saved passwords. This will also remove established connections to '
             + 'the server and you may need to reconnect again. Do you wish to continue?'),
             function() {
               let _url = url_for('browser.reset_master_password');
 
-              api.delete(_url)
-                .then(() => {
-                  onClose();
-                  if(!isKeyRing) {
-                    showMasterPassword(false, null, masterpass_callback_queue, cancel_callback);
-                  }
-                })
-                .catch((err) => {
-                  Notify.error(err.message);
-                });
+              api.delete(_url).then(() => {
+                onClose();
+                if(!isKeyRing) {
+                  showMasterPassword(
+                    false, null,
+                    masterpass_callback_queue,
+                    cancel_callback
+                  );
+                }
+              }).catch((err) => {
+                Notify.error(err.message);
+              });
               return true;
             },
             function() {/* If user clicks No */ return true;}
@@ -246,7 +272,11 @@ export function showMasterPassword(isPWDPresent, errmsg, masterpass_callback_que
         }}
         onOK={(formData) => {
           onClose();
-          checkMasterPassword(formData, masterpass_callback_queue, cancel_callback);
+          checkMasterPassword(
+            formData,
+            masterpass_callback_queue,
+            cancel_callback
+          );
         }}
       />
     </Theme>;
@@ -262,18 +292,20 @@ export function showChangeServerPassword() {
     isPgPassFileUsed = arguments[4];
 
   mountDialog(title, (onClose)=> {
-    return <Theme>
-      <ChangePasswordContent
-        onClose={()=>{
-          onClose();
-        }}
-        onSave={(isNew, data)=>{
-          return new Promise((resolve, reject)=>{
-            const api = getApiInstance();
-            let _url = nodeObj.generate_url(itemNodeData, 'change_password', nodeData, true);
+    return (
+      <Theme>
+        <ChangePasswordContent
+          onClose={()=>{
+            onClose();
+          }}
+          onSave={(isNew, data)=>{
+            return new Promise((resolve, reject)=>{
+              const api = getApiInstance();
+              let _url = nodeObj.generate_url(
+                itemNodeData, 'change_password', nodeData, true
+              );
 
-            api.post(_url, data)
-              .then(({data: respData})=>{
+              api.post(_url, data).then(({data: respData})=>{
                 Notify.success(respData.info);
                 // Notify user to update pgpass file
                 if(isPgPassFileUsed) {
@@ -281,69 +313,76 @@ export function showChangeServerPassword() {
                     gettext('Change Password'),
                     gettext('Please make sure to disconnect the server'
                     + ' and update the new password in the pgpass file'
-                      + ' before performing any other operation')
+                    + ' before performing any other operation')
                   );
                 }
 
                 resolve(respData.data);
                 onClose();
-              })
-              .catch((error)=>{
+              }).catch((error)=>{
                 reject(error);
               });
-          });
-        }}
-        userName={nodeData.user.name}
-        isPgpassFileUsed={isPgPassFileUsed}
-      />
-    </Theme>;
+            });
+          }}
+          userName={nodeData.user.name}
+          isPgpassFileUsed={isPgPassFileUsed}
+        />
+      </Theme>
+    );
   });
 }
 
 export function showChangeUserPassword(url) {
-  mountDialog(gettext('Change pgAdmin User Password'), (onClose)=> {
-    const api = getApiInstance();
-    return <Theme>
-      <ChangePasswordContent
-        getInitData={()=>{
-          return new Promise((resolve, reject)=>{
-            api.get(url)
-              .then((res)=>{
-                resolve(res.data);
-              })
-              .catch((err)=>{
-                reject(err);
+  mountDialog(
+    gettext('Change pgAdmin User Password'),
+    (onClose) => {
+      const api = getApiInstance();
+      return (
+        <Theme>
+          <ChangePasswordContent
+            getInitData={()=>{
+              return new Promise((resolve, reject)=>{
+                api.get(url)
+                  .then((res)=>{
+                    resolve(res.data);
+                  })
+                  .catch((err)=>{
+                    reject(err);
+                  });
               });
-          });
-        }}
-        onClose={()=>{
-          onClose();
-        }}
-        onSave={(_isNew, data)=>{
-          return new Promise((resolve, reject)=>{
-            const formData =  {
-              'password': data.password,
-              'new_password': data.newPassword,
-              'new_password_confirm': data.confirmPassword,
-              'csrf_token': data.csrf_token
-            };
+            }}
+            onClose={()=>{
+              onClose();
+            }}
+            onSave={(_isNew, data)=>{
+              return new Promise((resolve, reject)=>{
+                const formData =  {
+                  'password': data.password,
+                  'new_password': data.newPassword,
+                  'new_password_confirm': data.confirmPassword,
+                  'csrf_token': data.csrf_token
+                };
 
-            api({
-              method: 'POST',
-              url: url,
-              data: formData,
-            }).then((res)=>{
-              resolve(res);
-            }).catch((err)=>{
-              reject(err);
-            });
-          });
-        }}
-        hasCsrfToken={true}
-        showUser={false}
-      />
-    </Theme>;
-  }, undefined, undefined, pgAdmin.Browser.stdH.sm);
+                api({
+                  method: 'POST',
+                  url: url,
+                  data: formData,
+                }).then((res)=>{
+                  resolve(res);
+                }).catch((err)=>{
+                  reject(err);
+                });
+              });
+            }}
+            hasCsrfToken={true}
+            showUser={false}
+          />
+        </Theme>
+      );
+    },
+    undefined, undefined,
+    pgAdmin.Browser.stdH.sm
+  );
 }
 
 export function showNamedRestorePoint() {
@@ -353,29 +392,31 @@ export function showNamedRestorePoint() {
     itemNodeData = arguments[3];
 
   mountDialog(title, (onClose, setNewSize)=> {
-    return <Theme>
-      <NamedRestoreContent
-        setHeight={(containerHeight)=>{
-          setNewSize(pgAdmin.Browser.stdW.md, containerHeight);
-        }}
-        closeModal={()=>{
-          onClose();
-        }}
-        onOK={(formData)=>{
-          const api = getApiInstance();
-          let _url = nodeObj.generate_url(itemNodeData, 'restore_point', nodeData, true);
+    return (
+      <Theme>
+        <NamedRestoreContent
+          setHeight={(containerHeight)=>{
+            setNewSize(pgAdmin.Browser.stdW.md, containerHeight);
+          }}
+          closeModal={()=>{
+            onClose();
+          }}
+          onOK={(formData)=>{
+            const api = getApiInstance();
+            let _url = nodeObj.generate_url(
+              itemNodeData, 'restore_point', nodeData, true
+            );
 
-          api.post(_url, formData)
-            .then(res=>{
+            api.post(_url, formData).then(res=>{
               onClose();
               Notify.success(res.data.data.result);
-            })
-            .catch(function(error) {
+            }).catch(function(error) {
               Notify.pgRespErrorNotify(error);
             });
-        }}
-      />
-    </Theme>;
+          }}
+        />
+      </Theme>
+    );
   });
 }
 
@@ -388,39 +429,48 @@ export function showChangeOwnership() {
 
   // Render Preferences component
   Notify.showModal(title, (onClose) => {
-    return <ChangeOwnershipContent
-      onClose={()=>{
-        onClose();
-      }}
-      onSave={(isNew, data)=>{
-        const api = getApiInstance();
+    return (
+      <ChangeOwnershipContent
+        onClose={()=>{
+          onClose();
+        }}
+        onSave={(isNew, data)=>{
+          const api = getApiInstance();
 
-        return new Promise((resolve, reject)=>{
-          if (data.newUser == '') {
-            deleteUserRow();
-            onClose();
-          } else {
-            let newData = {'new_owner': `${data.newUser}`, 'old_owner': `${deletedUser['id']}`};
-            api.post(url_for('user_management.change_owner'), newData)
-              .then(({data: respData})=>{
+          return new Promise((resolve, reject)=>{
+            if (data.newUser == '') {
+              deleteUserRow();
+              onClose();
+            } else {
+              let newData = {
+                'new_owner': `${data.newUser}`,
+                'old_owner': `${deletedUser['id']}`
+              };
+              api.post(
+                url_for('user_management.change_owner'),
+                newData
+              ).then(({data: respData}) => {
                 Notify.success(gettext(respData.info));
                 onClose();
                 deleteUserRow();
                 resolve(respData.data);
-              })
-              .catch((err)=>{
+              }).catch((err)=>{
                 reject(err);
               });
-          }
-        });
-      }}
-      userList = {userList}
-      noOfSharedServers = {noOfSharedServers}
-      deletedUser = {deletedUser['name']}
-    />;
-  },
-  { isFullScreen: false, isResizeable: true, showFullScreen: true, isFullWidth: true,
-    dialogWidth: pgAdmin.Browser.stdW.md, dialogHeight: pgAdmin.Browser.stdH.md});
+            }
+          });
+        }}
+        userList = {userList}
+        noOfSharedServers = {noOfSharedServers}
+        deletedUser = {deletedUser['name']}
+      />
+    );
+  }, {
+    isFullScreen: false, isResizeable: true,
+    showFullScreen: true, isFullWidth: true,
+    dialogWidth: pgAdmin.Browser.stdW.md,
+    dialogHeight: pgAdmin.Browser.stdH.md
+  });
 }
 
 export function showUrlDialog() {
@@ -439,8 +489,7 @@ export function showUrlDialog() {
           onClose={onClose}
         />
       );
-    },
-    {
+    }, {
       isFullScreen: false, isResizeable: true,
       showFullScreen: true, isFullWidth: true,
       dialogWidth: width || pgAdmin.Browser.stdW.md,
@@ -456,21 +505,26 @@ export function showRenamePanel() {
     tabType= arguments[3],
     data= arguments[4];
 
-  mountDialog(gettext(`Rename Panel ${_.escape(title)}`), (onClose, setNewSize)=> {
-    return <Theme>
-      <RenamePanelContent
-        setHeight={(containerHeight)=>{
-          setNewSize(pgAdmin.Browser.stdW.md, containerHeight);
-        }}
-        closeModal={()=>{
-          onClose();
-        }}
-        panel={panel}
-        tabType={tabType}
-        title={title}
-        data={data}
-        preferences={preferences}
-      />
-    </Theme>;
-  });
+  mountDialog(
+    gettext(`Rename Panel ${_.escape(title)}`),
+    (onClose, setNewSize) => {
+      return (
+        <Theme>
+          <RenamePanelContent
+            setHeight={(containerHeight)=>{
+              setNewSize(pgAdmin.Browser.stdW.md, containerHeight);
+            }}
+            closeModal={()=>{
+              onClose();
+            }}
+            panel={panel}
+            tabType={tabType}
+            title={title}
+            data={data}
+            preferences={preferences}
+          />
+        </Theme>
+      );
+    }
+  );
 }

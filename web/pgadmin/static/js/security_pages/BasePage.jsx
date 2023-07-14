@@ -1,9 +1,10 @@
 import { Box, Button, darken, makeStyles } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+
 import { MESSAGE_TYPE, NotifierMessage } from '../components/FormComponents';
 import { FinalNotifyContent } from '../helpers/Notifier';
-import PropTypes from 'prop-types';
 import CustomPropTypes from '../custom_prop_types';
 
 const contentBg = '#2b709b';
@@ -77,16 +78,28 @@ export default function BasePage({pageImage, title,  children, messages}) {
       });
     });
   }, [messages]);
+
   return (
     <Box className={classes.root}>
-      <Box display="flex" minWidth="80%" gridGap='40px' alignItems="center" padding="20px 80px">
-        <Box flexGrow={1} height="80%" textAlign="center">
+      <Box
+        display="flex" minWidth="60%"
+        gridGap='40px' alignItems="center"
+        padding="20px 80px"
+      >
+        <Box flexGrow={1} height="60%" textAlign="center">
           {pageImage}
         </Box>
         <Box className={classes.pageContent}>
-          <Box className={classes.item}><div className={classes.logo} /></Box>
+          <Box className={classes.item}>
+            <div className={classes.logo} />
+          </Box>
           <Box className={classes.item}>{title}</Box>
-          <Box display="flex" flexDirection="column" minHeight={0}>{children}</Box>
+          <Box
+            display="flex" flexDirection="column"
+            minHeight={0}
+          >
+            {children}
+          </Box>
         </Box>
       </Box>
     </Box>

@@ -1,5 +1,6 @@
 import pgAdmin from 'sources/pgadmin';
 import pgBrowser from 'top/browser/static/js/browser';
+
 import SQLEditor from './SQLEditorModule';
 
 /* eslint-disable */

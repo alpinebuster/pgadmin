@@ -1,26 +1,42 @@
-import gettext from 'sources/gettext';
-import url_for from 'sources/url_for';
 import React from 'react';
 import { Box, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+import gettext from 'sources/gettext';
+import url_for from 'sources/url_for';
+import pgAdmin from 'sources/pgadmin';
+import { isEmptyString } from 'sources/validators';
+
 import Wizard from '../../../../static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../../static/js/helpers/wizard/WizardStep';
 import {FormFooterMessage, MESSAGE_TYPE } from '../../../../static/js/components/FormComponents';
 import getApiInstance from '../../../../static/js/api_instance';
 import Notifier from '../../../../static/js/helpers/Notifier';
-import PropTypes from 'prop-types';
-import pgAdmin from 'sources/pgadmin';
 import {ToggleButtons, FinalSummary} from './cloud_components';
 import { PrimaryButton } from '../../../../static/js/components/Buttons';
-import {AwsCredentials, AwsInstanceDetails, AwsDatabaseDetails, validateCloudStep1, validateCloudStep2, validateCloudStep3} from './aws';
-import {BigAnimalInstance, BigAnimalDatabase, BigAnimalClusterType, validateBigAnimal, validateBigAnimalStep2, validateBigAnimalStep3, validateBigAnimalStep4} from './biganimal';
-import { isEmptyString } from 'sources/validators';
-import { AWSIcon, BigAnimalIcon, AzureIcon, GoogleCloudIcon } from '../../../../static/js/components/ExternalIcon';
-import {AzureCredentials, AzureInstanceDetails, AzureDatabaseDetails, checkClusternameAvailbility, validateAzureStep2, validateAzureStep3} from './azure';
-import { GoogleCredentials, GoogleInstanceDetails, GoogleDatabaseDetails, validateGoogleStep2, validateGoogleStep3 } from './google';
+import {
+  AwsCredentials, AwsInstanceDetails, AwsDatabaseDetails,
+  validateCloudStep1, validateCloudStep2, validateCloudStep3
+} from './aws';
+import {
+  BigAnimalInstance, BigAnimalDatabase, BigAnimalClusterType,
+  validateBigAnimal, validateBigAnimalStep2, validateBigAnimalStep3,
+  validateBigAnimalStep4
+} from './biganimal';
+import {
+  AWSIcon, BigAnimalIcon, AzureIcon, GoogleCloudIcon
+} from '../../../../static/js/components/ExternalIcon';
+import {
+  AzureCredentials, AzureInstanceDetails, AzureDatabaseDetails,
+  checkClusternameAvailbility, validateAzureStep2, validateAzureStep3
+} from './azure';
+import {
+  GoogleCredentials, GoogleInstanceDetails, GoogleDatabaseDetails,
+  validateGoogleStep2, validateGoogleStep3
+} from './google';
 import EventBus from '../../../../static/js/helpers/EventBus';
 import { CLOUD_PROVIDERS, CLOUD_PROVIDERS_LABELS } from './cloud_constants';
-
 
 const useStyles = makeStyles(() =>
   ({
@@ -55,7 +71,9 @@ const useStyles = makeStyles(() =>
 
 export const CloudWizardEventsContext = React.createContext();
 
-export default function CloudWizard({ nodeInfo, nodeData, onClose, cloudPanel}) {
+export default function CloudWizard({
+  nodeInfo, nodeData, onClose, cloudPanel
+}) {
   const classes = useStyles();
   const eventBus = React.useRef(new EventBus());
 
@@ -90,15 +108,21 @@ export default function CloudWizard({ nodeInfo, nodeData, onClose, cloudPanel}) 
   const [verificationCode, setVerificationCode] = React.useState('');
 
   React.useEffect(()=>{
-    eventBus.current.registerListener('SET_ERROR_MESSAGE_FOR_CLOUD_WIZARD', (msg) => {
-      setErrMsg(msg);
-    });
+    eventBus.current.registerListener(
+      'SET_ERROR_MESSAGE_FOR_CLOUD_WIZARD',
+      (msg) => {
+        setErrMsg(msg);
+      }
+    );
   }, []);
 
-  React.useEffect(()=>{
-    eventBus.current.registerListener('SET_CRED_VERIFICATION_INITIATED', (initiated) => {
-      setVerificationIntiated(initiated);
-    });
+  React.useEffect(() => {
+    eventBus.current.registerListener(
+      'SET_CRED_VERIFICATION_INITIATED',
+      (initiated) => {
+        setVerificationIntiated(initiated);
+      }
+    );
   }, []);
 
   React.useEffect(() => {
@@ -390,7 +414,6 @@ export default function CloudWizard({ nodeInfo, nodeData, onClose, cloudPanel}) 
 
   };
 
-
   const onDialogHelp = () => {
     window.open(url_for('help.static', { 'filename': 'cloud_deployment.html' }), 'pgadmin_help');
   };
@@ -403,7 +426,8 @@ export default function CloudWizard({ nodeInfo, nodeData, onClose, cloudPanel}) 
     {label: gettext(CLOUD_PROVIDERS_LABELS.AWS), value: CLOUD_PROVIDERS.AWS, icon: <AWSIcon className={classes.icon} />},
     {label: gettext(CLOUD_PROVIDERS_LABELS.BIGANIMAL), value: CLOUD_PROVIDERS.BIGANIMAL, icon: <BigAnimalIcon className={classes.icon} />},
     {label: gettext(CLOUD_PROVIDERS_LABELS.AZURE), value: CLOUD_PROVIDERS.AZURE, icon: <AzureIcon className={classes.icon} /> },
-    {label: gettext(CLOUD_PROVIDERS_LABELS.GOOGLE), value: CLOUD_PROVIDERS.GOOGLE, icon: <GoogleCloudIcon className={classes.icon} /> }];
+    {label: gettext(CLOUD_PROVIDERS_LABELS.GOOGLE), value: CLOUD_PROVIDERS.GOOGLE, icon: <GoogleCloudIcon className={classes.icon} />}
+  ];
 
   return (
     <CloudWizardEventsContext.Provider value={eventBus.current}>

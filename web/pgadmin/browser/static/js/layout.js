@@ -24,7 +24,8 @@ _.extend(pgBrowser, {
   buildDefaultLayout: function(docker) {
     let browserPanel = docker.addPanel('browser', wcDocker.DOCK.LEFT);
     let dashboardPanel = docker.addPanel(
-      'dashboard', wcDocker.DOCK.RIGHT, browserPanel);
+      'dashboard', wcDocker.DOCK.RIGHT, browserPanel
+    );
     docker.addPanel('properties', wcDocker.DOCK.STACKED, dashboardPanel, {
       tabOrientation: wcDocker.TAB.TOP,
     });

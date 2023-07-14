@@ -1,5 +1,3 @@
-
-
 import logging
 import subprocess
 from datetime import datetime, timedelta
@@ -11,7 +9,6 @@ import config
 
 
 class PasswordExec:
-
     lock = Lock()
 
     def __init__(self, cmd, expiration_seconds=None, timeout=60):

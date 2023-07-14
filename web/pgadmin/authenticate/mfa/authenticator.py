@@ -12,7 +12,6 @@ import pyotp
 import qrcode
 
 import config
-from pgadmin.model import UserMFA
 
 from .registry import BaseMFAuth
 from .utils import ValidationException, fetch_auth_option, mfa_add

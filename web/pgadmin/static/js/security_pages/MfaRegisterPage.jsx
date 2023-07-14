@@ -1,11 +1,13 @@
 import { Box } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+
+import gettext from 'sources/gettext';
+
 import LoginImage from '../../img/login.svg?svgr';
 import { FormNote, InputText } from '../components/FormComponents';
 import BasePage, { SecurityButton } from './BasePage';
 import { DefaultButton } from '../components/Buttons';
-import gettext from 'sources/gettext';
-import PropTypes from 'prop-types';
 
 function EmailRegisterView({mfaView}) {
   const [inputEmail, setInputEmail] = useState(mfaView.email_address);
@@ -66,37 +68,75 @@ AuthenticatorRegisterView.propTypes = {
   mfaView: PropTypes.object,
 };
 
-export default function MfaRegisterPage({actionUrl, mfaList, nextUrl, mfaView, ...props}) {
+export default function MfaRegisterPage({
+  actionUrl, mfaList, nextUrl, mfaView, ...props
+}) {
   return (
     <>
-      <BasePage title={gettext('Authentication Registration')} pageImage={<LoginImage style={{height: '100%', width: '100%'}} />} {...props}>
-        <form style={{display:'flex', gap:'15px', flexDirection:'column', minHeight: 0}} action={actionUrl} method="POST">
-          {mfaView ? <>
-            {mfaView.auth_method == 'email' && <EmailRegisterView mfaView={mfaView} />}
-            {mfaView.auth_method == 'authenticator' && <AuthenticatorRegisterView mfaView={mfaView} />}
-            <Box display="flex" gridGap="15px">
-              <SecurityButton name="continue" value="Continue">{gettext('Continue')}</SecurityButton>
-              <DefaultButton type="submit" name="cancel" value="Cancel" style={{width: '100%'}}>{gettext('Cancel')}</DefaultButton>
-            </Box>
-          </>:<>
-            {mfaList?.map((m)=>{
-              return (
-                <Box display="flex" width="100%" key={m.label}>
-                  <div style={{
-                    width: '10%', mask: `url(${m.icon})`, maskRepeat: 'no-repeat',
-                    WebkitMask: `url(${m.icon})`, WebkitMaskRepeat: 'no-repeat',
-                    backgroundColor: '#fff'
-                  }}>
-                  </div>
-                  <div style={{width: '70%'}}>{m.label}</div>
-                  <div style={{width: '20%'}}>
-                    <SecurityButton name={m.id} value={m.registered ? 'DELETE' : 'SETUP'}>{m.registered ? gettext('Delete') : gettext('Setup')}</SecurityButton>
-                  </div>
-                </Box>
-              );
-            })}
-            {nextUrl != 'internal' && <SecurityButton value="Continue">{gettext('Continue')}</SecurityButton>}
-          </>}
+      <BasePage
+        title={gettext('Authentication Registration')}
+        pageImage={<LoginImage style={{height: '100%', width: '100%'}} />}
+        {...props}
+      >
+        <form
+          style={{
+            display: 'flex', gap: '15px',
+            flexDirection: 'column', minHeight: 0
+          }}
+          action={actionUrl} method="POST"
+        >
+          {mfaView ? (
+            <>
+              {mfaView.auth_method == 'email' && <EmailRegisterView mfaView={mfaView} />}
+              {mfaView.auth_method == 'authenticator' && <AuthenticatorRegisterView mfaView={mfaView} />}
+              <Box display="flex" gridGap="15px">
+                <SecurityButton
+                  name="continue" value="Continue"
+                >
+                  {gettext('Continue')}
+                </SecurityButton>
+                <DefaultButton
+                  type="submit" name="cancel"
+                  value="Cancel" style={{width: '100%'}}
+                >
+                  {gettext('Cancel')}
+                </DefaultButton>
+              </Box>
+            </>
+          ) : (
+            <>
+              {mfaList?.map((m) => {
+                return (
+                  <Box display="flex" width="100%" key={m.label}>
+                    <div style={{
+                      width: '10%',
+                      mask: `url(${m.icon})`,
+                      maskRepeat: 'no-repeat',
+                      WebkitMask: `url(${m.icon})`,
+                      WebkitMaskRepeat: 'no-repeat',
+                      backgroundColor: '#fff'
+                    }}>
+                    </div>
+                    <div style={{width: '70%'}}>{m.label}</div>
+                    <div style={{width: '20%'}}>
+                      <SecurityButton
+                        name={m.id}
+                        value={m.registered ? 'DELETE' : 'SETUP'}
+                      >
+                        {m.registered ? gettext('Delete') : gettext('Setup')}
+                      </SecurityButton>
+                    </div>
+                  </Box>
+                );
+              })}
+
+              {nextUrl != 'internal' && (
+                <SecurityButton value="Continue">
+                  {gettext('Continue')}
+                </SecurityButton>
+              )}
+            </>
+          )}
           <div><input type="hidden" name="next" value={nextUrl}/></div>
         </form>
       </BasePage>

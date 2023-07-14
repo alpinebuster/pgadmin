@@ -3,7 +3,6 @@ import _ from 'lodash';
 define([
   'sources/pgadmin', 'jquery', 'wcdocker',
 ], function(pgAdmin, $) {
-
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {},
     wcDocker = window.wcDocker,
     wcIFrame = window.wcIFrame;
@@ -96,8 +95,11 @@ define([
               wcDocker.EVENT.MOVED, wcDocker.EVENT.RESIZE_STARTED,
               wcDocker.EVENT.RESIZE_ENDED, wcDocker.EVENT.RESIZED,
               wcDocker.EVENT.SCROLLED,
-            ], function(ev) {
-              myPanel.on(ev, that.eventFunc.bind(myPanel, ev));
+            ], function(_event_name) {
+              myPanel.on(
+                _event_name,
+                that.eventFunc.bind(myPanel, _event_name)
+              );
             });
 
             if (that.onCreate && _.isFunction(that.onCreate)) {
@@ -111,12 +113,22 @@ define([
       let name = this.frameData.pgAdminName;
 
       try {
-        pgBrowser.Events.trigger('pgadmin-browser:frame', eventName, this, arguments);
-        pgBrowser.Events.trigger('pgadmin-browser:frame:' + eventName, this, arguments);
+        pgBrowser.Events.trigger(
+          'pgadmin-browser:frame', eventName, this, arguments
+        );
+        pgBrowser.Events.trigger(
+          'pgadmin-browser:frame:' + eventName, this, arguments
+        );
 
         if (name) {
-          pgBrowser.Events.trigger('pgadmin-browser:frame-' + name, eventName, this, arguments);
-          pgBrowser.Events.trigger('pgadmin-browser:frame-' + name + ':' + eventName, this, arguments);
+          pgBrowser.Events.trigger(
+            'pgadmin-browser:frame-' + name,
+            eventName, this, arguments
+          );
+          pgBrowser.Events.trigger(
+            'pgadmin-browser:frame-' + name + ':' + eventName,
+            this, arguments
+          );
         }
       } catch (e) {
         console.warn(e.stack || e);

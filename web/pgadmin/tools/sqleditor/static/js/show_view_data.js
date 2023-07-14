@@ -1,11 +1,13 @@
+import _ from 'lodash';
+
+import { isEmptyString } from 'sources/validators';
+import BaseUISchema from 'sources/schema_view/base_schema.ui';
+
+import { getUtilityView } from '../../../../browser/static/js/utility_view';
+import Notify from '../../../../static/js/helpers/Notifier';
 import gettext from '../../../../static/js/gettext';
 import url_for from '../../../../static/js/url_for';
 import {getDatabaseLabel, generateTitle} from './sqleditor_title';
-import BaseUISchema from 'sources/schema_view/base_schema.ui';
-import _ from 'lodash';
-import Notify from '../../../../static/js/helpers/Notifier';
-import { isEmptyString } from 'sources/validators';
-import { getUtilityView } from '../../../../browser/static/js/utility_view';
 
 export default class DataFilterSchema extends BaseUISchema {
   constructor(fieldOptions = {}) {

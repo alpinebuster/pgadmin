@@ -44,7 +44,7 @@ class DashboardModule(PgAdminModule):
                 title=gettext('Dashboard'),
                 icon='',
                 content='',
-                is_closeable=True,
+                is_closeable=False,
                 is_private=False,
                 limit=1,
                 is_iframe=False,

@@ -14,10 +14,11 @@ def connect_server(self, server_id):
     :param server_id: server id
     :type server_id: str
     """
-    response = self.tester.post(SERVER_CONNECT_URL + str(DUMMY_SERVER_GROUP) +
-                                '/' + str(server_id),
-                                data=dict(password=self.server['db_password']),
-                                follow_redirects=True)
+    response = self.tester.post(
+        SERVER_CONNECT_URL + str(DUMMY_SERVER_GROUP) + '/' + str(server_id),
+        data=dict(password=self.server['db_password']),
+        follow_redirects=True
+    )
     assert response.status_code == 200
     response_data = json.loads(response.data.decode('utf-8'))
     return response_data

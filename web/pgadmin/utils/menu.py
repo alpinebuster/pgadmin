@@ -8,7 +8,8 @@ class MenuItem():
 
 class Panel():
     def __init__(
-        self, name, title, content='', width=500, height=600, **kwargs
+        self, name, title, content='',
+        width=500, height=600, **kwargs
     ):
         self.name = name
         self.title = title
@@ -25,6 +26,7 @@ class Panel():
         self.limit = kwargs.get('limit', False)
         self.canHide = kwargs.get('can_hide', False)
         priority = kwargs.get('priority', None)
+
         if priority is None:
             global PRIORITY
             PRIORITY += 100

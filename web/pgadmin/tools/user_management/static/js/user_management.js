@@ -1,7 +1,9 @@
 import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
 
-import { showChangeUserPassword, showUrlDialog } from '../../../../static/js/dialogs/index';
+import {
+  showChangeUserPassword, showUrlDialog
+} from '../../../../static/js/dialogs/index';
 import { showUserManagement } from './UserManagementDialog';
 
 class UserManagement {
@@ -27,7 +29,10 @@ class UserManagement {
 
   // This is a callback function to show 2FA dialog.
   show_mfa(url) {
-    showUrlDialog(gettext('Authentication'), url, 'mfa.html', 1200, 680);
+    showUrlDialog(
+      gettext('Authentication'),
+      url, 'mfa.html', 960, 520
+    );
   }
 
   // This is a callback function to show user management dialog.

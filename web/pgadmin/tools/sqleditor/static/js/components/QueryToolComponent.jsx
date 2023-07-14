@@ -1,5 +1,14 @@
 import React, {useCallback, useRef, useMemo, useState, useEffect} from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { Box } from '@material-ui/core';
+import 'wcdocker';
+
+import url_for from 'sources/url_for';
+import * as commonUtils from 'sources/utils';
+import gettext from 'sources/gettext';
+import * as Kerberos from 'pgadmin.authenticate.kerberos';
+
 import Layout, { LayoutHelper } from '../../../../../static/js/helpers/Layout';
 import EventBus from '../../../../../static/js/helpers/EventBus';
 import Query from './sections/Query';
@@ -9,12 +18,9 @@ import { StatusBar } from './sections/StatusBar';
 import { MainToolBar } from './sections/MainToolBar';
 import { Messages } from './sections/Messages';
 import getApiInstance, {callFetch, parseApiError} from '../../../../../static/js/api_instance';
-import url_for from 'sources/url_for';
 import { PANELS, QUERY_TOOL_EVENTS, CONNECTION_STATUS } from './QueryToolConstants';
 import { useInterval } from '../../../../../static/js/custom_hooks';
-import { Box } from '@material-ui/core';
 import { getDatabaseLabel, getTitle, setQueryToolDockerTitle } from '../sqleditor_title';
-import gettext from 'sources/gettext';
 import NewConnectionDialog from './dialogs/NewConnectionDialog';
 import { evalFunc } from '../../../../../static/js/utils';
 import { Notifications } from './sections/Notifications';
@@ -23,11 +29,7 @@ import Notifier from '../../../../../static/js/helpers/Notifier';
 import FilterDialog from './dialogs/FilterDialog';
 import { QueryHistory } from './sections/QueryHistory';
 import * as showQueryTool from '../show_query_tool';
-import * as commonUtils from 'sources/utils';
-import * as Kerberos from 'pgadmin.authenticate.kerberos';
-import PropTypes from 'prop-types';
 import { retrieveNodeName } from '../show_view_data';
-import 'wcdocker';
 import { useModal } from '../../../../../static/js/helpers/ModalProvider';
 import ConnectServerContent from '../../../../../static/js/dialogs/ConnectServerContent';
 
@@ -63,7 +65,9 @@ function setPanelTitle(panel, title, qtState, dirty=false) {
     window.document.title = title;
   } else {
     panel.is_dirty_editor = dirty;
-    setQueryToolDockerTitle(panel, true, title, qtState.current_file ? true : false);
+    setQueryToolDockerTitle(
+      panel, true, title, qtState.current_file ? true : false
+    );
   }
 }
 
@@ -71,7 +75,9 @@ function onBeforeUnload(e) {
   e.preventDefault();
   e.returnValue = 'prevent';
 }
-export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedNodeInfo, panel, eventBusObj}) {
+export default function QueryToolComponent({
+  params, pgWindow, pgAdmin, selectedNodeInfo, panel, eventBusObj
+}) {
   const containerRef = React.useRef(null);
   const [qtState, _setQtState] = useState({
     preferences: {
@@ -100,8 +106,12 @@ export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedN
       fgcolor: params.fgcolor,
       bgcolor: params.bgcolor,
       conn_title: getTitle(
-        pgAdmin, null, selectedNodeInfo, true, _.unescape(params.server_name), _.unescape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
-        _.unescape(params.role) || _.unescape(params.user), params.is_query_tool == 'true' ? true : false),
+        pgAdmin, null, selectedNodeInfo, true,
+        _.unescape(params.server_name),
+        _.unescape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
+        _.unescape(params.role) || _.unescape(params.user),
+        params.is_query_tool == 'true' ? true : false
+      ),
       server_name: _.unescape(params.server_name),
       database_name: _.unescape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
       is_selected: true,
@@ -163,16 +173,25 @@ export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedN
           children: [
             {
               tabs: [
-                LayoutHelper.getPanel({id: PANELS.QUERY, title: gettext('Query'), content: <Query />}),
-                LayoutHelper.getPanel({id: PANELS.HISTORY, title: gettext('Query History'), content: <QueryHistory />,
-                  cached: undefined}),
+                LayoutHelper.getPanel({
+                  id: PANELS.QUERY,
+                  title: gettext('Query'),
+                  content: <Query />
+                }),
+                LayoutHelper.getPanel({
+                  id: PANELS.HISTORY,
+                  title: gettext('Query History'),
+                  content: <QueryHistory />,
+                  cached: undefined
+                }),
               ],
             },
             {
               size: 75,
               tabs: [
                 LayoutHelper.getPanel({
-                  id: PANELS.SCRATCH, title: gettext('Scratch Pad'),
+                  id: PANELS.SCRATCH,
+                  title: gettext('Scratch Pad'),
                   closable: true,
                   content: <textarea style={{
                     border: 0,
@@ -191,13 +210,19 @@ export default function QueryToolComponent({params, pgWindow, pgAdmin, selectedN
             {
               tabs: [
                 LayoutHelper.getPanel({
-                  id: PANELS.DATA_OUTPUT, title: gettext('Data Output'), content: <ResultSet />,
+                  id: PANELS.DATA_OUTPUT,
+                  title: gettext('Data Output'),
+                  content: <ResultSet />,
                 }),
                 LayoutHelper.getPanel({
-                  id: PANELS.MESSAGES, title: gettext('Messages'), content: <Messages />,
+                  id: PANELS.MESSAGES,
+                  title: gettext('Messages'),
+                  content: <Messages />,
                 }),
                 LayoutHelper.getPanel({
-                  id: PANELS.NOTIFICATIONS, title: gettext('Notifications'), content: <Notifications />,
+                  id: PANELS.NOTIFICATIONS,
+                  title: gettext('Notifications'),
+                  content: <Notifications />,
                 }),
               ],
             }

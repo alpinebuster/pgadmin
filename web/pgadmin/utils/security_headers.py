@@ -2,7 +2,6 @@ import config
 
 
 class SecurityHeaders:
-
     @staticmethod
     def set_response_headers(response):
         """set response security headers"""

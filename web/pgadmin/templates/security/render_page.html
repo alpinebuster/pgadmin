@@ -23,7 +23,8 @@
   try {
     require(['security.pages'], function() {
       window.renderSecurityPage(
-        '{{page_name}}', {{page_props|tojson|safe}},
+        '{{page_name}}',
+        {{page_props|tojson|safe}},
         {{other_props|tojson|safe}}
       );
     }, function() {

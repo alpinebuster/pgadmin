@@ -1,18 +1,19 @@
-
-import * as showViewData from './show_view_data';
-import * as showQueryTool from './show_query_tool';
-import * as toolBar from 'pgadmin.browser.toolbar';
-import * as panelTitleFunc from './sqleditor_title';
-import * as commonUtils from 'sources/utils';
 import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import * as commonUtils from 'sources/utils';
 import pgWindow from 'sources/window';
 import pgAdmin from 'sources/pgadmin';
+import gettext from 'sources/gettext';
 import pgBrowser from 'pgadmin.browser';
 import 'pgadmin.tools.user_management';
 import 'pgadmin.tools.file_manager';
-import gettext from 'sources/gettext';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as toolBar from 'pgadmin.browser.toolbar';
+
+import * as showViewData from './show_view_data';
+import * as showQueryTool from './show_query_tool';
+import * as panelTitleFunc from './sqleditor_title';
 import QueryToolComponent from './components/QueryToolComponent';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import Theme from '../../../../static/js/theme';
@@ -178,7 +179,9 @@ export default class SQLEditor {
       });
     }
 
-    pgBrowser.add_menu_category('view_data', gettext('View/Edit Data'), 100, '');
+    pgBrowser.add_menu_category(
+      'view_data', gettext('View/Edit Data'), 100, ''
+    );
     pgBrowser.add_menus(menus);
 
     // Creating a new pgAdmin.Browser frame to show the data.
@@ -232,7 +235,6 @@ export default class SQLEditor {
   }
 
   onPanelRename(queryToolPanel, panelData, is_query_tool) {
-
     let preferences = pgBrowser.get_preferences_for_module('browser');
     let temp_title = panelData.$titleText[0].textContent;
     let is_dirty_editor = queryToolPanel.is_dirty_editor ? queryToolPanel.is_dirty_editor : false;
@@ -246,7 +248,6 @@ export default class SQLEditor {
 
     showRenamePanel(title, preferences, queryToolPanel, 'querytool', qtdata);
   }
-
 
   openQueryToolPanel(trans_id, is_query_tool, panel_title, queryToolForm) {
     let self = this;
@@ -299,12 +300,14 @@ export default class SQLEditor {
     openQueryToolURL(queryToolPanel);
   }
 
-  launch(trans_id, panel_url, is_query_tool, panel_title, params={}) {
+  launch(
+    trans_id, panel_url, is_query_tool,
+    panel_title, params = {}
+  ) {
     const self = this;
     let queryToolForm = `
       <form id="queryToolForm" action="${panel_url}" method="post">
         <input id="title" name="title" hidden />`;
-
 
     if(params.query_url && typeof(params.query_url) === 'string'){
       queryToolForm +=`<input name="query_url" value="${params.query_url}" hidden />`;
@@ -340,6 +343,7 @@ export default class SQLEditor {
     }
     return true;
   }
+
   setupPreferencesWorker() {
     if (window.location == window.parent?.location) {
       /* Sync the local preferences with the main window if in new tab */
@@ -362,12 +366,16 @@ export default class SQLEditor {
     let selectedNodeInfo = pgWindow.pgAdmin.Browser.tree.getTreeNodeHierarchy(
       pgWindow.pgAdmin.Browser.tree.selected()
     );
-    _.each(pgWindow.pgAdmin.Browser.docker.findPanels('frm_sqleditor'), function(p) {
-      if (p.trans_id == params.trans_id) {
-        panel = p;
+    _.each(
+      pgWindow.pgAdmin.Browser.docker.findPanels('frm_sqleditor'),
+      function (p) {
+        if (p.trans_id == params.trans_id) {
+          panel = p;
+        }
       }
-    });
+    );
     this.setupPreferencesWorker();
+
     ReactDOM.render(
       <Theme>
         <ModalProvider>
