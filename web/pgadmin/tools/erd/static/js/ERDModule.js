@@ -1,11 +1,13 @@
-import pgWindow from 'sources/window';
-import {getPanelTitle} from 'tools/sqleditor/static/js/sqleditor_title';
-import {getRandomInt, registerDetachEvent} from 'sources/utils';
-import Notify from '../../../../static/js/helpers/Notifier';
-import url_for from 'sources/url_for';
-import gettext from 'sources/gettext';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import pgWindow from 'sources/window';
+import url_for from 'sources/url_for';
+import gettext from 'sources/gettext';
+import {getPanelTitle} from 'tools/sqleditor/static/js/sqleditor_title';
+import {getRandomInt, registerDetachEvent} from 'sources/utils';
+
+import Notify from '../../../../static/js/helpers/Notifier';
 import ERDTool from './erd_tool/components/ERDTool';
 import ModalProvider from '../../../../static/js/helpers/ModalProvider';
 import Theme from '../../../../static/js/theme';
@@ -14,7 +16,9 @@ import { openNewWindow } from '../../../../static/js/utils';
 const wcDocker = window.wcDocker;
 
 export function setPanelTitle(erdToolPanel, panelTitle) {
-  erdToolPanel?.title('<span title="'+panelTitle+'">'+panelTitle+'</span>');
+  erdToolPanel?.title(
+    '<span title="' + panelTitle + '">' + panelTitle + '</span>'
+  );
 }
 export default class ERDModule {
   static instance;
@@ -30,7 +34,6 @@ export default class ERDModule {
     this.pgAdmin = pgAdmin;
     this.pgBrowser = pgBrowser;
   }
-
 
   init() {
     if (this.initialized)
@@ -48,7 +51,9 @@ export default class ERDModule {
       label: gettext('ERD Tool'),
       enable: this.erdToolEnabled,
       data: {
-        data_disabled: gettext('The selected tree node does not support this option.'),
+        data_disabled: gettext(
+          'The selected tree node does not support this option.'
+        ),
       },
     }]);
 
@@ -97,7 +102,9 @@ export default class ERDModule {
       return;
     }
 
-    const parentData = this.pgBrowser.tree.getTreeNodeHierarchy(treeIdentifier);
+    const parentData = this.pgBrowser.tree.getTreeNodeHierarchy(
+      treeIdentifier
+    );
 
     if(_.isUndefined(parentData.database)) {
       Notify.alert(
@@ -121,7 +128,9 @@ export default class ERDModule {
       </script>
     `;
 
-    let open_new_tab = this.pgBrowser.get_preferences_for_module('browser').new_browser_tab_open;
+    let open_new_tab = this.pgBrowser.get_preferences_for_module(
+      'browser'
+    ).new_browser_tab_open;
     if (open_new_tab && open_new_tab.includes('erd_tool')) {
       openNewWindow(erdToolForm, panelTitle);
     } else {
@@ -129,7 +138,9 @@ export default class ERDModule {
        * create new panel and add it to the dashboard panel.
        */
       let propertiesPanel = this.pgBrowser.docker.findPanels('properties');
-      let erdToolPanel = this.pgBrowser.docker.addPanel('frm_erdtool', wcDocker.DOCK.STACKED, propertiesPanel[0]);
+      let erdToolPanel = this.pgBrowser.docker.addPanel(
+        'frm_erdtool', wcDocker.DOCK.STACKED, propertiesPanel[0]
+      );
 
       // Set panel title and icon
       setPanelTitle(erdToolPanel, 'Untitled');
@@ -167,6 +178,7 @@ export default class ERDModule {
       openErdToolURL(erdToolPanel);
     }
   }
+
   getPanelUrl(transId, parentData, gen) {
     let openUrl = url_for('erd.panel', {
       trans_id: transId,

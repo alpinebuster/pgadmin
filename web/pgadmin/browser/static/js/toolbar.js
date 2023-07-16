@@ -1,6 +1,6 @@
+import _ from 'lodash';
 
 import gettext from 'sources/gettext';
-import _ from 'lodash';
 import pgAdmin from 'sources/pgadmin';
 
 let _toolbarButtons = {};
@@ -17,8 +17,7 @@ let _defaultToolBarButtons = [
     toggleClass: '',
     parentClass: 'pg-toolbar-btn btn-primary-icon',
     enabled: false,
-  },
-  {
+  }, {
     label: gettext('Filtered Rows'),
     ariaLabel: gettext('Filtered Rows'),
     btnClass: 'pg-font-icon icon-row_filter',
@@ -27,8 +26,7 @@ let _defaultToolBarButtons = [
     toggleClass: '',
     parentClass: 'pg-toolbar-btn btn-primary-icon',
     enabled: false,
-  },
-  {
+  }, {
     label: gettext('View Data'),
     ariaLabel: gettext('View Data'),
     btnClass: 'pg-font-icon sql-icon-lg icon-view_data',
@@ -37,8 +35,7 @@ let _defaultToolBarButtons = [
     toggleClass: '',
     parentClass: 'pg-toolbar-btn btn-primary-icon',
     enabled: false,
-  },
-  {
+  }, {
     label: gettext('Query Tool'),
     ariaLabel: gettext('Query Tool'),
     btnClass: 'pg-font-icon icon-query_tool',
@@ -62,7 +59,6 @@ if(pgAdmin['enable_psql']) {
     enabled: false,
   });
 }
-
 
 // Place holder for non default tool bar buttons.
 let _otherToolbarButtons = [];
@@ -103,13 +99,21 @@ export function initializeToolbar(panel, wcDocker) {
   // Listen on button click event.
   panel.on(wcDocker.EVENT.BUTTON, function(data) {
     if ('name' in data && data.name === gettext('Query Tool'))
-      pgAdmin.Tools.SQLEditor.showQueryTool('', pgAdmin.Browser.tree.selected());
+      pgAdmin.Tools.SQLEditor.showQueryTool(
+        '', pgAdmin.Browser.tree.selected()
+      );
     else if ('name' in data && data.name === gettext('View Data'))
-      pgAdmin.Tools.SQLEditor.showViewData({mnuid: 3}, pgAdmin.Browser.tree.selected());
+      pgAdmin.Tools.SQLEditor.showViewData(
+        {mnuid: 3}, pgAdmin.Browser.tree.selected()
+      );
     else if ('name' in data && data.name === gettext('Filtered Rows'))
-      pgAdmin.Tools.SQLEditor.showFilteredRow({mnuid: 4}, pgAdmin.Browser.tree.selected());
+      pgAdmin.Tools.SQLEditor.showFilteredRow(
+        {mnuid: 4}, pgAdmin.Browser.tree.selected()
+      );
     else if ('name' in data && data.name === gettext('Search objects'))
-      pgAdmin.Tools.SearchObjects.show_search_objects('', pgAdmin.Browser.tree.selected());
+      pgAdmin.Tools.SearchObjects.show_search_objects(
+        '', pgAdmin.Browser.tree.selected()
+      );
     else if ('name' in data && data.name === gettext('PSQL Tool')){
       let input = {},
         t = pgAdmin.Browser.tree,

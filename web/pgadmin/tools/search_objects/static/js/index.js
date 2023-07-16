@@ -81,7 +81,9 @@ export default class SearchObjectModule {
     let nodeData = pgBrowser.tree.getTreeNodeHierarchy(treeItem);
 
     pgBrowser.Node.registerUtilityPanel();
-    let panel = pgBrowser.Node.addUtilityPanel(pgBrowser.stdW.md, pgBrowser.stdH.lg);
+    let panel = pgBrowser.Node.addUtilityPanel(
+      pgBrowser.stdW.md, pgBrowser.stdH.lg
+    );
     let j = panel.$container.find('.obj_properties').first();
 
     panel.title(dialogTitle);

@@ -1,26 +1,21 @@
-/////////////////////////////////////////////////////////////
-// pgAdmin - PostgreSQL Tools
-//
-// Copyright (C) 2013 - 2023, The pgAdmin Development Team
-// This software is released under the PostgreSQL Licence
-//
-//////////////////////////////////////////////////////////////
-
-import { getNodeTableSchema } from './table.ui';
-import Notify from '../../../../../../../../static/js/helpers/Notifier';
 import _ from 'lodash';
+
+import {getNodeTableSchema} from './table.ui';
+import Notify from '../../../../../../../../static/js/helpers/Notifier';
 import getApiInstance from '../../../../../../../../static/js/api_instance';
 
 define('pgadmin.node.table', [
   'pgadmin.tables.js/enable_disable_triggers',
   'sources/gettext', 'sources/url_for', 'jquery',
   'sources/pgadmin', 'pgadmin.browser',
-  'pgadmin.node.schema.dir/child','pgadmin.node.schema.dir/schema_child_tree_node',
+  'pgadmin.node.schema.dir/child',
+  'pgadmin.node.schema.dir/schema_child_tree_node',
   'pgadmin.browser.collection', 'pgadmin.node.column',
   'pgadmin.node.constraints',
 ], function(
   tableFunctions,
-  gettext, url_for, $, pgAdmin, pgBrowser, SchemaChild, SchemaChildTreeNode
+  gettext, url_for, $, pgAdmin, pgBrowser,
+  SchemaChild, SchemaChildTreeNode
 ) {
 
   if (!pgBrowser.Nodes['coll-table']) {
@@ -31,9 +26,12 @@ define('pgadmin.node.table', [
         type: 'coll-table',
         columns: ['name', 'relowner', 'is_partitioned', 'description'],
         hasStatistics: true,
-        statsPrettifyFields: [gettext('Total Size'), gettext('Indexes size'), gettext('Table size'),
+        statsPrettifyFields: [
+          gettext('Total Size'), gettext('Indexes size'),
+          gettext('Table size'),
           gettext('TOAST table size'), gettext('Tuple length'),
-          gettext('Dead tuple length'), gettext('Free space')],
+          gettext('Dead tuple length'), gettext('Free space')
+        ],
         canDrop: SchemaChildTreeNode.isTreeItemOfChildOfSchema,
         canDropCascade: SchemaChildTreeNode.isTreeItemOfChildOfSchema,
       });
@@ -47,12 +45,17 @@ define('pgadmin.node.table', [
       hasSQL: true,
       hasDepends: true,
       hasStatistics: true,
-      statsPrettifyFields: [gettext('Total Size'), gettext('Indexes size'), gettext('Table size'),
+      statsPrettifyFields: [
+        gettext('Total Size'), gettext('Indexes size'),
+        gettext('Table size'),
         gettext('TOAST table size'), gettext('Tuple length'),
-        gettext('Dead tuple length'), gettext('Free space')],
+        gettext('Dead tuple length'), gettext('Free space')
+      ],
       sqlAlterHelp: 'sql-altertable.html',
       sqlCreateHelp: 'sql-createtable.html',
-      dialogHelp: url_for('help.static', {'filename': 'table_dialog.html'}),
+      dialogHelp: url_for(
+        'help.static', {'filename': 'table_dialog.html'}
+      ),
       hasScriptTypes: ['create', 'select', 'insert', 'update', 'delete'],
       width: pgBrowser.stdW.lg + 'px',
       Init: function() {

@@ -113,7 +113,9 @@ define([
       },
       show_search_objects: function() {
         if(pgAdmin.Tools.SearchObjects) {
-          pgAdmin.Tools.SearchObjects.show_search_objects('', pgAdmin.Browser.tree.selected());
+          pgAdmin.Tools.SearchObjects.show_search_objects(
+            '', pgAdmin.Browser.tree.selected()
+          );
         }
       },
       show_psql_tool: function(args) {

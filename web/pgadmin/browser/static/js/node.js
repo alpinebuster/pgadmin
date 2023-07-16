@@ -295,7 +295,10 @@ define('pgadmin.browser.node', [
       let y = (body.offsetHeight - new_height) / 4;
 
       let new_panel = dockerObject.addPanel(
-        'utility_props', window.wcDocker.DOCK.FLOAT, undefined, {
+        'utility_props',
+        window.wcDocker.DOCK.FLOAT,
+        undefined,
+        {
           w: new_width,
           h: new_height,
           x: (x),

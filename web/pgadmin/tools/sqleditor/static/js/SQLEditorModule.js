@@ -23,7 +23,9 @@ import { openNewWindow } from '../../../../static/js/utils';
 const wcDocker = window.wcDocker;
 
 export function setPanelTitle(queryToolPanel, panelTitle) {
-  queryToolPanel.title('<span title="'+panelTitle+'">'+panelTitle+'</span>');
+  queryToolPanel.title(
+    '<span title="' + panelTitle + '">' + panelTitle + '</span>'
+  );
 }
 
 export default class SQLEditor {
@@ -49,7 +51,11 @@ export default class SQLEditor {
   viewMenuEnabled(obj) {
     let isEnabled = (() => {
       if (!_.isUndefined(obj) && !_.isNull(obj))
-        return (_.indexOf(this.SUPPORTED_NODES, obj._type) !== -1 ? true : false);
+        return (
+          _.indexOf(
+            this.SUPPORTED_NODES, obj._type
+          ) !== -1 ? true : false
+        );
       else
         return false;
     })();

@@ -1,10 +1,11 @@
-import { getNodeAjaxOptions, getNodeListByName } from '../../../../../static/js/node_ajax';
+import _ from 'lodash';
+
+import {getNodeAjaxOptions, getNodeListByName} from '../../../../../static/js/node_ajax';
 import { getNodePrivilegeRoleSchema } from '../../../static/js/privilege.ui';
 import { getNodeVariableSchema } from '../../../static/js/variable.ui';
 import DatabaseSchema from './database.ui';
 import Notify from '../../../../../../static/js/helpers/Notifier';
 import { showServerPassword } from '../../../../../../static/js/dialogs/index';
-import _ from 'lodash';
 import getApiInstance, { parseApiError } from '../../../../../../static/js/api_instance';
 
 define('pgadmin.node.database', [
@@ -33,7 +34,9 @@ define('pgadmin.node.database', [
         selectParentNodeOnDelete: true,
         canDropCascade: false,
         canDropForce: canDeleteWithForce,
-        statsPrettifyFields: [gettext('Size'), gettext('Size of temporary files')],
+        statsPrettifyFields: [
+          gettext('Size'), gettext('Size of temporary files')
+        ],
       });
   }
 
@@ -43,11 +46,15 @@ define('pgadmin.node.database', [
       type: 'database',
       sqlAlterHelp: 'sql-alterdatabase.html',
       sqlCreateHelp: 'sql-createdatabase.html',
-      dialogHelp: url_for('help.static', {'filename': 'database_dialog.html'}),
+      dialogHelp: url_for(
+        'help.static', {'filename': 'database_dialog.html'}
+      ),
       hasSQL: true,
       hasDepends: true,
       hasStatistics: true,
-      statsPrettifyFields: [gettext('Size'), gettext('Size of temporary files')],
+      statsPrettifyFields: [
+        gettext('Size'), gettext('Size of temporary files')
+      ],
       canDrop: function(node) {
         return node.canDrop;
       },
@@ -58,7 +65,7 @@ define('pgadmin.node.database', [
       },
       width: '700px',
       Init: function() {
-        /* Avoid mulitple registration of menus */
+        /* Avoid multiple registration of menus */
         if (this.initialized)
           return;
 
@@ -70,26 +77,26 @@ define('pgadmin.node.database', [
           category: 'create', priority: 4, label: gettext('Database...'),
           data: {action: 'create'},
           enable: 'can_create_database',
-        },{
+        }, {
           name: 'create_database_on_coll', node: 'coll-database', module: this,
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'create', priority: 4, label: gettext('Database...'),
           data: {action: 'create'},
           enable: 'can_create_database',
-        },{
+        }, {
           name: 'create_database', node: 'database', module: this,
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'create', priority: 4, label: gettext('Database...'),
           data: {action: 'create'},
           enable: 'can_create_database',
-        },{
+        }, {
           name: 'connect_database', node: 'database', module: this,
           applies: ['object', 'context'], callback: 'connect_database',
           category: 'connect', priority: 4, label: gettext('Connect Database'),
           enable : 'is_not_connected', data: {
             data_disabled: gettext('Selected database is already connected.'),
           },
-        },{
+        }, {
           name: 'delete_database_force', node: 'database', module: this,
           applies: ['object', 'context'], callback: 'delete_database_force',
           category: 'delete', priority: 2, label: gettext('Delete (Force)'),
@@ -101,7 +108,7 @@ define('pgadmin.node.database', [
           enable : 'is_connected',data: {
             data_disabled: gettext('Selected database is already disconnected.'),
           },
-        },{
+        }, {
           name: 'generate_erd', node: 'database', module: this,
           applies: ['object', 'context'], callback: 'generate_erd',
           category: 'erd', priority: 5, label: gettext('ERD For Database'),

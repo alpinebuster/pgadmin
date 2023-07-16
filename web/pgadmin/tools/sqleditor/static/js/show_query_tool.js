@@ -1,7 +1,8 @@
+import {getRandomInt} from 'sources/utils';
+
 import gettext from '../../../../static/js/gettext';
 import url_for from '../../../../static/js/url_for';
 import {getPanelTitle} from './sqleditor_title';
-import {getRandomInt} from 'sources/utils';
 import Notify from '../../../../static/js/helpers/Notifier';
 
 function hasDatabaseInformation(parentData) {
@@ -42,7 +43,9 @@ function generateTitle(pgBrowser, treeIdentifier) {
   return getPanelTitle(pgBrowser, treeIdentifier);
 }
 
-export function showQueryTool(queryToolMod, pgBrowser, url, treeIdentifier, transId) {
+export function showQueryTool(
+  queryToolMod, pgBrowser, url, treeIdentifier, transId
+) {
   const queryToolTitle = generateTitle(pgBrowser, treeIdentifier);
 
   const currentNode = pgBrowser.tree.findNodeByDomElement(treeIdentifier);
@@ -61,7 +64,9 @@ export function showQueryTool(queryToolMod, pgBrowser, url, treeIdentifier, tran
   }
 
   const gridUrl = generateUrl(transId, parentData);
-  launchQueryTool(queryToolMod, transId, gridUrl, queryToolTitle, {query_url: url});
+  launchQueryTool(
+    queryToolMod, transId, gridUrl, queryToolTitle, {query_url: url}
+  );
 }
 
 export function generateScript(parentData, queryToolMod) {
@@ -83,7 +88,9 @@ export function generateScript(parentData, queryToolMod) {
   launchQueryTool(queryToolMod, transId, url_endpoint, queryToolTitle, '');
 }
 
-export function showERDSqlTool(parentData, erdSqlId, queryToolTitle, queryToolMod) {
+export function showERDSqlTool(
+  parentData, erdSqlId, queryToolTitle, queryToolMod
+) {
   const transId = getRandomInt(1, 9999999);
   parentData = {
     server_group: {
@@ -100,11 +107,17 @@ export function showERDSqlTool(parentData, erdSqlId, queryToolTitle, queryToolMo
   };
 
   const gridUrl = generateUrl(transId, parentData, erdSqlId);
-  launchQueryTool(queryToolMod, transId, gridUrl, queryToolTitle, {});
+  launchQueryTool(
+    queryToolMod, transId, gridUrl, queryToolTitle, {}
+  );
 }
 
-export function launchQueryTool(queryToolMod, transId, gridUrl, queryToolTitle, params) {
-  let retVal = queryToolMod.launch(transId, gridUrl, true, queryToolTitle, params);
+export function launchQueryTool(
+  queryToolMod, transId, gridUrl, queryToolTitle, params
+) {
+  let retVal = queryToolMod.launch(
+    transId, gridUrl, true, queryToolTitle, params
+  );
 
   if(!retVal) {
     Notify.alert(
@@ -120,9 +133,13 @@ export function _set_dynamic_tab(pgBrowser, value){
   let sqleditor_panels = pgBrowser.docker.findPanels('frm_sqleditor');
   const process = panel => {
     if(value) {
-      document.querySelector(`.wcPanelTab[id="${panel.$title.index()}"] div`).classList.add('wcPanelTab-dynamic');
+      document.querySelector(
+        `.wcPanelTab[id="${panel.$title.index()}"] div`
+      ).classList.add('wcPanelTab-dynamic');
     } else {
-      document.querySelector(`.wcPanelTab[id="${panel.$title.index()}"] div`).classList.remove('wcPanelTab-dynamic');
+      document.querySelector(
+        `.wcPanelTab[id="${panel.$title.index()}"] div`
+      ).classList.remove('wcPanelTab-dynamic');
     }
   };
   sqleditor_panels.forEach(process);

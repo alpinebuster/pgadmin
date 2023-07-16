@@ -116,7 +116,9 @@ export function retrieveNodeName(parentData) {
   return '';
 }
 
-function generateUrl(trans_id, connectionData, nodeData, parentData) {
+function generateUrl(
+  trans_id, connectionData, nodeData, parentData
+) {
   let url_endpoint = url_for('sqleditor.panel', {
     'trans_id': trans_id,
   });
