@@ -1,9 +1,11 @@
-import gettext from 'sources/gettext';
 import _ from 'lodash';
 import { FormGroup, makeStyles, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { InputText } from './FormComponents';
 import PropTypes from 'prop-types';
+
+import gettext from 'sources/gettext';
+
+import { InputText } from './FormComponents';
 
 const useStyles = makeStyles(() => ({
   formControlLabel: {

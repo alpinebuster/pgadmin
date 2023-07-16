@@ -1,5 +1,6 @@
 import { Notificar } from 'notificar';
 import { FileEntry, Directory, FileType } from 'react-aspen';
+
 import { FileTreeXEvent, IFileTreeXHandle } from '../types';
 
 export class KeyboardHotkeys {
@@ -16,7 +17,10 @@ export class KeyboardHotkeys {
     'Ctrl+KeyC': () => this.copyEntry(),
   };
 
-  constructor(private readonly fileTreeX: IFileTreeXHandle, private readonly events: Notificar<FileTreeXEvent>) { }
+  constructor(
+    private readonly fileTreeX: IFileTreeXHandle,
+    private readonly events: Notificar<FileTreeXEvent>
+  ) { }
 
   public handleKeyDown = (ev: React.KeyboardEvent) => {
     if (!this.fileTreeX.hasDirectFocus()) {

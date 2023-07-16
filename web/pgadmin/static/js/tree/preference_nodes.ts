@@ -16,7 +16,11 @@ export class ManagePreferenceTreeNodes {
   public init = (_root: string) => new Promise((res) => {
     const node = { parent: null, children: [], data: null };
     this.tree = {};
-    this.tree[_root] = { name: 'root', type: FileType.Directory, metadata: node };
+    this.tree[_root] = {
+      name: 'root',
+      type: FileType.Directory,
+      metadata: node
+    };
     res();
   });
 
@@ -35,7 +39,8 @@ export class ManagePreferenceTreeNodes {
     if (item && item.parentNode) {
       item.children = [];
       item.parentNode.children.splice(
-        item.parentNode.children.indexOf(item), 1
+        item.parentNode.children.indexOf(item),
+        1
       );
     }
     return true;
@@ -57,12 +62,19 @@ export class ManagePreferenceTreeNodes {
     _data.label = _.escape(_data.label);
 
     _data.is_collection = isCollectionNode(_data._type);
-    const nodeData = { parent: _parent, children: _data?.children ? _data.children : [], data: _data };
+    const nodeData = {
+      parent: _parent,
+      children: _data?.children ? _data.children : [],
+      data: _data
+    };
 
     const tmpParentNode = this.findNode(_parent);
-    const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
+    const treeNode = new TreeNode(
+      _data.id, _data, {}, tmpParentNode, nodeData, _data.type
+    );
 
-    if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
+    if (tmpParentNode !== null && tmpParentNode !== undefined)
+      tmpParentNode.children.push(treeNode);
 
     res(treeNode);
   });
@@ -227,7 +239,9 @@ export class TreeNode {
       } else if (tree.isOpen(this.domNode)) {
         resolve(true);
       } else {
-        tree.open(this.domNode).then(() => resolve(true), () => reject(true));
+        tree.open(this.domNode).then(
+          () => resolve(true), () => reject(true)
+        );
       }
     });
   }

@@ -1,27 +1,29 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import OrigCodeMirror from 'bundled_codemirror';
-import {useOnScreen} from 'sources/custom_hooks';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../custom_prop_types';
-import pgWindow from 'sources/window';
-import gettext from 'sources/gettext';
-import { Box, InputAdornment, makeStyles } from '@material-ui/core';
-import clsx from 'clsx';
-import { InputText } from './FormComponents';
-import { DefaultButton, PgIconButton } from './Buttons';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import ArrowDownwardRoundedIcon from '@material-ui/icons/ArrowDownwardRounded';
 import ArrowUpwardRoundedIcon from '@material-ui/icons/ArrowUpwardRounded';
 import SwapHorizRoundedIcon from '@material-ui/icons/SwapHorizRounded';
 import SwapCallsRoundedIcon from '@material-ui/icons/SwapCallsRounded';
 import _ from 'lodash';
+import { Box, InputAdornment, makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
+
+import OrigCodeMirror from 'bundled_codemirror';
+import {useOnScreen} from 'sources/custom_hooks';
+import pgWindow from 'sources/window';
+import gettext from 'sources/gettext';
+
+import { InputText } from './FormComponents';
+import { DefaultButton, PgIconButton } from './Buttons';
 import { RegexIcon, FormatCaseIcon } from './ExternalIcon';
 import { isMac } from '../keyboard_shortcuts';
 import { checkTrojanSource } from '../utils';
 import { copyToClipboard } from '../clipboard';
 import { useDelayedCaller } from '../../../static/js/custom_hooks';
+import CustomPropTypes from '../custom_prop_types';
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'relative',
   },
@@ -94,10 +96,11 @@ function getRegexFinder(query) {
   };
 }
 
-
 function getPlainStringFinder(query, matchCase) {
   return (stream) => {
-    let matchIndex = (matchCase ? stream.string :  stream.string.toLowerCase()).indexOf(query, stream.pos);
+    let matchIndex = (
+      matchCase ? stream.string : stream.string.toLowerCase()
+    ).indexOf(query, stream.pos);
     if(matchIndex == -1) {
       stream.skipToEnd();
     } else if(matchIndex == stream.pos) {

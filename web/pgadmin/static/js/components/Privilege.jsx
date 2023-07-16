@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 import _ from 'lodash';
 import React from 'react';
-import { InputCheckbox, InputText } from './FormComponents';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+
+import {InputCheckbox, InputText} from './FormComponents';
 
 const useStyles = makeStyles(()=>({
   /* Display the privs table only when focussed */
@@ -22,7 +23,9 @@ const useStyles = makeStyles(()=>({
   }
 }));
 
-export default function Privilege({value, onChange, controlProps}) {
+export default function Privilege({
+  value, onChange, controlProps
+}) {
   // All available privileges in the PostgreSQL database server for
   // generating the label for the specific Control
   const LABELS = {

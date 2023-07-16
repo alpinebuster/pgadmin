@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
-import { isMac } from '../keyboard_shortcuts';
 import _ from 'lodash';
-import CustomPropTypes from '../custom_prop_types';
+
 import gettext from 'sources/gettext';
+
+import { isMac } from '../keyboard_shortcuts';
+import CustomPropTypes from '../custom_prop_types';
 
 const useStyles = makeStyles((theme)=>({
   shortcutTitle: {
@@ -44,7 +46,9 @@ export function getBrowserAccesskey() {
   return [gettext('Accesskey')];
 }
 
-export function shortcutToString(shortcut, accesskey=null, asArray=false) {
+export function shortcutToString(
+  shortcut, accesskey = null, asArray = false
+) {
   let keys = [];
   if(accesskey) {
     keys = getBrowserAccesskey();
@@ -66,7 +70,9 @@ export function shortcutToString(shortcut, accesskey=null, asArray=false) {
 }
 
 /* The tooltip content to show shortcut details */
-export default function ShortcutTitle({title, shortcut, accesskey}) {
+export default function ShortcutTitle({
+  title, shortcut, accesskey
+}) {
   const classes = useStyles();
   let keys = shortcutToString(shortcut, accesskey, true);
   return (

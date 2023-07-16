@@ -1,16 +1,16 @@
 import _ from 'lodash';
+
 import url_for from 'sources/url_for';
 import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
+
 import getApiInstance, { callFetch } from '../api_instance';
 
 export const pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
-
 export const browserTreeState = pgBrowser.browserTreeState = pgBrowser.browserTreeState || {};
 
 _.extend(pgBrowser.browserTreeState, {
-
   // Parent node to start saving / reloading the tree state
   parent: 'server',
 
@@ -46,8 +46,9 @@ _.extend(pgBrowser.browserTreeState, {
   current_state: {},
 
   init: function() {
-
-    const save_tree_state_period = pgBrowser.get_preference('browser', 'browser_tree_state_save_interval');
+    const save_tree_state_period = pgBrowser.get_preference(
+      'browser', 'browser_tree_state_save_interval'
+    );
 
     if (!_.isUndefined(save_tree_state_period) &&  save_tree_state_period.value !== -1) {
       // Save the tree state every 30 seconds
@@ -56,23 +57,31 @@ _.extend(pgBrowser.browserTreeState, {
       // Fetch the tree last state while loading the browser tree
       this.fetch_state.apply(this);
 
-      pgBrowser.Events.on('pgadmin:browser:tree:expand-from-previous-tree-state',
-        this.expand_from_previous_state.bind(this));
-      pgBrowser.Events.on('pgadmin:browser:tree:remove-from-tree-state',
-        this.remove_from_cache.bind(this));
-      pgBrowser.Events.on('pgadmin:browser:tree:update-tree-state',
-        this.update_cache.bind(this));
+      pgBrowser.Events.on(
+        'pgadmin:browser:tree:expand-from-previous-tree-state',
+        this.expand_from_previous_state.bind(this)
+      );
+      pgBrowser.Events.on(
+        'pgadmin:browser:tree:remove-from-tree-state',
+        this.remove_from_cache.bind(this)
+      );
+      pgBrowser.Events.on(
+        'pgadmin:browser:tree:update-tree-state',
+        this.update_cache.bind(this)
+      );
     } else if (!_.isUndefined(save_tree_state_period)) {
-      getApiInstance().delete(url_for('settings.reset_tree_state'))
-        .catch(function(error) {
-          console.warn(
-            gettext('Error resetting the tree saved state."'), error);
-        });
+      getApiInstance().delete(
+        url_for('settings.reset_tree_state')
+      ).catch(function(error) {
+        console.warn(
+          gettext('Error resetting the tree saved state."'),
+          error
+        );
+      });
     }
 
   },
   save_state: function() {
-
     let self = pgBrowser.browserTreeState;
     if(self.last_state == JSON.stringify(self.current_state))
       return;
@@ -81,22 +90,22 @@ _.extend(pgBrowser.browserTreeState, {
     cancel the axios request on tab close. keepalive will
     make sure the request is completed */
     callFetch(
-      url_for('settings.save_tree_state'), {
+      url_for('settings.save_tree_state'),
+      {
         keepalive: true,
         method: 'POST',
         body: JSON.stringify(self.current_state)
-      })
-      .then(()=> {
-        self.last_state = JSON.stringify(self.current_state);
-        self.fetch_state();
-      })
-      .catch((error)=> {
-        console.warn(
-          gettext('Error resetting the tree saved state."'), error);
-      });
+      }
+    ).then(() => {
+      self.last_state = JSON.stringify(self.current_state);
+      self.fetch_state();
+    }).catch((error)=> {
+      console.warn(
+        gettext('Error resetting the tree saved state."'), error
+      );
+    });
   },
   fetch_state: function() {
-
     let self = this;
 
     getApiInstance().get(
@@ -105,7 +114,8 @@ _.extend(pgBrowser.browserTreeState, {
       self.stored_state = res.data;
     }).catch(function(error) {
       console.warn(
-        gettext('Error resetting the tree saved state."'), error);
+        gettext('Error resetting the tree saved state."'), error
+      );
     });
   },
   update_cache: function(item) {
@@ -123,23 +133,28 @@ _.extend(pgBrowser.browserTreeState, {
 
     topParent = treeHierarchy[this.parent]['_id'];
 
-
     if (pgBrowser.tree.isOpen(item)) {
       // Store paths
-
       pathIDs.push(data.id);
       path = pathIDs.join();
 
       if (!(topParent in this.current_state)) {
-        this.current_state[topParent] = {'paths': [], 'selected': {}, 'conn_status': {}, 'is_opened': {}};
+        this.current_state[topParent] = {
+          'paths': [],
+          'selected': {},
+          'conn_status': {},
+          'is_opened': {}
+        };
       }
 
       // IF the current path is already saved then return
-      let index = _.find(this.current_state[topParent]['paths'], function(tData) {
-        return (tData.search(path) !== -1);
-      });
+      let index = _.find(
+        this.current_state[topParent]['paths'],
+        function (tData) {
+          return (tData.search(path) !== -1);
+        }
+      );
       if(_.isUndefined(index)) {
-
         // Add / Update the current item into the tree path
         if (!_.isUndefined(this.current_state[topParent]['paths'])) {
           tmpIndex = this.current_state[topParent]['paths'].indexOf(oldPath);
@@ -159,7 +174,6 @@ _.extend(pgBrowser.browserTreeState, {
     // Store current selected item and database connection status
     this.update_database_status(item);
     this.update_current_selected_item(treeHierarchy);
-
   },
   remove_from_cache: function(item) {
     let self= this,
@@ -223,7 +237,6 @@ _.extend(pgBrowser.browserTreeState, {
       data = item && pgBrowser.tree.itemData(item),
       treeHierarchy = pgBrowser.tree.getTreeNodeHierarchy(item);
 
-
     if (treeHierarchy === null || !pgBrowser.tree.hasParent(item) || !(treeHierarchy.hasOwnProperty(self.parent)))
       return;
 
@@ -233,13 +246,11 @@ _.extend(pgBrowser.browserTreeState, {
 
     let tmpTreeData = treeData[treeHierarchy[self.parent]['_id']];
 
-
     // If the server node is open then only we should populate the tree
     if (data['_type'] == 'database' && tmpTreeData && 'conn_status' in tmpTreeData && 'is_opened' in tmpTreeData &&
      (tmpTreeData['conn_status'][data['id']] === 0 || tmpTreeData['is_opened'][data['id']] === 0 ||
       !(data['id'] in tmpTreeData['is_opened'])))
       return;
-
 
     if (!_.isUndefined(tmpTreeData) && ('paths' in tmpTreeData) && !_.isUndefined(tmpTreeData['paths'].length)) {
       let tmpTreeDataPaths = [...tmpTreeData['paths']],
@@ -272,7 +283,6 @@ _.extend(pgBrowser.browserTreeState, {
     }
 
     this.select_tree_item(item);
-
   },
   update_database_status: function(item) {
     let data = item && pgBrowser.tree.itemData(item),

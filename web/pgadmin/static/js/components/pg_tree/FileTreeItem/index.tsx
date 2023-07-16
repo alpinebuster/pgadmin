@@ -1,27 +1,31 @@
 import cn from 'classnames';
 import * as React from 'react';
 import { ClasslistComposite } from 'aspen-decorations';
-import { Directory, FileEntry, IItemRendererProps, ItemType, RenamePromptHandle, FileType, FileOrDir} from 'react-aspen';
-import {IFileTreeXTriggerEvents, FileTreeXEvent } from '../types';
+import {
+  Directory, FileEntry, IItemRendererProps, ItemType,
+  RenamePromptHandle, FileType, FileOrDir
+} from 'react-aspen';
 import _ from 'lodash';
 import { Notificar } from 'notificar';
 
+import {IFileTreeXTriggerEvents, FileTreeXEvent } from '../types';
+
 interface IItemRendererXProps {
-    /**
-     * In this implementation, decoration are null when item is `PromptHandle`
-     *
-     * If you would like decorations for `PromptHandle`s, then get them using `DecorationManager#getDecorations(<target>)`.
-     * Where `<target>` can be either `NewFilePromptHandle.parent` or `RenamePromptHandle.target` depending on type of `PromptHandle`
-     *
-     * To determine the type of `PromptHandle`, use `IItemRendererProps.itemType`
-     */
-    decorations: ClasslistComposite
-    onClick: (ev: React.MouseEvent, item: FileEntry | Directory, type: ItemType) => void
-    onContextMenu: (ev: React.MouseEvent, item: FileEntry | Directory) => void
-    onMouseEnter: (ev: React.MouseEvent, item: FileEntry | Directory) => void
-    onMouseLeave: (ev: React.MouseEvent, item: FileEntry | Directory) => void
-    onItemHovered: (ev: React.MouseEvent, item: FileEntry | Directory, type: ItemType) => void
-    events: Notificar<FileTreeXEvent>
+  /**
+   * In this implementation, decoration are null when item is `PromptHandle`
+   *
+   * If you would like decorations for `PromptHandle`s, then get them using `DecorationManager#getDecorations(<target>)`.
+   * Where `<target>` can be either `NewFilePromptHandle.parent` or `RenamePromptHandle.target` depending on type of `PromptHandle`
+   *
+   * To determine the type of `PromptHandle`, use `IItemRendererProps.itemType`
+   */
+  decorations: ClasslistComposite
+  onClick: (ev: React.MouseEvent, item: FileEntry | Directory, type: ItemType) => void
+  onContextMenu: (ev: React.MouseEvent, item: FileEntry | Directory) => void
+  onMouseEnter: (ev: React.MouseEvent, item: FileEntry | Directory) => void
+  onMouseLeave: (ev: React.MouseEvent, item: FileEntry | Directory) => void
+  onItemHovered: (ev: React.MouseEvent, item: FileEntry | Directory, type: ItemType) => void
+  events: Notificar<FileTreeXEvent>
 }
 
 // DO NOT EXTEND FROM PureComponent!!! You might miss critical changes made deep within `item` prop
@@ -106,7 +110,8 @@ export class FileTreeItem extends React.Component<IItemRendererXProps & IItemRen
           </span>
 
         </span>
-      </div>);
+      </div>
+    );
   }
 
   public componentDidMount() {

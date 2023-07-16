@@ -3,10 +3,12 @@ import ReactDataGrid, { Row } from 'react-data-grid';
 import { Box, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import CustomPropTypes from '../custom_prop_types';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+
 import gettext from 'sources/gettext';
+
+import CustomPropTypes from '../custom_prop_types';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -120,8 +122,11 @@ CustomRow.propTypes = {
   selectCell: PropTypes.func,
 };
 
-export default function PgReactDataGrid({gridRef, className, hasSelectColumn=true, onItemEnter, onItemSelect,
-  onItemClick, noRowsText, noRowsIcon,...props}) {
+export default function PgReactDataGrid({
+  gridRef, className, hasSelectColumn = true,
+  onItemEnter, onItemSelect,
+  onItemClick, noRowsText, noRowsIcon, ...props
+}) {
   const classes = useStyles();
   let finalClassName = [classes.root];
   hasSelectColumn && finalClassName.push(classes.hasSelectColumn);

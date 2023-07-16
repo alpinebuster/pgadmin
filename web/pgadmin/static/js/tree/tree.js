@@ -70,7 +70,6 @@ function manageTreeEvents(event, eventName, item) {
   return true;
 }
 
-
 export class Tree {
   constructor(tree, manageTree, pgBrowser, type) {
     this.tree = tree;

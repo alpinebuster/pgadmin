@@ -2,6 +2,7 @@ import React from 'react';
 import {Box, makeStyles} from '@material-ui/core';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
+
 import CustomPropTypes from '../custom_prop_types';
 
 export const tabPanelStyles = makeStyles((theme)=>({
@@ -20,7 +21,10 @@ export default function TabPanel({
   const classes = tabPanelStyles();
   const active = value === index;
   return (
-    <Box className={clsx(classes.root, classNameRoot)} component="div" hidden={!active}>
+    <Box
+      className={clsx(classes.root, classNameRoot)}
+      component="div" hidden={!active}
+    >
       <Box className={clsx(classes.content, className)}>
         {children}
       </Box>

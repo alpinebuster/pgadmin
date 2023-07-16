@@ -8,7 +8,8 @@ import { PgIconButton } from './Buttons';
 import {InputSelect, FormInput} from './FormComponents';
 
 export function SelectRefresh({
-  required, className, label, helpMessage, testcid, controlProps,
+  required, className, label,
+  helpMessage, testcid, controlProps,
   ...props
 }){
   const [options, setOptions] = useState([]);
@@ -16,11 +17,10 @@ export function SelectRefresh({
   const {getOptionsOnRefresh, ...selectControlProps} = controlProps;
 
   const onRefreshClick = ()=>{
-    getOptionsOnRefresh && getOptionsOnRefresh()
-      .then((res)=>{
-        setOptions(res);
-        setOptionsReloadBasis((prevVal)=>!prevVal);
-      });
+    getOptionsOnRefresh && getOptionsOnRefresh().then((res)=>{
+      setOptions(res);
+      setOptionsReloadBasis((prevVal)=>!prevVal);
+    });
   };
   return (
     <FormInput

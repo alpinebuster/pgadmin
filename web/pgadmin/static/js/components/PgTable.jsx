@@ -13,14 +13,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized-auto-sizer';
-import { Checkbox, Box } from '@material-ui/core';
-import { InputText } from './FormComponents';
-import _ from 'lodash';
-import gettext from 'sources/gettext';
-import SchemaView from '../schema_view';
-import EmptyPanelMessage from './EmptyPanelMessage';
+import {Checkbox, Box} from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import _ from 'lodash';
+
+import gettext from 'sources/gettext';
+
+import { InputText } from './FormComponents';
+import SchemaView from '../schema_view';
+import EmptyPanelMessage from './EmptyPanelMessage';
 
 /* eslint-disable react/display-name */
 const useStyles = makeStyles((theme) => ({

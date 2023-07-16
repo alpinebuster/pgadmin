@@ -11,12 +11,16 @@ import {
   FileOrDir
 } from 'react-aspen';
 import { Decoration, TargetMatchMode } from 'aspen-decorations';
-import { FileTreeItem } from '../FileTreeItem';
 import { Notificar, DisposablesComposite } from 'notificar';
-import { IFileTreeXHandle, IFileTreeXProps, FileTreeXEvent, IFileTreeXTriggerEvents } from '../types';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
+import { FileTreeItem } from '../FileTreeItem';
+import {
+  IFileTreeXHandle, IFileTreeXProps,
+  FileTreeXEvent, IFileTreeXTriggerEvents
+} from '../types';
 import { KeyboardHotkeys } from '../services/keyboardHotkeys';
 import { TreeModelX } from '../TreeModelX';
-import AutoSizer from 'react-virtualized-auto-sizer';
 
 export class FileTreeX extends React.Component<IFileTreeXProps> {
   private fileTreeHandle: IFileTreeXHandle;

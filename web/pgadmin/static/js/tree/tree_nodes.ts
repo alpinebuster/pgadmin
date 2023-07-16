@@ -1,13 +1,14 @@
 import * as BrowserFS from 'browserfs';
-import url_for from 'sources/url_for';
-import pgAdmin from 'sources/pgadmin';
 import _ from 'lodash';
 import { FileType } from 'react-aspen';
-import { findInTree } from './tree';
-import Notify from '../../../static/js/helpers/Notifier';
+import { unix } from 'path-fx';
+
+import url_for from 'sources/url_for';
+import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
 
-import { unix } from 'path-fx';
+import { findInTree } from './tree';
+import Notify from '../../../static/js/helpers/Notifier';
 import getApiInstance, { parseApiError } from '../api_instance';
 
 export class ManageTreeNodes {
@@ -19,7 +20,9 @@ export class ManageTreeNodes {
   public init = (_root: string) => new Promise((res) => {
     const node = {parent: null, children: [], data: null};
     this.tree = {};
-    this.tree[_root] = {name: 'root', type: FileType.Directory, metadata: node};
+    this.tree[_root] = {
+      name: 'root', type: FileType.Directory, metadata: node
+    };
     res();
   });
 
@@ -38,7 +41,9 @@ export class ManageTreeNodes {
 
     if (item && item.parentNode) {
       item.children = [];
-      item.parentNode.children.splice(item.parentNode.children.indexOf(item), 1);
+      item.parentNode.children.splice(
+        item.parentNode.children.indexOf(item), 1
+      );
     }
     return true;
   };
@@ -50,7 +55,9 @@ export class ManageTreeNodes {
     return findInTree(this.tempTree, path);
   }
 
-  public addNode = (_parent: string, _path: string, _data: []) => new Promise((res) => {
+  public addNode = (
+    _parent: string, _path: string, _data: []
+  ) => new Promise((res) => {
     _data.type = _data.inode ? FileType.Directory : FileType.File;
     _data._label = _data.label;
     _data.label = _.escape(_data.label);
@@ -164,8 +171,6 @@ export class ManageTreeNodes {
   };
 }
 
-
-
 export class TreeNode {
   constructor(id, data, domNode, parent, metadata, type) {
     this.id = id;
@@ -269,7 +274,6 @@ export class TreeNode {
     });
   }
 
-
   open(tree, suppressNoDom) {
     return new Promise((resolve, reject)=>{
       if(suppressNoDom && (this.domNode == null || typeof(this.domNode) === 'undefined')) {
@@ -277,7 +281,9 @@ export class TreeNode {
       } else if(tree.isOpen(this.domNode)) {
         resolve(true);
       } else {
-        tree.open(this.domNode).then(() => resolve(true), () => reject(true));
+        tree.open(this.domNode).then(
+          () => resolve(true), () => reject(true)
+        );
       }
     });
   }
@@ -286,7 +292,8 @@ export class TreeNode {
 
 export function isCollectionNode(node) {
   if (pgAdmin.Browser.Nodes && node in pgAdmin.Browser.Nodes) {
-    if (pgAdmin.Browser.Nodes[node].is_collection !== undefined) return pgAdmin.Browser.Nodes[node].is_collection;
+    if (pgAdmin.Browser.Nodes[node].is_collection !== undefined)
+      return pgAdmin.Browser.Nodes[node].is_collection;
     else return false;
   }
   return false;
