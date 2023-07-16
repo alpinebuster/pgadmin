@@ -51,71 +51,65 @@ export class ManagePreferenceTreeNodes {
 
   public addNode = (
     _parent: string, _path: string, _data: []
-  ) => {
-    new Promise((res) => {
-      _data.type = _data.inode ? FileType.Directory : FileType.File;
-      _data._label = _data.label;
-      _data.label = _.escape(_data.label);
+  ) => new Promise((res) => {
+    _data.type = _data.inode ? FileType.Directory : FileType.File;
+    _data._label = _data.label;
+    _data.label = _.escape(_data.label);
 
-      _data.is_collection = isCollectionNode(_data._type);
-      const nodeData = { parent: _parent, children: _data?.children ? _data.children : [], data: _data };
+    _data.is_collection = isCollectionNode(_data._type);
+    const nodeData = { parent: _parent, children: _data?.children ? _data.children : [], data: _data };
 
-      const tmpParentNode = this.findNode(_parent);
-      const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
+    const tmpParentNode = this.findNode(_parent);
+    const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
 
-      if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
+    if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
 
-      res(treeNode);
-    });
-  };
+    res(treeNode);
+  });
 
-  public readNode = (_path: string) => {
-    new Promise<string[]>(
-      (res, rej) => {
-        const temp_tree_path = _path,
-          node = this.findNode(_path);
-        node.children = [];
+  public readNode = (_path: string) => new Promise<string[]>((res, rej) => {
+    const temp_tree_path = _path,
+      node = this.findNode(_path);
+    node.children = [];
 
-        if (node && node.children.length > 0) {
-          if (!node.type === FileType.File) {
-            rej('It\'s a leaf node');
-          }
-          else {
-            if (node?.children.length != 0) res(node.children);
-          }
-        }
-
-        const self = this;
-
-        async function loadData() {
-          const Path = BrowserFS.BFSRequire('path');
-          const fill = async (tree) => {
-            for (const idx in tree) {
-              const _node = tree[idx];
-              const _pathl = Path.join(_path, _node.id);
-              await self.addNode(temp_tree_path, _pathl, _node);
-            }
-          };
-
-          if (node && !_.isUndefined(node.id)) {
-            const _data = self.treeData.find((el) => el.id == node.id);
-            const subNodes = [];
-
-            _data.childrenNodes.forEach(element => {
-              subNodes.push(element);
-            });
-
-            await fill(subNodes);
-          } else {
-            await fill(self.treeData);
-          }
-
-          self.returnChildrens(node, res);
-        }
-        loadData();
+    if (node && node.children.length > 0) {
+      if (!node.type === FileType.File) {
+        rej('It\'s a leaf node');
       }
-    );
-  };
+      else {
+        if (node?.children.length != 0) res(node.children);
+      }
+    }
+
+    const self = this;
+
+    async function loadData() {
+      const Path = BrowserFS.BFSRequire('path');
+      const fill = async (tree) => {
+        for (const idx in tree) {
+          const _node = tree[idx];
+          const _pathl = Path.join(_path, _node.id);
+          await self.addNode(temp_tree_path, _pathl, _node);
+        }
+      };
+
+      if (node && !_.isUndefined(node.id)) {
+        const _data = self.treeData.find((el) => el.id == node.id);
+        const subNodes = [];
+
+        _data.childrenNodes.forEach(element => {
+          subNodes.push(element);
+        });
+
+        await fill(subNodes);
+      } else {
+        await fill(self.treeData);
+      }
+
+      self.returnChildrens(node, res);
+    }
+    loadData();
+  });
 
   public returnChildrens = (node: any, res: any)  =>{
     if (node?.children.length > 0) return res(node.children);
@@ -241,7 +235,8 @@ export class TreeNode {
 
 export function isCollectionNode(node) {
   if (pgAdmin.Browser.Nodes && node in pgAdmin.Browser.Nodes) {
-    if (pgAdmin.Browser.Nodes[node].is_collection !== undefined) return pgAdmin.Browser.Nodes[node].is_collection;
+    if (pgAdmin.Browser.Nodes[node].is_collection !== undefined)
+      return pgAdmin.Browser.Nodes[node].is_collection;
     else return false;
   }
   return false;

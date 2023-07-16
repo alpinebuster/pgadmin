@@ -177,4 +177,3 @@ function BrowserTree(props) {
 module.exports = {
   initBrowserTree: initBrowserTree,
 };
-
