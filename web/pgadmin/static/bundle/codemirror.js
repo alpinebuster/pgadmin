@@ -49,4 +49,5 @@ CodeMirror.defineInitHook(function (codeMirror) {
 });
 
 CodeMirror.keyMap.default['Esc'] = 'focusOut';
+
 export default CodeMirror;

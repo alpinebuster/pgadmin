@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'wcdocker';
 
 import pgAdmin from 'sources/pgadmin';
 import getApiInstance from 'sources/api_instance';
 import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 import SchemaView from 'sources/schema_view';
+import gettext from 'sources/gettext';
+
 import { generateNodeUrl } from './node_ajax';
 import Notify from '../../../static/js/helpers/Notifier';
-import gettext from 'sources/gettext';
-import 'wcdocker';
 import Theme from '../../../static/js/theme';
 
 /* The entry point for rendering React based view in properties, called in node.js */

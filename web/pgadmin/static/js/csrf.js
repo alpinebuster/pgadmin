@@ -15,5 +15,4 @@ export function setPGCSRFToken(header, token) {
   }, function (error) {
     return Promise.reject(error);
   });
-
 }

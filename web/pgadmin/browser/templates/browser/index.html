@@ -14,17 +14,13 @@
       }
     }
   }
-  
+
   try {
     require([
       'sources/generated/app.bundle',
       'sources/generated/codemirror',
       'sources/generated/browser_nodes'
-    ], function() {}, function() {
-      /* TODO:: Show proper error dialog */
-      console.log(arguments);
-      }
-    );
+    ], function() {});
   } catch (err) {
     /* TODO: Show proper error dialog */
     console.log(err);

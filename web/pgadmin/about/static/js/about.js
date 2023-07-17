@@ -38,8 +38,7 @@ class About {
       gettext('About %s', pgAdmin.Browser.utils.app_name),
       () => {
         return <AboutComponent />;
-      },
-      {
+      }, {
         isFullScreen: false, isResizeable: true,
         showFullScreen: true, isFullWidth: true,
         dialogWidth: dlgWidth,

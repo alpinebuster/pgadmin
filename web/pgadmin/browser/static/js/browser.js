@@ -19,7 +19,7 @@ import { TAB_CHANGE } from './constants';
 define('pgadmin.browser', [
   'sources/gettext', 'sources/url_for', 'jquery',
   'sources/pgadmin', 'bundled_codemirror',
-  'sources/check_node_visibility', './toolbar', 'pgadmin.help',
+  'sources/check_node_visibility', './toolbar',
   'sources/csrf', 'sources/utils', 'sources/window',
   'pgadmin.authenticate.kerberos',
   'sources/tree/tree_init',
@@ -37,9 +37,9 @@ define('pgadmin.browser', [
 ], function(
   gettext, url_for, $,
   pgAdmin, codemirror,
-  checkNodeVisibility, toolBar, help,
+  checkNodeVisibility, toolBar,
   csrfToken, pgadminUtils, pgWindow,
-  Kerberos, InitTree,
+  Kerberos, TreeInit,
 ) {
   window.jQuery = window.$ = $;
   // Some scripts do export their object in the window only.
@@ -51,7 +51,9 @@ define('pgadmin.browser', [
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
   let select_object_msg = gettext('Please select an object in the tree view.');
 
-  csrfToken.setPGCSRFToken(pgAdmin.csrf_token_header, pgAdmin.csrf_token);
+  csrfToken.setPGCSRFToken(
+    pgAdmin.csrf_token_header, pgAdmin.csrf_token
+  );
 
   Kerberos.validate_kerberos_ticket();
 
@@ -77,7 +79,8 @@ define('pgadmin.browser', [
       'trigger trigger_function',
       'edbfunc function edbproc procedure'
     ];
-    InitTree.initBrowserTree(b).then(() => {
+    debugger;
+    TreeInit.initBrowserTree(b).then(() => {
       const getQualifiedName = (data, item)=>{
         if(draggableTypes[0].includes(data._type)) {
           return pgadminUtils.fully_qualify(b, data, item);
@@ -747,7 +750,10 @@ define('pgadmin.browser', [
       _.each(menus, function(m) {
         _.each(m.applies, function(a) {
           /* We do support menu type only from this list */
-          if(['context', 'file', 'edit', 'object','management', 'tools', 'help'].indexOf(a) > -1){
+          if ([
+            'context', 'file', 'edit', 'object',
+            'management', 'tools', 'help'
+          ].indexOf(a) > -1) {
             let _menus;
 
             // If current node is not visible in browser tree
