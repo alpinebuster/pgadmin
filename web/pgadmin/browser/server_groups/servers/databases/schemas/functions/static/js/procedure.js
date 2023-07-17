@@ -1,7 +1,13 @@
-import { getNodeAjaxOptions, getNodeListByName, getNodeListById} from '../../../../../../../static/js/node_ajax';
+import {
+  getNodeAjaxOptions, getNodeListByName, getNodeListById
+} from '../../../../../../../static/js/node_ajax';
 import FunctionSchema from './function.ui';
-import { getNodePrivilegeRoleSchema } from '../../../../../static/js/privilege.ui';
-import { getNodeVariableSchema } from '../../../../../static/js/variable.ui';
+import {
+  getNodePrivilegeRoleSchema
+} from '../../../../../static/js/privilege.ui';
+import {
+  getNodeVariableSchema
+} from '../../../../../static/js/variable.ui';
 
 /* Create and Register Procedure Collection and Node. */
 define('pgadmin.node.procedure', [
