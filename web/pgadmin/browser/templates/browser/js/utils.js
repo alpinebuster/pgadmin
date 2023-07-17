@@ -30,7 +30,6 @@
 define('pgadmin.browser.utils', [
   'sources/pgadmin'
 ], function (pgAdmin) {
-
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
   /* Add hooked-in panels by extensions */
@@ -164,5 +163,6 @@ define('pgadmin.browser.utils', [
     },
     {% endif %}
   };
+  
   return pgBrowser;
 });

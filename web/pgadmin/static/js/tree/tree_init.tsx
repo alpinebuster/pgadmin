@@ -1,6 +1,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { IBasicFileSystemHost, Directory, FileOrDir } from 'react-aspen';
+import {
+  IBasicFileSystemHost, Directory, FileOrDir
+} from 'react-aspen';
 
 import pgAdmin from 'sources/pgadmin';
 
@@ -8,7 +10,9 @@ import { ManageTreeNodes } from './tree_nodes';
 import {Tree} from './tree';
 import { FileTreeX, TreeModelX } from '../components/pg_tree';
 import Theme from '../theme';
-import { PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu } from '../components/Menu';
+import {
+  PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu
+} from '../components/Menu';
 
 const initBrowserTree = (pgBrowser) => {
   return new Promise((resolve)=>{
@@ -25,7 +29,9 @@ const initBrowserTree = (pgBrowser) => {
       getItems: async (path) => {
         return mtree.readNode(path);
       },
-      sortComparator: (a: FileEntry | Directory, b: FileEntry | Directory) => {
+      sortComparator: (
+        a: FileEntry | Directory, b: FileEntry | Directory
+      ) => {
         // No nee to sort columns
         if (a._metadata && a._metadata.data._type == 'column') return 0;
         // Sort alphabetically
@@ -102,6 +108,7 @@ function BrowserTree(props) {
     if(menuItem.type == 'separator') {
       return <PgMenuDivider key={i}/>;
     }
+    
     if(menuItem.isDisabled) {
       return (
         <React.Fragment key={i}>
@@ -142,9 +149,11 @@ function BrowserTree(props) {
   return (
     <Theme>
       <FileTreeX
-        {...props} height={'100%'}
-        disableCache={true} onContextMenu={onContextMenu}
-        onScroll={()=>{
+        {...props}
+        height={'100%'}
+        disableCache={true}
+        onContextMenu={onContextMenu}
+        onScroll={() => {
           contextPos && setContextPos(null);
         }}
       />
@@ -158,17 +167,21 @@ function BrowserTree(props) {
         label="context"
         portal
       >
-        {contextMenuItems.length !=0 && contextMenuItems.map((menuItem, i)=>{
-          const submenus = menuItem.getMenuItems();
-          if(submenus) {
-            return <PgSubMenu key={i} label={menuItem.label}>
-              {submenus.map((submenuItem, si)=>{
-                return getPgMenuItem(submenuItem, i+'-'+si);
-              })}
-            </PgSubMenu>;
+        {contextMenuItems.length != 0 && contextMenuItems.map(
+          (menuItem, i) => {
+            const submenus = menuItem.getMenuItems();
+            if(submenus) {
+              return (
+                <PgSubMenu key={i} label={menuItem.label}>
+                  {submenus.map((submenuItem, si)=>{
+                    return getPgMenuItem(submenuItem, i+'-'+si);
+                  })}
+                </PgSubMenu>
+              );
+            }
+            return getPgMenuItem(menuItem, i);
           }
-          return getPgMenuItem(menuItem, i);
-        })}
+        )}
       </PgMenu>
     </Theme>
   );

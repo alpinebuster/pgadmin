@@ -3,18 +3,20 @@ import {
 } from '@material-ui/core';
 import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
-import { getEpoch } from 'sources/utils';
-import {
-  DefaultButton, PgIconButton, PrimaryButton
-} from '../components/Buttons';
 import Draggable from 'react-draggable';
-import CloseIcon from '@material-ui/icons/CloseRounded';
-import CustomPropTypes from '../custom_prop_types';
 import PropTypes from 'prop-types';
-import gettext from 'sources/gettext';
+import CloseIcon from '@material-ui/icons/CloseRounded';
 import HTMLReactParser from 'html-react-parser';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import { Rnd } from 'react-rnd';
+
+import { getEpoch } from 'sources/utils';
+import gettext from 'sources/gettext';
+
+import {
+  DefaultButton, PgIconButton, PrimaryButton
+} from '../components/Buttons';
+import CustomPropTypes from '../custom_prop_types';
 import {
   ExpandDialogIcon, MinimizeDialogIcon
 } from '../components/ExternalIcon';
@@ -165,7 +167,6 @@ const dialogStyle = makeStyles((theme) => ({
     transform: 'none !important'
   }
 }));
-
 
 function checkIsResizable(props) {
   return props.isresizeable == 'true' ? true : false;

@@ -1,12 +1,14 @@
 import React from 'react';
-import { useModalStyles } from '../../../../../../static/js/helpers/ModalProvider';
-import gettext from 'sources/gettext';
 import { Box } from '@material-ui/core';
-import { DefaultButton, PrimaryButton } from '../../../../../../static/js/components/Buttons';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 import HTMLReactParser from 'html-react-parser';
-import { CommitIcon, RollbackIcon } from '../../../../../../static/js/components/ExternalIcon';
 import PropTypes from 'prop-types';
+
+import gettext from 'sources/gettext';
+
+import { DefaultButton, PrimaryButton } from '../../../../../../static/js/components/Buttons';
+import { CommitIcon, RollbackIcon } from '../../../../../../static/js/components/ExternalIcon';
+import { useModalStyles } from '../../../../../../static/js/helpers/ModalProvider';
 
 export default function ConfirmTransactionContent({closeModal, text, onRollback, onCommit}) {
   const classes = useModalStyles();

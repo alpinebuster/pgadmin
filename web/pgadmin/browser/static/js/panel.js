@@ -162,7 +162,6 @@ define([
             });
 
             pgBrowser.Events.on('pgadmin:database:connected', () => {
-
               if(myPanel.isVisible() && myPanel._type !== 'properties') {
                 getPanelView(
                   pgBrowser.tree,
@@ -174,7 +173,6 @@ define([
             });
 
             pgBrowser.Events.on('pgadmin-browser:tree:refreshing', () => {
-
               if(myPanel.isVisible() && myPanel._type !== 'properties') {
                 getPanelView(
                   pgBrowser.tree,
@@ -274,7 +272,6 @@ define([
         );
       }
     }
-
   });
 
   return pgAdmin.Browser.Panel;

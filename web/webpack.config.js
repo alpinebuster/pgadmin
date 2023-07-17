@@ -575,7 +575,7 @@ module.exports = [{
             ],
           },
         },
-      }
+      },
     ].concat(themeCssRules('standard')),
     // Prevent webpack from parsing any files matching the given regular expression(s).
     // Helps in reducing build time.

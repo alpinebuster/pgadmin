@@ -1,26 +1,24 @@
-// NOTE: DI is performed by webpack's `imports-loader`:
-// 'pure|pgadmin.about',
-// 'pure|pgadmin.preferences',
-// 'pure|pgadmin.settings',
-// 'pure|pgadmin.tools.backup',
-// 'pure|pgadmin.tools.restore',
-// 'pure|pgadmin.tools.grant_wizard',
-// 'pure|pgadmin.tools.maintenance',
-// 'pure|pgadmin.tools.import_export',
-// 'pure|pgadmin.tools.import_export_servers',
-// 'pure|pgadmin.tools.debugger',
-// 'pure|pgadmin.node.pga_job',
-// 'pure|pgadmin.tools.schema_diff',
-// 'pure|pgadmin.tools.file_manager',
-// 'pure|pgadmin.tools.search_objects',
-// 'pure|pgadmin.tools.erd',
-// 'pure|pgadmin.tools.psql_module',
-// 'pure|pgadmin.tools.sqleditor',
-// 'pure|pgadmin.misc.cloud',
+// import 'pgadmin.about';
+// import 'pgadmin.preferences';
+// import 'pgadmin.settings';
+// import 'pgadmin.tools.backup';
+// import 'pgadmin.tools.restore';
+// import 'pgadmin.tools.grant_wizard';
+// import 'pgadmin.tools.maintenance';
+// import 'pgadmin.tools.import_export';
+// import 'pgadmin.tools.import_export_servers';
+// import 'pgadmin.tools.debugger';
+// import 'pgadmin.node.pga_job';
+// import 'pgadmin.tools.schema_diff';
+// import 'pgadmin.tools.file_manager';
+// import 'pgadmin.tools.search_objects';
+// import 'pgadmin.tools.erd';
+// import 'pgadmin.tools.psql_module';
+// import 'pgadmin.tools.sqleditor';
+// import 'pgadmin.misc.cloud';
 
 define('bundled_browser', [
   'pgadmin.browser',
-  'sources/browser/index',
   'top/tools/erd/static/js/index',
   'top/tools/psql/static/js/index',
 ], function(pgBrowser) {
