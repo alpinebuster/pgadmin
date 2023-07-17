@@ -1,6 +1,7 @@
 import gettext from 'sources/gettext';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
-import { isEmptyString } from 'sources/validators';
+import {isEmptyString} from 'sources/validators';
+
 export default class CastSchema extends BaseUISchema {
   constructor(fieldOptions={}, initValues={}) {
     super({

@@ -1,10 +1,20 @@
 import _ from 'lodash';
-import url_for from './url_for';
-import gettext from 'sources/gettext';
-import 'wcdocker';
-import Notify from './helpers/Notifier';
 import { hasTrojanSource } from 'anti-trojan-source';
 import convert from 'convert-units';
+import 'wcdocker';
+
+import url_for from './url_for';
+import gettext from 'sources/gettext';
+import {
+  EV_SERVER_CONNECTED,
+  EV_SERVER_CONN_CANCELLED,
+  EV_SERVER_CONN_LOST,
+  EV_DB_CONNECTION_LOST,
+  EV_DB_CONNECT_CANCELLED,
+  EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE,
+} from 'sources/constants';
+
+import Notify from './helpers/Notifier';
 import getApiInstance from './api_instance';
 
 let wcDocker = window.wcDocker;
@@ -514,10 +524,10 @@ export function pgHandleItemError(error, args) {
               // Yay - server is reconnected.
               if (this.args.info.server._id == _sid) {
                 pgBrowser.Events.off(
-                  'pgadmin:server:connected', onServerConnect
+                  EV_SERVER_CONNECTED, onServerConnect
                 );
                 pgBrowser.Events.off(
-                  'pgadmin:server:connect:cancelled', onConnectCancel
+                  EV_SERVER_CONN_CANCELLED, onConnectCancel
                 );
 
                 // Do we need to connect the disconnected server now?
@@ -528,7 +538,7 @@ export function pgHandleItemError(error, args) {
                   // Server is connected now, we will need to inform the
                   // database to connect it now.
                   pgBrowser.Events.trigger(
-                    'pgadmin:database:connection:lost', this.args.item,
+                    EV_DB_CONNECTION_LOST, this.args.item,
                     this.resp, true
                   );
                 }
@@ -537,24 +547,28 @@ export function pgHandleItemError(error, args) {
             onConnectCancel = function(_sid, _item, _data) {
               // User has cancelled the operation in between.
               if (_sid == this.args.info.server.id) {
-                pgBrowser.Events.off('pgadmin:server:connected', onServerConnect);
-                pgBrowser.Events.off('pgadmin:server:connect:cancelled', onConnectCancel);
+                pgBrowser.Events.off(
+                  EV_SERVER_CONNECTED, onServerConnect
+                );
+                pgBrowser.Events.off(
+                  EV_SERVER_CONN_CANCELLED, onConnectCancel
+                );
 
                 // Connection to the database will also be cancelled
                 pgBrowser.Events.trigger(
-                  'pgadmin:database:connect:cancelled', _sid,
+                  EV_DB_CONNECT_CANCELLED, _sid,
                   this.resp.data.database || _data.db, _item, _data
                 );
               }
             }.bind(ctx_local);
 
-          pgBrowser.Events.on('pgadmin:server:connected', onServerConnect);
-          pgBrowser.Events.on('pgadmin:server:connect:cancelled', onConnectCancel);
+          pgBrowser.Events.on(EV_SERVER_CONNECTED, onServerConnect);
+          pgBrowser.Events.on(EV_SERVER_CONN_CANCELLED, onConnectCancel);
 
           // Connection to the server has been lost, we need to inform the
           // server first to take the action first.
           pgBrowser.Events.trigger(
-            'pgadmin:server:connection:lost', this.args.item, this.resp
+            EV_SERVER_CONN_LOST, this.args.item, this.resp
           );
         }.bind(ctx);
 
@@ -567,7 +581,7 @@ export function pgHandleItemError(error, args) {
               // Server is connected, but - the connection with the
               // particular database has been lost.
               pgBrowser.Events.trigger(
-                'pgadmin:database:connection:lost', args.item, jsonResp
+                EV_DB_CONNECTION_LOST, args.item, jsonResp
               );
               return;
             }
@@ -627,7 +641,7 @@ function openWindow(toolForm, title) {
     let pgBrowser = window.pgAdmin.Browser;
     // Send the signal to runtime, so that proper zoom level will be set.
     setTimeout(function() {
-      pgBrowser.Events.trigger('pgadmin:nw-set-new-window-open-size');
+      pgBrowser.Events.trigger(EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE);
     }, 500);
   } else {
     return false;

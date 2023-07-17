@@ -15,7 +15,7 @@ import {
 } from '../components/Menu';
 
 const initBrowserTree = (pgBrowser) => {
-  return new Promise((resolve)=>{
+  return new Promise((resolve) => {
     const MOUNT_POINT = '/browser';
 
     // Setup host
@@ -80,19 +80,21 @@ const initBrowserTree = (pgBrowser) => {
 
     const treeModelX = new TreeModelX(host, MOUNT_POINT);
 
-    const itemHandle = function onReady(handler) {
+    const itemHandle = (handler) => {
       // Initialize pgBrowser Tree
       pgBrowser.tree = new Tree(handler, mtree, pgBrowser);
       resolve(pgBrowser);
     };
 
-    treeModelX.root.ensureLoaded().then(()=>{
+    treeModelX.root.ensureLoaded().then(() => {
       // Render Browser Tree
       ReactDOM.render(
         <BrowserTree
           model={treeModelX}
-          onReady={itemHandle} create={create}
-          remove={remove} update={update}
+          onReady={itemHandle}
+          create={create}
+          remove={remove}
+          update={update}
         />,
         document.getElementById('tree')
       );
@@ -101,14 +103,15 @@ const initBrowserTree = (pgBrowser) => {
 };
 
 function BrowserTree(props) {
-  const [contextPos, setContextPos] = React.useState<{x: number, y: number} | null>(null);
+  const [contextPos, setContextPos] =
+    React.useState<{ x: number, y: number } | null>(null);
   const contextMenuItems = pgAdmin.Browser.BrowserContextMenu;
 
   const getPgMenuItem = (menuItem, i) => {
     if(menuItem.type == 'separator') {
       return <PgMenuDivider key={i}/>;
     }
-    
+
     if(menuItem.isDisabled) {
       return (
         <React.Fragment key={i}>
@@ -157,6 +160,7 @@ function BrowserTree(props) {
           contextPos && setContextPos(null);
         }}
       />
+      
       <PgMenu
         anchorPoint={{
           x: contextPos?.x,

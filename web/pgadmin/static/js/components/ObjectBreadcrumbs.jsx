@@ -4,6 +4,11 @@ import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import CommentIcon from '@material-ui/icons/Comment';
 import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import PropTypes from 'prop-types';
+
+import {
+  EV_BROWSER_TREE_HOVERED,
+} from 'sources/constants';
+
 import { useIsMounted } from '../custom_hooks';
 
 const useStyles = makeStyles((theme)=>({
@@ -80,10 +85,10 @@ export default function ObjectBreadcrumbs({pgAdmin}) {
 
   useEffect(()=>{
     if(preferences.breadcrumbs_enable) {
-      pgAdmin.Browser.Events.on('pgadmin-browser:tree:hovered', onItemHover);
+      pgAdmin.Browser.Events.on(EV_BROWSER_TREE_HOVERED, onItemHover);
     }
     return ()=>{
-      pgAdmin.Browser.Events.off('pgadmin-browser:tree:hovered', onItemHover);
+      pgAdmin.Browser.Events.off(EV_BROWSER_TREE_HOVERED, onItemHover);
     };
   }, [preferences.breadcrumbs_enable]);
 

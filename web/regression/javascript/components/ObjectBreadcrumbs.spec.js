@@ -1,10 +1,15 @@
 import jasmineEnzyme from 'jasmine-enzyme';
 import React from 'react';
-import '../helper/enzyme.helper';
-import { withTheme } from '../fake_theme';
-import { createMount } from '@material-ui/core/test-utils';
+import {createMount} from '@material-ui/core/test-utils';
+
+import {
+  EV_BROWSER_TREE_HOVERED
+} from 'sources/constants';
+
 import ObjectBreadcrumbs from '../../../pgadmin/static/js/components/ObjectBreadcrumbs';
 import EventBus from '../../../pgadmin/static/js/helpers/EventBus';
+import '../helper/enzyme.helper';
+import { withTheme } from '../fake_theme';
 
 const pgAdmin = {
   Browser: {
@@ -55,7 +60,7 @@ describe('ObjectBreadcrumbs', ()=>{
     let ctrl = mount(<ThemedObjectBreadcrumbs pgAdmin={pgAdmin} />);
     setTimeout(()=>{
       ctrl.update();
-      pgAdmin.Browser.Events.trigger('pgadmin-browser:tree:hovered', {
+      pgAdmin.Browser.Events.trigger(EV_BROWSER_TREE_HOVERED, {
         _metadata: {
           data: {
             description: 'some description'
@@ -78,7 +83,7 @@ describe('ObjectBreadcrumbs', ()=>{
     let ctrl = mount(<ThemedObjectBreadcrumbs pgAdmin={pgAdmin} />);
     setTimeout(()=>{
       ctrl.update();
-      pgAdmin.Browser.Events.trigger('pgadmin-browser:tree:hovered', {
+      pgAdmin.Browser.Events.trigger(EV_BROWSER_TREE_HOVERED, {
         _metadata: {
           data: {}
         },

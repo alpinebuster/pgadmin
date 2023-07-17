@@ -1,6 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
 
+import {
+  EV_BROWSER_TREE_REFRESH,
+  EV_BROWSER_TREE_ADD,
+  EV_BROWSER_TREE_UPDATE,
+  EV_BROWSER_TREE_LOADFAIL,
+  EV_BROWSER_PANEL_BROWSER_,
+  EV_BROWSER_TREE_REFRESHING
+} from 'sources/constants';
+
 import { generateNodeUrl } from './node_ajax';
 import MainMenuFactory from './MainMenuFactory';
 import Notify, {
@@ -72,36 +81,40 @@ define('pgadmin.browser', [
     }
   };
 
-  let initializeBrowserTree = pgAdmin.Browser.initializeBrowserTree = function(b) {
+  let initializeBrowserTree = pgAdmin.Browser.initializeBrowserTree = function(_browser) {
     const draggableTypes = [
       'collation domain domain_constraints fts_configuration fts_dictionary fts_parser fts_template synonym table partition type sequence package view mview foreign_table edbvar',
       'schema column database cast event_trigger extension language foreign_data_wrapper foreign_server user_mapping compound_trigger index index_constraint primary_key unique_constraint check_constraint exclusion_constraint foreign_key rule',
       'trigger trigger_function',
       'edbfunc function edbproc procedure'
     ];
-    debugger;
-    TreeInit.initBrowserTree(b).then(() => {
+
+    TreeInit.initBrowserTree(_browser).then(() => {
       const getQualifiedName = (data, item)=>{
         if(draggableTypes[0].includes(data._type)) {
-          return pgadminUtils.fully_qualify(b, data, item);
+          return pgadminUtils.fully_qualify(_browser, data, item);
         } else if(draggableTypes[1].includes(data._type)) {
           return pgadminUtils.quote_ident(data._label);
         } else if(draggableTypes[3].includes(data._type)) {
           let newData = {...data};
           let parsedFunc = pgadminUtils.parseFuncParams(newData._label);
           newData._label = parsedFunc.func_name;
-          return pgadminUtils.fully_qualify(b, newData, item);
+          return pgadminUtils.fully_qualify(_browser, newData, item);
         } else {
           return data._label;
         }
       };
 
-      b.tree.registerDraggableType({
-        [draggableTypes[0]] : (data, item, treeNodeInfo)=>{
+      _browser.tree.registerDraggableType({
+        [draggableTypes[0]] : (data, item, treeNodeInfo) => {
           let text = getQualifiedName(data, item);
           return {
             text: text,
-            objUrl: generateNodeUrl.call(pgBrowser.Nodes[data._type], treeNodeInfo, 'properties', data, true),
+            objUrl: generateNodeUrl.call(
+              pgBrowser.Nodes[data._type],
+              treeNodeInfo, 'properties',
+              data, true
+            ),
             nodeType: data._type,
             cur: {
               from: text.length,
@@ -109,13 +122,13 @@ define('pgadmin.browser', [
             },
           };
         },
-        [draggableTypes[1]] : (data)=>{
+        [draggableTypes[1]] : (data) => {
           return getQualifiedName(data);
         },
-        [draggableTypes[2]] : (data)=>{
+        [draggableTypes[2]] : (data) => {
           return getQualifiedName(data);
         },
-        [draggableTypes[3]] : (data, item)=>{
+        [draggableTypes[3]] : (data, item) => {
           let parsedFunc = pgadminUtils.parseFuncParams(data._label),
             dropVal = getQualifiedName(data, item),
             curPos = {from: 0, to: 0};
@@ -143,7 +156,7 @@ define('pgadmin.browser', [
         },
       });
 
-      b.tree.onNodeCopy((data, item)=>{
+      _browser.tree.onNodeCopy((data, item)=>{
         copyToClipboard(getQualifiedName(data, item));
       });
     }, () => {console.warn('Tree Load Error');});
@@ -338,7 +351,7 @@ define('pgadmin.browser', [
     MainMenus: [],
     BrowserContextMenu: [],
 
-    add_panels: function() {
+    add_hooked_panels: function() {
       /* Add hooked-in panels by extensions */
       let panels = JSON.parse(pgBrowser.panels_items);
       _.each(panels, function(panel) {
@@ -405,7 +418,7 @@ define('pgadmin.browser', [
       // This 'checkNoMenuOptionForNode' function will check
       // if showMenu flag is present or not for selected node.
       let {flag,showMenu}=MainMenuFactory.checkNoMenuOptionForNode(d);
-      if(flag){
+      if(flag) {
         if(showMenu===false){
           return [MainMenuFactory.createMenuItem({
             enable : false,
@@ -415,7 +428,8 @@ define('pgadmin.browser', [
             category: 'create',
           })];
         }
-      }else{
+      }
+      else {
         let category = {
           'common': []
         };
@@ -525,17 +539,17 @@ define('pgadmin.browser', [
       }
     },
     init: function() {
-      let obj=this;
-      if (obj.initialized) {
+      let browser_obj = this;
+      if (browser_obj.initialized) {
         return;
       }
-      obj.initialized = true;
+      browser_obj.initialized = true;
 
       // Cache preferences
-      obj.cache_preferences();
-      obj.add_panels();
+      browser_obj.cache_preferences();
+      browser_obj.add_hooked_panels();
       // Initialize the Docker
-      obj.docker = new wcDocker(
+      browser_obj.docker = new wcDocker(
         '#dockerContainer',
         {
           allowContextMenu: true,
@@ -547,26 +561,36 @@ define('pgadmin.browser', [
           theme: 'webcabin.overrides.css',
         }
       );
-      if (obj.docker) {
+      if(browser_obj.docker) {
         // Initialize all the panels
-        _.each(obj.panels, function(panel, name) {
-          obj.panels[name].load(obj.docker);
+        _.each(browser_obj.panels, function(panel, name) {
+          browser_obj.panels[name].load(browser_obj.docker);
         });
         // Initialize all the frames
-        _.each(obj.frames, function(frame, name) {
-          obj.frames[name].load(obj.docker);
+        _.each(browser_obj.frames, function(frame, name) {
+          browser_obj.frames[name].load(browser_obj.docker);
         });
 
         // Stored layout in database from the previous session
         let layout = pgBrowser.utils.layout;
-        obj.restore_layout(obj.docker, layout, obj.buildDefaultLayout.bind(obj), true);
+        browser_obj.restore_layout(
+          browser_obj.docker,
+          layout,
+          browser_obj.buildDefaultLayout.bind(browser_obj),
+          true
+        );
 
-        obj.docker.on(wcDocker.EVENT.LAYOUT_CHANGED, function() {
-          obj.save_current_layout('Browser/Layout', obj.docker);
-        });
+        browser_obj.docker.on(
+          wcDocker.EVENT.LAYOUT_CHANGED,
+          function () {
+            browser_obj.save_current_layout(
+              'Browser/Layout', browser_obj.docker
+            );
+          }
+        );
       }
 
-      initializeBrowserTree(obj);
+      initializeBrowserTree(browser_obj);
       initializeModalProvider();
       initializeNotifier();
 
@@ -574,28 +598,30 @@ define('pgadmin.browser', [
        * Reflect the changes once cache is available
        */
       let cacheIntervalId = setInterval(()=> {
-        let sqlEditPreferences = obj.get_preferences_for_module('sqleditor');
-        let browserPreferences = obj.get_preferences_for_module('browser');
+        let sqlEditPreferences =
+          browser_obj.get_preferences_for_module('sqleditor');
+        let browserPreferences =
+          browser_obj.get_preferences_for_module('browser');
         if(sqlEditPreferences && browserPreferences) {
           clearInterval(cacheIntervalId);
-          obj.reflectPreferences('sqleditor');
-          obj.reflectPreferences('browser');
+          browser_obj.reflectPreferences('sqleditor');
+          browser_obj.reflectPreferences('browser');
         }
       }, 500);
 
       /* Check for sql editor preference changes */
-      obj.onPreferencesChange('sqleditor', function() {
-        obj.reflectPreferences('sqleditor');
+      browser_obj.onPreferencesChange('sqleditor', function() {
+        browser_obj.reflectPreferences('sqleditor');
       });
 
       /* Check for browser preference changes */
-      obj.onPreferencesChange('browser', function() {
-        obj.reflectPreferences('browser');
+      browser_obj.onPreferencesChange('browser', function() {
+        browser_obj.reflectPreferences('browser');
       });
 
       setTimeout(function() {
-        obj?.editor?.setValue('-- ' + select_object_msg);
-        obj?.editor?.refresh();
+        browser_obj?.editor?.setValue('-- ' + select_object_msg);
+        browser_obj?.editor?.refresh();
       }, 10);
 
       // Register scripts and add menus
@@ -612,27 +638,42 @@ define('pgadmin.browser', [
         });
       }, 300000);
 
-      obj.Events.on(
-        'pgadmin:server:connected', send_heartbeat.bind(obj)
+      browser_obj.Events.on(
+        'pgadmin:server:connected', send_heartbeat.bind(browser_obj)
       );
 
-      obj.Events.on(
-        'pgadmin:server:disconnect', stop_heartbeat.bind(obj)
+      browser_obj.Events.on(
+        'pgadmin:server:disconnect', stop_heartbeat.bind(browser_obj)
       );
 
-      obj.set_master_password('');
-      obj.check_corrupted_db_file();
-      obj.Events.on('pgadmin:browser:tree:add', obj.onAddTreeNode.bind(obj));
-      obj.Events.on('pgadmin:browser:tree:update', obj.onUpdateTreeNode.bind(obj));
-      obj.Events.on('pgadmin:browser:tree:refresh', obj.onRefreshTreeNodeReact.bind(obj));
-      obj.Events.on('pgadmin-browser:tree:loadfail', obj.onLoadFailNode.bind(obj));
-      obj.Events.on('pgadmin-browser:panel-browser:' + wcDocker.EVENT.RESIZE_ENDED, obj.onResizeEnded.bind(obj));
-      obj.bind_beforeunload();
+      browser_obj.set_master_password('');
+      browser_obj.check_corrupted_db_file();
+      browser_obj.Events.on(
+        EV_BROWSER_TREE_ADD,
+        browser_obj.onAddTreeNode.bind(browser_obj)
+      );
+      browser_obj.Events.on(
+        EV_BROWSER_TREE_UPDATE,
+        browser_obj.onUpdateTreeNode.bind(browser_obj)
+      );
+      browser_obj.Events.on(
+        EV_BROWSER_TREE_REFRESH,
+        browser_obj.onRefreshTreeNodeReact.bind(browser_obj)
+      );
+      browser_obj.Events.on(
+        EV_BROWSER_TREE_LOADFAIL,
+        browser_obj.onLoadFailNode.bind(browser_obj)
+      );
+      browser_obj.Events.on(
+        EV_BROWSER_PANEL_BROWSER_ + wcDocker.EVENT.RESIZE_ENDED,
+        browser_obj.onResizeEnded.bind(browser_obj)
+      );
+      browser_obj.bind_beforeunload();
 
       /* User UI activity */
-      obj.log_activity(); /* The starting point */
-      obj.register_to_activity_listener(document);
-      obj.start_inactivity_timeout_daemon();
+      browser_obj.log_activity(); /* The starting point */
+      browser_obj.register_to_activity_listener(document);
+      browser_obj.start_inactivity_timeout_daemon();
     },
     onResizeEnded: function() {
       if (this.tree) this.tree.resizeTree();
@@ -811,7 +852,11 @@ define('pgadmin.browser', [
                 label: _m.label,
                 module: _m.module,
                 category: _m.category,
-                callback: typeof _m.module == 'object' && _m.module[_m.callback] && _m.callback in _m.module[_m.callback] ? _m.module[_m.callback] : _m.callback,
+                callback: typeof _m.module == 'object' &&
+                  _m.module[_m.callback] &&
+                  _m.callback in _m.module[_m.callback]
+                  ? _m.module[_m.callback]
+                  : _m.callback,
                 priority: _m.priority,
                 data: _m.data,
                 url: _m.url || '#',
@@ -1053,24 +1098,26 @@ define('pgadmin.browser', [
                   return linearSearch();
                 };
 
-              if (binarySearch()) {
+              if(binarySearch()) {
                 __ctx.t.before(i, _data).then((_item) => {
-                  if (
+                  if(
                     __ctx.o && __ctx.o.success && typeof(__ctx.o.success) == 'function'
                   ) {
                     __ctx.o.success.apply(__ctx.t, [i, _data]);
-                  } else {
+                  }
+                  else {
                     __ctx.t.select(_item);
                   }
                 }, () => {
                   console.warn('Failed to add before...', arguments);
-                  if (
+                  if(
                     __ctx.o && __ctx.o.fail && typeof(__ctx.o.fail) == 'function'
                   ) {
                     __ctx.o.fail.apply(__ctx.t, [i, _data]);
                   }
                 });
-              } else {
+              }
+              else {
                 let _append = function() {
                   let ___ctx = this,
                     _parent_data = ___ctx.t.itemData(___ctx.i);
@@ -1238,7 +1285,8 @@ define('pgadmin.browser', [
 
             // If there is no parent then just update the node
             if(this.t.isRootNode(_parent) ||
-             (_parent && _parent.length == 0 && ctx.op == 'UPDATE')) {
+              (_parent && _parent.length == 0 && ctx.op == 'UPDATE')
+            ) {
               //Update node if browser has single child node.
               if(this.t.children().length === 1) {
                 updateNode();
@@ -1685,7 +1733,7 @@ define('pgadmin.browser', [
         isOpen,
         idx = -1;
 
-      this.Events.trigger('pgadmin-browser:tree:refreshing', _i, _d, n);
+      this.Events.trigger(EV_BROWSER_TREE_REFRESHING, _i, _d, n);
 
       if (!n) {
         _i = null;
@@ -1776,7 +1824,7 @@ define('pgadmin.browser', [
                     // Try to refresh the parent on error
                       try {
                         pgBrowser.Events.trigger(
-                          'pgadmin:browser:tree:refresh', parent
+                          EV_BROWSER_TREE_REFRESH, parent
                         );
                       } catch (e) { console.warn(e.stack || e); }
                     }
@@ -2017,7 +2065,7 @@ define('pgadmin.browser', [
         fetchNodeInfo(function() {
           _.each(arrayChildNodeData, function(_nodData) {
             pgBrowser.Events.trigger(
-              'pgadmin:browser:tree:add', _nodData, _treeHierarchy
+              EV_BROWSER_TREE_ADD, _nodData, _treeHierarchy
             );
           });
 

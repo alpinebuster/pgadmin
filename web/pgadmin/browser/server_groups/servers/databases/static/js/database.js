@@ -1,5 +1,13 @@
 import _ from 'lodash';
 
+import {
+  EV_DB_CONNECTION_LOST,
+  EV_DB_CONNECT_CANCELLED,
+  EV_SERVER_DISCONNECT,
+  EV_BROWSER_TREE_UPDATE_TS,
+  EV_DB_CONNECTED,
+} from 'sources/constants';
+
 import {getNodeAjaxOptions, getNodeListByName} from '../../../../../static/js/node_ajax';
 import { getNodePrivilegeRoleSchema } from '../../../static/js/privilege.ui';
 import { getNodeVariableSchema } from '../../../static/js/variable.ui';
@@ -119,7 +127,7 @@ define('pgadmin.node.database', [
 
         _.bindAll(this, 'connection_lost');
         pgBrowser.Events.on(
-          'pgadmin:database:connection:lost', this.connection_lost
+          EV_DB_CONNECTION_LOST, this.connection_lost
         );
       },
       can_create_database: function(node, item) {
@@ -167,13 +175,13 @@ define('pgadmin.node.database', [
                 if (_d._id == this._id) {
                   d.is_connecting = false;
                   pgBrowser.Events.off(
-                    'pgadmin:database:connect:cancelled', disconnect
+                    EV_DB_CONNECT_CANCELLED, disconnect
                   );
                   _i = _i && t.parent(_i);
                   _d = _i && t.itemData(_i);
                   if (_i && _d) {
                     pgBrowser.Events.trigger(
-                      'pgadmin:server:disconnect',
+                      EV_SERVER_DISCONNECT,
                       {item: _i, data: _d}, false
                     );
                   }
@@ -181,7 +189,7 @@ define('pgadmin.node.database', [
               };
 
               pgBrowser.Events.on(
-                'pgadmin:database:connect:cancelled', disconnect
+                EV_DB_CONNECT_CANCELLED, disconnect
               );
               if (server_connected) {
                 connect(self, d, t, i, true);
@@ -199,7 +207,7 @@ define('pgadmin.node.database', [
                   t.addIcon(i, {icon: dbIcon});
                   t.updateAndReselectNode(i, d);
                   pgBrowser.Events.trigger(
-                    'pgadmin:database:connect:cancelled', i, d, self
+                    EV_DB_CONNECT_CANCELLED, i, d, self
                   );
                 });
             }
@@ -249,7 +257,9 @@ define('pgadmin.node.database', [
 
                     t.addIcon(i, {icon: data.icon});
                     t.unload(i);
-                    pgBrowser.Events.trigger('pgadmin:browser:tree:update-tree-state', i);
+                    pgBrowser.Events.trigger(
+                      EV_BROWSER_TREE_UPDATE_TS, i
+                    );
                     setTimeout(function() {
                       t.select(prv_i);
                     }, 10);
@@ -452,7 +462,7 @@ define('pgadmin.node.database', [
                 Notify.success(res.info);
               }
               pgBrowser.Events.trigger(
-                'pgadmin:database:connected', _item, _data
+                EV_DB_CONNECTED, _item, _data
               );
               /* Call enable/disable menu function after database is connected.
                To make sure all the menus for database is in the right state */
@@ -476,7 +486,7 @@ define('pgadmin.node.database', [
             _tree.updateAndReselectNode(_item, _data);
             obj.trigger('connect:cancelled', obj, _item, _data);
             pgBrowser.Events.trigger(
-              'pgadmin:database:connect:cancelled', _item, _data, obj
+              EV_DB_CONNECT_CANCELLED, _item, _data, obj
             );
             _tree.select(server);
           };

@@ -1,5 +1,12 @@
 import _ from 'lodash';
 
+import {
+  EV_BROWSER_FRAME_URLLOADED_,
+  EV_BROWSER_FRAME,
+  EV_BROWSER_FRAME_,
+  EV_BROWSER_FRAME__,
+} from 'sources/constants';
+
 define([
   'sources/pgadmin', 'jquery', 'wcdocker',
 ], function(pgAdmin, $) {
@@ -64,7 +71,7 @@ define([
                 frame.openURL(that.url);
                 myPanel.frameData.frameInitialized = true;
                 pgBrowser.Events.trigger(
-                  'pgadmin-browser:frame:urlloaded:' + that.name, frame,
+                  EV_BROWSER_FRAME_URLLOADED_ + that.name, frame,
                   that.url, self
                 );
               }, 50);
@@ -72,7 +79,7 @@ define([
               frame.openURL('about:blank');
               myPanel.frameData.frameInitialized = true;
               pgBrowser.Events.trigger(
-                'pgadmin-browser:frame:urlloaded:' + that.name, frame,
+                EV_BROWSER_FRAME_URLLOADED_ + that.name, frame,
                 that.url, self
               );
             }
@@ -114,19 +121,19 @@ define([
 
       try {
         pgBrowser.Events.trigger(
-          'pgadmin-browser:frame', eventName, this, arguments
+          EV_BROWSER_FRAME, eventName, this, arguments
         );
         pgBrowser.Events.trigger(
-          'pgadmin-browser:frame:' + eventName, this, arguments
+          EV_BROWSER_FRAME_ + eventName, this, arguments
         );
 
         if (name) {
           pgBrowser.Events.trigger(
-            'pgadmin-browser:frame-' + name,
+            EV_BROWSER_FRAME__ + name,
             eventName, this, arguments
           );
           pgBrowser.Events.trigger(
-            'pgadmin-browser:frame-' + name + ':' + eventName,
+            EV_BROWSER_FRAME__ + name + ':' + eventName,
             this, arguments
           );
         }

@@ -33,8 +33,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
   private disposables: DisposablesComposite;
   private keyboardHotkeys: KeyboardHotkeys;
   private fileTreeEvent: IFileTreeXTriggerEvents;
-  private hoverTimeoutId: React.RefObject<number|null> = React.createRef<number|null>();
-  private hoverDispatchId: React.RefObject<number|null> = React.createRef<number|null>();
+  private hoverTimeoutId: React.RefObject<number | null> =
+    React.createRef<number | null>();
+  private hoverDispatchId: React.RefObject<number | null> =
+    React.createRef<number | null>();
   constructor(props: IFileTreeXProps) {
     super(props);
     this.events = new Notificar();
@@ -47,51 +49,61 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     const { height, model, disableCache } = this.props;
     const { decorations } = model;
 
-    return <div
-      onKeyDown={this.handleKeyDown}
-      className='file-tree'
-      onBlur={this.handleBlur}
-      onClick={this.handleClick}
-      onScroll={this.props.onScroll}
-      ref={this.wrapperRef}
-      style={{
-        height: height ? height : 'calc(100vh - 60px)',
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1
-      }}
-      tabIndex={-1}>
-      <AutoSizer onResize={this.onResize}>
-        {({ width, height }) => (
-          <FileTree
-            height={height}
-            width={width}
-            model={model}
-            itemHeight={FileTreeItem.renderHeight}
-            onReady={this.handleTreeReady}
-            disableCache={disableCache ? disableCache : false}
-          >
-            {(props: IItemRendererProps) => <FileTreeItem
-              item={props.item}
-              itemType={props.itemType}
-              decorations={decorations.getDecorations(props.item as FileEntry|Directory)}
-              onClick={this.handleItemClicked}
-              onDoubleClick={this.handleItemDoubleClicked}
-              onContextMenu={this.handleItemCtxMenu}
-              onMouseEnter={this.onItemMouseEnter}
-              onMouseLeave={this.onItemMouseLeave}
-              changeDirectoryCount={this.changeDirectoryCount}
-              events={this.events}/>}
-          </FileTree>
-        )}
-      </AutoSizer>
-    </div>;
+    return (
+      <div
+        onKeyDown={this.handleKeyDown}
+        className='file-tree'
+        onBlur={this.handleBlur}
+        onClick={this.handleClick}
+        onScroll={this.props.onScroll}
+        ref={this.wrapperRef}
+        style={{
+          height: height ? height : 'calc(100vh - 60px)',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1
+        }}
+        tabIndex={-1}
+      >
+        <AutoSizer onResize={this.onResize}>
+          {({ width, height }) => (
+            <FileTree
+              height={height}
+              width={width}
+              model={model}
+              itemHeight={FileTreeItem.renderHeight}
+              onReady={this.handleTreeReady}
+              disableCache={disableCache ? disableCache : false}
+            >
+              {(props: IItemRendererProps) => <FileTreeItem
+                item={props.item}
+                itemType={props.itemType}
+                decorations={
+                  decorations.getDecorations(
+                    props.item as FileEntry | Directory
+                  )
+                }
+                onClick={this.handleItemClicked}
+                onDoubleClick={this.handleItemDoubleClicked}
+                onContextMenu={this.handleItemCtxMenu}
+                onMouseEnter={this.onItemMouseEnter}
+                onMouseLeave={this.onItemMouseLeave}
+                changeDirectoryCount={this.changeDirectoryCount}
+                events={this.events}/>}
+            </FileTree>
+          )}
+        </AutoSizer>
+      </div>
+    );
   }
 
   public componentDidMount() {
     for(const child of this.props.model.root.children) {
-      this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'loaded', child);
+      this.events.dispatch(
+        FileTreeXEvent.onTreeEvents,
+        window.event, 'loaded', child
+      );
     }
   }
 
@@ -108,9 +120,14 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
 
   private handleTreeReady = (handle: IFileTreeHandle) => {
     const { onReady, model } = this.props;
-    const scrollDiv = this.wrapperRef.current?.querySelector('div')?.querySelector('div');
+    const scrollDiv = this.wrapperRef.current?.querySelector(
+      'div'
+    )?.querySelector('div');
     if(this.props.onScroll) {
-      scrollDiv?.addEventListener('scroll', (ev: any)=>this.props.onScroll?.(ev));
+      scrollDiv?.addEventListener(
+        'scroll',
+        (ev: any) => this.props.onScroll?.(ev)
+      );
     }
 
     this.fileTreeHandle = {
@@ -123,8 +140,16 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
       toggleDirectory: this.toggleDirectory,
       closeDir: this.closeDir,
       remove: this.removeDir,
-      newFile: async (dirOrPath: Directory | string) => this.supervisePrompt(await handle.promptNewFile(dirOrPath as string)),
-      newFolder: async (dirOrPath: Directory | string) => this.supervisePrompt(await handle.promptNewDirectory(dirOrPath as string)),
+      newFile: async (
+        dirOrPath: Directory | string
+      ) => this.supervisePrompt(
+        await handle.promptNewFile(dirOrPath as string)
+      ),
+      newFolder: async (
+        dirOrPath: Directory | string
+      ) => this.supervisePrompt(
+        await handle.promptNewDirectory(dirOrPath as string)
+      ),
       onBlur: (callback) => this.events.add(FileTreeXEvent.OnBlur, callback),
       hasDirectFocus: () => this.wrapperRef.current === document.activeElement,
       first: this.first,
@@ -136,7 +161,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
       children: this.children,
       getItemFromDOM: this.getItemFromDOM,
       getDOMFromItem: this.getDOMFromItem,
-      onTreeEvents: (callback) => this.events.add(FileTreeXEvent.onTreeEvents, callback),
+      onTreeEvents: (callback) => this.events.add(
+        FileTreeXEvent.onTreeEvents, callback
+      ),
       addIcon: this.addIcon,
       addCssClass: this.addCssClass,
       create: this.create,
@@ -154,43 +181,58 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     model.decorations.addDecoration(this.activeFileDec);
     model.decorations.addDecoration(this.pseudoActiveFileDec);
 
-    this.disposables.add(this.fileTreeHandle.onDidChangeModel((prevModel: TreeModelX, newModel: TreeModelX) => {
-      this.setActiveFile(null);
-      this.setPseudoActiveFile(null);
-      prevModel.decorations.removeDecoration(this.activeFileDec);
-      prevModel.decorations.removeDecoration(this.pseudoActiveFileDec);
-      newModel.decorations.addDecoration(this.activeFileDec);
-      newModel.decorations.addDecoration(this.pseudoActiveFileDec);
-    }));
+    this.disposables.add(
+      this.fileTreeHandle.onDidChangeModel(
+        (prevModel: TreeModelX, newModel: TreeModelX) => {
+          this.setActiveFile(null);
+          this.setPseudoActiveFile(null);
+          prevModel.decorations.removeDecoration(this.activeFileDec);
+          prevModel.decorations.removeDecoration(this.pseudoActiveFileDec);
+          newModel.decorations.addDecoration(this.activeFileDec);
+          newModel.decorations.addDecoration(this.pseudoActiveFileDec);
+        }
+      )
+    );
 
     this.disposables.add(this.fileTreeHandle.onBlur(() => {
       this.setPseudoActiveFile(null);
     }));
 
-    this.keyboardHotkeys = new KeyboardHotkeys(this.fileTreeHandle, this.events);
+    this.keyboardHotkeys = new KeyboardHotkeys(
+      this.fileTreeHandle, this.events
+    );
 
     if (typeof onReady === 'function') {
       onReady(this.fileTreeHandle);
     }
   };
 
-  private onItemMouseEnter = (ev: React.MouseEvent, item: FileEntry | Directory) => {
+  private onItemMouseEnter = (
+    ev: React.MouseEvent, item: FileEntry | Directory
+  ) => {
     clearTimeout(this.hoverDispatchId.current??undefined);
-    (this.hoverDispatchId as any).current = setTimeout(()=>{
+    (this.hoverDispatchId as any).current = setTimeout(() => {
       clearTimeout(this.hoverTimeoutId.current??undefined);
-      this.events.dispatch(FileTreeXEvent.onTreeEvents, ev, 'hovered', item);
+      this.events.dispatch(
+        FileTreeXEvent.onTreeEvents, ev, 'hovered', item
+      );
     }, 500);
   };
 
   private onItemMouseLeave = (ev: React.MouseEvent) => {
     clearTimeout(this.hoverTimeoutId.current??undefined);
     clearTimeout(this.hoverDispatchId.current??undefined);
-    (this.hoverTimeoutId as any).current = setTimeout(()=>{
-      this.events.dispatch(FileTreeXEvent.onTreeEvents, ev, 'hovered', null);
+    (this.hoverTimeoutId as any).current = setTimeout(() => {
+      this.events.dispatch(
+        FileTreeXEvent.onTreeEvents, ev, 'hovered', null
+      );
     }, 100);
   };
 
-  private setActiveFile = async (fileOrDirOrPath: FileOrDir | string, ensureVisible, align): Promise<void> => {
+  private setActiveFile = async (
+    fileOrDirOrPath: FileOrDir | string,
+    ensureVisible, align
+  ): Promise<void> => {
     const fileH = typeof fileOrDirOrPath === 'string'
       ? await this.fileTreeHandle.getFileHandle(fileOrDirOrPath)
       : fileOrDirOrPath;
@@ -201,10 +243,15 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
         this.activeFileDec.removeTarget(this.activeFile);
       }
       if (fileH) {
-        this.activeFileDec.addTarget(fileH as Directory, TargetMatchMode.Self);
+        this.activeFileDec.addTarget(
+          fileH as Directory, TargetMatchMode.Self
+        );
       }
       this.activeFile = fileH;
-      this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'selected', fileH);
+      this.events.dispatch(
+        FileTreeXEvent.onTreeEvents,
+        window.event, 'selected', fileH
+      );
 
       if (fileH && ensureVisible === true) {
         const alignTree = align !== undefined && align !== null ? align : 'auto';
@@ -213,7 +260,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     }
   };
 
-  private ensureVisible = async (fileOrDirOrPath: FileOrDir | string): Promise<void> => {
+  private ensureVisible = async (
+    fileOrDirOrPath: FileOrDir | string
+  ): Promise<void> => {
     const fileH = typeof fileOrDirOrPath === 'string'
       ? await this.fileTreeHandle.getFileHandle(fileOrDirOrPath)
       : fileOrDirOrPath;
@@ -223,7 +272,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     }
   };
 
-  private deSelectActiveFile = async (fileOrDirOrPath: FileOrDir | string): Promise<void> => {
+  private deSelectActiveFile = async (
+    fileOrDirOrPath: FileOrDir | string
+  ): Promise<void> => {
     const fileH = typeof fileOrDirOrPath === 'string'
       ? await this.fileTreeHandle.getFileHandle(fileOrDirOrPath)
       : fileOrDirOrPath;
@@ -235,7 +286,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     }
   };
 
-  private setPseudoActiveFile = async (fileOrDirOrPath: FileOrDir | string): Promise<void> => {
+  private setPseudoActiveFile = async (
+    fileOrDirOrPath: FileOrDir | string
+  ): Promise<void> => {
     const fileH = typeof fileOrDirOrPath === 'string'
       ? await this.fileTreeHandle.getFileHandle(fileOrDirOrPath)
       : fileOrDirOrPath;
@@ -246,14 +299,19 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
         this.pseudoActiveFileDec.removeTarget(this.pseudoActiveFile);
       }
       if (fileH) {
-        this.pseudoActiveFileDec.addTarget(fileH as Directory, TargetMatchMode.Self);
+        this.pseudoActiveFileDec.addTarget(
+          fileH as Directory, TargetMatchMode.Self
+        );
       }
       this.pseudoActiveFile = fileH;
     }
     if (fileH) {
       await this.fileTreeHandle.ensureVisible(fileH);
     }
-    this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'selected', fileH);
+    this.events.dispatch(
+      FileTreeXEvent.onTreeEvents,
+      window.event, 'selected', fileH
+    );
   };
 
   private create = async (parentDir, itemData): Promise<void> => {
@@ -267,7 +325,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     if (isOpen && (parentDir._children == null || parentDir._children.length == 0)) {
       await this.fileTreeHandle.closeDirectory(parentDir as Directory);
     }
-    if (!parentDir.isExpanded && (parentDir._children == null || parentDir._children.length == 0)) {
+    if (!parentDir.isExpanded && (
+      parentDir._children == null || parentDir._children.length == 0
+    )) {
       await this.fileTreeHandle.openDirectory(parentDir as Directory);
     } else {
       await this.fileTreeHandle.openDirectory(parentDir as Directory);
@@ -281,22 +341,31 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
       }
     }
     this.changeDirectoryCount(parentDir);
-    const newItem = parentDir._children.find((c) => c._metadata.data.id === itemData.id);
-    newItem.resolvedPathCache = newItem.parent.path + '/' + newItem._metadata.data.id;
+    const newItem = parentDir._children.find(
+      (c) => c._metadata.data.id === itemData.id
+    );
+    newItem.resolvedPathCache =
+      newItem.parent.path + '/' + newItem._metadata.data.id;
     return newItem;
   };
 
   private update = async (item, itemData): Promise<void> => {
     item._metadata.data = itemData;
     await this.props.update(item.path, itemData);
-    this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'updated', item);
+    this.events.dispatch(
+      FileTreeXEvent.onTreeEvents,
+      window.event, 'updated', item
+    );
   };
 
   private refresh = async (item): Promise<void> => {
     const isOpen = item.isExpanded;
     if (item.children && item.children.length > 0) {
       for(const entry of item.children) {
-        await this.remove(entry).then(() => {/*intentional*/}, () => {console.warn('Error removing item');});
+        await this.remove(entry).then(
+          () => {/*intentional*/ },
+          () => { console.warn('Error removing item'); }
+        );
       }
     }
     if (isOpen) {
@@ -321,7 +390,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     const isOpen = item.isExpanded;
     if (item.children && item.children.length > 0) {
       for(const entry of item.children) {
-        await this.remove(entry).then(() => {/*intentional*/}, error => {console.warn(error);});
+        await this.remove(entry).then(
+          () => {/*intentional*/ },
+          error => { console.warn(error); }
+        );
       }
     }
     if (isOpen) {
@@ -338,12 +410,17 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     const fileName = model.root.pathfx.basename(path);
     const parent = item.parent;
     if (dirName === parent.path) {
-      const item_1 = parent._children.find((c) => c._metadata && c._metadata.data.id === fileName);
+      const item_1 = parent._children.find(
+        (c) => c._metadata && c._metadata.data.id === fileName
+      );
       if (item_1) {
         parent.unlinkItem(item_1);
         if (parent._children.length == 0) { parent._children = null; }
         this.changeDirectoryCount(parent);
-        this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'removed', item);
+        this.events.dispatch(
+          FileTreeXEvent.onTreeEvents,
+          window.event, 'removed', item
+        );
       }
       else {
         console.warn('Item not found');
@@ -356,7 +433,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
       ? await this.fileTreeHandle.getFileHandle(fileOrDirOrPath)
       : fileOrDirOrPath;
 
-    if (fileH === undefined || fileH === null) { return this.props.model.root.children[0]; }
+    if (fileH === undefined || fileH === null) {
+      return this.props.model.root.children[0];
+    }
 
     if (fileH.branchSize > 0) {
       return fileH.children[0];
@@ -375,7 +454,6 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
 
     return null;
   };
-
 
   private hasParent = async (fileOrDirOrPath: FileOrDir | string) => {
     const fileH = typeof fileOrDirOrPath === 'string'
@@ -438,7 +516,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     return null;
   };
 
-  private setLabel = async(pathOrDir: string | Directory, label: string): Promise<void> => {
+  private setLabel = async (
+    pathOrDir: string | Directory, label: string
+  ): Promise<void> => {
     const dir = typeof pathOrDir === 'string'
       ? await this.fileTreeHandle.getFileHandle(pathOrDir)
       : pathOrDir;
@@ -454,21 +534,27 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
         }
         label$.innerHTML = label;
       }
-
     }
-
   };
 
-  private changeDirectoryCount = async(pathOrDir: string | Directory): Promise<void> => {
+  private changeDirectoryCount = async (
+    pathOrDir: string | Directory
+  ): Promise<void> => {
     const dir = typeof pathOrDir === 'string'
       ? await this.fileTreeHandle.getFileHandle(pathOrDir)
       : pathOrDir;
 
-    if (dir.type === FileType.Directory && dir._metadata.data && dir._metadata.data.is_collection === true) {
+    if (
+      dir.type === FileType.Directory &&
+      dir._metadata.data &&
+      dir._metadata.data.is_collection === true
+    ) {
       const ref = FileTreeItem.itemIdToRefMap.get(dir.id);
       if (ref) {
         ref.style.background = 'none';
-        const label$ = ref.querySelector('span.children-count') as HTMLDivElement;
+        const label$ = ref.querySelector(
+          'span.children-count'
+        ) as HTMLDivElement;
         if(dir.children && dir.children.length > 0) {
           label$.innerHTML = '(' + dir.children.length + ')';
         } else {
@@ -476,7 +562,6 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
         }
       }
     }
-
   };
 
   private closeDir = async (pathOrDir: string | Directory) => {
@@ -487,8 +572,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     if (dir.type === FileType.Directory) {
       if ((dir as Directory).expanded) {
         this.fileTreeHandle.closeDirectory(dir as Directory);
-        this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'closed', dir);
-
+        this.events.dispatch(
+          FileTreeXEvent.onTreeEvents,
+          window.event, 'closed', dir
+        );
       }
     }
   };
@@ -501,7 +588,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     if (dir.type === FileType.Directory) {
       if ((dir as Directory).expanded) {
         this.fileTreeHandle.closeDirectory(dir as Directory);
-        this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'closed', dir);
+        this.events.dispatch(
+          FileTreeXEvent.onTreeEvents,
+          window.event, 'closed', dir
+        );
 
       } else {
         const ref = FileTreeItem.itemIdToRefMap.get(dir.id);
@@ -509,7 +599,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
           this.showLoader(ref);
         }
 
-        await this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'beforeopen', dir);
+        await this.events.dispatch(
+          FileTreeXEvent.onTreeEvents,
+          window.event, 'beforeopen', dir
+        );
         await this.fileTreeHandle.openDirectory(dir as Directory);
         await this.changeResolvePath(dir as Directory);
 
@@ -517,7 +610,10 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
           this.hideLoader(ref);
         }
 
-        this.events.dispatch(FileTreeXEvent.onTreeEvents, window.event, 'opened', dir);
+        this.events.dispatch(
+          FileTreeXEvent.onTreeEvents,
+          window.event, 'opened', dir
+        );
       }
     }
   };
@@ -529,13 +625,16 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
 
     const ref = FileTreeItem.itemIdToRefMap.get(dir.id);
     if (ref) {
-      const label$ = ref.querySelector('.file-label i') as HTMLDivElement;
+      const label$ = ref.querySelector(
+        '.file-label i'
+      ) as HTMLDivElement;
       label$.className = icon.icon;
     }
-
   };
 
-  private addCssClass = async (pathOrDir: string | Directory, cssClass) => {
+  private addCssClass = async (
+    pathOrDir: string | Directory, cssClass
+  ) => {
     const dir = typeof pathOrDir === 'string'
       ? await this.fileTreeHandle.getFileHandle(pathOrDir)
       : pathOrDir;
@@ -548,20 +647,23 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
 
       dir._metadata.data.extraClasses.push(cssClass);
     }
-
   };
 
   private showLoader = (ref: HTMLDivElement) => {
     // get label ref and add loading class
     ref.style.background = 'none';
-    const label$ = ref.querySelector('i.directory-toggle') as HTMLDivElement;
+    const label$ = ref.querySelector(
+      'i.directory-toggle'
+    ) as HTMLDivElement;
     if (label$) label$.classList.add('loading');
   };
 
   private hideLoader = (ref: HTMLDivElement) => {
     // remove loading class.
     ref.style.background = 'none';
-    const label$ = ref.querySelector('i.directory-toggle') as HTMLDivElement;
+    const label$ = ref.querySelector(
+      'i.directory-toggle'
+    ) as HTMLDivElement;
     if (label$) label$.classList.remove('loading');
   };
 
@@ -569,18 +671,23 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     this.events.dispatch(FileTreeXEvent.OnBlur);
   };
 
-  private handleItemClicked = async (ev: React.MouseEvent, item: FileOrDir, type: ItemType) => {
-    if (type === ItemType.Directory && ev.target.className.includes('directory-toggle')) {
+  private handleItemClicked = async (
+    ev: React.MouseEvent, item: FileOrDir, type: ItemType
+  ) => {
+    if (
+      type === ItemType.Directory &&
+      ev.target.className.includes('directory-toggle')
+    ) {
       await this.toggleDirectory(item as Directory);
     }
     await this.setActiveFile(item as FileEntry);
-
   };
 
-  private handleItemDoubleClicked = async (ev: React.MouseEvent, item: FileOrDir) => {
+  private handleItemDoubleClicked = async (
+    ev: React.MouseEvent, item: FileOrDir
+  ) => {
     await this.toggleDirectory(item as Directory);
     await this.setActiveFile(item as FileEntry);
-
   };
 
   private getItemFromDOM = (clientReact) => {
@@ -598,7 +705,9 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
     }
   };
 
-  private handleItemCtxMenu = (ev: React.MouseEvent, item: FileOrDir) => {
+  private handleItemCtxMenu = (
+    ev: React.MouseEvent, item: FileOrDir
+  ) => {
     return this.props.onContextMenu?.(ev, item);
   };
 
@@ -614,20 +723,31 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
 
   private resize = (scrollX, scrollY) => {
     const scrollXPos = scrollX ? scrollX : 0;
-    const scrollYPos = scrollY ? scrollY : this.props.model.state.scrollOffset;
-    const div = this.wrapperRef.current.querySelector('div').querySelector('div') as HTMLDivElement;
+    const scrollYPos = scrollY
+      ? scrollY
+      : this.props.model.state.scrollOffset;
+    const div = this.wrapperRef.current.querySelector(
+      'div'
+    ).querySelector('div') as HTMLDivElement;
     div.scroll(scrollXPos, scrollYPos);
 
   };
 
-  private changeResolvePath = async (item: FileOrDir): Promise<void> => {
+  private changeResolvePath = async (
+    item: FileOrDir
+  ): Promise<void> => {
     // Change the path as per pgAdmin requirement: Item Id wise
     if (item.type === FileType.File) {
-      item.resolvedPathCache = item.parent.path + '/' + item._metadata.data.id;
+      item.resolvedPathCache =
+        item.parent.path + '/' + item._metadata.data.id;
     }
-    if (item.type === FileType.Directory && item.children && item.children.length > 0) {
+    if (
+      item.type === FileType.Directory &&
+      item.children && item.children.length > 0
+    ) {
       for(const entry of item.children) {
-        entry.resolvedPathCache = entry.parent.path + '/' + entry._metadata.data.id;
+        entry.resolvedPathCache =
+          entry.parent.path + '/' + entry._metadata.data.id;
       }
     }
   };

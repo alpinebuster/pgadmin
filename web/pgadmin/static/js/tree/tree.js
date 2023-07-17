@@ -1,6 +1,10 @@
 import _ from 'lodash';
 
 import pgAdmin from 'sources/pgadmin';
+import {
+  EV_PREF_TREE_,
+  EV_BROWSER_TREE_,
+} from 'sources/constants';
 
 import { FileType } from 'react-aspen';
 import { TreeNode } from './tree_nodes';
@@ -15,7 +19,7 @@ function manageTreeEvents(event, eventName, item) {
   if (node_metadata.parent && node_metadata.parent.includes('/preferences') && pgBrowser.ptree.tree.type == 'preferences') {
     try {
       pgBrowser.Events.trigger(
-        'preferences:tree:' + eventName, event, item, d
+        EV_PREF_TREE_ + eventName, event, item, d
       );
     } catch (e) {
       console.warn(e.stack || e);
@@ -25,7 +29,7 @@ function manageTreeEvents(event, eventName, item) {
     /* Raise tree events for the nodes */
     try {
       pgBrowser.Events.trigger(
-        'pgadmin-browser:tree:' + eventName, item, d, node
+        EV_BROWSER_TREE_ + eventName, item, d, node
       );
     } catch (e) {
       console.warn(e.stack || e);
@@ -59,7 +63,7 @@ function manageTreeEvents(event, eventName, item) {
       /* Raise tree events for the nodes */
       try {
         pgBrowser.Events.trigger(
-          'pgadmin-browser:tree:' + eventName, item, d, node
+          EV_BROWSER_TREE_ + eventName, item, d, node
         );
       } catch (e) {
         console.warn(e.stack || e);
@@ -494,7 +498,6 @@ export class Tree {
   }
 
   /*
-   *
    * The dropDetailsFunc should return an object of sample
    * {text: 'xyz', cur: {from:0, to:0} where text is the drop text and
    * cur is selection range of text after dropping. If returned as

@@ -1,5 +1,11 @@
 import _ from 'lodash';
 
+import {
+  EV_BROWSER_NODE_TABLE_UPDATED,
+  EV_BROWSER_NODE_TYPE_CACHE_CLEARED,
+  EV_BROWSER_NODE_DOMAIN_CACHE_CLEARED
+} from 'sources/constants';
+
 import {getNodeTableSchema} from './table.ui';
 import Notify from '../../../../../../../../static/js/helpers/Notifier';
 import getApiInstance from '../../../../../../../../static/js/api_instance';
@@ -132,14 +138,14 @@ define('pgadmin.node.table', [
         }
         ]);
         pgBrowser.Events.on(
-          'pgadmin:browser:node:table:updated', this.onTableUpdated.bind(this)
+          EV_BROWSER_NODE_TABLE_UPDATED, this.onTableUpdated.bind(this)
         );
         pgBrowser.Events.on(
-          'pgadmin:browser:node:type:cache_cleared',
+          EV_BROWSER_NODE_TYPE_CACHE_CLEARED,
           this.handle_cache.bind(this)
         );
         pgBrowser.Events.on(
-          'pgadmin:browser:node:domain:cache_cleared',
+          EV_BROWSER_NODE_DOMAIN_CACHE_CLEARED,
           this.handle_cache.bind(this)
         );
       },

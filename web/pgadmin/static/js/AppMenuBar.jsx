@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { Box, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 
 import pgAdmin from 'sources/pgadmin';
@@ -20,7 +18,6 @@ import { PrimaryButton } from './components/Buttons';
 import {
   PgMenu, PgMenuDivider, PgMenuItem, PgSubMenu
 } from './components/Menu';
-import Notify from './helpers/Notifier';
 
 const navbarHeight = '38px';  // NOTE: `navbar-height`
 const useStyles = makeStyles((theme)=>({
@@ -73,22 +70,16 @@ const useStyles = makeStyles((theme)=>({
     border: 0,
     alignItems: 'center',
   },
-  input: {
-    marginLeft: theme.spacing(1),
-    marginRight: 0,
+  typography: {
+    padding: '2px 32px 2px 2px',
+    margin: 0,
     flex: 1,
-    '&:hover': {
-      color: theme.palette.primary.hoverContrastText,
-    },
-    '&:active': {
-      color: theme.palette.primary.hoverContrastText,
-    },
   },
   iconButton: {
     paddingLeft: theme.spacing(0.6),
-    paddingRight: theme.spacing(1),
-    paddingTop: 0,
-    paddingBottom: 0,
+    paddingRight: theme.spacing(0.6),
+    paddingTop: '2px',
+    paddingBottom: '2px',
     alignItems: 'center',
     boxShadow: 'none',
     textTransform: 'none',
@@ -203,11 +194,12 @@ export default function AppMenuBar({onSearchClick}) {
               className={classes.iconButton} aria-label='search'
             >
               <SearchIcon />
-              <InputBase
-                className={classes.input}
-                placeholder={gettext('Search')}
-                inputProps={{ 'aria-label': 'search' }}
-              />
+              <Typography
+                className={classes.typography}
+                variant="button"
+              >
+                {gettext('Search')}
+              </Typography>
             </IconButton>
           </Paper>
 

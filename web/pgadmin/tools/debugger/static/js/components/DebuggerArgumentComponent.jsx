@@ -13,6 +13,9 @@ import gettext from 'sources/gettext';
 import * as commonUtils from 'sources/utils';
 import pgAdmin from 'sources/pgadmin';
 import Loader from 'sources/components/Loader';
+import {
+  EV_BROWSER_FRAME_URLLOADED_FRM_DEBUGGER,
+} from 'sources/constants';
 
 import SchemaView from '../../../../../static/js/schema_view';
 import getApiInstance from '../../../../../static/js/api_instance';
@@ -717,7 +720,7 @@ export default function DebuggerArgumentComponent({ debuggerInfo, restartDebug, 
               }, 500);
             } else {
               pgAdmin.Browser.Events.once(
-                'pgadmin-browser:frame:urlloaded:frm_debugger',
+                EV_BROWSER_FRAME_URLLOADED_FRM_DEBUGGER,
                 function (frame) {
                   frame.openURL(url);
                 });

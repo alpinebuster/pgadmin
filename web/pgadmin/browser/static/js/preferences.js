@@ -1,8 +1,12 @@
 import pgAdmin from 'sources/pgadmin';
 import url_for from 'sources/url_for';
+import gettext from 'sources/gettext';
+import {
+  EV_PREFCHANGE
+} from 'sources/constants';
+
 import Notify from '../../../static/js/helpers/Notifier';
 import { shortcutToString } from '../../../static/js/components/ShortcutTitle';
-import gettext from 'sources/gettext';
 import getApiInstance from '../../../static/js/api_instance';
 
 
@@ -85,10 +89,10 @@ _.extend(pgBrowser, {
           */
           if(modulesChanged) {
             if(typeof modulesChanged === 'string'){
-              pgBrowser.Events.trigger('prefchange:'+modulesChanged);
+              pgBrowser.Events.trigger(EV_PREFCHANGE + modulesChanged);
             } else {
               _.each(modulesChanged, (val, key)=> {
-                pgBrowser.Events.trigger('prefchange:'+key);
+                pgBrowser.Events.trigger(EV_PREFCHANGE + key);
               });
             }
           }
@@ -100,7 +104,7 @@ _.extend(pgBrowser, {
   },
 
   triggerPreferencesChange: function(moduleChanged) {
-    pgBrowser.Events.trigger('prefchange:'+moduleChanged);
+    pgBrowser.Events.trigger(EV_PREFCHANGE + moduleChanged);
   },
 
   reflectPreferences: function(module) {

@@ -1,9 +1,24 @@
-import { getNodeListById } from '../../../../static/js/node_ajax';
+import _ from 'lodash';
+
+import {
+  EV_SERVER_CONN_LOST,
+  EV_SERVER_CONN_CANCELLED,
+  EV_SERVER_DISCONNECT,
+  EV_SERVER_CONNECTED,
+  EV_DB_CONNECT_CANCELLED,
+  EV_DB_CONNECTED,
+  EV_BROWSER_TREE_SELECTED,
+} from 'sources/constants';
+
+import {getNodeListById} from '../../../../static/js/node_ajax';
 import ServerSchema from './server.ui';
 import Notify from '../../../../../static/js/helpers/Notifier';
-import { showServerPassword, showChangeServerPassword, showNamedRestorePoint } from '../../../../../static/js/dialogs/index';
-import _ from 'lodash';
-import getApiInstance, { parseApiError } from '../../../../../static/js/api_instance';
+import {
+  showServerPassword, showChangeServerPassword, showNamedRestorePoint
+} from '../../../../../static/js/dialogs/index';
+import getApiInstance, {
+  parseApiError
+} from '../../../../../static/js/api_instance';
 
 define('pgadmin.node.server', [
   'sources/gettext', 'sources/url_for', 'jquery',
@@ -14,7 +29,6 @@ define('pgadmin.node.server', [
   gettext, url_for, $, pgAdmin, pgBrowser,
   current_user, Kerberos,
 ) {
-
   if (!pgBrowser.Nodes['server']) {
     pgAdmin.Browser.Nodes['server'] = pgAdmin.Browser.Node.extend({
       parent_type: 'server_group',
@@ -45,55 +59,54 @@ define('pgadmin.node.server', [
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'register', priority: 1, label: gettext('Server...'),
           data: {action: 'create'}, enable: 'canCreate',
-        },{
+        }, {
           name: 'create_server', node: 'server', module: this,
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'register', priority: 3, label: gettext('Server...'),
           data: {action: 'create'}, enable: 'canCreate',
-        },{
+        }, {
           name: 'connect_server', node: 'server', module: this,
           applies: ['object', 'context'], callback: 'connect_server',
           category: 'connect', priority: 4, label: gettext('Connect Server'),
           enable : 'is_not_connected',data: {
             data_disabled: gettext('Database server is already connected.'),
           },
-        },{
+        }, {
           name: 'disconnect_server', node: 'server', module: this,
           applies: ['object', 'context'], callback: 'disconnect_server',
           category: 'drop', priority: 5, label: gettext('Disconnect from server'),
           enable : 'is_connected',data: {
             data_disabled: gettext('Database server is already disconnected.'),
           },
-        },
-        {
+        }, {
           name: 'reload_configuration', node: 'server', module: this,
           applies: ['tools', 'context'], callback: 'reload_configuration',
           category: 'reload', priority: 10, label: gettext('Reload Configuration'),
           enable : 'enable_reload_config',data: {
             data_disabled: gettext('Please select a server from the object explorer to reload the configuration files.'),
           },
-        },{
+        }, {
           name: 'restore_point', node: 'server', module: this,
           applies: ['tools', 'context'], callback: 'restore_point',
           category: 'restore', priority: 7, label: gettext('Add Named Restore Point...'),
           enable : 'is_applicable',data: {
             data_disabled: gettext('Please select any server from the object explorer to Add Named Restore Point.'),
           },
-        },{
+        }, {
           name: 'change_password', node: 'server', module: this,
           applies: ['object'], callback: 'change_password',
           label: gettext('Change Password...'), priority: 10,
           enable : 'is_connected',data: {
             data_disabled: gettext('Please connect server to enable change password.'),
           },
-        },{
+        }, {
           name: 'wal_replay_pause', node: 'server', module: this,
           applies: ['tools', 'context'], callback: 'pause_wal_replay',
           category: 'wal_replay_pause', priority: 8, label: gettext('Pause Replay of WAL'),
           enable : 'wal_pause_enabled',data: {
             data_disabled: gettext('Please select a connected database as a Super user and run in Recovery mode to Pause Replay of WAL.'),
           },
-        },{
+        }, {
           name: 'wal_replay_resume', node: 'server', module: this,
           applies: ['tools', 'context'], callback: 'resume_wal_replay',
           category: 'wal_replay_resume', priority: 9, label: gettext('Resume Replay of WAL'),
@@ -109,7 +122,7 @@ define('pgadmin.node.server', [
             return (node && node._type === 'server' &&
               node.is_password_saved);
           },
-        },{
+        }, {
           name: 'clear_sshtunnel_password', node: 'server', module: this,
           applies: ['object', 'context'], callback: 'clear_sshtunnel_password',
           label: gettext('Clear SSH Tunnel Password'),
@@ -125,7 +138,7 @@ define('pgadmin.node.server', [
 
         _.bindAll(this, 'connection_lost');
         pgBrowser.Events.on(
-          'pgadmin:server:connection:lost', this.connection_lost
+          EV_SERVER_CONN_LOST, this.connection_lost
         );
       },
       is_not_connected: function(node) {
@@ -199,7 +212,7 @@ define('pgadmin.node.server', [
 
                   // Generate the event that server is disconnected
                   pgBrowser.Events.trigger(
-                    'pgadmin:server:disconnect',
+                    EV_SERVER_DISCONNECT,
                     {item: i, data: d}, false
                   );
                   if (d.shared && pgAdmin.server_mode == 'True'){
@@ -512,18 +525,18 @@ define('pgadmin.node.server', [
                   d.is_connecting = false;
                   // Stop listening to the connection cancellation event
                   pgBrowser.Events.off(
-                    'pgadmin:server:connect:cancelled', disconnect
+                    EV_SERVER_CONN_CANCELLED, disconnect
                   );
 
                   // Connection to the database will also be cancelled
                   pgBrowser.Events.trigger(
-                    'pgadmin:database:connect:cancelled',_sid,
+                    EV_DB_CONNECT_CANCELLED,_sid,
                     resp.data.database || d.db
                   );
 
                   // Make sure - the server is disconnected properly
                   pgBrowser.Events.trigger(
-                    'pgadmin:server:disconnect',
+                    EV_SERVER_DISCONNECT,
                     {item: i, data: d}, false
                   );
                 }
@@ -531,7 +544,7 @@ define('pgadmin.node.server', [
 
               // Listen for the server connection cancellation event
               pgBrowser.Events.on(
-                'pgadmin:server:connect:cancelled', disconnect
+                EV_SERVER_CONN_CANCELLED, disconnect
               );
               Notify.confirm(
                 gettext('Connection lost'),
@@ -544,7 +557,7 @@ define('pgadmin.node.server', [
                   t.unload(i);
                   t.addIcon(i, {icon: 'icon-database-not-connected'});
                   pgBrowser.Events.trigger(
-                    'pgadmin:server:connect:cancelled', i, d, self
+                    EV_SERVER_CONN_CANCELLED, i, d, self
                   );
                   t.select(i);
                 });
@@ -661,15 +674,17 @@ define('pgadmin.node.server', [
 
             // Generate the event that server is connected
             pgBrowser.Events.trigger(
-              'pgadmin:server:connected', _data._id, _item, _data
+              EV_SERVER_CONNECTED, _data._id, _item, _data
             );
             // Generate the event that database is connected
             pgBrowser.Events.trigger(
-              'pgadmin:database:connected', _data._id, _data.db, _item, _data
+              EV_DB_CONNECTED, _data._id, _data.db, _item, _data
             );
 
             // Load dashboard
-            pgBrowser.Events.trigger('pgadmin-browser:tree:selected', _item, _data, node);
+            pgBrowser.Events.trigger(
+              EV_BROWSER_TREE_SELECTED, _item, _data, node
+            );
 
             /* Call enable/disable menu function after database is connected.
              To make sure all the menus for database is in the right state */
@@ -703,10 +718,10 @@ define('pgadmin.node.server', [
         }
         obj.trigger('connect:cancelled', data._id, data.db, obj, _item, _data);
         pgBrowser.Events.trigger(
-          'pgadmin:server:connect:cancelled', data._id, _item, _data, obj
+          EV_SERVER_CONN_CANCELLED, data._id, _item, _data, obj
         );
         pgBrowser.Events.trigger(
-          'pgadmin:database:connect:cancelled', data._id, data.db, _item, _data, obj
+          EV_DB_CONNECT_CANCELLED, data._id, data.db, _item, _data, obj
         );
         if (_status) {
           _tree.select(_item);
@@ -765,7 +780,7 @@ define('pgadmin.node.server', [
             }
             // Generate the event that server is connected
             pgBrowser.Events.trigger(
-              'pgadmin:server:connected', data._id, item, data
+              EV_SERVER_CONNECTED, data._id, item, data
             );
           }
         })

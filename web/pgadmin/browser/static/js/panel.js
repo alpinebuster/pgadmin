@@ -1,5 +1,14 @@
 import _ from 'lodash';
 
+import {
+  EV_BROWSER_TREE_SELECTED,
+  EV_DB_CONNECTED,
+  EV_BROWSER_TREE_REFRESHING,
+  EV_BROWSER_PANEL,
+  EV_BROWSER_PANEL_,
+  EV_BROWSER_PANEL__,
+} from 'sources/constants';
+
 import {getPanelView} from './panel_view';
 
 define([
@@ -11,7 +20,8 @@ define([
   pgAdmin.Browser.Panel = function(options) {
     let defaults = [
       'name', 'title', 'width', 'height', 'showTitle', 'isCloseable',
-      'isPrivate', 'isLayoutMember', 'content', 'icon', 'events', 'onCreate', 'elContainer',
+      'isPrivate', 'isLayoutMember', 'content', 'icon',
+      'events', 'onCreate', 'elContainer',
       'canHide', 'limit', 'extraClasses', 'canMaximise',
     ];
     _.extend(this, _.pick(options, defaults));
@@ -149,7 +159,7 @@ define([
                 myPanel.on(ev, that.handleVisibility.bind(myPanel, ev));
               });
 
-            pgBrowser.Events.on('pgadmin-browser:tree:selected', () => {
+            pgBrowser.Events.on(EV_BROWSER_TREE_SELECTED, () => {
 
               if(myPanel.isVisible() && myPanel._type !== 'properties') {
                 getPanelView(
@@ -161,7 +171,7 @@ define([
               }
             });
 
-            pgBrowser.Events.on('pgadmin:database:connected', () => {
+            pgBrowser.Events.on(EV_DB_CONNECTED, () => {
               if(myPanel.isVisible() && myPanel._type !== 'properties') {
                 getPanelView(
                   pgBrowser.tree,
@@ -172,7 +182,7 @@ define([
               }
             });
 
-            pgBrowser.Events.on('pgadmin-browser:tree:refreshing', () => {
+            pgBrowser.Events.on(EV_BROWSER_TREE_REFRESHING, () => {
               if(myPanel.isVisible() && myPanel._type !== 'properties') {
                 getPanelView(
                   pgBrowser.tree,
@@ -190,18 +200,18 @@ define([
       let name = this.panelData.pgAdminName;
       try {
         pgBrowser.Events.trigger(
-          'pgadmin-browser:panel', eventName, this, arguments
+          EV_BROWSER_PANEL, eventName, this, arguments
         );
         pgBrowser.Events.trigger(
-          'pgadmin-browser:panel:' + eventName, this, arguments
+          EV_BROWSER_PANEL_ + eventName, this, arguments
         );
 
         if (name) {
           pgBrowser.Events.trigger(
-            'pgadmin-browser:panel-' + name, eventName, this, arguments
+            EV_BROWSER_PANEL__ + name, eventName, this, arguments
           );
           pgBrowser.Events.trigger(
-            'pgadmin-browser:panel-' + name + ':' + eventName, this, arguments
+            EV_BROWSER_PANEL__ + name + ':' + eventName, this, arguments
           );
         }
       } catch (e) {

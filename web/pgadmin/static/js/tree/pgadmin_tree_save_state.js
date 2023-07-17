@@ -3,6 +3,11 @@ import _ from 'lodash';
 import url_for from 'sources/url_for';
 import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
+import {
+  EV_BROWSER_TREE_EXPAND_FROM_PRE_TS,
+  EV_BROWSER_TREE_REMOVE_FROM_TS,
+  EV_BROWSER_TREE_UPDATE_TS
+} from 'sources/constants';
 
 import getApiInstance, { callFetch } from '../api_instance';
 
@@ -58,15 +63,15 @@ _.extend(pgBrowser.browserTreeState, {
       this.fetch_state.apply(this);
 
       pgBrowser.Events.on(
-        'pgadmin:browser:tree:expand-from-previous-tree-state',
+        EV_BROWSER_TREE_EXPAND_FROM_PRE_TS,
         this.expand_from_previous_state.bind(this)
       );
       pgBrowser.Events.on(
-        'pgadmin:browser:tree:remove-from-tree-state',
+        EV_BROWSER_TREE_REMOVE_FROM_TS,
         this.remove_from_cache.bind(this)
       );
       pgBrowser.Events.on(
-        'pgadmin:browser:tree:update-tree-state',
+        EV_BROWSER_TREE_UPDATE_TS,
         this.update_cache.bind(this)
       );
     } else if (!_.isUndefined(save_tree_state_period)) {

@@ -57,6 +57,7 @@ let modalInitialized = false;
 
 export function initializeModalProvider(modalContainer) {
   modalInitialized = true;
+
   const RefLoad = ()=>{
     modalRef = useModal();
     return <></>;

@@ -469,12 +469,14 @@ def _create_new_user(new_data):
     email = new_data['email'] if 'email' in new_data else None
     password = new_data['password'] if 'password' in new_data else None
 
-    usr = User(username=username,
-               email=email,
-               roles=new_data['roles'],
-               active=new_data['active'],
-               password=password,
-               auth_source=auth_source)
+    usr = User(
+        username=username,
+        email=email,
+        roles=new_data['roles'],
+        active=new_data['active'],
+        password=password,
+        auth_source=auth_source
+    )
     db.session.add(usr)
     db.session.commit()
     # Add default server group for new user.
@@ -488,8 +490,10 @@ def create_user(data):
             INTERNAL:
         req_params = ('username', 'role', 'active', 'auth_source')
     else:
-        req_params = ('email', 'role', 'active', 'newPassword',
-                      'confirmPassword')
+        req_params = (
+            'email', 'role', 'active', 'newPassword',
+            'confirmPassword'
+        )
 
     for f in req_params:
         if f in data and data[f] != '':
@@ -521,7 +525,6 @@ def update_user(uid, data):
     """
     This function is used to update the users.
     """
-
     usr = User.query.get(uid)
     if not usr:
         return False, _("Unable to update user '{0}'").format(uid)
@@ -565,17 +568,12 @@ def delete_user(uid):
         sg = [server_group.id for server_group in server_groups]
 
         Setting.query.filter_by(user_id=uid).delete()
-
         UserPreference.query.filter_by(uid=uid).delete()
-
         Server.query.filter_by(user_id=uid).delete()
-
         ServerGroup.query.filter_by(user_id=uid).delete()
-
         Process.query.filter_by(user_id=uid).delete()
         # Delete Shared servers for current user.
         SharedServer.query.filter_by(user_id=uid).delete()
-
         SharedServer.query.filter(SharedServer.servergroup_id.in_(sg)).delete(
             synchronize_session=False)
 

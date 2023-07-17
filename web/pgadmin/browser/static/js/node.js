@@ -1,3 +1,14 @@
+import {
+  EV_BROWSER_TREE_EXPAND_FROM_PRE_TS,
+  EV_BROWSER_TREE_UPDATE_TS,
+  EV_BROWSER_TREE_REFRESH,
+  EV_BROWSER_TREE_REMOVE_FROM_TS,
+  EV_BROWSER_TREE_ADD,
+  EV_BROWSER_TREE_UPDATE,
+  EV_BROWSER_NODE_,
+  EV_BROWSER_NODE_UPDATED,
+} from 'sources/constants';
+
 import {getNodeView, removeNodeView} from './node_view';
 import Notify from '../../../static/js/helpers/Notifier';
 import _ from 'lodash';
@@ -853,8 +864,10 @@ define('pgadmin.browser.node', [
             _item.clear_cache.apply(_item);
           }, 0);
         }
-        pgBrowser.Events.trigger('pgadmin:browser:tree:expand-from-previous-tree-state',
-          item);
+        pgBrowser.Events.trigger(
+          EV_BROWSER_TREE_EXPAND_FROM_PRE_TS,
+          item
+        );
         pgBrowser.Node.callbacks.change_server_background(item, data);
       },
       // Callback called - when a node is selected in browser tree.
@@ -894,8 +907,10 @@ define('pgadmin.browser.node', [
 
         }
 
-        pgBrowser.Events.trigger('pgadmin:browser:tree:update-tree-state',
-          item);
+        pgBrowser.Events.trigger(
+          EV_BROWSER_TREE_UPDATE_TS,
+          item
+        );
         return true;
       },
       removed: function(item) {
@@ -910,7 +925,7 @@ define('pgadmin.browser.node', [
           data = _item && t.itemData(_item);
 
         pgBrowser.Events.trigger(
-          'pgadmin:browser:tree:refresh', _item || pgBrowser.tree.selected(), {
+          EV_BROWSER_TREE_REFRESH, _item || pgBrowser.tree.selected(), {
             success: function() {
               self.callbacks.selected.apply(self, [_item, data, pgBrowser]);
             },
@@ -945,12 +960,14 @@ define('pgadmin.browser.node', [
           tree.select(first_child);
         }
 
-        pgBrowser.Events.trigger('pgadmin:browser:tree:update-tree-state', item);
+        pgBrowser.Events.trigger(EV_BROWSER_TREE_UPDATE_TS, item);
 
       },
       closed: function(item) {
-        pgBrowser.Events.trigger('pgadmin:browser:tree:remove-from-tree-state',
-          item);
+        pgBrowser.Events.trigger(
+          EV_BROWSER_TREE_REMOVE_FROM_TS,
+          item
+        );
       },
     },
     /**********************************************************************
@@ -1017,15 +1034,15 @@ define('pgadmin.browser.node', [
           }, 0);
 
           pgBrowser.Events.trigger(
-            'pgadmin:browser:tree:update',
+            EV_BROWSER_TREE_UPDATE,
             _old, _new, info, {
               success: function(_item, _newNodeData, _oldNodeData) {
                 pgBrowser.Events.trigger(
-                  'pgadmin:browser:node:updated', _item, _newNodeData,
+                  EV_BROWSER_NODE_UPDATED, _item, _newNodeData,
                   _oldNodeData
                 );
                 pgBrowser.Events.trigger(
-                  'pgadmin:browser:node:' + _newNodeData._type + ':updated',
+                  EV_BROWSER_NODE_ + _newNodeData._type + ':updated',
                   _item, _newNodeData, _oldNodeData
                 );
               },
@@ -1040,7 +1057,7 @@ define('pgadmin.browser.node', [
           }, 0);
           try {
             pgBrowser.Events.trigger(
-              'pgadmin:browser:tree:add', _.clone(tnode),
+              EV_BROWSER_TREE_ADD, _.clone(tnode),
               _.clone(node_info)
             );
           } catch (e) {
@@ -1215,7 +1232,7 @@ define('pgadmin.browser.node', [
       // Trigger Notify event about node's cache
       let self = this;
       pgBrowser.Events.trigger(
-        'pgadmin:browser:node:' + self.type + ':cache_cleared',
+        EV_BROWSER_NODE_ + self.type + ':cache_cleared',
         item, self
       );
     },

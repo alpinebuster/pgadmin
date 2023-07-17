@@ -4,7 +4,11 @@ import ReactDOM from 'react-dom';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 import pgWindow from 'sources/window';
-import { registerDetachEvent } from 'sources/utils';
+import {registerDetachEvent} from 'sources/utils';
+import {
+  EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE,
+  EV_BROWSER_FRAME_URLLOADED_FRM_SDIFF
+} from 'sources/constants';
 
 import { _set_dynamic_tab } from '../../../sqleditor/static/js/show_query_tool';
 import getApiInstance from '../../../../static/js/api_instance';
@@ -111,11 +115,13 @@ export default class SchemaDiff {
       window.open(baseUrl, '_blank');
       // Send the signal to runtime, so that proper zoom level will be set.
       setTimeout(function () {
-        self.pgBrowser.Events.trigger('pgadmin:nw-set-new-window-open-size');
+        self.pgBrowser.Events.trigger(
+          EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE
+        );
       }, 500);
     } else {
       this.pgBrowser.Events.once(
-        'pgadmin-browser:frame:urlloaded:frm_schemadiff',
+        EV_BROWSER_FRAME_URLLOADED_FRM_SDIFF,
         function (frame) {
           frame.openURL(baseUrl);
         });

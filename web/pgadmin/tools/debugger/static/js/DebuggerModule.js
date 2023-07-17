@@ -7,6 +7,10 @@ import { sprintf, registerDetachEvent } from 'sources/utils';
 import url_for from 'sources/url_for';
 import pgWindow from 'sources/window';
 import Kerberos from 'pgadmin.authenticate.kerberos';
+import {
+  EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE,
+  EV_BROWSER_FRAME_URLLOADED_FRM_DEBUGGER,
+} from 'sources/constants';
 
 import { refresh_db_node } from 'tools/sqleditor/static/js/sqleditor_title';
 import { _set_dynamic_tab } from '../../../sqleditor/static/js/show_query_tool';
@@ -390,14 +394,17 @@ export default class DebuggerModule {
               window.open(url, '_blank');
               // Send the signal to runtime, so that proper zoom level will be set.
               setTimeout(function () {
-                self.pgBrowser.Events.trigger('pgadmin:nw-set-new-window-open-size');
+                self.pgBrowser.Events.trigger(
+                  EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE
+                );
               }, 500);
             } else {
               self.pgBrowser.Events.once(
-                'pgadmin-browser:frame:urlloaded:frm_debugger',
+                EV_BROWSER_FRAME_URLLOADED_FRM_DEBUGGER,
                 function (frame) {
                   frame.openURL(url);
-                });
+                }
+              );
 
               // Create the debugger panel as per the data received from user input dialog.
               let dashboardPanel = self.pgBrowser.docker.findPanels(
@@ -565,10 +572,11 @@ export default class DebuggerModule {
           }, 500);
         } else {
           self.pgBrowser.Events.once(
-            'pgadmin-browser:frame:urlloaded:frm_debugger',
+            EV_BROWSER_FRAME_URLLOADED_FRM_DEBUGGER,
             function (frame) {
               frame.openURL(url);
-            });
+            }
+          );
 
           // Create the debugger panel as per the data received from user input dialog.
           let dashboardPanel = self.pgBrowser.docker.findPanels(
