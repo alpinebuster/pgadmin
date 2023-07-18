@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Theme from 'sources/theme';
-import GrantWizard from './GrantWizard';
 
+import Theme from 'sources/theme';
+
+import GrantWizard from './GrantWizard';
 
 // Grant Wizard
 define([
@@ -12,19 +13,15 @@ define([
 ], function(
   gettext, pgBrowser, menuUtils, supportedNodes
 ) {
-
   // if module is already initialized, refer to that.
   if (pgBrowser.GrantWizard) {
     return pgBrowser.GrantWizard;
   }
 
-
   // Create an Object GrantWizard of pgBrowser class
   pgBrowser.GrantWizard = {
     init: function() {
-      if (this.initialized)
-        return;
-
+      if (this.initialized) return;
       this.initialized = true;
 
       // Define the nodes on which the menus to be appear
@@ -66,15 +63,17 @@ define([
 
     // Callback to draw Wizard Dialog
     start_grant_wizard: function() {
-      let t = pgBrowser.tree,
-        i = t.selected(),
-        d = this.d = i ? t.itemData(i) : undefined,
+      let _tree = pgBrowser.tree,
+        i = _tree.selected(),
+        d = this.d = i ? _tree.itemData(i) : undefined,
         info = this.info = pgBrowser.tree.getTreeNodeHierarchy(i);
 
       // Register dialog panel
       pgBrowser.Node.registerUtilityPanel();
-      let panel = pgBrowser.Node.addUtilityPanel(pgBrowser.stdW.lg, pgBrowser.stdH.lg),
-        j = panel.$container.find('.obj_properties').first();
+      let panel = pgBrowser.Node.addUtilityPanel(
+        pgBrowser.stdW.lg, pgBrowser.stdH.lg
+      )
+      let j = panel.$container.find('.obj_properties').first();
       panel.title(gettext('Grant Wizard'));
 
       let sid = info.server._id,

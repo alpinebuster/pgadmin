@@ -1,24 +1,29 @@
 // eslint-disable-next-line react/display-name
-import React, { useEffect, useMemo, useState } from 'react';
-import gettext from 'sources/gettext';
+
+import React, {useEffect, useMemo, useState} from 'react';
 import PropTypes from 'prop-types';
-import getApiInstance from 'sources/api_instance';
-import PgTable from 'sources/components/PgTable';
-import { InputCheckbox } from '../../../static/js/components/FormComponents';
 import { makeStyles } from '@material-ui/core/styles';
-import url_for from 'sources/url_for';
-import Graphs from './Graphs';
-import Notify from '../../../static/js/helpers/Notifier';
-import { Box, Card, CardContent, CardHeader, Tab, Tabs } from '@material-ui/core';
-import { PgIconButton } from '../../../static/js/components/Buttons';
+import {
+  Box, Card, CardContent, CardHeader, Tab, Tabs
+} from '@material-ui/core';
 import CancelIcon from '@material-ui/icons/Cancel';
 import StopSharpIcon from '@material-ui/icons/StopSharp';
 import ArrowRightOutlinedIcon from '@material-ui/icons/ArrowRightOutlined';
 import ArrowDropDownOutlinedIcon from '@material-ui/icons/ArrowDropDownOutlined';
+import CachedOutlinedIcon from '@material-ui/icons/CachedOutlined';
+import _ from 'lodash';
+
+import gettext from 'sources/gettext';
+import getApiInstance from 'sources/api_instance';
+import PgTable from 'sources/components/PgTable';
+import url_for from 'sources/url_for';
+
+import { InputCheckbox } from '../../../static/js/components/FormComponents';
+import Graphs from './Graphs';
+import Notify from '../../../static/js/helpers/Notifier';
+import { PgIconButton } from '../../../static/js/components/Buttons';
 import WelcomeDashboard from './WelcomeDashboard';
 import ActiveQuery from './ActiveQuery.ui';
-import _ from 'lodash';
-import CachedOutlinedIcon from '@material-ui/icons/CachedOutlined';
 import EmptyPanelMessage from '../../../static/js/components/EmptyPanelMessage';
 import TabPanel from '../../../static/js/components/TabPanel';
 
@@ -165,16 +170,14 @@ export default function Dashboard({
       minWidth: 50,
       width: 100,
       minResizeWidth: 150,
-    },
-    {
+    }, {
       accessor: 'category',
       Header: gettext('Category'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 50,
-    },
-    {
+    }, {
       accessor: 'setting',
       Header: gettext('Value'),
       sortable: true,
@@ -182,8 +185,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 50,
       width: 100,
-    },
-    {
+    }, {
       accessor: 'unit',
       Header: gettext('Unit'),
       sortable: true,
@@ -191,8 +193,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 30,
-    },
-    {
+    }, {
       accessor: 'short_desc',
       Header: gettext('Description'),
       sortable: true,
@@ -273,8 +274,7 @@ export default function Dashboard({
           ></PgIconButton>
         );
       },
-    },
-    {
+    }, {
       accessor: 'cancel_Query',
       Header: () => null,
       sortable: true,
@@ -342,8 +342,7 @@ export default function Dashboard({
           ></PgIconButton>
         );
       },
-    },
-    {
+    }, {
       accessor: 'view_active_query',
       Header: () => null,
       sortable: true,
@@ -386,8 +385,7 @@ export default function Dashboard({
           />
         );
       },
-    },
-    {
+    }, {
       accessor: 'pid',
       Header: gettext('PID'),
       sortable: true,
@@ -395,8 +393,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 60,
-    },
-    {
+    }, {
       accessor: 'datname',
       Header: gettext('Database'),
       sortable: true,
@@ -405,8 +402,7 @@ export default function Dashboard({
       minWidth: 26,
       width: 80,
       isVisible: !did ? true: false
-    },
-    {
+    }, {
       accessor: 'usename',
       Header: gettext('User'),
       sortable: true,
@@ -414,32 +410,28 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 60
-    },
-    {
+    }, {
       accessor: 'application_name',
       Header: gettext('Application'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 26,
-    },
-    {
+    }, {
       accessor: 'client_addr',
       Header: gettext('Client'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 26,
-    },
-    {
+    }, {
       accessor: 'backend_start',
       Header: gettext('Backend start'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 100,
-    },
-    {
+    }, {
       accessor: 'xact_start',
       Header: gettext('Transaction start'),
       sortable: true,
@@ -455,9 +447,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width:40
-    },
-
-    {
+    }, {
       accessor: 'waiting',
       Header: gettext('Waiting'),
       sortable: true,
@@ -471,8 +461,7 @@ export default function Dashboard({
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       accessor: 'blocking_pids',
       Header: gettext('Blocking PIDs'),
       sortable: true,
@@ -490,8 +479,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 50,
-    },
-    {
+    }, {
       accessor: 'datname',
       Header: gettext('Database'),
       sortable: true,
@@ -500,8 +488,7 @@ export default function Dashboard({
       minWidth: 26,
       isVisible: !did ? true: false,
       width: 80
-    },
-    {
+    }, {
       accessor: 'locktype',
       Header: gettext('Lock type'),
       sortable: true,
@@ -509,15 +496,13 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 80,
-    },
-    {
+    }, {
       accessor: 'relation',
       Header: gettext('Target relation'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       accessor: 'page',
       Header: gettext('Page'),
       sortable: true,
@@ -525,16 +510,14 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 80,
-    },
-    {
+    }, {
       accessor: 'tuple',
       Header: gettext('Tuple'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 26,
-    },
-    {
+    }, {
       accessor: 'virtualxid',
       Header: gettext('vXID (target)'),
       sortable: true,
@@ -542,8 +525,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 50,
       width: 80
-    },
-    {
+    }, {
       accessor: 'transactionid',
       Header: gettext('XID (target)'),
       sortable: true,
@@ -551,8 +533,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 50,
       width: 80,
-    },
-    {
+    }, {
       accessor: 'classid',
       Header: gettext('Class'),
       sortable: true,
@@ -560,8 +541,7 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 26,
       width: 80,
-    },
-    {
+    }, {
       accessor: 'objid',
       Header: gettext('Object ID'),
       sortable: true,
@@ -569,24 +549,20 @@ export default function Dashboard({
       disableGlobalFilter: false,
       minWidth: 50,
       width: 80,
-
-    },
-    {
+    }, {
       accessor: 'virtualtransaction',
       Header: gettext('vXID (owner)'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
       minWidth: 50,
-    },
-    {
+    }, {
       accessor: 'mode',
       Header: gettext('Mode'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       id: 'granted',
       accessor: 'granted',
       Header: gettext('Granted?'),
@@ -606,8 +582,7 @@ export default function Dashboard({
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       accessor: 'datname',
       Header: gettext('Database'),
       sortable: true,
@@ -616,22 +591,19 @@ export default function Dashboard({
       minWidth: 26,
       width: 80,
       isVisible: !did ? true: false
-    },
-    {
+    }, {
       accessor: 'Owner',
       Header: gettext('Owner'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       accessor: 'transaction',
       Header: gettext('XID'),
       sortable: true,
       resizable: true,
       disableGlobalFilter: false,
-    },
-    {
+    }, {
       accessor: 'prepared',
       Header: gettext('Prepared at'),
       sortable: true,
@@ -663,7 +635,8 @@ export default function Dashboard({
       treeNodeInfo.server.user.is_superuser
     ) {
       is_super_user = true;
-    } else {
+    }
+    else {
       is_super_user = false;
       current_user =
         treeNodeInfo.server && treeNodeInfo.server.user
@@ -679,7 +652,8 @@ export default function Dashboard({
     if (pg_version && pg_version >= 100000 && !row.original.datname) {
       if (is_cancel_session) {
         txtMessage = gettext('You cannot cancel background worker processes.');
-      } else {
+      }
+      else {
         txtMessage = gettext(
           'You cannot terminate background worker processes.'
         );
@@ -687,7 +661,8 @@ export default function Dashboard({
       Notify.info(txtMessage);
       return false;
       // If it is the last active connection on maintenance db then error out
-    } else if (
+    }
+    else if (
       maintenance_database == row.original.datname &&
       row.original.state == 'active'
     ) {
@@ -695,33 +670,40 @@ export default function Dashboard({
         txtMessage = gettext(
           'You are not allowed to cancel the main active session.'
         );
-      } else {
+      }
+      else {
         txtMessage = gettext(
           'You are not allowed to terminate the main active session.'
         );
       }
       Notify.error(txtMessage);
       return false;
-    } else if (is_cancel_session && row.original.state == 'idle') {
+    }
+    else if (is_cancel_session && row.original.state == 'idle') {
       // If this session is already idle then do nothing
       Notify.info(gettext('The session is already in idle state.'));
       return false;
-    } else if (can_signal_backend) {
+    }
+    else if (can_signal_backend) {
       // user with membership of 'pg_signal_backend' can terminate the session of non admin user.
       return true;
-    } else if (is_super_user) {
+    }
+    else if (is_super_user) {
       // Super user can do anything
       return true;
-    } else if (current_user && current_user == treeNodeInfo.server.user) {
+    }
+    else if (current_user && current_user == treeNodeInfo.server.user) {
       // Non-super user can cancel only their active queries
       return true;
-    } else {
+    }
+    else {
       // Do not allow to cancel someone else session to non-super user
       if (is_cancel_session) {
         txtMessage = gettext(
           'Superuser privileges are required to cancel another users query.'
         );
-      } else {
+      }
+      else {
         txtMessage = gettext(
           'Superuser privileges are required to terminate another users query.'
         );
@@ -749,11 +731,14 @@ export default function Dashboard({
 
       if (tabVal === 0) {
         url = url_for('dashboard.activity');
-      } else if (tabVal === 1) {
+      }
+      else if (tabVal === 1) {
         url = url_for('dashboard.locks');
-      } else if (tabVal === 2) {
+      }
+      else if (tabVal === 2) {
         url = url_for('dashboard.prepared');
-      } else {
+      }
+      else {
         url = url_for('dashboard.config');
       }
 
@@ -852,7 +837,6 @@ export default function Dashboard({
         controlProps={CustomActiveOnlyHeaderLabel}
       />);
   };
-
 
   return (
     <>

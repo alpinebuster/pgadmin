@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import Theme from 'sources/theme';
+
 import CloudWizard from './CloudWizard';
 import getApiInstance from '../../../../static/js/api_instance';
 import Notifier from '../../../../static/js/helpers/Notifier';

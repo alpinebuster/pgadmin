@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import pgAdmin from 'sources/pgadmin';
+import gettext from 'sources/gettext';
+
 import Theme from '../../../../static/js/theme';
 import ProcessDetails from './ProcessDetails';
-import gettext from 'sources/gettext';
 
 export default function showDetails(p) {
   let pgBrowser = pgAdmin.Browser;

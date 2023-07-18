@@ -6,7 +6,10 @@ import PropTypes from 'prop-types';
 import gettext from 'sources/gettext';
 import url_for from 'sources/url_for';
 import pgAdmin from 'sources/pgadmin';
-import { isEmptyString } from 'sources/validators';
+import {isEmptyString} from 'sources/validators';
+import {
+  EV_BROWSER_TREE_ADD
+} from 'sources/constants';
 
 import Wizard from '../../../../static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../../static/js/helpers/wizard/WizardStep';
@@ -38,36 +41,34 @@ import {
 import EventBus from '../../../../static/js/helpers/EventBus';
 import { CLOUD_PROVIDERS, CLOUD_PROVIDERS_LABELS } from './cloud_constants';
 
-const useStyles = makeStyles(() =>
-  ({
-    messageBox: {
-      marginBottom: '1em',
-      display: 'flex',
-    },
-    messagePadding: {
-      paddingTop: '10px',
-      flex: 2.5,
-    },
-    buttonMarginEDB: {
-      position: 'relative',
-      top: '20%',
-    },
-    toggleButton: {
-      height: '100px',
-    },
-    summaryContainer: {
-      flexGrow: 1,
-      minHeight: 0,
-      overflow: 'auto',
-    },
-    boxText: {
-      paddingBottom: '5px'
-    },
-    authButton: {
-      marginLeft: '12em'
-    }
-  }),
-);
+const useStyles = makeStyles(() => ({
+  messageBox: {
+    marginBottom: '1em',
+    display: 'flex',
+  },
+  messagePadding: {
+    paddingTop: '10px',
+    flex: 2.5,
+  },
+  buttonMarginEDB: {
+    position: 'relative',
+    top: '20%',
+  },
+  toggleButton: {
+    height: '100px',
+  },
+  summaryContainer: {
+    flexGrow: 1,
+    minHeight: 0,
+    overflow: 'auto',
+  },
+  boxText: {
+    paddingBottom: '5px'
+  },
+  authButton: {
+    marginLeft: '12em'
+  }
+}),);
 
 export const CloudWizardEventsContext = React.createContext();
 
@@ -77,8 +78,14 @@ export default function CloudWizard({
   const classes = useStyles();
   const eventBus = React.useRef(new EventBus());
 
-  let steps = [gettext('Cloud Provider'), gettext('Credentials'), gettext('Cluster Type'),
-    gettext('Instance Specification'), gettext('Database Details'), gettext('Review')];
+  let steps = [
+    gettext('Cloud Provider'),
+    gettext('Credentials'),
+    gettext('Cluster Type'),
+    gettext('Instance Specification'),
+    gettext('Database Details'),
+    gettext('Review')
+  ];
   const [currentStep, setCurrentStep] = React.useState('');
   const [selectionVal, setCloudSelection] = React.useState('');
   const [errMsg, setErrMsg] = React.useState('');
@@ -134,7 +141,9 @@ export default function CloudWizard({
         }
       })
       .catch((error) => {
-        Notifier.error(gettext(`Error while getting the host ip: ${error.response.data.errormsg}`));
+        Notifier.error(
+          gettext(`Error while getting the host ip: ${error.response.data.errormsg}`)
+        );
       });
   }, [cloudProvider]);
 
@@ -154,7 +163,8 @@ export default function CloudWizard({
         instance_details:cloudInstanceDetails,
         db_details: cloudDBDetails
       };
-    } else if(cloudProvider == CLOUD_PROVIDERS.AZURE){
+    }
+    else if (cloudProvider == CLOUD_PROVIDERS.AZURE) {
       post_data = {
         gid: nodeInfo.server_group._id,
         secret: azureCredData,
@@ -162,7 +172,8 @@ export default function CloudWizard({
         instance_details:azureInstanceData,
         db_details: azureDatabaseData
       };
-    }else if(cloudProvider == CLOUD_PROVIDERS.GOOGLE){
+    }
+    else if (cloudProvider == CLOUD_PROVIDERS.GOOGLE) {
       post_data = {
         gid: nodeInfo.server_group._id,
         secret: googleCredData,
@@ -171,7 +182,8 @@ export default function CloudWizard({
         db_details: googleDatabaseData
       };
 
-    }else {
+    }
+    else {
       post_data = {
         gid: nodeInfo.server_group._id,
         cloud: cloudProvider,
@@ -181,101 +193,109 @@ export default function CloudWizard({
       };
     }
 
-    axiosApi.post(_url, post_data)
-      .then((res) => {
-        pgAdmin.Browser.Events.trigger('pgadmin:browser:tree:add', res.data.data.node, {'server_group': nodeInfo['server_group']});
-        pgAdmin.Browser.BgProcessManager.startProcess(res.data.data.job_id, res.data.data.desc);
-        onClose();
-      })
-      .catch((error) => {
-        Notifier.error(gettext(`Error while saving cloud wizard data: ${error.response.data.errormsg}`));
-      });
+    axiosApi.post(_url, post_data).then((res) => {
+      pgAdmin.Browser.Events.trigger(
+        EV_BROWSER_TREE_ADD,
+        res.data.data.node,
+        {'server_group': nodeInfo['server_group']}
+      );
+      pgAdmin.Browser.BgProcessManager.startProcess(
+        res.data.data.job_id,
+        res.data.data.desc
+      );
+      onClose();
+    }).catch((error) => {
+      Notifier.error(
+        gettext(`Error while saving cloud wizard data: ${error.response.data.errormsg}`)
+      );
+    });
   };
 
   const disableNextCheck = () => {
     setCallRDSAPI(currentStep);
     let isError = (cloudProvider == '');
+
     switch(cloudProvider) {
-    case CLOUD_PROVIDERS.AWS:
-      switch (currentStep) {
-      case 0:
-        setCloudSelection(CLOUD_PROVIDERS.AWS);
+      case CLOUD_PROVIDERS.AWS:
+        switch (currentStep) {
+          case 0:
+            setCloudSelection(CLOUD_PROVIDERS.AWS);
+            break;
+          case 1:
+            isError = validateCloudStep1(cloudDBCred);
+            break;
+          case 2:
+            break;
+          case 3:
+            isError = validateCloudStep2(cloudInstanceDetails, hostIP);
+            break;
+          case 4:
+            isError = validateCloudStep3(cloudDBDetails, nodeInfo);
+            break;
+          default:
+            break;
+        }
         break;
-      case 1:
-        isError = validateCloudStep1(cloudDBCred);
+      case CLOUD_PROVIDERS.BIGANIMAL:
+        switch (currentStep) {
+          case 0:
+            setCloudSelection(CLOUD_PROVIDERS.BIGANIMAL);
+            break;
+          case 1:
+            isError = !verificationIntiated;
+            break;
+          case 2:
+            isError = validateBigAnimalStep2(bigAnimalClusterTypeData);
+            break;
+          case 3:
+            isError = validateBigAnimalStep3(bigAnimalInstanceData);
+            break;
+          case 4:
+            isError = validateBigAnimalStep4(bigAnimalDatabaseData, nodeInfo);
+            break;
+          default:
+            break;
+        }
         break;
-      case 2:
+      case CLOUD_PROVIDERS.AZURE:
+        switch (currentStep) {
+          case 0:
+            setCloudSelection(CLOUD_PROVIDERS.AZURE);
+            break;
+          case 1:
+            isError = !verificationIntiated;
+            break;
+          case 2:
+            break;
+          case 3:
+            isError = validateAzureStep2(azureInstanceData);
+            break;
+          case 4:
+            isError = validateAzureStep3(azureDatabaseData, nodeInfo);
+            break;
+          default:
+            break;
+        }
         break;
-      case 3:
-        isError = validateCloudStep2(cloudInstanceDetails, hostIP);
-        break;
-      case 4:
-        isError = validateCloudStep3(cloudDBDetails, nodeInfo);
-        break;
-      default:
-        break;
-      }
-      break;
-    case CLOUD_PROVIDERS.BIGANIMAL:
-      switch (currentStep) {
-      case 0:
-        setCloudSelection(CLOUD_PROVIDERS.BIGANIMAL);
-        break;
-      case 1:
-        isError = !verificationIntiated;
-        break;
-      case 2:
-        isError = validateBigAnimalStep2(bigAnimalClusterTypeData);
-        break;
-      case 3:
-        isError = validateBigAnimalStep3(bigAnimalInstanceData);
-        break;
-      case 4:
-        isError = validateBigAnimalStep4(bigAnimalDatabaseData, nodeInfo);
-        break;
-      default:
-        break;
-      }
-      break;
-    case CLOUD_PROVIDERS.AZURE:
-      switch (currentStep) {
-      case 0:
-        setCloudSelection(CLOUD_PROVIDERS.AZURE);
-        break;
-      case 1:
-        isError = !verificationIntiated;
-        break;
-      case 2:
-        break;
-      case 3:
-        isError = validateAzureStep2(azureInstanceData);
-        break;
-      case 4:
-        isError = validateAzureStep3(azureDatabaseData, nodeInfo);
-        break;
-      default:
-        break;
-      }
-      break;
-    case CLOUD_PROVIDERS.GOOGLE:
-      switch (currentStep) {
-      case 0:
-        setCloudSelection(CLOUD_PROVIDERS.GOOGLE);
-        break;
-      case 1:
-        isError = !verificationIntiated;
-        break;
-      case 2:
-        break;
-      case 3:
-        isError = validateGoogleStep2(googleInstanceData);
-        break;
-      case 4:
-        isError = validateGoogleStep3(googleDatabaseData, nodeInfo);
-        break;
-      default:
-        break;
-      }
+      case CLOUD_PROVIDERS.GOOGLE:
+        switch (currentStep) {
+          case 0:
+            setCloudSelection(CLOUD_PROVIDERS.GOOGLE);
+            break;
+          case 1:
+            isError = !verificationIntiated;
+            break;
+          case 2:
+            break;
+          case 3:
+            isError = validateGoogleStep2(googleInstanceData);
+            break;
+          case 4:
+            isError = validateGoogleStep3(googleDatabaseData, nodeInfo);
+            break;
+          default:
+            break;
+        }
     }
     return isError;
   };
@@ -408,10 +428,12 @@ export default function CloudWizard({
       countdown = countdown - 1;
     }, 1000);
 
-    cloudPanel.on(window.wcDocker.EVENT.CLOSED, function() {
-      clearInterval(myInterval);
-    });
-
+    cloudPanel.on(
+      window.wcDocker.EVENT.CLOSED,
+      function () {
+        clearInterval(myInterval);
+      }
+    );
   };
 
   const onDialogHelp = () => {

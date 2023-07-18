@@ -1,10 +1,12 @@
 import React from 'react';
-import gettext from 'sources/gettext';
 import _ from 'lodash';
 import { Link, BrowserRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+
+import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
+
 import PgAdminLogo from './PgAdminLogo';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +78,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '0.5rem !important',
   }
 }));
-
 
 function AddNewServer(pgBrowser) {
   if (pgBrowser && pgBrowser.tree) {

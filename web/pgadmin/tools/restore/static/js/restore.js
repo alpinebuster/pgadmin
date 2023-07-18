@@ -156,8 +156,10 @@ define('tools.restore', [
           });
 
         getUtilityView(
-          schema, treeNodeInfo, 'select', 'dialog', j[0], panel, that.saveCallBack, extraData, 'Restore', baseUrl, sqlHelpUrl, helpUrl);
-
+          schema, treeNodeInfo, 'select', 'dialog',
+          j[0], panel, that.saveCallBack, extraData,
+          'Restore', baseUrl, sqlHelpUrl, helpUrl
+        );
       }).catch(()=>{
         Notify.alert(
           gettext('Utility not found'),
@@ -166,5 +168,6 @@ define('tools.restore', [
       });
     },
   };
+
   return pgBrowser.Restore;
 });
