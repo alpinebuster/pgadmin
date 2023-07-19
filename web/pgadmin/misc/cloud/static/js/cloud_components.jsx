@@ -70,7 +70,8 @@ export function ToggleButtons(props) {
                 }}
               />&nbsp;
               {option.icon}&nbsp;&nbsp;&nbsp;&nbsp;{option.label}
-          </ToggleButton>);
+            </ToggleButton>
+          );
         })
       }
     </ToggleButtonGroup>
