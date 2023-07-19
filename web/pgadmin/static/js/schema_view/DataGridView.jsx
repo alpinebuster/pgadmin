@@ -1,6 +1,8 @@
 /* The DataGridView component is based on react-table component */
 
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback, useContext, useEffect, useMemo, useRef, useState
+} from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PgIconButton } from '../components/Buttons';
@@ -8,7 +10,12 @@ import AddIcon from '@material-ui/icons/AddOutlined';
 import DragIndicatorRoundedIcon from '@material-ui/icons/DragIndicatorRounded';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import DeleteRoundedIcon from '@material-ui/icons/DeleteRounded';
-import { useTable, useFlexLayout, useResizeColumns, useSortBy, useExpanded, useGlobalFilter } from 'react-table';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import {
+  useTable, useFlexLayout, useResizeColumns,
+  useSortBy, useExpanded, useGlobalFilter
+} from 'react-table';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -27,7 +34,7 @@ import { useIsMounted } from '../custom_hooks';
 import Notify from '../helpers/Notifier';
 import { InputText } from '../components/FormComponents';
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
   grid: {
     ...theme.mixins.panelBorder,
     backgroundColor: theme.palette.background.default,
@@ -127,9 +134,12 @@ const useStyles = makeStyles((theme)=>({
 
 function DataTableHeader({headerGroups}) {
   const classes = useStyles();
-  const sortIcon = (isDesc) => {
-    return isDesc ? ' 🔽' : ' 🔼';
+  const SortIcon = (isDesc) => {
+    return isDesc
+      ? <KeyboardArrowDownIcon style={{fontSize: '1.2rem'}} />
+      : <KeyboardArrowUpIcon style={{fontSize: '1.2rem'}} />;
   };
+
   return (
     <div className={classes.tableContentWidth}>
       {headerGroups.map((headerGroup, hi) => (
@@ -139,7 +149,7 @@ function DataTableHeader({headerGroups}) {
               <div {...(column.sortable ? column.getSortByToggleProps() : {})} className={clsx(classes.tableCell, classes.tableCellHeader)}>
                 {column.render('Header')}
                 <span>
-                  {column.isSorted ? sortIcon(column.isSortedDesc) : ''}
+                  {column.isSorted ? SortIcon(column.isSortedDesc) : ''}
                 </span>
               </div>
               {!column.disableResizing &&

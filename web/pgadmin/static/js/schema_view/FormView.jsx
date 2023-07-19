@@ -142,8 +142,12 @@ export function getFieldMetaData(
 
 /* The first component of schema view form */
 export default function FormView({
-  value, schema={}, viewHelperProps, isNested=false, accessPath, dataDispatch, hasSQLTab,
-  getSQLValue, onTabChange, firstEleRef, className, isDataGridForm=false, isTabView=true, visible}) {
+  value, schema = {}, viewHelperProps,
+  accessPath, dataDispatch, hasSQLTab,
+  getSQLValue, onTabChange, firstEleRef,
+  className, isDataGridForm = false, isTabView = true,
+  visible, isNested = false
+}) {
   let defaultTab = 'General';
   let tabs = {};
   let tabsClassname = {};

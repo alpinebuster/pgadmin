@@ -13,7 +13,8 @@ import getApiInstance, { callFetch } from '../api_instance';
 
 export const pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
-export const browserTreeState = pgBrowser.browserTreeState = pgBrowser.browserTreeState || {};
+export const browserTreeState =
+  pgBrowser.browserTreeState = pgBrowser.browserTreeState || {};
 
 _.extend(pgBrowser.browserTreeState, {
   // Parent node to start saving / reloading the tree state
@@ -55,7 +56,10 @@ _.extend(pgBrowser.browserTreeState, {
       'browser', 'browser_tree_state_save_interval'
     );
 
-    if (!_.isUndefined(save_tree_state_period) &&  save_tree_state_period.value !== -1) {
+    if (
+      !_.isUndefined(save_tree_state_period) &&
+      save_tree_state_period.value !== -1
+    ) {
       // Save the tree state every 30 seconds
       setInterval(this.save_state, (save_tree_state_period.value) * 1000);
 

@@ -202,7 +202,6 @@ define('pgadmin.browser', [
             // less then return the width value as it
             return iw;
         }
-
       },
     },
     stdH: {
@@ -367,7 +366,8 @@ define('pgadmin.browser', [
             isPrivate: panel.isPrivate,
             url: panel.content,
           });
-        } else {
+        }
+        else {
           pgBrowser.panels[panel.name] = new pgBrowser.Panel({
             name: panel.name,
             title: panel.title,
@@ -540,9 +540,7 @@ define('pgadmin.browser', [
     },
     init: function() {
       let browser_obj = this;
-      if (browser_obj.initialized) {
-        return;
-      }
+      if (browser_obj.initialized) return;
       browser_obj.initialized = true;
 
       // Cache preferences
@@ -561,6 +559,7 @@ define('pgadmin.browser', [
           theme: 'webcabin.overrides.css',
         }
       );
+
       if(browser_obj.docker) {
         // Initialize all the panels
         _.each(browser_obj.panels, function(panel, name) {
@@ -683,7 +682,6 @@ define('pgadmin.browser', [
         url_for('browser.check_corrupted_db_file')
       ).then(({data: res})=> {
         if(res.data.length > 0) {
-
           Notify.alert(
             'Warning',
             'pgAdmin detected unrecoverable corruption in it\'s SQLite configuration database. ' +
@@ -713,7 +711,6 @@ define('pgadmin.browser', [
         Notify.pgRespErrorNotify(error);
       });
     },
-
     reset_master_password: function() {
       let self = this;
       getApiInstance().delete(
@@ -726,7 +723,6 @@ define('pgadmin.browser', [
         Notify.pgRespErrorNotify(error);
       });
     },
-
     set_master_password: function(password='',
       set_callback=()=>{/*This is intentional (SonarQube)*/},
       cancel_callback=()=>{/*This is intentional (SonarQube)*/}) {
@@ -1897,7 +1893,9 @@ define('pgadmin.browser', [
       });
     },
 
-    removeChildTreeNodesById: function(_parentNode, _collType, _childIds) {
+    removeChildTreeNodesById: function (
+      _parentNode, _collType, _childIds
+    ) {
       let tree_local = pgBrowser.tree, childNode, childNodeData;
       if(_parentNode && _collType) {
         let children = tree_local.children(_parentNode),
@@ -2011,7 +2009,9 @@ define('pgadmin.browser', [
       return null;
     },
 
-    addChildTreeNodes: function(_treeHierarchy, _node, _type, _arrayIds, _callback) {
+    addChildTreeNodes: function (
+      _treeHierarchy, _node, _type, _arrayIds, _callback
+    ) {
       let api = getApiInstance();
       let module = _type in pgBrowser.Nodes && pgBrowser.Nodes[_type],
         childTreeInfo = _arrayIds.length && _.extend(

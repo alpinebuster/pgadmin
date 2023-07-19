@@ -2,17 +2,22 @@ import { Terminal } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import { WebLinksAddon } from 'xterm-addon-web-links';
 import { SearchAddon } from 'xterm-addon-search';
-import { io } from 'socketio';
-import {enable} from 'pgadmin.browser.toolbar';
+import {io} from 'socketio';
 import 'wcdocker';
-import {getRandomInt, hasBinariesConfiguration, registerDetachEvent} from 'sources/utils';
+
+import {
+  getRandomInt, hasBinariesConfiguration, registerDetachEvent
+} from 'sources/utils';
 import {retrieveAncestorOfTypeServer} from 'sources/tree/tree_utils';
 import pgWindow from 'sources/window';
+import {enable} from 'pgadmin.browser.toolbar';
+
 import Notify from '../../../../static/js/helpers/Notifier';
 import { copyToClipboard } from '../../../../static/js/clipboard';
 import { openNewWindow } from '../../../../static/js/utils';
-import {generateTitle, refresh_db_node} from 'tools/sqleditor/static/js/sqleditor_title';
-
+import {
+  generateTitle, refresh_db_node
+} from 'tools/sqleditor/static/js/sqleditor_title';
 
 export function setPanelTitle(psqlToolPanel, panelTitle) {
   psqlToolPanel.title('<span title="'+panelTitle+'">'+panelTitle+'</span>');
@@ -20,7 +25,9 @@ export function setPanelTitle(psqlToolPanel, panelTitle) {
 
 let wcDocker = window.wcDocker;
 
-export function initialize(gettext, url_for, _, pgAdmin, csrfToken, Browser) {
+export function initialize(
+  gettext, url_for, _, pgAdmin, csrfToken, Browser
+) {
   let pgBrowser = Browser;
   let terminal = Terminal;
   let parentData = null;

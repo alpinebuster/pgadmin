@@ -72,7 +72,7 @@ define([
       pgBrowser.Node.registerUtilityPanel();
       let panel = pgBrowser.Node.addUtilityPanel(
         pgBrowser.stdW.lg, pgBrowser.stdH.lg
-      )
+      );
       let j = panel.$container.find('.obj_properties').first();
       panel.title(gettext('Grant Wizard'));
 

@@ -1,5 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { Box, makeStyles, Accordion, AccordionSummary, AccordionDetails} from '@material-ui/core';
+import React, {
+  useCallback, useEffect, useMemo, useReducer, useRef, useState
+} from 'react';
+import {
+  Box, makeStyles, Accordion, AccordionSummary, AccordionDetails
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SaveIcon from '@material-ui/icons/Save';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -14,13 +18,20 @@ import _ from 'lodash';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
-import {FormFooterMessage, MESSAGE_TYPE } from 'sources/components/FormComponents';
-import { PrimaryButton, DefaultButton, PgIconButton } from 'sources/components/Buttons';
+import {
+  FormFooterMessage, MESSAGE_TYPE
+} from 'sources/components/FormComponents';
+import {
+  PrimaryButton, DefaultButton, PgIconButton
+} from 'sources/components/Buttons';
 import Loader from 'sources/components/Loader';
 import gettext from 'sources/gettext';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
 
-import { minMaxValidator, numberValidator, integerValidator, emptyValidator, checkUniqueCol, isEmptyString} from '../validators';
+import {
+  minMaxValidator, numberValidator, integerValidator,
+  emptyValidator, checkUniqueCol, isEmptyString
+} from '../validators';
 import { MappedFormControl } from './MappedControl';
 import FormView, { getFieldMetaData } from './FormView';
 import CustomPropTypes from '../custom_prop_types';
@@ -80,15 +91,28 @@ function getForQueryParams(data) {
 schema.origData is set to incoming or default data
 */
 function isValueEqual(val1, val2) {
-  let attrDefined = !_.isUndefined(val1) && !_.isUndefined(val2) && !_.isNull(val1) && !_.isNull(val2);
+  let attrDefined = !_.isUndefined(val1) &&
+    !_.isUndefined(val2) &&
+    !_.isNull(val1) &&
+    !_.isNull(val2);
 
   /* If the orig value was null and new one is empty string, then its a "no change" */
   /* If the orig value and new value are of different datatype but of same value(numeric) "no change" */
   /* If the orig value is undefined or null and new value is boolean false "no change" */
-  if (_.isEqual(val1, val2)
-  || ((val1 === null || _.isUndefined(val1)) && val2 === '')
-  || ((val1 === null || _.isUndefined(val1)) && typeof(val2) === 'boolean' && !val2)
-  || (attrDefined ? (!_.isObject(val1) && _.isEqual(val1.toString(), val2.toString())) : false)
+  if (
+    _.isEqual(val1, val2)
+    || ((val1 === null || _.isUndefined(val1)) && val2 === '')
+    || (
+      (val1 === null || _.isUndefined(val1))
+      && typeof (val2) === 'boolean' && !val2
+    )
+    || (attrDefined
+      ? (
+        !_.isObject(val1) &&
+        _.isEqual(val1.toString(), val2.toString())
+      )
+      : false
+    )
   ) {
     return true;
   }
@@ -97,13 +121,18 @@ function isValueEqual(val1, val2) {
 
 /* Compare two objects */
 function isObjectEqual(val1, val2) {
-  const allKeys = Array.from(new Set([...Object.keys(val1), ...Object.keys(val2)]));
+  const allKeys = Array.from(
+    new Set([...Object.keys(val1), ...Object.keys(val2)])
+  );
   return !allKeys.some((k)=>{
     return !isValueEqual(val1[k], val2[k]);
   });
 }
 
-function getChangedData(topSchema, viewHelperProps, sessData, stringify=false, includeSkipChange=true) {
+function getChangedData(
+  topSchema, viewHelperProps, sessData,
+  stringify = false, includeSkipChange = true
+) {
   let changedData = {};
   let isEdit = viewHelperProps.mode === 'edit';
 
@@ -253,7 +282,9 @@ function getChangedData(topSchema, viewHelperProps, sessData, stringify=false, i
   return changedData;
 }
 
-function validateSchema(schema, sessData, setError, accessPath=[], collLabel=null) {
+function validateSchema(
+  schema, sessData, setError, accessPath = [], collLabel = null
+) {
   sessData = sessData || {};
   for(let field of schema.fields) {
     /* Skip id validation */
@@ -319,7 +350,10 @@ function validateSchema(schema, sessData, setError, accessPath=[], collLabel=nul
       }
     }
   }
-  return schema.validate(sessData, (id, message)=>setError(accessPath.concat(id), message));
+  return schema.validate(
+    sessData,
+    (id, message) => setError(accessPath.concat(id), message)
+  );
 }
 
 export const SCHEMA_STATE_ACTIONS = {
@@ -380,58 +414,60 @@ const sessDataReducer = (state, action)=>{
   let data = _.cloneDeep(state);
   let rows, cid, deferredList;
   data.__deferred__ = data.__deferred__ || [];
+
   switch(action.type) {
-  case SCHEMA_STATE_ACTIONS.INIT:
-    data = action.payload;
-    break;
-  case SCHEMA_STATE_ACTIONS.BULK_UPDATE:
-    rows = (_.get(data, action.path)||[]);
-    rows.forEach((row)=> {
-      row[action.id] = false;
-    });
-    _.set(data, action.path, rows);
-    break;
-  case SCHEMA_STATE_ACTIONS.SET_VALUE:
-    _.set(data, action.path, action.value);
-    /* If there is any dep listeners get the changes */
-    data = getDepChange(action.path, data, state, action);
-    deferredList = getDeferredDepChange(action.path, data, state, action);
-    data.__deferred__ = deferredList || [];
-    break;
-  case SCHEMA_STATE_ACTIONS.ADD_ROW:
-    /* Create id to identify a row uniquely, usefull when getting diff */
-    cid = _.uniqueId('c');
-    action.value['cid'] = cid;
-    if (action.addOnTop) {
-      rows = [].concat(action.value).concat(_.get(data, action.path)||[]);
-    } else {
-      rows = (_.get(data, action.path)||[]).concat(action.value);
-    }
-    _.set(data, action.path, rows);
-    /* If there is any dep listeners get the changes */
-    data = getDepChange(action.path, data, state, action);
-    break;
-  case SCHEMA_STATE_ACTIONS.DELETE_ROW:
-    rows = _.get(data, action.path)||[];
-    rows.splice(action.value, 1);
-    _.set(data, action.path, rows);
-    /* If there is any dep listeners get the changes */
-    data = getDepChange(action.path, data, state, action);
-    break;
-  case SCHEMA_STATE_ACTIONS.MOVE_ROW:
-    rows = _.get(data, action.path)||[];
-    var row = rows[action.oldIndex];
-    rows.splice(action.oldIndex, 1);
-    rows.splice(action.newIndex, 0, row);
-    _.set(data, action.path, rows);
-    break;
-  case SCHEMA_STATE_ACTIONS.CLEAR_DEFERRED_QUEUE:
-    data.__deferred__ = [];
-    break;
-  case SCHEMA_STATE_ACTIONS.DEFERRED_DEPCHANGE:
-    data = getDepChange(action.path, data, state, action);
-    break;
+    case SCHEMA_STATE_ACTIONS.INIT:
+      data = action.payload;
+      break;
+    case SCHEMA_STATE_ACTIONS.BULK_UPDATE:
+      rows = (_.get(data, action.path)||[]);
+      rows.forEach((row)=> {
+        row[action.id] = false;
+      });
+      _.set(data, action.path, rows);
+      break;
+    case SCHEMA_STATE_ACTIONS.SET_VALUE:
+      _.set(data, action.path, action.value);
+      /* If there is any dep listeners get the changes */
+      data = getDepChange(action.path, data, state, action);
+      deferredList = getDeferredDepChange(action.path, data, state, action);
+      data.__deferred__ = deferredList || [];
+      break;
+    case SCHEMA_STATE_ACTIONS.ADD_ROW:
+      /* Create id to identify a row uniquely, usefull when getting diff */
+      cid = _.uniqueId('c');
+      action.value['cid'] = cid;
+      if (action.addOnTop) {
+        rows = [].concat(action.value).concat(_.get(data, action.path)||[]);
+      } else {
+        rows = (_.get(data, action.path)||[]).concat(action.value);
+      }
+      _.set(data, action.path, rows);
+      /* If there is any dep listeners get the changes */
+      data = getDepChange(action.path, data, state, action);
+      break;
+    case SCHEMA_STATE_ACTIONS.DELETE_ROW:
+      rows = _.get(data, action.path)||[];
+      rows.splice(action.value, 1);
+      _.set(data, action.path, rows);
+      /* If there is any dep listeners get the changes */
+      data = getDepChange(action.path, data, state, action);
+      break;
+    case SCHEMA_STATE_ACTIONS.MOVE_ROW:
+      rows = _.get(data, action.path)||[];
+      var row = rows[action.oldIndex];
+      rows.splice(action.oldIndex, 1);
+      rows.splice(action.newIndex, 0, row);
+      _.set(data, action.path, rows);
+      break;
+    case SCHEMA_STATE_ACTIONS.CLEAR_DEFERRED_QUEUE:
+      data.__deferred__ = [];
+      break;
+    case SCHEMA_STATE_ACTIONS.DEFERRED_DEPCHANGE:
+      data = getDepChange(action.path, data, state, action);
+      break;
   }
+
   return data;
 };
 
@@ -782,31 +818,85 @@ function SchemaDialogView({
         <Box className={classes.root}>
           <Box className={classes.form}>
             <Loader message={loaderText || loadingText}/>
-            <FormView value={sessData} viewHelperProps={viewHelperProps}
-              schema={schema} accessPath={[]} dataDispatch={sessDispatchWithListener}
-              hasSQLTab={props.hasSQL} getSQLValue={getSQLValue} firstEleRef={firstEleRef} isTabView={isTabView} className={props.formClassName} />
-            <FormFooterMessage type={MESSAGE_TYPE.ERROR} message={formErr.message}
-              onClose={onErrClose} />
+            <FormView
+              value={sessData} viewHelperProps={viewHelperProps}
+              schema={schema} accessPath={[]}
+              dataDispatch={sessDispatchWithListener}
+              hasSQLTab={props.hasSQL} getSQLValue={getSQLValue}
+              firstEleRef={firstEleRef} isTabView={isTabView}
+              className={props.formClassName}
+            />
+            <FormFooterMessage
+              type={MESSAGE_TYPE.ERROR}
+              message={formErr.message}
+              onClose={onErrClose}
+            />
           </Box>
-          {showFooter && <Box className={classes.footer}>
-            {(!props.disableSqlHelp || !props.disableDialogHelp) && <Box>
-              <PgIconButton data-test="sql-help" onClick={()=>props.onHelp(true, isNew)} icon={<InfoIcon />}
-                disabled={props.disableSqlHelp} className={classes.buttonMargin} title="SQL help for this object type."/>
-              <PgIconButton data-test="dialog-help" onClick={()=>props.onHelp(false, isNew)} icon={<HelpIcon />} title="Help for this dialog."
-                disabled={props.disableDialogHelp}/>
-            </Box>}
-            <Box marginLeft="auto">
-              <DefaultButton data-test="Close" onClick={props.onClose} startIcon={<CloseIcon />} className={classes.buttonMargin}>
-                {gettext('Close')}
-              </DefaultButton>
-              <DefaultButton data-test="Reset" onClick={onResetClick} startIcon={<SettingsBackupRestoreIcon />} disabled={!dirty || saving} className={classes.buttonMargin}>
-                {gettext('Reset')}
-              </DefaultButton>
-              <PrimaryButton data-test="Save" onClick={onSaveClick} startIcon={ButtonIcon} disabled={ !(viewHelperProps.mode === 'edit' || checkDirtyOnEnableSave ? dirty : true) || saving || Boolean(formErr.name && formErr.name !== 'apierror') || !formReady}>
-                {props.customSaveBtnName ? gettext(props.customSaveBtnName) : gettext('Save')}
-              </PrimaryButton>
+
+          {showFooter && (
+            <Box className={classes.footer}>
+              {(!props.disableSqlHelp || !props.disableDialogHelp) && (
+                <Box>
+                  <PgIconButton
+                    data-test="sql-help"
+                    onClick={() => props.onHelp(true, isNew)}
+                    icon={<InfoIcon />}
+                    disabled={props.disableSqlHelp}
+                    className={classes.buttonMargin}
+                    title="SQL help for this object type."
+                  />
+                  <PgIconButton
+                    data-test="dialog-help"
+                    onClick={() => props.onHelp(false, isNew)}
+                    icon={<HelpIcon />}
+                    title="Help for this dialog."
+                    disabled={props.disableDialogHelp}
+                  />
+                </Box>
+              )}
+              <Box marginLeft="auto">
+                <DefaultButton
+                  data-test="Close"
+                  onClick={props.onClose}
+                  startIcon={<CloseIcon />}
+                  className={classes.buttonMargin}
+                >
+                  {gettext('Close')}
+                </DefaultButton>
+                <DefaultButton
+                  data-test="Reset"
+                  onClick={onResetClick}
+                  startIcon={<SettingsBackupRestoreIcon />}
+                  disabled={!dirty || saving}
+                  className={classes.buttonMargin}
+                >
+                  {gettext('Reset')}
+                </DefaultButton>
+                <PrimaryButton
+                  data-test="Save"
+                  onClick={onSaveClick}
+                  startIcon={ButtonIcon}
+                  disabled={
+                    !(
+                      viewHelperProps.mode === 'edit' ||
+                      checkDirtyOnEnableSave ? dirty : true
+                    ) ||
+                    saving ||
+                    Boolean(
+                      formErr.name &&
+                      formErr.name !== 'apierror'
+                    ) ||
+                    !formReady
+                  }
+                >
+                  {props.customSaveBtnName
+                    ? gettext(props.customSaveBtnName)
+                    : gettext('Save')
+                  }
+                </PrimaryButton>
+              </Box>
             </Box>
-          </Box>}
+          )}
         </Box>
       </DepListenerContext.Provider>
     </StateUtilsContext.Provider>
@@ -844,7 +934,7 @@ SchemaDialogView.propTypes = {
   checkDirtyOnEnableSave: PropTypes.bool,
 };
 
-const usePropsStyles = makeStyles((theme)=>({
+const usePropsStyles = makeStyles((theme) => ({
   root: {
     height: '100%',
     minHeight: 0,
@@ -874,7 +964,8 @@ const usePropsStyles = makeStyles((theme)=>({
 
 /* If its the properties tab */
 function SchemaPropertiesView({
-  getInitData, viewHelperProps, schema={}, updatedData, ...props}) {
+  getInitData, viewHelperProps, schema = {}, updatedData, ...props
+}) {
   const classes = usePropsStyles();
   let defaultTab = 'General';
   let tabs = {};
@@ -914,7 +1005,9 @@ function SchemaPropertiesView({
   /* A simple loop to get all the controls for the fields */
   schema.fields.forEach((field)=>{
     let {group} = field;
-    let {visible, disabled, readonly, modeSupported} = getFieldMetaData(field, schema, origData, viewHelperProps);
+    let {
+      visible, disabled, readonly, modeSupported
+    } = getFieldMetaData(field, schema, origData, viewHelperProps);
     group = group || defaultTab;
 
     if(field.isFullTab) {
@@ -923,7 +1016,10 @@ function SchemaPropertiesView({
 
     if(modeSupported) {
       group = groupLabels[group] || group || defaultTab;
-      if(field.helpMessageMode && field.helpMessageMode.indexOf(viewHelperProps.mode) == -1) {
+      if (
+        field.helpMessageMode &&
+        field.helpMessageMode.indexOf(viewHelperProps.mode) == -1
+      ) {
         field.helpMessage = '';
       }
 
@@ -941,7 +1037,8 @@ function SchemaPropertiesView({
             visible={visible}
           />
         );
-      } else if(field.type === 'collection') {
+      }
+      else if (field.type === 'collection') {
         tabs[group].push(
           <DataGridView
             key={field.id}
@@ -958,12 +1055,14 @@ function SchemaPropertiesView({
             visible={visible}
           />
         );
-      } else if(field.type === 'group') {
+      }
+      else if (field.type === 'group') {
         groupLabels[field.id] = field.label;
         if(!visible) {
           schema.filterGroups.push(field.label);
         }
-      } else {
+      }
+      else {
         tabs[group].push(
           <MappedFormControl
             key={field.id}
@@ -988,18 +1087,35 @@ function SchemaPropertiesView({
     }
   });
 
-  let finalTabs = _.pickBy(tabs, (v, tabName)=>schema.filterGroups.indexOf(tabName) <= -1);
+  let finalTabs = _.pickBy(
+    tabs,
+    (v, tabName) => schema.filterGroups.indexOf(tabName) <= -1
+  );
+  
   return (
     <Box className={classes.root}>
       <Loader message={loaderText}/>
       <Box className={classes.toolbar}>
         <PgIconButton
-          data-test="help" onClick={()=>props.onHelp(true, false)} icon={<InfoIcon />} disabled={props.disableSqlHelp}
-          title="SQL help for this object type." className={classes.buttonMargin} />
-        <PgIconButton data-test="edit"
-          onClick={props.onEdit} icon={<EditIcon />} title={gettext('Edit object...')} />
+          data-test="help"
+          onClick={() => props.onHelp(true, false)}
+          icon={<InfoIcon />}
+          disabled={props.disableSqlHelp}
+          title="SQL help for this object type."
+          className={classes.buttonMargin}
+        />
+        <PgIconButton
+          data-test="edit"
+          onClick={props.onEdit}
+          icon={<EditIcon />}
+          title={gettext('Edit object...')}
+        />
       </Box>
-      <Box className={clsx(classes.form, classes.formProperties)}>
+      <Box
+        className={
+          clsx(classes.form, classes.formProperties)
+        }
+      >
         <Box>
           {Object.keys(finalTabs).map((tabName)=>{
             let id = tabName.replace(' ', '');
@@ -1012,7 +1128,9 @@ function SchemaPropertiesView({
                 >
                   {tabName}
                 </AccordionSummary>
-                <AccordionDetails className={tabsClassname[tabName]}>
+                <AccordionDetails
+                  className={tabsClassname[tabName]}
+                >
                   <Box style={{width: '100%'}}>
                     {finalTabs[tabName]}
                   </Box>

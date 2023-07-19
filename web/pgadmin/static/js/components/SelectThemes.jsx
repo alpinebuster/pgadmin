@@ -32,9 +32,17 @@ export default function SelectThemes({onChange, ...props}) {
       direction="column"
     >
       <Grid item lg={12} md={12} sm={12} xs={12}>
-        <InputSelect ref={props.inputRef} onChange={themeChange} {...props} />
+        <InputSelect
+          ref={props.inputRef}
+          onChange={themeChange}
+          {...props}
+        />
       </Grid>
-      <Grid item lg={12} md={12} sm={12} xs={12} className={classes.preview}>
+      <Grid
+        item
+        lg={12} md={12} sm={12} xs={12}
+        className={classes.preview}
+      >
         <img
           className='img-fluid mx-auto d-block'
           src={previewSrc}

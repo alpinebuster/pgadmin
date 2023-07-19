@@ -1,17 +1,22 @@
+import getApiInstance from 'sources/api_instance';
+import {retrieveAncestorOfTypeServer} from 'sources/tree/tree_utils';
+
+import RestoreSchema, {
+  getRestoreSaveOptSchema, getRestoreQueryOptionSchema,
+  getRestoreDisableOptionSchema, getRestoreMiscellaneousSchema,
+  getRestoreTypeObjSchema, getRestoreSectionSchema
+} from './restore.ui';
 import { getNodeListByName } from '../../../../browser/static/js/node_ajax';
 import {getUtilityView} from '../../../../browser/static/js/utility_view';
 import Notify from '../../../../static/js/helpers/Notifier';
-import getApiInstance from 'sources/api_instance';
-import {retrieveAncestorOfTypeServer} from 'sources/tree/tree_utils';
-import RestoreSchema, {getRestoreSaveOptSchema, getRestoreQueryOptionSchema, getRestoreDisableOptionSchema, getRestoreMiscellaneousSchema, getRestoreTypeObjSchema, getRestoreSectionSchema} from './restore.ui';
 
 define('tools.restore', [
   'sources/gettext', 'sources/url_for', 'pgadmin.browser',
-  'tools/restore/static/js/menu_utils', 'sources/nodes/supported_database_node',
+  'tools/restore/static/js/menu_utils',
+  'sources/nodes/supported_database_node',
 ], function(
   gettext, url_for, pgBrowser, menuUtils, supportedNodes
 ) {
-
   // if module is already initialized, refer to that.
   if (pgBrowser.Restore) {
     return pgBrowser.Restore;

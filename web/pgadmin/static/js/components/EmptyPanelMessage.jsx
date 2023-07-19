@@ -4,7 +4,7 @@ import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import { makeStyles } from '@material-ui/styles';
 import PropTypes from 'prop-types';
 
-const useStyles = makeStyles((theme)=>({
+const useStyles = makeStyles((theme) => ({
   root: {
     color: theme.palette.text.primary,
     margin: 'auto',
@@ -24,6 +24,7 @@ export default function EmptyPanelMessage({text}) {
     </Box>
   );
 }
+
 EmptyPanelMessage.propTypes = {
   text: PropTypes.string,
 };

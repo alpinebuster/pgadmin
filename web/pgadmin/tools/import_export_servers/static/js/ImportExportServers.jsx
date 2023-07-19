@@ -1,48 +1,50 @@
-import gettext from 'sources/gettext';
 import _ from 'lodash';
-import url_for from 'sources/url_for';
 import React from 'react';
 import { Box, Paper} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+
+import url_for from 'sources/url_for';
+import gettext from 'sources/gettext';
+import pgAdmin from 'sources/pgadmin';
+import Loader from 'sources/components/Loader';
+
 import Wizard from '../../../../static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../../static/js/helpers/wizard/WizardStep';
-import { FormFooterMessage, MESSAGE_TYPE, FormNote } from '../../../../static/js/components/FormComponents';
+import {
+  FormFooterMessage, MESSAGE_TYPE, FormNote
+} from '../../../../static/js/components/FormComponents';
 import SchemaView from '../../../../static/js/schema_view';
-import Loader from 'sources/components/Loader';
 import ImportExportSelectionSchema from './import_export_selection.ui';
 import CheckBoxTree from '../../../../static/js/components/CheckBoxTree';
 import getApiInstance from '../../../../static/js/api_instance';
-import PropTypes from 'prop-types';
 import { commonTableStyles } from '../../../../static/js/theme';
-import clsx from 'clsx';
 import Notify from '../../../../static/js/helpers/Notifier';
-import pgAdmin from 'sources/pgadmin';
 
-const useStyles = makeStyles(() =>
-  ({
-    root: {
-      height: '100%'
-    },
-    treeContainer: {
-      flexGrow: 1,
-      minHeight: 0,
-    },
-    boxText: {
-      paddingBottom: '5px'
-    },
-    noOverflow: {
-      overflow: 'hidden'
-    },
-    summaryContainer: {
-      flexGrow: 1,
-      minHeight: 0,
-      overflow: 'auto',
-    },
-    noteContainer: {
-      marginTop: '5px',
-    }
-  }),
-);
+const useStyles = makeStyles(() => ({
+  root: {
+    height: '100%'
+  },
+  treeContainer: {
+    flexGrow: 1,
+    minHeight: 0,
+  },
+  boxText: {
+    paddingBottom: '5px'
+  },
+  noOverflow: {
+    overflow: 'hidden'
+  },
+  summaryContainer: {
+    flexGrow: 1,
+    minHeight: 0,
+    overflow: 'auto',
+  },
+  noteContainer: {
+    marginTop: '5px',
+  }
+}));
 
 export default function ImportExportServers({onClose}) {
   const classes = useStyles();

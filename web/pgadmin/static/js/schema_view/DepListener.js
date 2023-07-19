@@ -66,7 +66,9 @@ export default class DepListener {
     } else {
       let allListeners = _.filter(
         this._depListeners,
-        (entry) => _.join(currPath, '|').startsWith(_.join(entry.source, '|'))
+        (entry) => _.join(currPath, '|').startsWith(
+          _.join(entry.source, '|')
+        )
       );
       if(allListeners) {
         for(const listener of allListeners) {
@@ -81,8 +83,11 @@ export default class DepListener {
     let deferredList = [];
     let allListeners = _.filter(
       this._depListeners,
-      (entry) => _.join(currPath, '|').startsWith(_.join(entry.source, '|'))
+      (entry) => _.join(currPath, '|').startsWith(
+        _.join(entry.source, '|')
+      )
     );
+
     if(allListeners) {
       for(const listener of allListeners) {
         if(listener.defCallback) {

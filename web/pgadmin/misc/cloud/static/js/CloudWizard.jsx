@@ -13,7 +13,9 @@ import {
 
 import Wizard from '../../../../static/js/helpers/wizard/Wizard';
 import WizardStep from '../../../../static/js/helpers/wizard/WizardStep';
-import {FormFooterMessage, MESSAGE_TYPE } from '../../../../static/js/components/FormComponents';
+import {
+  FormFooterMessage, MESSAGE_TYPE
+} from '../../../../static/js/components/FormComponents';
 import getApiInstance from '../../../../static/js/api_instance';
 import Notifier from '../../../../static/js/helpers/Notifier';
 import {ToggleButtons, FinalSummary} from './cloud_components';
@@ -68,7 +70,7 @@ const useStyles = makeStyles(() => ({
   authButton: {
     marginLeft: '12em'
   }
-}),);
+}));
 
 export const CloudWizardEventsContext = React.createContext();
 

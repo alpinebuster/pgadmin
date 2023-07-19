@@ -85,7 +85,9 @@ export interface IFileTreeXProps {
   /**
    * Amalgam of unix's `mkdir` and `touch` command
    */
-  create: (path: string, type: FileType) => IFileEntryItem | Promise<IFileEntryItem>
+  create: (
+    path: string, type: FileType
+  ) => IFileEntryItem | Promise<IFileEntryItem>
   onReady?: (handle: IFileTreeXHandle) => void
   onEvent?: (event: IFileTreeXTriggerEvents) => void
   onContextMenu?: (ev: React.MouseEvent, item?: FileOrDir) => void

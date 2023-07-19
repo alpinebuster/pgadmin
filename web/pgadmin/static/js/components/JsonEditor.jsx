@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import {default as OrigJsonEditor} from 'jsoneditor.min';
 import PropTypes from 'prop-types';
+
 import CustomPropTypes from '../custom_prop_types';
 
 /* React wrapper for JsonEditor */
-export default function JsonEditor({getEditor, value, options, className}) {
+export default function JsonEditor({
+  getEditor, value, options, className
+}) {
   const eleRef = useRef();
   const editor = useRef();
   const defaultOptions = {
@@ -35,7 +38,8 @@ export default function JsonEditor({getEditor, value, options, className}) {
     getEditor?.(editor.current);
     editor.current.focus();
     /* Required by json editor */
-    eleRef.current.style.height = eleRef.current.offsetHeight + 'px';
+    eleRef.current.style.height =
+      eleRef.current.offsetHeight + 'px';
   }, []);
 
   useMemo(() => {

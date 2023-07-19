@@ -1,6 +1,8 @@
 /* Common form components used in pgAdmin */
 
-import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  forwardRef, useCallback, useEffect, useRef, useState
+} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Box, FormControl, OutlinedInput, FormHelperText,
@@ -8,7 +10,9 @@ import {
   Checkbox, useTheme, InputLabel, Paper,
   Select as MuiSelect, Radio
 } from '@material-ui/core';
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+import {
+  ToggleButton, ToggleButtonGroup
+} from '@material-ui/lab';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorOutlineRounded';
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import CloseIcon from '@material-ui/icons/CloseRounded';
@@ -17,22 +21,24 @@ import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 import FolderOpenRoundedIcon from '@material-ui/icons/FolderOpenRounded';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
+import {
+  KeyboardDateTimePicker, KeyboardDatePicker,
+  KeyboardTimePicker, MuiPickersUtilsProvider
+} from '@material-ui/pickers';
 import Select, { components as RSComponents } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import HTMLReactParse from 'html-react-parser';
-import {
-  KeyboardDateTimePicker, KeyboardDatePicker,
-  KeyboardTimePicker, MuiPickersUtilsProvider
-} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import * as DateFns from 'date-fns';
 import _ from 'lodash';
 
 import gettext from 'sources/gettext';
 
-import { DefaultButton, PrimaryButton, PgIconButton } from './Buttons';
+import {
+  DefaultButton, PrimaryButton, PgIconButton
+} from './Buttons';
 import CustomPropTypes from '../custom_prop_types';
 import KeyboardShortcuts from './KeyboardShortcuts';
 import QueryThresholds from './QueryThresholds';
@@ -1094,7 +1100,6 @@ InputSelect.propTypes = {
   readonly: PropTypes.bool,
 };
 
-
 export function FormInputSelect({
   hasError, required, className, label, helpMessage, testcid,
   ...props
@@ -1340,7 +1345,6 @@ FormInputQueryThreshold.propTypes = {
   onChange: PropTypes.func
 };
 
-
 export function FormInputSelectThemes({
   hasError, label, className, helpMessage,
   testcid, onChange, ...props
@@ -1371,7 +1375,6 @@ FormInputSelectThemes.propTypes = {
   onChange: PropTypes.func
 };
 
-
 export function NotifierMessage({
   type = MESSAGE_TYPE.SUCCESS, message, style, closable = true, showIcon=true, textCenter=false,
   onClose = () => {/*This is intentional (SonarQube)*/ }}) {
@@ -1399,7 +1402,6 @@ NotifierMessage.propTypes = {
   onClose: PropTypes.func,
   style: PropTypes.object,
 };
-
 
 export function FormButton({required, label,
   className, helpMessage, onClick, disabled, ...props }) {

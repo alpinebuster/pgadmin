@@ -62,19 +62,18 @@ export default class BaseUISchema {
   concat base fields with extraFields.
   */
   get fields() {
-    return this.baseFields
-      .filter((field)=>{
-        let retval;
+    return this.baseFields.filter((field) => {
+      let retval;
 
-        /* If any groups are to be filtered */
-        retval = this.filterGroups.indexOf(field.group) == -1;
+      /* If any groups are to be filtered */
+      retval = this.filterGroups.indexOf(field.group) == -1;
 
-        /* Select only keys, if specified */
-        if(this.keys) {
-          retval = retval && this.keys.indexOf(field.id) > -1;
-        }
-        return retval;
-      });
+      /* Select only keys, if specified */
+      if(this.keys) {
+        retval = retval && this.keys.indexOf(field.id) > -1;
+      }
+      return retval;
+    });
   }
 
   initialise() {
@@ -152,10 +151,11 @@ export default class BaseUISchema {
     let res = [];
     if (state && this.isNew(state)) {
       options.forEach((option) => {
-        if(option && option.label == '') {
-          return;
-        }
-        res.push({ label: option.label, value: option.value });
+        if(option && option.label == '') return;
+        res.push({
+          label: option.label,
+          value: option.value
+        });
       });
     } else {
       res = options;

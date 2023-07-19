@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import {InputCheckbox, InputText} from './FormComponents';
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles(() => ({
   /* Display the privs table only when focussed */
   root: {
     '&:not(:focus-within) .priv-table': {

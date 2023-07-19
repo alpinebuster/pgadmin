@@ -17,10 +17,18 @@ import BaseUISchema from 'sources/schema_view/base_schema.ui';
 import SchemaView from '../../../../static/js/schema_view';
 import getApiInstance from '../../../../static/js/api_instance';
 import Notify from '../../../../static/js/helpers/Notifier';
-import { DefaultButton, PgIconButton, PrimaryButton } from '../../../../static/js/components/Buttons';
-import { getBinaryPathSchema } from '../../../../browser/server_groups/servers/static/js/binary_path.ui';
-import { _set_dynamic_tab } from '../../../../tools/sqleditor/static/js/show_query_tool';
-import { getBrowserAccesskey } from '../../../../static/js/components/ShortcutTitle';
+import {
+  DefaultButton, PgIconButton, PrimaryButton
+} from '../../../../static/js/components/Buttons';
+import {
+  getBinaryPathSchema
+} from '../../../../browser/server_groups/servers/static/js/binary_path.ui';
+import {
+  _set_dynamic_tab
+} from '../../../../tools/sqleditor/static/js/show_query_tool';
+import {
+  getBrowserAccesskey
+} from '../../../../static/js/components/ShortcutTitle';
 
 class PreferencesSchema extends BaseUISchema {
   constructor(initValues = {}, schemaFields = []) {
@@ -44,79 +52,76 @@ class PreferencesSchema extends BaseUISchema {
   }
 }
 
-const useStyles = makeStyles((theme) =>
-  ({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      flexGrow: 1,
-      height: '100%',
-      backgroundColor: theme.palette.background.default,
-      overflow: 'hidden',
-      '&$disabled': {
-        color: '#ddd',
-      }
-    },
-    body: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-    },
-    preferences: {
-      borderColor: theme.otherVars.borderColor,
-      display: 'flex',
-      flexGrow: 1,
-      height: '100%',
-      minHeight: 0,
-      overflow: 'hidden'
-
-    },
-    treeContainer: {
-      flexBasis: '25%',
-      alignItems: 'flex-start',
-      paddingLeft: '5px',
-      minHeight: 0,
-      flexGrow: 1
-    },
-    tree: {
-      height: '100%',
-      flexGrow: 1
-    },
-    preferencesContainer: {
-      flexBasis: '75%',
-      padding: '5px',
-      borderColor: theme.otherVars.borderColor + '!important',
-      borderLeft: '1px solid',
-      position: 'relative',
-      height: '100%',
-      paddingTop: '5px',
-      overflow: 'auto'
-    },
-    actionBtn: {
-      alignItems: 'flex-start',
-    },
-    buttonMargin: {
-      marginLeft: '0.5em'
-    },
-    footer: {
-      borderTop: `1px solid ${theme.otherVars.inputBorderColor} !important`,
-      padding: '0.5rem',
-      display: 'flex',
-      width: '100%',
-      background: theme.otherVars.headerBg,
-    },
-    customTreeClass: {
-      '& .react-checkbox-tree': {
-        height: '100% !important',
-        border: 'none !important',
-      },
-    },
-    preferencesTree: {
-      height: 'calc(100% - 50px)',
-      minHeight: 0
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+    height: '100%',
+    backgroundColor: theme.palette.background.default,
+    overflow: 'hidden',
+    '&$disabled': {
+      color: '#ddd',
     }
-  }),
-);
+  },
+  body: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  preferences: {
+    borderColor: theme.otherVars.borderColor,
+    display: 'flex',
+    flexGrow: 1,
+    height: '100%',
+    minHeight: 0,
+    overflow: 'hidden'
+  },
+  treeContainer: {
+    flexBasis: '25%',
+    alignItems: 'flex-start',
+    paddingLeft: '5px',
+    minHeight: 0,
+    flexGrow: 1
+  },
+  tree: {
+    height: '100%',
+    flexGrow: 1
+  },
+  preferencesContainer: {
+    flexBasis: '75%',
+    padding: '5px',
+    borderColor: theme.otherVars.borderColor + '!important',
+    borderLeft: '1px solid',
+    position: 'relative',
+    height: '100%',
+    paddingTop: '5px',
+    overflow: 'auto'
+  },
+  actionBtn: {
+    alignItems: 'flex-start',
+  },
+  buttonMargin: {
+    marginLeft: '0.5em'
+  },
+  footer: {
+    borderTop: `1px solid ${theme.otherVars.inputBorderColor} !important`,
+    padding: '0.5rem',
+    display: 'flex',
+    width: '100%',
+    background: theme.otherVars.headerBg,
+  },
+  customTreeClass: {
+    '& .react-checkbox-tree': {
+      height: '100% !important',
+      border: 'none !important',
+    },
+  },
+  preferencesTree: {
+    height: 'calc(100% - 50px)',
+    minHeight: 0
+  }
+}));
 
 function RightPanel({ schema, ...props }) {
   let initData = () => new Promise((resolve, reject) => {
@@ -618,7 +623,13 @@ export default function PreferencesComponent({ ...props }) {
   }
 
   const onDialogHelp = () => {
-    window.open(url_for('help.static', { 'filename': 'preferences.html' }), 'pgadmin_help');
+    window.open(
+      url_for(
+        'help.static',
+        {'filename': 'preferences.html'}
+      ),
+      'pgadmin_help'
+    );
   };
 
   return (
@@ -645,7 +656,7 @@ export default function PreferencesComponent({ ...props }) {
             }
           </Box>
         </Box>
-        
+
         <Box className={classes.footer}>
           <Box>
             <PgIconButton data-test="dialog-help" onClick={onDialogHelp} icon={<HelpIcon />} title={gettext('Help for this dialog.')} />

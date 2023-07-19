@@ -5,11 +5,16 @@ import _ from 'lodash';
 import { evalFunc } from 'sources/utils';
 
 import {
-  FormInputText, FormInputSelect, FormInputSwitch, FormInputCheckbox, FormInputColor,
-  FormInputFileSelect, FormInputToggle, InputSwitch, FormInputSQL, InputSQL, FormNote,
-  FormInputDateTimePicker, PlainString, InputRadio, FormButton, InputSelect,
+  FormInputText, FormInputSelect, FormInputSwitch,
+  FormInputCheckbox,
+  FormInputColor,
+  FormInputFileSelect, FormInputToggle, InputSwitch, FormInputSQL,
+  InputSQL, FormNote,
+  FormInputDateTimePicker, PlainString, InputRadio, FormButton,
+  InputSelect,
   InputText, InputCheckbox, InputDateTimePicker, InputFileSelect,
-  FormInputKeyboardShortcut, FormInputQueryThreshold, FormInputSelectThemes
+  FormInputKeyboardShortcut, FormInputQueryThreshold,
+  FormInputSelectThemes
 } from '../components/FormComponents';
 import Privilege from '../components/Privilege';
 import CustomPropTypes from '../custom_prop_types';

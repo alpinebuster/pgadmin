@@ -730,7 +730,6 @@ export class FileTreeX extends React.Component<IFileTreeXProps> {
       'div'
     ).querySelector('div') as HTMLDivElement;
     div.scroll(scrollXPos, scrollYPos);
-
   };
 
   private changeResolvePath = async (

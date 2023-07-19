@@ -130,7 +130,9 @@ export class ManagePreferenceTreeNodes {
 }
 
 export class TreeNode {
-  constructor(id, data, domNode, parent, metadata, type) {
+  constructor(
+    id, data, domNode, parent, metadata, type
+  ) {
     this.id = id;
     this.data = data;
     this.setParent(parent);

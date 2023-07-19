@@ -209,7 +209,9 @@ const ROW_HEIGHT = 35;
 
 function SortIcon ({column}) {
   if (column.isSorted) {
-    return column.isSortedDesc ? <KeyboardArrowDownIcon style={{fontSize: '1.2rem'}} /> : <KeyboardArrowUpIcon style={{fontSize: '1.2rem'}} />;
+    return column.isSortedDesc
+      ? <KeyboardArrowDownIcon style={{fontSize: '1.2rem'}} />
+      : <KeyboardArrowUpIcon style={{fontSize: '1.2rem'}} />;
   }
   return '';
 }
@@ -294,7 +296,11 @@ RenderRow.propTypes = {
   ExpandedComponent: PropTypes.node,
 };
 
-export default function PgTable({ columns, data, isSelectRow, caveTable=true, schema, ExpandedComponent, sortOptions, tableProps, ...props }) {
+export default function PgTable({
+  columns, data, isSelectRow, caveTable = true,
+  schema, ExpandedComponent, sortOptions,
+  tableProps, ...props
+}) {
   // Use the state and functions returned from useTable to build your UI
   const classes = useStyles();
   const [searchVal, setSearchVal] = React.useState('');
