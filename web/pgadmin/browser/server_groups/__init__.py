@@ -17,8 +17,10 @@ import config
 from pgadmin.utils.preferences import Preferences
 
 
-def get_icon_css_class(group_id, group_user_id,
-                       default_val='icon-server_group'):
+def get_icon_css_class(
+    group_id, group_user_id,
+    default_val='icon-server_group'
+):
     """
     Returns css value
     :param group_id:
@@ -175,8 +177,10 @@ class ServerGroupView(NodeView):
         # if server group id is 1 we won't delete it.
         sg = groups.first()
 
-        shared_servers = Server.query.filter_by(servergroup_id=gid,
-                                                shared=True).all()
+        shared_servers = Server.query.filter_by(
+            servergroup_id=gid,
+            shared=True
+        ).all()
         if shared_servers:
             return make_json_response(
                 status=417,

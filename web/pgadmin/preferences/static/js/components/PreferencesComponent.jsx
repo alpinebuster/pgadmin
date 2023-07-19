@@ -161,15 +161,18 @@ RightPanel.propTypes = {
 
 export default function PreferencesComponent({ ...props }) {
   const classes = useStyles();
-  const [disableSave, setDisableSave] = React.useState(true);
+
   const prefSchema = React.useRef(new PreferencesSchema({}, []));
   const prefChangedData = React.useRef({});
   const prefTreeInit = React.useRef(false);
+  const firstTreeElement = React.useRef('');
+
+  const [disableSave, setDisableSave] = React.useState(true);
   const [prefTreeData, setPrefTreeData] = React.useState(null);
   const [initValues, setInitValues] = React.useState({});
   const [loadTree, setLoadTree] = React.useState(0);
+
   const api = getApiInstance();
-  const firstTreeElement = React.useRef('');
 
   useEffect(() => {
     const pref_url = url_for('preferences.index');
@@ -220,7 +223,9 @@ export default function PreferencesComponent({ ...props }) {
           };
 
           addNote(node, subNode, nodeData, preferencesData);
-          setPreferences(node, subNode, nodeData, preferencesValues, preferencesData);
+          setPreferences(
+            node, subNode, nodeData, preferencesValues, preferencesData
+          );
           tdata['childrenNodes'].push(nodeData);
         });
 
@@ -231,7 +236,9 @@ export default function PreferencesComponent({ ...props }) {
       setPrefTreeData(preferencesTreeData);
       setInitValues(preferencesValues);
       // set Preferences schema
-      prefSchema.current = new PreferencesSchema(preferencesValues, preferencesData);
+      prefSchema.current = new PreferencesSchema(
+        preferencesValues, preferencesData
+      );
     }).catch((err) => {
       Notify.alert(err);
     });
@@ -362,10 +369,18 @@ export default function PreferencesComponent({ ...props }) {
     node, subNode, nodeData, preferencesData, note = ''
   ) {
     // Check and add the note for the element.
-    if (subNode.label == gettext('Nodes') && node.label == gettext('Browser')) {
-      note = [gettext('This settings is to Show/Hide nodes in the object explorer.')].join('');
+    if (
+      subNode.label == gettext('Nodes') &&
+      node.label == gettext('Browser')
+    ) {
+      note = [
+        gettext('This settings is to Show/Hide nodes in the object explorer.')
+      ].join('');
     } if(nodeData.name == 'keyboard_shortcuts') {
-      note = gettext('The Accesskey here is %s.', getBrowserAccesskey().join(' + '));
+      note = gettext(
+        'The Accesskey here is %s.',
+        getBrowserAccesskey().join(' + ')
+      );
     } else {
       note = [note].join('');
     }
