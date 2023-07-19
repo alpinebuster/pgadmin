@@ -18,13 +18,12 @@ a web server using a browser, or standalone on a workstation. The runtime/
 subdirectory contains an NWjs based runtime application intended to allow this,
 which will execute the Python server and display the UI.
 
-## Building the Runtime
+# Building the Runtime
 
 To build the runtime, the following packages must be installed:
 
 * NodeJS 12+
 * Yarn
-* `sudo apt-get install libkrb5-dev gcc python3-dev`
 
 Change into the runtime directory, and run *yarn install*. This will install the
 dependencies required.
@@ -174,6 +173,8 @@ download the required packages and build the bundle:
 cd $PGADMIN_SRC
 # Install prerequisites for `imagemin-mozjpeg`
 sudo apt-get install libtool automake autoconf nasm
+# for yarn deps
+sudo apt-get install libkrb5-dev gcc python3-dev
 make install-node
 make bundle
 ```
