@@ -243,7 +243,8 @@ let Notifier = {
   },
   alert: (title, text, onOkClick, okLabel=gettext('OK'))=>{
     /* Use this if you want to use pgAdmin global notifier.
-    Or else, if you want to use modal inside iframe only then use ModalProvider eg- query tool */
+    Or else, if you want to use modal inside iframe
+    only then use ModalProvider eg- query tool */
     if(!modalInitialized) {
       initializeModalProvider();
     }

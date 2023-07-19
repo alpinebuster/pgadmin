@@ -13,6 +13,10 @@ import Paper from '@material-ui/core/Paper';
 
 import pgAdmin from 'sources/pgadmin';
 import gettext from 'sources/gettext';
+import {
+  EV_RUNTIME_REFRESH_MENU_ITEM,
+  EV_RUNTIME_TOGGLE_MENU_ITEM
+} from 'sources/constants';
 
 import { PrimaryButton } from './components/Buttons';
 import {
@@ -110,12 +114,14 @@ export default function AppMenuBar({onSearchClick}) {
   const reRenderMenus = () => setRefresh((prev) => !prev);
 
   useEffect(()=>{
-    pgAdmin.Browser.Events.on('pgadmin:nw-enable-disable-menu-items', ()=>{
-      reRenderMenus();
-    });
-    pgAdmin.Browser.Events.on('pgadmin:nw-refresh-menu-item',  ()=>{
-      reRenderMenus();
-    });
+    pgAdmin.Browser.Events.on(
+      EV_RUNTIME_TOGGLE_MENU_ITEM,
+      () => {reRenderMenus();}
+    );
+    pgAdmin.Browser.Events.on(
+      EV_RUNTIME_REFRESH_MENU_ITEM,
+      () => {reRenderMenus();}
+    );
   }, []);
 
   const getPgMenuItem = (menuItem, i)=>{

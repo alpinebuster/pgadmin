@@ -1,12 +1,17 @@
 import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
-
-import Menu, { MenuItem } from '../../../static/js/helpers/Menu';
-import getApiInstance from '../../../static/js/api_instance';
 import url_for from 'sources/url_for';
+import {
+  EV_RUNTIME_REFRESH_MENU_ITEM,
+  EV_RUNTIME_TOGGLE_MENU_ITEM,
+  EV_RUNTIME_UPDATE_CHECKED_MENU_ITEM
+} from 'sources/constants';
+
 import Notifier from '../../../static/js/helpers/Notifier';
 import { getBrowser } from '../../../static/js/utils';
 import { isMac } from '../../../static/js/keyboard_shortcuts';
+import Menu, { MenuItem } from '../../../static/js/helpers/Menu';
+import getApiInstance from '../../../static/js/api_instance';
 
 const MAIN_MENUS = [
   { label: gettext('File'), name: 'file', id: 'mnu_file', index: 0,  addSepratior: true },
@@ -74,7 +79,7 @@ export default class MainMenuFactory {
 
   static refreshMainMenuItems(menu, menuItems) {
     menu.setMenuItems(menuItems);
-    pgAdmin.Browser.Events.trigger('pgadmin:nw-refresh-menu-item', menu);
+    pgAdmin.Browser.Events.trigger(EV_RUNTIME_REFRESH_MENU_ITEM, menu);
   }
 
   static createMenuItem(options) {
@@ -104,11 +109,11 @@ export default class MainMenuFactory {
       }
     }}, (menu, item)=> {
       pgAdmin.Browser.Events.trigger(
-        'pgadmin:nw-enable-disable-menu-items', menu, item
+        EV_RUNTIME_TOGGLE_MENU_ITEM, menu, item
       );
     }, (item) => {
       pgAdmin.Browser.Events.trigger(
-        'pgadmin:nw-update-checked-menu-item', item
+        EV_RUNTIME_UPDATE_CHECKED_MENU_ITEM, item
       );
     });
   }

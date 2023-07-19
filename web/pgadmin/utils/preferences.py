@@ -184,12 +184,19 @@ class _Preference():
             if self._type in ('boolean', 'switch', 'node'):
                 assert isinstance(value, bool)
             elif self._type == 'options':
-                has_value = next((True for opt in self.options
-                                  if 'value' in opt and opt['value'] == value),
-                                 False)
-                assert (has_value or (self.control_props and
-                                      (self.control_props['tags'] or
-                                       self.control_props['creatable'])))
+                has_value = next(
+                    (
+                        True for opt in self.options
+                        if 'value' in opt and opt['value'] == value
+                    ),
+                    False
+                )
+                assert (has_value or (
+                    self.control_props and (
+                        self.control_props['tags'] or
+                        self.control_props['creatable']
+                    )
+                ))
             elif self._type == 'date':
                 value = parser_map[self._type](value).date()
             else:

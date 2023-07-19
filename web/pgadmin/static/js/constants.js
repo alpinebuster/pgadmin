@@ -39,5 +39,11 @@ export const EV_DB_CONNECT_CANCELLED = 'pgadmin:database:connect:cancelled';
 
 export const EV_PREFCHANGE = 'prefchange:';
 export const EV_PREF_TREE_ = 'preferences:tree:';
+export const EV_PREF_TREE_SELECTED = 'preferences:tree:selected';
+export const EV_PREF_TREE_OPENED = 'preferences:tree:opened';
+export const EV_PREF_TREE_ADDED = 'preferences:tree:added';
 
 export const EV_RUNTIME_SET_NEW_WINDOW_OPEN_SIZE = 'pgadmin:nw-set-new-window-open-size';
+export const EV_RUNTIME_REFRESH_MENU_ITEM = 'pgadmin:nw-refresh-menu-item';
+export const EV_RUNTIME_TOGGLE_MENU_ITEM = 'pgadmin:nw-enable-disable-menu-items';
+export const EV_RUNTIME_UPDATE_CHECKED_MENU_ITEM = 'pgadmin:nw-update-checked-menu-item';

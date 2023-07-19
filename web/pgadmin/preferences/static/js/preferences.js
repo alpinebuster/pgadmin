@@ -24,7 +24,7 @@ export default class Preferences {
   init() {
     if (this.initialized) return;
     this.initialized = true;
-    
+
     // Add Preferences in to file menu
     let menus = [{
       name: 'mnu_preferences',
@@ -58,8 +58,7 @@ export default class Preferences {
             }}
             closeModal={closeModal} />
         );
-      },
-      {
+      }, {
         isFullScreen: false,
         isResizeable: true,
         showFullScreen: true,

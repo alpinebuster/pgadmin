@@ -13,6 +13,12 @@ import url_for from 'sources/url_for';
 import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
 import BaseUISchema from 'sources/schema_view/base_schema.ui';
+import {
+  EV_RUNTIME_REFRESH_MENU_ITEM,
+  EV_PREF_TREE_SELECTED,
+  EV_PREF_TREE_ADDED,
+  EV_PREF_TREE_OPENED
+} from 'sources/constants';
 
 import SchemaView from '../../../../static/js/schema_view';
 import getApiInstance from '../../../../static/js/api_instance';
@@ -174,6 +180,7 @@ export default function PreferencesComponent({ ...props }) {
       let preferencesData = [];
       let preferencesTreeData = [];
       let preferencesValues = {};
+
       res.data.forEach(node => {
         let id = crypto.getRandomValues(new Uint16Array(1));
         let tdata = {
@@ -219,8 +226,8 @@ export default function PreferencesComponent({ ...props }) {
 
         // set Preferences Tree data
         preferencesTreeData.push(tdata);
-
       });
+
       setPrefTreeData(preferencesTreeData);
       setInitValues(preferencesValues);
       // set Preferences schema
@@ -230,8 +237,11 @@ export default function PreferencesComponent({ ...props }) {
     });
   }, []);
 
-  function setPreferences(node, subNode, nodeData, preferencesValues, preferencesData) {
+  function setPreferences(
+    node, subNode, nodeData, preferencesValues, preferencesData
+  ) {
     let addBinaryPathNote = false;
+
     subNode.preferences.forEach((element) => {
       let note = '';
       let type = getControlMappedForType(element.type);
@@ -246,6 +256,7 @@ export default function PreferencesComponent({ ...props }) {
         element.editable = false;
         element.disabled = true;
         preferencesValues[element.id] = JSON.parse(element.value);
+
         if(addBinaryPathNote) {
           addNote(node, subNode, nodeData, preferencesData, note);
         }
@@ -260,14 +271,20 @@ export default function PreferencesComponent({ ...props }) {
       }
       else if (type === 'keyboardShortcut') {
         getKeyboardShortcuts(element, preferencesValues, node);
-      } else if (type === 'threshold') {
+      }
+      else if (type === 'threshold') {
         element.type = 'threshold';
 
         let _val = element.value.split('|');
         preferencesValues[element.id] = { 'warning': _val[0], 'alert': _val[1] };
-      } else if (subNode.label == gettext('Results grid') && node.label == gettext('Query Tool')) {
+      }
+      else if (
+        subNode.label == gettext('Results grid') &&
+        node.label == gettext('Query Tool')
+      ) {
         setResultsOptions(element, subNode, preferencesValues, type);
-      } else {
+      }
+      else {
         element.type = type;
         preferencesValues[element.id] = element.value;
       }
@@ -280,7 +297,9 @@ export default function PreferencesComponent({ ...props }) {
     });
   }
 
-  function setResultsOptions(element, subNode, preferencesValues, type) {
+  function setResultsOptions(
+    element, subNode, preferencesValues, type
+  ) {
     if (element.name== 'column_data_max_width') {
       let size_control_id = null;
       subNode.preferences.forEach((_el) => {
@@ -325,15 +344,23 @@ export default function PreferencesComponent({ ...props }) {
     element.canDelete = false;
     element.canEdit = false;
     element.editable = false;
-    if (pgAdmin.Browser.get_preference(node.label.toLowerCase(), element.name)?.value) {
-      let temp = pgAdmin.Browser.get_preference(node.label.toLowerCase(), element.name).value;
+    if (
+      pgAdmin.Browser.get_preference(
+        node.label.toLowerCase(), element.name
+      )?.value
+    ) {
+      let temp = pgAdmin.Browser.get_preference(
+        node.label.toLowerCase(), element.name
+      ).value;
       preferencesValues[element.id] = temp;
     } else {
       preferencesValues[element.id] = element.value;
     }
   }
 
-  function addNote(node, subNode, nodeData, preferencesData, note = '') {
+  function addNote(
+    node, subNode, nodeData, preferencesData, note = ''
+  ) {
     // Check and add the note for the element.
     if (subNode.label == gettext('Nodes') && node.label == gettext('Browser')) {
       note = [gettext('This settings is to Show/Hide nodes in the object explorer.')].join('');
@@ -357,8 +384,16 @@ export default function PreferencesComponent({ ...props }) {
   }
 
   function selectChildNode(item, prefTreeInit) {
-    if (item.isExpanded && item._children && item._children.length > 0 && prefTreeInit.current && event.code !== 'ArrowUp') {
-      pgAdmin.Browser.ptree.tree.setActiveFile(item._children[0], true);
+    if (
+      item.isExpanded &&
+      item._children &&
+      item._children.length > 0 &&
+      prefTreeInit.current &&
+      event.code !== 'ArrowUp'
+    ) {
+      pgAdmin.Browser.ptree.tree.setActiveFile(
+        item._children[0], true
+      );
     }
   }
 
@@ -366,7 +401,7 @@ export default function PreferencesComponent({ ...props }) {
     let initTreeTimeout = null;
     let firstElement = null;
     // Listen selected preferences tree node event and show the appropriate components in right panel.
-    pgAdmin.Browser.Events.on('preferences:tree:selected', (event, item) => {
+    pgAdmin.Browser.Events.on(EV_PREF_TREE_SELECTED, (event, item) => {
       if (item.type == FileType.File) {
         prefSchema.current.setSelectedCategory(item._metadata.data.name);
         prefSchema.current.schemaFields.forEach((field) => {
@@ -391,12 +426,12 @@ export default function PreferencesComponent({ ...props }) {
     });
 
     // Listen open preferences tree node event to default select first child node on parent node selection.
-    pgAdmin.Browser.Events.on('preferences:tree:opened', (event, item) => {
+    pgAdmin.Browser.Events.on(EV_PREF_TREE_OPENED, (event, item) => {
       pgAdmin.Browser.ptree.tree.setActiveFile(item._children[0], true);
     });
 
     // Listen added preferences tree node event to expand the newly added node on tree load.
-    pgAdmin.Browser.Events.on('preferences:tree:added', addPrefTreeNode);
+    pgAdmin.Browser.Events.on(EV_PREF_TREE_ADDED, addPrefTreeNode);
     /* Clear the initTreeTimeout timeout if unmounted */
     return () => {
       clearTimeout(initTreeTimeout);
@@ -489,7 +524,9 @@ export default function PreferencesComponent({ ...props }) {
     return val;
   }
 
-  function getPathData(initVals, pathData, _metadata, value, pathVersions) {
+  function getPathData(
+    initVals, pathData, _metadata, value, pathVersions
+  ) {
     initVals[_metadata[0].id].forEach((initVal) => {
       if (pathVersions.includes(initVal.version)) {
         pathData.push(value.changed[pathVersions.indexOf(initVal.version)]);
@@ -540,12 +577,17 @@ export default function PreferencesComponent({ ...props }) {
       method: 'PUT',
       data: save_data,
     }).then(() => {
-      let requiresTreeRefresh = save_data.some((s)=>{
-        return s.name=='show_system_objects'||s.name=='show_empty_coll_nodes'||s.name.startsWith('show_node_')||s.name=='hide_shared_server'||s.name=='show_user_defined_templates';
+      let requiresTreeRefresh = save_data.some((s) => {
+        return s.name == 'show_system_objects' ||
+          s.name == 'show_empty_coll_nodes' ||
+          s.name.startsWith('show_node_') ||
+          s.name == 'hide_shared_server' ||
+          s.name == 'show_user_defined_templates';
       });
       let requires_refresh = false;
       /* Find the modules changed */
       let modulesChanged = {};
+
       for (const [key] of Object.entries(data.current)) {
         let pref = pgAdmin.Browser.get_preference_for_id(Number(key));
 
@@ -570,7 +612,9 @@ export default function PreferencesComponent({ ...props }) {
               item.checked = false;
             }
           });
-          pgAdmin.Browser.Events.trigger('pgadmin:nw-refresh-menu-item', 'lock_layout');
+          pgAdmin.Browser.Events.trigger(
+            EV_RUNTIME_REFRESH_MENU_ITEM, 'lock_layout'
+          );
         }
       }
 
@@ -637,35 +681,74 @@ export default function PreferencesComponent({ ...props }) {
       <Box className={classes.root}>
         <Box className={clsx(classes.preferences)}>
           <Box className={clsx(classes.treeContainer)} >
-            <Box className={clsx(classes.tree)} id={'treeContainer'} tabIndex={0}>
+            <Box
+              className={clsx(classes.tree)}
+              id={'treeContainer'}
+              tabIndex={0}
+            >
               {
-                useMemo(() => (prefTreeData && props.renderTree(prefTreeData)), [prefTreeData])
+                useMemo(
+                  () => (
+                    prefTreeData &&
+                    props.renderTree(prefTreeData)
+                  ),
+                  [prefTreeData]
+                )
               }
             </Box>
           </Box>
+
           <Box className={clsx(classes.preferencesContainer)}>
             {
-              prefSchema.current && loadTree > 0 &&
+              prefSchema.current && loadTree > 0 && (
                 <RightPanel
-                  schema={prefSchema.current} initValues={initValues}
+                  schema={prefSchema.current}
+                  initValues={initValues}
                   onDataChange={(changedData) => {
-                    Object.keys(changedData).length > 0 ? setDisableSave(false) : setDisableSave(true);
+                    Object.keys(changedData).length > 0
+                      ? setDisableSave(false)
+                      : setDisableSave(true);
                     prefChangedData.current = changedData;
                   }}
                 />
+              )
             }
           </Box>
         </Box>
 
         <Box className={classes.footer}>
           <Box>
-            <PgIconButton data-test="dialog-help" onClick={onDialogHelp} icon={<HelpIcon />} title={gettext('Help for this dialog.')} />
+            <PgIconButton
+              data-test="dialog-help"
+              onClick={onDialogHelp}
+              icon={<HelpIcon />}
+              title={gettext('Help for this dialog.')}
+            />
           </Box>
-          <Box className={classes.actionBtn} marginLeft="auto">
-            <DefaultButton className={classes.buttonMargin} onClick={() => { props.closeModal();}} startIcon={<CloseSharpIcon onClick={() => { props.closeModal();}} />}>
+
+          <Box
+            className={classes.actionBtn}
+            marginLeft="auto"
+          >
+            <DefaultButton
+              className={classes.buttonMargin}
+              onClick={() => {props.closeModal();}}
+              startIcon={
+                <CloseSharpIcon
+                  onClick={() => {props.closeModal();}}
+                />
+              }
+            >
               {gettext('Cancel')}
             </DefaultButton>
-            <PrimaryButton className={classes.buttonMargin} startIcon={<SaveSharpIcon />} disabled={disableSave} onClick={() => { savePreferences(prefChangedData, initValues); }}>
+            <PrimaryButton
+              className={classes.buttonMargin}
+              startIcon={<SaveSharpIcon />}
+              disabled={disableSave}
+              onClick={() => {
+                savePreferences(prefChangedData, initValues);
+              }}
+            >
               {gettext('Save')}
             </PrimaryButton>
           </Box>
