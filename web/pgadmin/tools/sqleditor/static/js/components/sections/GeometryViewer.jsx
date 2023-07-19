@@ -2,16 +2,22 @@ import React, { useEffect, useRef }  from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { makeStyles } from '@material-ui/styles';
 import _ from 'lodash';
-import { MapContainer, TileLayer, LayersControl, GeoJSON, useMap } from 'react-leaflet';
+import {
+  MapContainer, TileLayer, LayersControl, GeoJSON, useMap
+} from 'react-leaflet';
 import Leaflet, { CRS } from 'leaflet';
 import {Geometry as WkxGeometry} from 'wkx';
 import {Buffer} from 'buffer';
-import gettext from 'sources/gettext';
-import Theme from 'sources/theme';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { LayoutHelper } from '../../../../../../static/js/helpers/Layout';
+
+import gettext from 'sources/gettext';
+import Theme from 'sources/theme';
+
+import {
+  LayoutHelper
+} from '../../../../../../static/js/helpers/Layout';
 import { PANELS } from '../QueryToolConstants';
 import { QueryToolContext } from '../QueryToolComponent';
 
@@ -89,7 +95,12 @@ function parseEwkbData(rows, column) {
 
   // generate map info content
   if (tooLargeDataSize || tooManyGeometries) {
-    infoList.push(gettext('%s of %s geometries rendered.', supportedGeometries.length, rows.length));
+    infoList.push(
+      gettext(
+        '%s of %s geometries rendered.',
+        supportedGeometries.length, rows.length
+      )
+    );
   }
   if (geometries3D.length > 0) {
     infoList.push(gettext('3D geometries not rendered.'));
@@ -275,6 +286,7 @@ function TheMap({data}) {
   const mapObj = useMap();
   const infoControl = useRef(null);
   const resetLayersKey = useRef(0);
+
   useEffect(()=>{
     infoControl.current = Leaflet.control({position: 'topright'});
     infoControl.current.onAdd = function () {
@@ -288,6 +300,7 @@ function TheMap({data}) {
     resetLayersKey.current++;
     return ()=>{infoControl.current && infoControl.current.remove();};
   }, [data]);
+
   return (
     <>
       {data.selectedSRID === 4326 &&
@@ -353,6 +366,7 @@ function TheMap({data}) {
     </>
   );
 }
+
 TheMap.propTypes = {
   data: PropTypes.shape({
     geoJSONs: PropTypes.array,
@@ -361,7 +375,6 @@ TheMap.propTypes = {
     infoList: PropTypes.array,
   }),
 };
-
 
 export function GeometryViewer({rows, columns, column}) {
   const classes = useStyles();

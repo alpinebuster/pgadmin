@@ -155,7 +155,11 @@ export class TreeNode {
     this.parentNode = parent;
     this.path = this.id;
     if (this.id)
-      if (parent !== null && parent !== undefined && parent.path !== undefined) {
+      if (
+        parent !== null &&
+        parent !== undefined &&
+        parent.path !== undefined
+      ) {
         this.path = parent.path + '/' + this.id;
       } else {
         this.path = '/preferences/' + this.id;
@@ -202,6 +206,7 @@ export class TreeNode {
 
     return this.ancestorNode(condition) !== null;
   }
+  
   anyParent(condition) {
     return this.ancestorNode(condition) !== null;
   }
@@ -223,20 +228,19 @@ export class TreeNode {
   unload(tree) {
     return new Promise((resolve, reject) => {
       this.children = [];
-      tree.unload(this.domNode)
-        .then(
-          () => {
-            resolve(true);
-          },
-          () => {
-            reject();
-          });
+      tree.unload(this.domNode).then(
+        () => {resolve(true);},
+        () => { reject(); }
+      );
     });
   }
 
   open(tree, suppressNoDom) {
     return new Promise((resolve, reject) => {
-      if (suppressNoDom && (this.domNode == null || typeof (this.domNode) === 'undefined')) {
+      if (suppressNoDom && (
+        this.domNode == null ||
+        typeof (this.domNode) === 'undefined'
+      )) {
         resolve(true);
       } else if (tree.isOpen(this.domNode)) {
         resolve(true);
@@ -255,5 +259,6 @@ export function isCollectionNode(node) {
       return pgAdmin.Browser.Nodes[node].is_collection;
     else return false;
   }
+
   return false;
 }

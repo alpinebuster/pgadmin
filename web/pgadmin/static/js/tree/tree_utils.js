@@ -11,12 +11,10 @@ export function retrieveAncestorOfTypeServer(
 
   if (treeNode) {
     let nodeData;
-    let databaseNode = treeNode.ancestorNode(
-      (node) => {
-        nodeData = node.getData();
-        return (nodeData._type === 'database');
-      }
-    );
+    let databaseNode = treeNode.ancestorNode((node) => {
+      nodeData = node.getData();
+      return (nodeData._type === 'database');
+    });
 
     let isServerNode = (node) => {
       nodeData = node.getData();
@@ -57,21 +55,20 @@ export function retrieveAncestorOfTypeDatabase(
   let databaseInfo = null;
   let treeItem = item || pgBrowser.tree.selected();
   let treeNode = pgBrowser.tree.findNodeByDomElement(treeItem);
+
   if (treeNode) {
     if(treeNode.getData()._type === 'database') {
       databaseInfo = treeNode.getData();
     } else {
       let nodeData = null;
-      treeNode.ancestorNode(
-        (node) => {
-          nodeData = node.getData();
-          if(nodeData._type === 'database') {
-            databaseInfo = nodeData;
-            return true;
-          }
-          return false;
+      treeNode.ancestorNode((node) => {
+        nodeData = node.getData();
+        if(nodeData._type === 'database') {
+          databaseInfo = nodeData;
+          return true;
         }
-      );
+        return false;
+      });
     }
   }
 

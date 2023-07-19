@@ -6,8 +6,12 @@ import gettext from 'sources/gettext';
 import pgAdmin from 'sources/pgadmin';
 
 import { Tree } from '../../../../static/js/tree/tree';
-import { ManagePreferenceTreeNodes } from '../../../../static/js/tree/preference_nodes';
-import { FileTreeX, TreeModelX } from '../../../../static/js/components/pg_tree';
+import {
+  ManagePreferenceTreeNodes
+} from '../../../../static/js/tree/preference_nodes';
+import {
+  FileTreeX, TreeModelX
+} from '../../../../static/js/components/pg_tree';
 
 export default function PreferencesTree({ pgBrowser, data }) {
   const pTreeModelX = React.useRef();
@@ -66,12 +70,18 @@ export default function PreferencesTree({ pgBrowser, data }) {
     });
   }, [data]);
 
-  if (!loaded || _.isUndefined(pTreeModelX.current) || _.isUndefined(onReadyRef.current)) {
+  if (
+    !loaded ||
+    _.isUndefined(pTreeModelX.current) ||
+    _.isUndefined(onReadyRef.current)
+  ) {
     return (gettext('Loading...'));
   }
+  
   return (
     <FileTreeX
-      model={pTreeModelX.current} height={'100%'}
+      model={pTreeModelX.current}
+      height={'100%'}
       onReady={onReadyRef.current}
     />
   );

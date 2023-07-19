@@ -61,7 +61,9 @@ _.extend(pgBrowser.browserTreeState, {
       save_tree_state_period.value !== -1
     ) {
       // Save the tree state every 30 seconds
-      setInterval(this.save_state, (save_tree_state_period.value) * 1000);
+      setInterval(
+        this.save_state, (save_tree_state_period.value) * 1000
+      );
 
       // Fetch the tree last state while loading the browser tree
       this.fetch_state.apply(this);
@@ -137,7 +139,11 @@ _.extend(pgBrowser.browserTreeState, {
       tmpIndex = -1;
 
     // If no parent or the server not in tree hierarchy then return
-    if (!pgBrowser.tree.hasParent(item) || !(this.parent in treeHierarchy) || (data._type === 'server' && !data.connected))
+    if (
+      !pgBrowser.tree.hasParent(item) ||
+      !(this.parent in treeHierarchy) ||
+      (data._type === 'server' && !data.connected)
+    )
       return;
 
     topParent = treeHierarchy[this.parent]['_id'];
@@ -190,7 +196,11 @@ _.extend(pgBrowser.browserTreeState, {
       data = item && pgBrowser.tree.itemData(item),
       treeHierarchy = pgBrowser.tree.getTreeNodeHierarchy(item);
 
-    if (treeHierarchy === null || !pgBrowser.tree.hasParent(item) || !(treeHierarchy.hasOwnProperty(self.parent)))
+    if (
+      treeHierarchy === null ||
+      !pgBrowser.tree.hasParent(item) ||
+      !(treeHierarchy.hasOwnProperty(self.parent))
+    )
       return;
 
     let topParent = treeHierarchy && treeHierarchy[self.parent]['_id'],
@@ -203,6 +213,7 @@ _.extend(pgBrowser.browserTreeState, {
         treeData[topParent]['paths'] = self.current_state[topParent]['paths'];
         self.save_state();
       }
+
       return;
     }
 
@@ -223,8 +234,10 @@ _.extend(pgBrowser.browserTreeState, {
           let tmpItemData = tData.split(',');
 
           if (tmpItemData.indexOf(data.id) !== -1 ) {
-            if (databaseId === undefined || (databaseId !== undefined && tmpItemData.indexOf(databaseId) !== -1)) {
-
+            if (databaseId === undefined || (
+              databaseId !== undefined &&
+              tmpItemData.indexOf(databaseId) !== -1
+            )) {
               let index = tmpItemData.indexOf(data.id);
               tmpItemData.splice(index);
               tmpItemDataStr = tmpItemData.join();
@@ -246,22 +259,39 @@ _.extend(pgBrowser.browserTreeState, {
       data = item && pgBrowser.tree.itemData(item),
       treeHierarchy = pgBrowser.tree.getTreeNodeHierarchy(item);
 
-    if (treeHierarchy === null || !pgBrowser.tree.hasParent(item) || !(treeHierarchy.hasOwnProperty(self.parent)))
+    if (
+      treeHierarchy === null ||
+      !pgBrowser.tree.hasParent(item) ||
+      !(treeHierarchy.hasOwnProperty(self.parent))
+    )
       return;
 
     // If the server node is open then only we should populate the tree
-    if (data['_type'] == self.parent && (pgBrowser.tree.isOpen(item) === false))
+    if (data['_type'] == self.parent && (
+      pgBrowser.tree.isOpen(item) === false
+    ))
       return;
 
     let tmpTreeData = treeData[treeHierarchy[self.parent]['_id']];
 
     // If the server node is open then only we should populate the tree
-    if (data['_type'] == 'database' && tmpTreeData && 'conn_status' in tmpTreeData && 'is_opened' in tmpTreeData &&
-     (tmpTreeData['conn_status'][data['id']] === 0 || tmpTreeData['is_opened'][data['id']] === 0 ||
-      !(data['id'] in tmpTreeData['is_opened'])))
+    if (
+      data['_type'] == 'database' &&
+      tmpTreeData &&
+      'conn_status' in tmpTreeData &&
+      'is_opened' in tmpTreeData && (
+        tmpTreeData['conn_status'][data['id']] === 0 ||
+        tmpTreeData['is_opened'][data['id']] === 0 ||
+        !(data['id'] in tmpTreeData['is_opened'])
+      )
+    )
       return;
 
-    if (!_.isUndefined(tmpTreeData) && ('paths' in tmpTreeData) && !_.isUndefined(tmpTreeData['paths'].length)) {
+    if (
+      !_.isUndefined(tmpTreeData) &&
+      ('paths' in tmpTreeData) &&
+      !_.isUndefined(tmpTreeData['paths'].length)
+    ) {
       let tmpTreeDataPaths = [...tmpTreeData['paths']],
         databaseId = undefined;
 
@@ -276,15 +306,22 @@ _.extend(pgBrowser.browserTreeState, {
 
         // If the item is in the lastTreeState then open it
         if (tmpItemData.indexOf(data.id) !== -1) {
-          if (databaseId === undefined ||  (databaseId !== undefined && tmpItemData.indexOf(databaseId) !== -1)) {
-
+          if (databaseId === undefined || (
+            databaseId !== undefined &&
+            tmpItemData.indexOf(databaseId) !== -1
+          )) {
             let index = tmpItemData.indexOf(data.id);
 
             pgBrowser.tree.open(item);
             pgBrowser.tree.ensureLoaded(item);
             if (index == (tmpItemData.length - 1 )) {
-              let tIndex = treeData[treeHierarchy[self.parent]['_id']]['paths'].indexOf(tData);
-              treeData[treeHierarchy[self.parent]['_id']]['paths'].splice(tIndex, 1);
+              let tIndex = treeData[
+                treeHierarchy[self.parent]['_id']
+              ]['paths'].indexOf(tData);
+
+              treeData[
+                treeHierarchy[self.parent]['_id']
+              ]['paths'].splice(tIndex, 1);
             }
           }
         }
@@ -301,7 +338,10 @@ _.extend(pgBrowser.browserTreeState, {
       let databaseItem = treeHierarchy['database']['id'],
         topParent = treeHierarchy && treeHierarchy[this.parent]['_id'];
 
-      if (topParent in this.current_state && 'selected' in this.current_state[topParent]) {
+      if (
+        topParent in this.current_state &&
+        'selected' in this.current_state[topParent]
+      ) {
         if (treeHierarchy['database'].connected) {
           this.current_state[topParent]['conn_status'][databaseItem] = 1;
         }
@@ -334,9 +374,14 @@ _.extend(pgBrowser.browserTreeState, {
       databaseItem = treeHierarchy['database']['id'];
     }
 
-    if (topParent in this.current_state && 'selected' in this.current_state[topParent]
-    && !_.isUndefined(selectedItem)) {
-      this.current_state[topParent]['selected'][treeHierarchy[this.parent]['id']] = selectedItem;
+    if (
+      topParent in this.current_state &&
+      'selected' in this.current_state[topParent] &&
+      !_.isUndefined(selectedItem)
+    ) {
+      this.current_state[topParent]['selected'][
+        treeHierarchy[this.parent]['id']
+      ] = selectedItem;
 
       if (!_.isUndefined(databaseItem))
         this.current_state[topParent]['selected'][databaseItem] = selectedItem;
@@ -351,7 +396,11 @@ _.extend(pgBrowser.browserTreeState, {
     if (treeHierarchy.hasOwnProperty('server')) {
       let selectedItem = treeHierarchy['server']['id'];
 
-      if (tmpTreeData && 'selected' in tmpTreeData && selectedItem in tmpTreeData['selected']) {
+      if (
+        tmpTreeData &&
+        'selected' in tmpTreeData &&
+        selectedItem in tmpTreeData['selected']
+      ) {
         if (tmpTreeData['selected'][selectedItem] == data.id) {
           this.is_selected = true;
           pgBrowser.tree.select(item, true, 'center');

@@ -268,30 +268,28 @@ export default function PreferencesComponent({ ...props }) {
           addNote(node, subNode, nodeData, preferencesData, note);
         }
         addBinaryPathNote = true;
-      }
-      else if (type == 'select') {
+      } else if (type == 'select') {
         setControlProps(element);
         element.type = type;
         preferencesValues[element.id] = element.value;
 
         setThemesOptions(element);
-      }
-      else if (type === 'keyboardShortcut') {
+      } else if (type === 'keyboardShortcut') {
         getKeyboardShortcuts(element, preferencesValues, node);
-      }
-      else if (type === 'threshold') {
+      } else if (type === 'threshold') {
         element.type = 'threshold';
 
         let _val = element.value.split('|');
-        preferencesValues[element.id] = { 'warning': _val[0], 'alert': _val[1] };
-      }
-      else if (
+        preferencesValues[element.id] = {
+          'warning': _val[0],
+          'alert': _val[1]
+        };
+      } else if (
         subNode.label == gettext('Results grid') &&
         node.label == gettext('Query Tool')
       ) {
         setResultsOptions(element, subNode, preferencesValues, type);
-      }
-      else {
+      } else {
         element.type = type;
         preferencesValues[element.id] = element.value;
       }
@@ -415,7 +413,9 @@ export default function PreferencesComponent({ ...props }) {
   useEffect(() => {
     let initTreeTimeout = null;
     let firstElement = null;
-    // Listen selected preferences tree node event and show the appropriate components in right panel.
+
+    // Listen selected preferences tree node event and
+    // show the appropriate components in right panel.
     pgAdmin.Browser.Events.on(EV_PREF_TREE_SELECTED, (event, item) => {
       if (item.type == FileType.File) {
         prefSchema.current.setSelectedCategory(item._metadata.data.name);
@@ -434,8 +434,7 @@ export default function PreferencesComponent({ ...props }) {
             firstElement = '';
           }
         }, 10);
-      }
-      else {
+      } else {
         selectChildNode(item, prefTreeInit);
       }
     });
@@ -454,11 +453,17 @@ export default function PreferencesComponent({ ...props }) {
   }, []);
 
   function addPrefTreeNode(event, item) {
-    if (item._parent._fileName == firstTreeElement.current && item._parent.isExpanded && !prefTreeInit.current) {
-      pgAdmin.Browser.ptree.tree.setActiveFile(item._parent._children[0], true);
-    }
-    else if (item.type == FileType.Directory) {
-      // Check the if newely added node is Directoy and call toggle to expand the node.
+    if (
+      item._parent._fileName == firstTreeElement.current &&
+      item._parent.isExpanded &&
+      !prefTreeInit.current
+    ) {
+      pgAdmin.Browser.ptree.tree.setActiveFile(
+        item._parent._children[0], true
+      );
+    } else if (item.type == FileType.Directory) {
+      // Check the if newly added node is Directory and
+      // call toggle to expand the node.
       pgAdmin.Browser.ptree.tree.toggleDirectory(item);
     }
   }
@@ -520,7 +525,9 @@ export default function PreferencesComponent({ ...props }) {
           value.changed.forEach((chValue) => {
             pathVersions.push(chValue.version);
           });
-          getPathData(initVals, pathData, _metadata, value, pathVersions);
+          getPathData(
+            initVals, pathData, _metadata, value, pathVersions
+          );
           val = JSON.stringify(pathData);
         } else {
           let key_val = {
@@ -555,7 +562,10 @@ export default function PreferencesComponent({ ...props }) {
   function savePreferences(data, initVal) {
     let _data = [];
     for (const [key, value] of Object.entries(data.current)) {
-      let _metadata = prefSchema.current.schemaFields.filter((el) => { return el.id == key; });
+      let _metadata = prefSchema.current.schemaFields.filter(
+        (el) => {return el.id == key;}
+      );
+
       if (_metadata.length > 0) {
         let val = getCollectionValue(_metadata, value, initVal);
         _data.push({
@@ -618,10 +628,14 @@ export default function PreferencesComponent({ ...props }) {
 
         // Sync the lock layout menu with preferences
         if (pref.name == 'lock_layout') {
-          let fileMenu = pgAdmin.Browser.MainMenus.find((menu) => menu.name == 'file');
-          let layoutSubMenu = fileMenu['menuItems'].find(menu => menu.name == 'mnu_locklayout');
+          let fileMenu = pgAdmin.Browser.MainMenus.find(
+            (menu) => menu.name == 'file'
+          );
+          let layoutSubMenu = fileMenu['menuItems'].find(
+            menu => menu.name == 'mnu_locklayout'
+          );
           layoutSubMenu['menu_items'].forEach(item => {
-            if (item.name === 'mnu_lock_'+save_data[0]['value']) {
+            if (item.name === 'mnu_lock_' + save_data[0]['value']) {
               item.checked = true;
             } else {
               item.checked = false;
