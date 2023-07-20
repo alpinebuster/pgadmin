@@ -4,32 +4,48 @@ import 'wcdocker';
 
 import pgAdmin from 'sources/pgadmin';
 import getApiInstance from 'sources/api_instance';
-import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 import SchemaView from 'sources/schema_view';
 import url_for from 'sources/url_for';
+import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 
 import Theme from '../../../static/js/theme';
 import { generateNodeUrl } from './node_ajax';
 
-/* The entry point for rendering React based view in properties, called in node.js */
-export function getUtilityView(schema, treeNodeInfo, actionType, formType, container, containerPanel,
-  onSave, extraData, saveBtnName, urlBase, sqlHelpUrl, helpUrl, isTabView=true) {
+/* The entry point for rendering React based view
+in properties, called in node.js */
+export function getUtilityView(
+  schema, treeNodeInfo, actionType,
+  formType, container, containerPanel,
+  onSave, extraData, saveBtnName,
+  urlBase, sqlHelpUrl, helpUrl, isTabView = true
+) {
+  let serverInfo = treeNodeInfo &&
+    ('server' in treeNodeInfo) &&
+    pgAdmin.Browser.serverInfo &&
+    pgAdmin.Browser.serverInfo[treeNodeInfo.server._id];
 
-  let serverInfo = treeNodeInfo && ('server' in treeNodeInfo) &&
-      pgAdmin.Browser.serverInfo && pgAdmin.Browser.serverInfo[treeNodeInfo.server._id];
   let inCatalog = treeNodeInfo && ('catalog' in treeNodeInfo);
   const api = getApiInstance();
+
   const url = ()=>{
     return urlBase;
   };
-  const confirmOnReset = pgAdmin.Browser.get_preferences_for_module('browser').confirm_on_properties_close;
+
+  const confirmOnReset =
+    pgAdmin.Browser.get_preferences_for_module(
+      'browser'
+    ).confirm_on_properties_close;
 
   /* button icons */
   const saveBtnIcon = extraData.save_btn_icon;
 
   /* Node type & Noen obj*/
-  let nodeObj = extraData.nodeType? pgAdmin.Browser.Nodes[extraData.nodeType]: undefined;
-  let itemNodeData = extraData?.itemNodeData ? itemNodeData: undefined;
+  let nodeObj = extraData.nodeType
+    ? pgAdmin.Browser.Nodes[extraData.nodeType]
+    : undefined;
+  let itemNodeData = extraData?.itemNodeData
+    ? itemNodeData
+    : undefined;
 
   /* on save button callback, promise required */
   const onSaveClick = (isNew, data)=>new Promise((resolve, reject)=>{
@@ -49,7 +65,12 @@ export function getUtilityView(schema, treeNodeInfo, actionType, formType, conta
 
   /* Called when switched to SQL tab, promise required */
   const getSQLValue = (isNew, changedData)=>{
-    const msqlUrl = extraData?.msqlurl ? extraData.msqlurl: generateNodeUrl.call(nodeObj, treeNodeInfo, 'msql', itemNodeData, !isNew, nodeObj.url_jump_after_node);
+    const msqlUrl = extraData?.msqlurl
+      ? extraData.msqlurl
+      : generateNodeUrl.call(
+        nodeObj, treeNodeInfo, 'msql', itemNodeData,
+        !isNew, nodeObj.url_jump_after_node
+      );
     return new Promise((resolve, reject)=>{
       api({
         url: msqlUrl,
@@ -141,7 +162,10 @@ export function getUtilityView(schema, treeNodeInfo, actionType, formType, conta
         onHelp={onHelp}
         onDataChange={()=>{/*This is intentional (SonarQube)*/}}
         confirmOnCloseReset={confirmOnReset}
-        hasSQL={nodeObj?nodeObj.hasSQL:false && (actionType === 'create' || actionType === 'edit')}
+        hasSQL={
+          nodeObj ? nodeObj.hasSQL : false &&
+            (actionType === 'create' || actionType === 'edit')
+        }
         getSQLValue={getSQLValue}
         isTabView={isTabView}
         disableSqlHelp={sqlHelpUrl == undefined || sqlHelpUrl == ''}
@@ -152,7 +176,8 @@ export function getUtilityView(schema, treeNodeInfo, actionType, formType, conta
   );
 }
 
-/* When switching from normal node to collection node, clean up the React mounted DOM */
+/* When switching from normal node to collection node,
+clean up the React mounted DOM */
 export function removeNodeView(container) {
   ReactDOM.unmountComponentAtNode(container);
 }

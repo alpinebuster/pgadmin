@@ -7,16 +7,20 @@ import ShortcutTitle from './ShortcutTitle';
 
 const useStyles = makeStyles((theme)=>({
   primaryButton: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
     border: '1px solid ' + theme.palette.primary.main,
     '&.Mui-disabled': {
       color: [theme.palette.primary.contrastText,'!important'],
       backgroundColor: theme.palette.primary.disabledMain,
     },
     '&:hover': {
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.hoverMain,
       borderColor: theme.palette.primary.hoverMain,
     },
     '&:active': {
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.hoverMain,
       borderColor: theme.palette.primary.hoverBorderColor,
       boxShadow: 'none',
@@ -32,8 +36,8 @@ const useStyles = makeStyles((theme)=>({
       borderColor: theme.palette.default.disabledBorderColor
     },
     '&:hover': {
-      backgroundColor: theme.palette.default.hoverMain,
       color: theme.palette.default.hoverContrastText,
+      backgroundColor: theme.palette.default.hoverMain,
       borderColor: theme.palette.default.hoverBorderColor,
     }
   },

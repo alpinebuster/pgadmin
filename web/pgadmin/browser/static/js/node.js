@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   EV_BROWSER_TREE_EXPAND_FROM_PRE_TS,
   EV_BROWSER_TREE_UPDATE_TS,
@@ -9,12 +11,11 @@ import {
   EV_BROWSER_NODE_UPDATED,
 } from 'sources/constants';
 
-import {getNodeView, removeNodeView} from './node_view';
 import Notify from '../../../static/js/helpers/Notifier';
-import _ from 'lodash';
 import getApiInstance from '../../../static/js/api_instance';
-import { removePanelView } from './panel_view';
 import { TAB_CHANGE } from './constants';
+import { removePanelView } from './panel_view';
+import {getNodeView, removeNodeView} from './node_view';
 
 define('pgadmin.browser.node', [
   'sources/gettext', 'sources/pgadmin',
@@ -54,20 +55,19 @@ define('pgadmin.browser.node', [
 
     // Add static properties to the constructor function, if supplied.
     _.extend(child, parent, _.omit(props, 'callbacks'));
-
     // Make sure - a child have all the callbacks of the parent.
     child.callbacks = _.extend({}, parent.callbacks, props.callbacks);
 
     // Let's not bind the callbacks, or initialize the child.
-    if (!(initialize??true))
-      return child;
+    if (!(initialize??true)) return child;
 
-    let bindToChild = function(cb) {
-        if (typeof(child.callbacks[cb]) == 'function') {
-          child.callbacks[cb] = child.callbacks[cb].bind(child);
-        }
-      },
-      callbacks = _.keys(child.callbacks);
+    let bindToChild = function (cb) {
+      if (typeof (child.callbacks[cb]) == 'function') {
+        child.callbacks[cb] = child.callbacks[cb].bind(child);
+      }
+    };
+    let callbacks = _.keys(child.callbacks);
+
     for (let cb_val of callbacks) bindToChild(cb_val);
 
     // Registering the node by calling child.init(...) function

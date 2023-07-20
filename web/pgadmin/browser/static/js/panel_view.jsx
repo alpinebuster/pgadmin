@@ -9,7 +9,9 @@ import Dependents from '../../../misc/dependents/static/js/Dependents';
 import Statistics from '../../../misc/statistics/static/js/Statistics';
 import SQL from '../../../misc/sql/static/js/SQL';
 import Dashboard from '../../../dashboard/static/js/Dashboard';
-import { CollectionNodeView } from '../../../misc/properties/CollectionNodeProperties';
+import {
+  CollectionNodeView
+} from '../../../misc/properties/CollectionNodeProperties';
 import Processes from '../../../misc/bgprocess/static/js/Processes';
 
 
@@ -31,8 +33,8 @@ export function getPanelView(
     dashPref = pgBrowser.get_preferences_for_module('dashboards');
     graphPref = pgBrowser.get_preferences_for_module('graphs');
     preferences = _.merge(dashPref, graphPref);
-
   }
+
   if (panelType == 'dashboard') {
     ReactDOM.render(
       <Theme>
@@ -43,16 +45,35 @@ export function getPanelView(
           node={node}
           item={item}
           preferences={preferences}
-          did={((!_.isUndefined(treeNodeInfo)) && (!_.isUndefined(treeNodeInfo['database']))) ? treeNodeInfo['database']._id: 0}
-          sid={!_.isUndefined(treeNodeInfo) && !_.isUndefined(treeNodeInfo['server']) ? treeNodeInfo['server']._id : ''}
-          serverConnected={!_.isUndefined(treeNodeInfo) && !_.isUndefined(treeNodeInfo['server']) ? treeNodeInfo.server.connected: false}
-          dbConnected={!_.isUndefined(treeNodeInfo) && !_.isUndefined(treeNodeInfo['database']) ? treeNodeInfo.database.connected: false}
+          did={(
+            (!_.isUndefined(treeNodeInfo)) &&
+            (!_.isUndefined(treeNodeInfo['database']))
+          ) ? treeNodeInfo['database']._id : 0}
+          sid={
+            !_.isUndefined(treeNodeInfo) &&
+              !_.isUndefined(treeNodeInfo['server'])
+              ? treeNodeInfo['server']._id
+              : ''
+          }
+          serverConnected={
+            !_.isUndefined(treeNodeInfo) &&
+              !_.isUndefined(treeNodeInfo['server'])
+              ? treeNodeInfo.server.connected
+              : false
+          }
+          dbConnected={
+            !_.isUndefined(treeNodeInfo) &&
+              !_.isUndefined(treeNodeInfo['database'])
+              ? treeNodeInfo.database.connected
+              : false
+          }
           panelVisible={panelVisible}
         />
       </Theme>,
       container
     );
   }
+
   if (panelType == 'statistics') {
     ReactDOM.render(
       <Theme>
@@ -67,6 +88,7 @@ export function getPanelView(
       container
     );
   }
+
   if (panelType == 'properties' && nodeData?.is_collection) {
     ReactDOM.render(
       <Theme>
@@ -81,6 +103,7 @@ export function getPanelView(
       container
     );
   }
+
   if (panelType == 'dependencies') {
     ReactDOM.render(
       <Theme>
@@ -95,6 +118,7 @@ export function getPanelView(
       container
     );
   }
+
   if (panelType == 'dependents') {
     ReactDOM.render(
       <Theme>
@@ -109,6 +133,7 @@ export function getPanelView(
       container
     );
   }
+
   if (panelType == 'sql') {
     ReactDOM.render(
       <Theme>
@@ -118,13 +143,22 @@ export function getPanelView(
           nodeData={nodeData}
           node={node}
           item={item}
-          did={((!_.isUndefined(treeNodeInfo)) && (!_.isUndefined(treeNodeInfo['database']))) ? treeNodeInfo['database']._id: 0}
-          dbConnected={!_.isUndefined(treeNodeInfo) && !_.isUndefined(treeNodeInfo['database']) ? treeNodeInfo.database.connected: false}
+          did={(
+            (!_.isUndefined(treeNodeInfo)) &&
+            (!_.isUndefined(treeNodeInfo['database']))
+          ) ? treeNodeInfo['database']._id : 0}
+          dbConnected={
+            !_.isUndefined(treeNodeInfo) &&
+              !_.isUndefined(treeNodeInfo['database'])
+              ? treeNodeInfo.database.connected
+              : false
+          }
         />
       </Theme>,
       container
     );
   }
+
   if (panelType == 'processes') {
     ReactDOM.render(
       <Theme>
@@ -135,7 +169,8 @@ export function getPanelView(
   }
 }
 
-/* When switching from normal node to collection node, clean up the React mounted DOM */
+/* When switching from normal node to collection node,
+  clean up the React mounted DOM */
 export function removePanelView(container) {
   ReactDOM.unmountComponentAtNode(container);
 }

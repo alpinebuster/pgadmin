@@ -61,9 +61,9 @@ export default class CastSchema extends BaseUISchema {
     },
 
     /*
-       * Text control for viewing source type in properties and
-       * edit mode only
-       */
+    * Text control for viewing source type in properties and
+    * edit mode only
+    */
     {
       id: 'srctyp', label: gettext('Source type'), type: 'text',
       group: gettext('Definition'), readonly: true, mode:['properties','edit'],
@@ -93,10 +93,10 @@ export default class CastSchema extends BaseUISchema {
     },
 
     /*
-       * Proname field is dependent on source type and target type.
-       * On source and target type changed event,
-       * associated functions will be fetch using ajax call
-       */
+    * Proname field is dependent on source type and target type.
+    * On source and target type changed event,
+    * associated functions will be fetch using ajax call
+    */
     {
       id: 'proname', label: gettext('Function'), deps:['srctyp', 'trgtyp'],
       readonly: function(state) { return !obj.isNew(state); },

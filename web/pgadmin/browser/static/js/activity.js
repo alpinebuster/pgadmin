@@ -7,6 +7,7 @@ import {getEpoch} from 'sources/utils';
 
 const pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 const MIN_ACTIVITY_TIME_UNIT = 1000; /* in seconds */
+
 /*
  * User UI activity related functions.
  */

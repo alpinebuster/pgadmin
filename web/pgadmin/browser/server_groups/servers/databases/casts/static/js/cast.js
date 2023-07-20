@@ -32,11 +32,8 @@ define('pgadmin.node.cast', [
       hasSQL: true,
       hasDepends: true,
       init: function() {
-
         // Avoid multiple registration of menus
-        if (this.initialized)
-          return;
-
+        if (this.initialized) return;
         this.initialized = true;
 
         // Add context menus for cast
@@ -46,25 +43,24 @@ define('pgadmin.node.cast', [
           category: 'create', priority: 4, label: gettext('Cast...'),
           data: {action: 'create'},
           enable: pgBrowser.Nodes['database'].is_conn_allow,
-        },{
+        }, {
           name: 'create_cast_on_coll', node: 'coll-cast', module: this,
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'create', priority: 4, label: gettext('Cast...'),
           data: {action: 'create'},
-        },{
+        }, {
           name: 'create_cast', node: 'cast', module: this,
           applies: ['object', 'context'], callback: 'show_obj_properties',
           category: 'create', priority: 4, label: gettext('Cast...'),
           data: {action: 'create'},
         }]);
-
       },
-
       getSchema: function(treeNodeInfo, itemNodeData){
         return new CastSchema({
-          getTypeOptions: ()=>getNodeAjaxOptions('get_type', this, treeNodeInfo, itemNodeData),
-          getFuncOptions: (srcTyp, trgtyp) =>
-          {
+          getTypeOptions: () => getNodeAjaxOptions(
+            'get_type', this, treeNodeInfo, itemNodeData
+          ),
+          getFuncOptions: (srcTyp, trgtyp) => {
             return new Promise((resolve, reject)=>{
               const api = getApiInstance();
 
@@ -75,28 +71,26 @@ define('pgadmin.node.cast', [
                 ]);
               let data = {'srctyp' : srcTyp, 'trgtyp' : trgtyp};
 
-              if(srcTyp != undefined && srcTyp != '' &&
-                 trgtyp != undefined && trgtyp != ''){
-
-                api.post(_url, data)
-                  .then(res=>{
-                    data = res.data.data;
-                    resolve(data);
-                  })
-                  .catch((err)=>{
-                    reject(err);
-                  });
+              if (
+                srcTyp != undefined && srcTyp != '' &&
+                trgtyp != undefined && trgtyp != ''
+              ) {
+                api.post(_url, data).then(res=>{
+                  data = res.data.data;
+                  resolve(data);
+                }).catch((err)=>{
+                  reject(err);
+                });
               } else {
                 data = [];
                 resolve(data);
               }
             });
           },
-        },
-        );
+        });
       },
     });
-
   }
+
   return pgBrowser.Nodes['coll-cast'];
 });

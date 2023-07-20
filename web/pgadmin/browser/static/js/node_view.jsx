@@ -4,9 +4,9 @@ import 'wcdocker';
 
 import pgAdmin from 'sources/pgadmin';
 import getApiInstance from 'sources/api_instance';
-import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 import SchemaView from 'sources/schema_view';
 import gettext from 'sources/gettext';
+import {getHelpUrl, getEPASHelpUrl} from 'pgadmin.help';
 
 import { generateNodeUrl } from './node_ajax';
 import Notify from '../../../static/js/helpers/Notifier';
@@ -18,53 +18,67 @@ export function getNodeView(
   formType, container, containerPanel, onEdit, onSave
 ) {
   let nodeObj = pgAdmin.Browser.Nodes[nodeType];
-  let serverInfo = treeNodeInfo && ('server' in treeNodeInfo) &&
-      pgAdmin.Browser.serverInfo && pgAdmin.Browser.serverInfo[treeNodeInfo.server._id];
+  let serverInfo = treeNodeInfo &&
+    ('server' in treeNodeInfo) &&
+    pgAdmin.Browser.serverInfo &&
+    pgAdmin.Browser.serverInfo[treeNodeInfo.server._id];
+
   let inCatalog = treeNodeInfo && ('catalog' in treeNodeInfo);
-  let urlBase = generateNodeUrl.call(nodeObj, treeNodeInfo, actionType, itemNodeData, false, nodeObj.url_jump_after_node);
+  let urlBase = generateNodeUrl.call(
+    nodeObj, treeNodeInfo, actionType,
+    itemNodeData, false, nodeObj.url_jump_after_node
+  );
   const api = getApiInstance();
+
   const url = (isNew)=>{
     return urlBase + (isNew ? '' : itemNodeData._id);
   };
-  let isDirty = false; // usefull for warnings
-  let warnOnCloseFlag = true;
-  const confirmOnCloseReset = pgAdmin.Browser.get_preferences_for_module('browser').confirm_on_properties_close;
-  let updatedData =  ['table', 'partition'].includes(nodeType) && !_.isEmpty(itemNodeData.rows_cnt) ? {rows_cnt: itemNodeData.rows_cnt} : undefined;
 
-  let onError = (err)=> {
-    if(err.response){
+  let isDirty = false; // useful for warnings
+  let warnOnCloseFlag = true;
+
+  const confirmOnCloseReset =
+    pgAdmin.Browser.get_preferences_for_module(
+      'browser'
+    ).confirm_on_properties_close;
+
+  let updatedData = ['table', 'partition'].includes(nodeType) &&
+    !_.isEmpty(itemNodeData.rows_cnt)
+    ? {rows_cnt: itemNodeData.rows_cnt}
+    : undefined;
+
+  let onError = (err) => {
+    if (err.response) {
       console.error('error resp', err.response);
-    } else if(err.request){
+    } else if (err.request) {
       console.error('error req', err.request);
-    } else if(err.message){
+    } else if (err.message) {
       console.error('error msg', err.message);
     }
   };
 
   /* Called when dialog is opened in edit mode, promise required */
   let initData = ()=>new Promise((resolve, reject)=>{
-    if(actionType === 'create') {
+    if (actionType === 'create') {
       resolve({});
     } else {
-      api.get(url(false))
-        .then((res)=>{
-          resolve(res.data);
-        })
-        .catch((err)=>{
-          Notify.pgNotifier('error', err, '', function(msg) {
-            if (msg == 'CRYPTKEY_SET') {
-              return Promise.resolve(initData());
-            } else if (msg == 'CRYPTKEY_NOT_SET') {
-              reject(gettext('The master password is not set.'));
-            }
-            reject(err);
-          });
+      api.get(url(false)).then((res)=>{
+        resolve(res.data);
+      }).catch((err)=>{
+        Notify.pgNotifier('error', err, '', function(msg) {
+          if (msg == 'CRYPTKEY_SET') {
+            return Promise.resolve(initData());
+          } else if (msg == 'CRYPTKEY_NOT_SET') {
+            reject(gettext('The master password is not set.'));
+          }
+          reject(err);
         });
+      });
     }
   });
 
   /* on save button callback, promise required */
-  const onSaveClick = (isNew, data)=>new Promise((resolve, reject)=>{
+  const onSaveClick = (isNew, data) => new Promise((resolve, reject) => {
     return api({
       url: url(isNew),
       method: isNew ? 'POST' : 'PUT',
@@ -88,7 +102,10 @@ export function getNodeView(
 
   /* Called when switched to SQL tab, promise required */
   const getSQLValue = (isNew, changedData)=>{
-    const msqlUrl = generateNodeUrl.call(nodeObj, treeNodeInfo, 'msql', itemNodeData, !isNew, nodeObj.url_jump_after_node);
+    const msqlUrl = generateNodeUrl.call(
+      nodeObj, treeNodeInfo, 'msql', itemNodeData,
+      !isNew, nodeObj.url_jump_after_node
+    );
     return new Promise((resolve, reject)=>{
       api({
         url: msqlUrl,
@@ -115,7 +132,9 @@ export function getNodeView(
       } else {
         if (nodeObj.sqlCreateHelp == '' && nodeObj.sqlAlterHelp != '') {
           fullUrl = getHelpUrl(helpUrl, nodeObj.sqlAlterHelp, server.version);
-        } else if (nodeObj.sqlCreateHelp != '' && nodeObj.sqlAlterHelp == '') {
+        } else if (
+          nodeObj.sqlCreateHelp != '' && nodeObj.sqlAlterHelp == ''
+        ) {
           fullUrl = getHelpUrl(helpUrl, nodeObj.sqlCreateHelp, server.version);
         } else {
           if (isNew) {
@@ -134,7 +153,11 @@ export function getNodeView(
 
   /* A warning before closing the dialog with unsaved changes, based on preference */
   let warnBeforeChangesLost = (yesCallback)=>{
-    let confirmOnClose = pgAdmin.Browser.get_preferences_for_module('browser').confirm_on_properties_close;
+    let confirmOnClose =
+      pgAdmin.Browser.get_preferences_for_module(
+        'browser'
+      ).confirm_on_properties_close;
+
     if (warnOnCloseFlag && confirmOnClose) {
       if(isDirty){
         Notify.confirm(
@@ -160,15 +183,17 @@ export function getNodeView(
 
   /* Bind the wcDocker dialog close event and check if user should be warned */
   if (containerPanel.closeable()) {
-    containerPanel.on(window.wcDocker.EVENT.CLOSING, warnBeforeChangesLost.bind(
-      containerPanel,
-      function() {
-        containerPanel.off(window.wcDocker.EVENT.CLOSING);
-        /* Always clean up the react mounted dom before closing */
-        removeNodeView(container);
-        containerPanel.close();
-      }
-    ));
+    containerPanel.on(window.wcDocker.EVENT.CLOSING,
+      warnBeforeChangesLost.bind(
+        containerPanel,
+        function() {
+          containerPanel.off(window.wcDocker.EVENT.CLOSING);
+          /* Always clean up the react mounted dom before closing */
+          removeNodeView(container);
+          containerPanel.close();
+        }
+      )
+    );
   }
 
   /* All other useful details can go with this object */
@@ -206,17 +231,28 @@ export function getNodeView(
           isDirty = dataChanged;
         }}
         confirmOnCloseReset={confirmOnCloseReset}
-        hasSQL={nodeObj.hasSQL && (actionType === 'create' || actionType === 'edit')}
+        hasSQL={nodeObj.hasSQL && (
+          actionType === 'create' ||
+          actionType === 'edit'
+        )}
         getSQLValue={getSQLValue}
-        disableSqlHelp={nodeObj.sqlAlterHelp == '' && nodeObj.sqlCreateHelp == '' && !nodeObj.epasHelp}
-        disableDialogHelp={nodeObj.dialogHelp == undefined || nodeObj.dialogHelp == ''}
+        disableSqlHelp={
+          nodeObj.sqlAlterHelp == '' &&
+          nodeObj.sqlCreateHelp == '' &&
+          !nodeObj.epasHelp
+        }
+        disableDialogHelp={
+          nodeObj.dialogHelp == undefined ||
+          nodeObj.dialogHelp == ''
+        }
       />
     </Theme>,
     container
   );
 }
 
-/* When switching from normal node to collection node, clean up the React mounted DOM */
+/* When switching from normal node to collection node,
+clean up the React mounted DOM */
 export function removeNodeView(container) {
   ReactDOM.unmountComponentAtNode(container);
 }

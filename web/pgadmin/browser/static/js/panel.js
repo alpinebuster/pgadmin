@@ -234,7 +234,9 @@ define([
               elAttr = 'xs';
             p.pgResizeTimeout = null;
 
-            /** Calculations based on https://getbootstrap.com/docs/4.1/layout/grid/#grid-options **/
+            /** Calculations based on
+             * https://getbootstrap.com/docs/4.1/layout/grid/#grid-options
+             * **/
             if (w >= 480) {
               elAttr = 'sm';
             }
@@ -262,7 +264,10 @@ define([
         .scene()
         .find('.pg-panel-content');
 
-      if (isPanelVisible && ['dashboard', 'statistics', 'dependencies', 'dependents', 'sql', 'processes'].includes(selectedPanel._type) ) {
+      if (isPanelVisible && [
+        'dashboard', 'statistics', 'dependencies',
+        'dependents', 'sql', 'processes'
+      ].includes(selectedPanel._type)) {
         if (eventName == 'panelVisibilityChanged') {
           getPanelView(
             pgBrowser.tree,
@@ -272,7 +277,10 @@ define([
           );
         }
       }
-      if (eventName == 'panelClosed' && selectedPanel._type == 'dashboard') {
+      if (
+        eventName == 'panelClosed' &&
+        selectedPanel._type == 'dashboard'
+      ) {
         getPanelView(
           pgBrowser.tree,
           container[0],

@@ -242,6 +242,7 @@ export class TreeNode {
 
     return this.ancestorNode(condition) !== null;
   }
+  
   anyParent(condition) {
     return this.ancestorNode(condition) !== null;
   }
@@ -287,7 +288,6 @@ export class TreeNode {
       }
     });
   }
-
 }
 
 export function isCollectionNode(node) {

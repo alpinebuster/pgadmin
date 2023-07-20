@@ -1,12 +1,12 @@
-import {getPanelView} from './panel_view';
 import _ from 'lodash';
+
+import {getPanelView} from './panel_view';
 
 define([
   'sources/gettext', 'sources/pgadmin',
   'sources/browser/generate_url',
   'pgadmin.browser.node',
 ], function(gettext, pgAdmin, generateUrl) {
-
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
   // It has already been defined.
@@ -14,11 +14,14 @@ define([
   if (pgBrowser.Collection)
     return pgBrowser.Collection;
 
-  pgBrowser.Collection = function() {/*This is intentional (SonarQube)*/};
+  pgBrowser.Collection = function () {
+    /*This is intentional (SonarQube)*/
+  };
 
   _.extend(
     pgBrowser.Collection,
-    _.clone(pgBrowser.Node), {
+    _.clone(pgBrowser.Node),
+    {
       ///////
       // Initialization function
       // Generally - used to register the menus for this type of node.
@@ -125,7 +128,8 @@ define([
           d = i ? t.itemData(i) : undefined;
         pgBrowser.psql.psql_tool(d, i, true);
       },
-    });
+    }
+  );
 
   return pgBrowser.Collection;
 });
