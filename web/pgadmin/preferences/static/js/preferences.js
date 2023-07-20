@@ -56,7 +56,8 @@ export default class Preferences {
                 />
               );
             }}
-            closeModal={closeModal} />
+            closeModal={closeModal}
+          />
         );
       }, {
         isFullScreen: false,
