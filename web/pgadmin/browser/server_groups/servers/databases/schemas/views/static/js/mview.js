@@ -60,7 +60,7 @@ define('pgadmin.node.mview', [
       hasScriptTypes: ['create', 'select'],
       collection_type: 'coll-mview',
       width: pgBrowser.stdW.md + 'px',
-      Init: function() {
+      init: function() {
 
         // Avoid mulitple registration of menus
         if (this.initialized)

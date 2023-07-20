@@ -1,6 +1,9 @@
 /* https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html */
 
 import React from 'react';
+
+import gettext from 'sources/gettext';
+
 import CustomPropTypes from '../custom_prop_types';
 
 export default class ErrorBoundary extends React.Component {
@@ -17,10 +20,10 @@ export default class ErrorBoundary extends React.Component {
   }
 
   render() {
-    if (this.state.hasError) {
+    if (this.state.hasError)
       // You can render any custom fallback UI
-      return <h2>Something went wrong.</h2>;
-    }
+      return <h2>{gettext('Something went wrong.')}</h2>;
+
     return this.props.children;
   }
 }

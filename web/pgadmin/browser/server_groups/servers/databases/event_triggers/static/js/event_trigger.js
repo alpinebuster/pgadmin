@@ -31,7 +31,7 @@ define('pgadmin.node.event_trigger', [
       hasSQL:  true,
       hasDepends: true,
       canDrop: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

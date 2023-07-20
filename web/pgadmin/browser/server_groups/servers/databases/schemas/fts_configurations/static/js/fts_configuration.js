@@ -32,7 +32,7 @@ define('pgadmin.node.fts_configuration', [
       label: gettext('FTS Configuration'),
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

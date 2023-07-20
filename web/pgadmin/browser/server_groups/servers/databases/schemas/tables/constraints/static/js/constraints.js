@@ -25,7 +25,7 @@ define('pgadmin.node.constraints', [
       collection_type: 'coll-constraints',
       parent_type: ['table','partition'],
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

@@ -64,7 +64,7 @@ define('pgadmin.node.table', [
       ),
       hasScriptTypes: ['create', 'select', 'insert', 'update', 'delete'],
       width: pgBrowser.stdW.lg + 'px',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

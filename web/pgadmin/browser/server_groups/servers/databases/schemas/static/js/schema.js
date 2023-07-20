@@ -30,7 +30,7 @@ define('pgadmin.node.schema', [
       canDrop: true,
       canDropCascade: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

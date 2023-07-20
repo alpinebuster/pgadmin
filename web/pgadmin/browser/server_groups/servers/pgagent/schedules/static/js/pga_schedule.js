@@ -29,7 +29,7 @@ define('pgadmin.node.pga_schedule', [
       canDrop: true,
       label: gettext('Schedule'),
       node_image: 'icon-pga_schedule',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

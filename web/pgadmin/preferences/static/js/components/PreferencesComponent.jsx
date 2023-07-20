@@ -177,8 +177,7 @@ export default function PreferencesComponent({ ...props }) {
   useEffect(() => {
     const pref_url = url_for('preferences.index');
     api({
-      url: pref_url,
-      method: 'GET',
+      url: pref_url, method: 'GET',
     }).then((res) => {
       let preferencesData = [];
       let preferencesTreeData = [];
@@ -224,7 +223,8 @@ export default function PreferencesComponent({ ...props }) {
 
           addNote(node, subNode, nodeData, preferencesData);
           setPreferences(
-            node, subNode, nodeData, preferencesValues, preferencesData
+            node, subNode, nodeData,
+            preferencesValues, preferencesData
           );
           tdata['childrenNodes'].push(nodeData);
         });
@@ -374,7 +374,7 @@ export default function PreferencesComponent({ ...props }) {
       note = [
         gettext('This settings is to Show/Hide nodes in the object explorer.')
       ].join('');
-    } if(nodeData.name == 'keyboard_shortcuts') {
+    } if (nodeData.name == 'keyboard_shortcuts') {
       note = gettext(
         'The Accesskey here is %s.',
         getBrowserAccesskey().join(' + ')
@@ -384,11 +384,12 @@ export default function PreferencesComponent({ ...props }) {
     }
 
     if (note && note.length > 0) {
-      //Add Note for Nodes
+      // Add Note for Nodes
       preferencesData.push(
         {
           id: _.uniqueId('note') + subNode.id,
-          type: 'note', text: note,
+          type: 'note',
+          text: note,
           visible: false,
           'parentId': nodeData['id']
         },
@@ -419,12 +420,15 @@ export default function PreferencesComponent({ ...props }) {
     pgAdmin.Browser.Events.on(EV_PREF_TREE_SELECTED, (event, item) => {
       if (item.type == FileType.File) {
         prefSchema.current.setSelectedCategory(item._metadata.data.name);
+
         prefSchema.current.schemaFields.forEach((field) => {
-          field.visible = field.parentId === item._metadata.data.id && !field?.hidden ;
+          field.visible =
+            field.parentId === item._metadata.data.id && !field?.hidden;
           if(field.visible && _.isNull(firstElement)) {
             firstElement = field;
           }
         });
+
         setLoadTree(crypto.getRandomValues(new Uint16Array(1)));
         initTreeTimeout = setTimeout(() => {
           prefTreeInit.current = true;
@@ -551,7 +555,9 @@ export default function PreferencesComponent({ ...props }) {
   ) {
     initVals[_metadata[0].id].forEach((initVal) => {
       if (pathVersions.includes(initVal.version)) {
-        pathData.push(value.changed[pathVersions.indexOf(initVal.version)]);
+        pathData.push(
+          value.changed[pathVersions.indexOf(initVal.version)]
+        );
       }
       else {
         pathData.push(initVal);

@@ -28,7 +28,7 @@ define('pgadmin.node.aggregate', [
       hasDepends: false,
       canDrop: false,
       canDropCascade: false,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

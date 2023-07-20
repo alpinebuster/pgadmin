@@ -1,9 +1,11 @@
 import _ from 'lodash';
-import pgAdmin from '../../../static/js/pgadmin';
 import Mousetrap from 'mousetrap';
-import * as commonUtils from '../../../static/js/utils';
+
 import gettext from 'sources/gettext';
 import pgWindow from 'sources/window';
+
+import pgAdmin from '../../../static/js/pgadmin';
+import * as commonUtils from '../../../static/js/utils';
 
 const pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 

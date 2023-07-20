@@ -34,7 +34,7 @@ define('pgadmin.node.domain', [
       collection_type: 'coll-domain',
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
         // Avoid mulitple registration of menus
         if (this.initialized)
           return;

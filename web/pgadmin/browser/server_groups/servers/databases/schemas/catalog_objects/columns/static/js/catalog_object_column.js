@@ -26,7 +26,7 @@ define('pgadmin.node.catalog_object_column', [
         hasSQL:  false,
         hasScriptTypes: [],
         hasDepends: true,
-        Init: function() {
+        init: function() {
         /* Avoid mulitple registration of menus */
           if (this.initialized)
             return;

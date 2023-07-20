@@ -23,25 +23,22 @@ define('pgadmin.browser.node', [
 ], function(
   gettext, pgAdmin, generateUrl, commonUtils
 ) {
-
   let wcDocker = window.wcDocker;
-
   const pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
   // It has already been defined.
   // Avoid running this script again.
-  if (pgBrowser.Node)
-    return pgBrowser.Node;
+  if (pgBrowser.Node) return pgBrowser.Node;
 
   pgBrowser.Nodes = pgBrowser.Nodes || {};
 
-  // A helper (base) class for all the nodes, this has basic
+  // NOTE: A helper (base) class for all the nodes, this has basic
   // operations/callbacks defined for basic operation.
   pgBrowser.Node = function() {
     /*This is intentional (SonarQube)*/
   };
 
-  // Helper function to correctly set up the property chain, for subclasses.
+  // NOTE: Helper function to correctly set up the property chain, for subclasses.
   // Uses a hash of class properties to be extended.
   //
   // It is unlikely - we will instantiate an object for this class.
@@ -73,11 +70,10 @@ define('pgadmin.browser.node', [
       callbacks = _.keys(child.callbacks);
     for (let cb_val of callbacks) bindToChild(cb_val);
 
-    // Registering the node by calling child.Init(...) function
-    child.Init.apply(child);
-
+    // Registering the node by calling child.init(...) function
+    child.init.apply(child);
     // Initialize the parent
-    this.Init.apply(child);
+    this.init.apply(child);
 
     return child;
   };
@@ -104,7 +100,7 @@ define('pgadmin.browser.node', [
     // Also, look at pgAdmin.Browser.add_menus(...) function.
     //
     // NOTE: Override this for each node for initialization purpose
-    Init: function() {
+    init: function() {
       let self = this;
       if (self.node_initialized)
         return;
@@ -351,8 +347,7 @@ define('pgadmin.browser.node', [
       let w = docker || pgBrowser.docker,
         p = w.findPanels('utility_props');
 
-      if (p && p.length == 1)
-        return;
+      if (p && p.length == 1) return;
 
       let events = {};
 

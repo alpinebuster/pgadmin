@@ -33,7 +33,7 @@ define('pgadmin.node.fts_dictionary', [
       label: gettext('FTS Dictionary'),
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

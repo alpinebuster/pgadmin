@@ -32,7 +32,7 @@ define('pgadmin.node.domain_constraints', [
       hasSQL: true,
       hasDepends: true,
       parent_type: ['domain'],
-      Init: function() {
+      init: function() {
         // Avoid mulitple registration of menus
         if (this.initialized)
           return;

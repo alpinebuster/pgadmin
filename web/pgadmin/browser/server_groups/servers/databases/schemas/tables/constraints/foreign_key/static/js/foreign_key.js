@@ -24,7 +24,7 @@ define('pgadmin.node.foreign_key', [
       canDropCascade: true,
       hasDepends: true,
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

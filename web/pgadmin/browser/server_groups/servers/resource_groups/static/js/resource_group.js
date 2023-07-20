@@ -28,7 +28,7 @@ define('pgadmin.node.resource_group', [
       label: gettext('Resource Group'),
       hasSQL:  true,
       canDrop: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized) {

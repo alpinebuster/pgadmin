@@ -32,7 +32,7 @@ define('pgadmin.node.package', [
       collection_type: 'coll-package',
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

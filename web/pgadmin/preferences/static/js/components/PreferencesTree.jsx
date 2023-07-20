@@ -25,14 +25,14 @@ export default function PreferencesTree({ pgBrowser, data }) {
     setLoaded(false);
 
     // Setup host
-    let ptree = new ManagePreferenceTreeNodes(data);
+    let ptree_manager = new ManagePreferenceTreeNodes(data);
     // Init Tree with the Tree Parent node '/browser'
-    ptree.init(MOUNT_POINT);
+    ptree_manager.init(MOUNT_POINT);
 
     const host = {
       pathStyle: 'unix',
       getItems: (path) => {
-        return ptree.readNode(path);
+        return ptree_manager.readNode(path);
       },
       sortComparator: (a, b) => {
         // No nee to sort Query tool options.
@@ -58,7 +58,7 @@ export default function PreferencesTree({ pgBrowser, data }) {
     onReadyRef.current = (handler) => {
       // Initialize preferences Tree
       pgBrowser.ptree = new Tree(
-        handler, ptree, pgBrowser, 'preferences'
+        handler, ptree_manager, pgBrowser, 'preferences'
       );
       // Expand directory on loading.
       pTreeModelX.current.root._children.forEach((_d) => {
@@ -83,8 +83,9 @@ export default function PreferencesTree({ pgBrowser, data }) {
 
   return (
     <FileTreeX
-      model={pTreeModelX.current} height={'100%'}
+      model={pTreeModelX.current}
       onReady={onReadyRef.current}
+      height={'100%'}
     />
   );
 }
@@ -92,5 +93,4 @@ export default function PreferencesTree({ pgBrowser, data }) {
 PreferencesTree.propTypes = {
   pgBrowser: PropTypes.any,
   data: PropTypes.array,
-  ptree: PropTypes.any,
 };

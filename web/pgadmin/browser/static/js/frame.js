@@ -39,6 +39,7 @@ define([
     onCreate: null,
     load: function(docker) {
       let that = this;
+      
       if (!that.panel) {
         docker.registerPanelType(this.name, {
           title: that.title,
@@ -55,7 +56,7 @@ define([
             myPanel.closeable(!!that.isCloseable);
             myPanel.renamable(that.isRenamable);
 
-            let $frameArea = $('<div style="position:absolute;top:0 !important;width:100%;height:100%;display:table;z-index:0;">');
+            let $frameArea = $('<div style="position:absolute; top:0 !important; width:100%; height:100%; display:table; z-index:0;">');
             myPanel.layout().addItem($frameArea);
             that.panel = myPanel;
             let frame = new wcIFrame($frameArea, myPanel);

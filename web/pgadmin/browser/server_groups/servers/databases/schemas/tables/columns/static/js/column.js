@@ -51,7 +51,7 @@ define('pgadmin.node.column', [
       },
       hasDepends: true,
       hasStatistics: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

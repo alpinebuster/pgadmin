@@ -47,7 +47,7 @@ define('pgadmin.node.server', [
       can_expand: function(d) {
         return d && d.connected;
       },
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of same menus */
         if (this.initialized)
           return;

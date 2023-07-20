@@ -25,7 +25,7 @@ define('pgadmin.node.primary_key', [
       canDrop: true,
       canDropCascade: true,
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

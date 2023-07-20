@@ -36,7 +36,7 @@ define('pgadmin.node.row_security_policy', [
       sqlCreateHelp: 'sql-createpolicy.html',
       dialogHelp: url_for('help.static', {'filename': 'rls_policy_dialog.html'}),
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

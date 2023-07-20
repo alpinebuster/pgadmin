@@ -10,7 +10,9 @@ import url_for from 'sources/url_for';
 import EventBus from './EventBus';
 import getApiInstance from '../api_instance';
 import { PgIconButton } from '../components/Buttons';
-import {ExpandDialogIcon, MinimizeDialogIcon } from '../components/ExternalIcon';
+import {
+  ExpandDialogIcon, MinimizeDialogIcon
+} from '../components/ExternalIcon';
 
 const useStyles = makeStyles((theme)=>({
   docklayout: {

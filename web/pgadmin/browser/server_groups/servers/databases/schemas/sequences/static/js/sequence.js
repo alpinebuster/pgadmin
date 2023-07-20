@@ -36,7 +36,7 @@ define('pgadmin.node.sequence', [
       hasSQL: true,
       hasDepends: true,
       hasStatistics: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

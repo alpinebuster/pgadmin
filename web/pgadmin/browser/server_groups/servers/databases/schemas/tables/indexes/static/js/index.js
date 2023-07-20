@@ -40,7 +40,7 @@ define('pgadmin.node.index', [
       width: pgBrowser.stdW.md + 'px',
       statsPrettifyFields: [gettext('Size'), gettext('Index size')],
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

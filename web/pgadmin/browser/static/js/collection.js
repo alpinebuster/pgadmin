@@ -28,7 +28,7 @@ define([
       // Collection will not have 'Properties' menu.
       //
       // NOTE: Override this for each node for initialization purpose
-      Init: function() {
+      init: function() {
         if (this.node_initialized)
           return;
         this.node_initialized = true;

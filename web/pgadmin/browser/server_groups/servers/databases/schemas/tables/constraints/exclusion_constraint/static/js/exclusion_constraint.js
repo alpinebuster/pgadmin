@@ -25,7 +25,7 @@ define('pgadmin.node.exclusion_constraint', [
       statsPrettifyFields: [gettext('Index size')],
       url_jump_after_node: 'schema',
       width: pgBrowser.stdW.md + 'px',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

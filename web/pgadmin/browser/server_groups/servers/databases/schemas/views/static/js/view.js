@@ -48,7 +48,7 @@ define('pgadmin.node.view', [
       hasDepends: true,
       hasScriptTypes: ['create', 'select', 'insert'],
       collection_type: 'coll-view',
-      Init: function() {
+      init: function() {
 
         // Avoid mulitple registration of menus
         if (this.initialized)

@@ -30,7 +30,7 @@ define('pgadmin.node.fts_parser', [
       label: gettext('FTS Parser'),
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

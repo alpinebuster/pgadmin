@@ -34,7 +34,7 @@ define('pgadmin.node.edbproc', [
       hasSQL: true,
       hasScriptTypes: [],
       parent_type: ['package'],
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.proc_initialized)
           return;

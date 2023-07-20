@@ -38,7 +38,7 @@ define('pgadmin.node.trigger', [
       sqlCreateHelp: 'sql-createtrigger.html',
       dialogHelp: url_for('help.static', {'filename': 'trigger_dialog.html'}),
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

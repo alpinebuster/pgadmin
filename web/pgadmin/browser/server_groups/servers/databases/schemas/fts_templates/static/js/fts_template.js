@@ -30,7 +30,7 @@ define('pgadmin.node.fts_template', [
       label: gettext('FTS Template'),
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

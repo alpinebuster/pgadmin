@@ -72,7 +72,7 @@ define('pgadmin.node.database', [
         return 'pg-icon-database';
       },
       width: '700px',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

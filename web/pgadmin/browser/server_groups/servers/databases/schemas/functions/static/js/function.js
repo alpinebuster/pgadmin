@@ -38,7 +38,7 @@ define('pgadmin.node.function', [
       width: pgBrowser.stdW.md + 'px',
       hasStatistics: true,
       hasScriptTypes: ['create', 'select'],
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

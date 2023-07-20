@@ -38,7 +38,7 @@ define('pgadmin.node.foreign_table', [
       width: pgBrowser.stdW.md + 'px',
       hasScriptTypes: ['create', 'select', 'insert', 'update', 'delete'],
       parent_type: ['schema'],
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

@@ -31,7 +31,7 @@ define('pgadmin.node.foreign_data_wrapper', [
       hasDepends: true,
       canDrop: true,
       canDropCascade: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

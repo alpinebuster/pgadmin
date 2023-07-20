@@ -46,7 +46,7 @@ define('pgadmin.node.trigger_function', [
       hasDepends: true,
       hasStatistics: true,
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

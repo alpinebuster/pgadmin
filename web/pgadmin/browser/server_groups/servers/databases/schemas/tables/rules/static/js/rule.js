@@ -60,7 +60,7 @@ define('pgadmin.node.rule', [
         return (!_.has(itemData, 'label') || itemData.label !== '_RETURN');
       },
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
 
         /* Avoid mulitple registration of menus */
         if (this.initialized)

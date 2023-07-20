@@ -38,7 +38,7 @@ define('pgadmin.node.pga_job', [
       node_image: function() {
         return 'icon-pga_job';
       },
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

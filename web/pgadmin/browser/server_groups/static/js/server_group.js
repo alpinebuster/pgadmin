@@ -17,7 +17,7 @@ define('pgadmin.node.server_group', [
       width: '250px',
       height: '150px',
       is_collection: true,
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

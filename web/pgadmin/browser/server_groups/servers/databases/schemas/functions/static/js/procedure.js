@@ -44,7 +44,7 @@ define('pgadmin.node.procedure', [
       hasStatistics: true,
       hasScriptTypes: ['create', 'exec'],
       width: pgBrowser.stdW.md + 'px',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.proc_initialized)
           return;

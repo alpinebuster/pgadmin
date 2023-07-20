@@ -31,7 +31,7 @@ define('pgadmin.node.synonym', [
       hasSQL: true,
       hasDepends: true,
       parent_type: ['schema', 'catalog'],
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

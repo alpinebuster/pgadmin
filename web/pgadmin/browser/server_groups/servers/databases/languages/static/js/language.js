@@ -31,7 +31,7 @@ define('pgadmin.node.language', [
       canDrop: true,
       canDropCascade: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

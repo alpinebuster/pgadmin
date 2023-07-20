@@ -27,16 +27,6 @@ define('app', [
           console.warn(e.stack || e);
         }
       }
-      else if (
-        module && module.Init && typeof module.Init == 'function'
-      ) {
-        try {
-          module.Init();
-        }
-        catch (e) {
-          console.warn(e.stack || e);
-        }
-      }
     }
   };
 

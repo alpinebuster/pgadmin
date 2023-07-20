@@ -45,7 +45,7 @@ function(
       dialogHelp: url_for('help.static', {'filename': 'table_dialog.html'}),
       hasScriptTypes: ['create'],
       width: '650px',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

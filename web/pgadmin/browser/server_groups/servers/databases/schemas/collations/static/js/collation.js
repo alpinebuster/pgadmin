@@ -31,7 +31,7 @@ define('pgadmin.node.collation', [
       collection_type: 'coll-collation',
       hasSQL: true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

@@ -52,7 +52,7 @@ define('pgadmin.node.extension', [
       canDropCascade: true,
       label: gettext('Extension'),
 
-      Init: function() {
+      init: function() {
         if(this.initialized)
           return;
 

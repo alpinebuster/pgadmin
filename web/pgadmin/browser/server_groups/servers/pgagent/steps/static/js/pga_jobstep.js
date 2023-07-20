@@ -35,7 +35,7 @@ define('pgadmin.node.pga_jobstep', [
       node_image: function() {
         return 'icon-pga_jobstep';
       },
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

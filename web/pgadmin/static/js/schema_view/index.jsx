@@ -603,13 +603,16 @@ function SchemaDialogView({
     }, 250);
 
     setLoaderText('Loading...');
+
     /* Get the initial data using getInitData */
     /* If its an edit mode, getInitData should be present and a promise */
     if(!getInitData && viewHelperProps.mode === 'edit') {
       throw new Error('getInitData must be passed for edit');
     }
-    let initDataPromise = (getInitData && getInitData()) || Promise.resolve({});
-    initDataPromise.then((data)=>{
+
+    let initDataPromise =
+      (getInitData && getInitData()) || Promise.resolve({});
+    initDataPromise.then((data) => {
       if(unmounted) {
         return;
       }
@@ -660,7 +663,7 @@ function SchemaDialogView({
   const onResetClick = ()=>{
     const resetIt = ()=>{
       firstEleRef.current && firstEleRef.current.focus();
-      setFormResetKey((prev)=>prev+1);
+      setFormResetKey((prev) => prev+1);
       sessDispatch({
         type: SCHEMA_STATE_ACTIONS.INIT,
         payload: schema.origData,
@@ -682,7 +685,7 @@ function SchemaDialogView({
     }
   };
 
-  const onSaveClick = ()=>{
+  const onSaveClick = () => {
     setSaving(true);
     setLoaderText('Saving...');
     /* Get the changed data */
@@ -699,9 +702,7 @@ function SchemaDialogView({
       Notifier.confirm(
         gettext('Warning'),
         schema.warningText,
-        ()=> {
-          save(changeData);
-        },
+        ()=> {save(changeData);},
         () => {
           setSaving(false);
           setLoaderText('');
@@ -714,26 +715,25 @@ function SchemaDialogView({
   };
 
   const save = (changeData) => {
-    props.onSave(isNew, changeData)
-      .then(()=>{
-        if(schema.informText) {
-          Notifier.alert(
-            gettext('Warning'),
-            schema.informText,
-          );
-        }
-      }).catch((err)=>{
-        console.error(err);
-        setFormErr({
-          name: 'apierror',
-          message: _.escape(parseApiError(err)),
-        });
-      }).finally(()=>{
-        if(checkIsMounted()) {
-          setSaving(false);
-          setLoaderText('');
-        }
+    props.onSave(isNew, changeData).then(() => {
+      if(schema.informText) {
+        Notifier.alert(
+          gettext('Warning'),
+          schema.informText,
+        );
+      }
+    }).catch((err)=>{
+      console.error(err);
+      setFormErr({
+        name: 'apierror',
+        message: _.escape(parseApiError(err)),
       });
+    }).finally(()=>{
+      if(checkIsMounted()) {
+        setSaving(false);
+        setLoaderText('');
+      }
+    });
   };
 
   const onErrClose = useCallback(()=>{
@@ -1091,7 +1091,7 @@ function SchemaPropertiesView({
     tabs,
     (v, tabName) => schema.filterGroups.indexOf(tabName) <= -1
   );
-  
+
   return (
     <Box className={classes.root}>
       <Loader message={loaderText}/>

@@ -29,7 +29,7 @@ define('pgadmin.node.edbfunc', [
       hasSQL: true,
       hasScriptTypes: [],
       parent_type: ['package'],
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

@@ -392,24 +392,31 @@ export function registerDetachEvent(panel){
   });
 }
 
+// Return e.g. {name: 'Chrome', version: '114'}
 export function getBrowser() {
-  let ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-  if(/trident/i.test(M[1])) {
+  let ua = navigator.userAgent, tem, M =
+    ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+
+  if (/trident/i.test(M[1])) {
     tem=/\brv[ :]+(\d+)/g.exec(ua) || [];
     return {name:'IE', version:(tem[1]||'')};
   }
-  if(ua.startsWith('Nwjs')) {
+
+  if (ua.startsWith('Nwjs')) {
     let nwjs = ua.split('-')[0]?.split(':');
     return {name:nwjs[0], version: nwjs[1]};
   }
 
-  if(M[1]==='Chrome') {
+  if (M[1]==='Chrome') {
     tem=ua.match(/\bOPR|Edge\/(\d+)/);
     if(tem!=null) {return {name:tem[0], version:tem[1]};}
   }
 
   M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-  if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+  if ((tem = ua.match(/version\/(\d+)/i)) != null) {
+    M.splice(1, 1, tem[1]);
+  }
+
   return {
     name: M[0],
     version: M[1],

@@ -36,7 +36,7 @@ define('pgadmin.node.subscription', [
       hasDepends: true,
       hasStatistics: true,
       width: '501px',
-      Init: function() {
+      init: function() {
 
         // Avoid multiple registration of menus
         if (this.initialized)

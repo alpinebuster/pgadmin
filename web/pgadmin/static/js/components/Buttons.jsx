@@ -116,10 +116,12 @@ export const PrimaryButton = forwardRef((props, ref)=>{
 
   return (
     <Button
-      ref={ref} size={size} className={clsx(allClassName)}
-      data-label={dataLabel} {...otherProps}
-      variant="contained"
+      ref={ref} size={size}
+      className={clsx(allClassName)}
+      data-label={dataLabel}
+      variant="outlined"
       color="primary"
+      {...otherProps}
     >
       {children}
     </Button>

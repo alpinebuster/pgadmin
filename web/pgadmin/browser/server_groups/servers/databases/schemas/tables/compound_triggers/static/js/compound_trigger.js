@@ -36,7 +36,7 @@ define('pgadmin.node.compound_trigger', [
       epasHelp: true,
       dialogHelp: url_for('help.static', {'filename': 'compound_trigger_dialog.html'}),
       url_jump_after_node: 'schema',
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

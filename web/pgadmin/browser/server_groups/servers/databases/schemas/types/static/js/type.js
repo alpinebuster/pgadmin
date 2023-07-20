@@ -33,7 +33,7 @@ define('pgadmin.node.type', [
       hasSQL: true,
       hasDepends: true,
       width: pgBrowser.stdW.md + 'px',
-      Init: function() {
+      init: function() {
         /* Avoid multiple registration of menus */
         if (this.initialized)
           return;

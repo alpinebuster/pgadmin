@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme)=>({
     }
   },
   menuButton: {
+    color: theme.palette.text.white,
     fontSize: '0.925rem',
   },
   userMenu: {

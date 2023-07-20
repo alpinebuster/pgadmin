@@ -28,7 +28,7 @@ define('pgadmin.node.edbvar', [
       hasSQL: true,
       hasScriptTypes: [],
       parent_type: ['package'],
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;

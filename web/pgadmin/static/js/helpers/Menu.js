@@ -1,25 +1,29 @@
 import _ from 'lodash';
+
 import gettext from 'sources/gettext';
 
 export default class Menu {
-  constructor(name, label, id, index, addSepratior) {
+  constructor(name, label, id, index, addSeparator) {
     this.label = label;
     this.name = name;
     this.id = id;
     this.index = index || 1;
     this.menuItems = [],
-    this.addSepratior = addSepratior || false;
+    this.addSeparator = addSeparator || false;
   }
 
-  static create(name, label, id, index, addSepratior) {
-    let menuObj = new Menu(name, label, id, index, addSepratior);
+  static create(name, label, id, index, addSeparator) {
+    let menuObj = new Menu(
+      name, label, id, index, addSeparator
+    );
     return menuObj;
   }
 
   addMenuItem(menuItem, index=null) {
     if (menuItem instanceof MenuItem) {
       menuItem.parentMenu = this;
-      if(index) {
+
+      if (index) {
         this.menuItems.splice(index, 0, menuItem);
       } else {
         this.menuItems.push(menuItem);
@@ -28,8 +32,6 @@ export default class Menu {
     } else {
       throw new Error(gettext('Invalid MenuItem instance'));
     }
-
-
   }
 
   addMenuItems(menuItems) {
@@ -37,6 +39,7 @@ export default class Menu {
       if (item instanceof MenuItem) {
         item.parentMenu = this;
         this.menuItems.push(item);
+
         if(item?.menu_items && item.menu_items.length > 0) {
           item.menu_items.forEach((i)=> {
             i.parentMenu = item;
@@ -65,7 +68,6 @@ export default class Menu {
     this.menuItems.sort(function (a, b) {
       return a.priority - b.priority;
     });
-
   }
 
   setMenuItems(menuItems) {
@@ -96,13 +98,15 @@ export default class Menu {
   }
 }
 
-
 export class MenuItem {
   constructor(options, onDisableChange, onChangeChecked) {
     let menu_opts = [
-      'name', 'label', 'priority', 'module', 'callback', 'data', 'enable',
+      'name', 'label', 'priority', 'module',
+      'callback', 'data', 'enable',
       'category', 'target', 'url', 'node',
-      'checked', 'below', 'menu_items', 'is_checkbox', 'action', 'applies', 'is_native_only', 'type',
+      'checked', 'below', 'menu_items',
+      'is_checkbox', 'action', 'applies',
+      'is_native_only', 'type',
     ];
     let defaults = {
       url: '#',
@@ -111,6 +115,7 @@ export class MenuItem {
       type: 'normal'
     };
     _.extend(this, defaults, _.pick(options, menu_opts));
+
     if (!this.callback) {
       this.callback = (item) => {
         if (item.url != '#') {
@@ -118,6 +123,7 @@ export class MenuItem {
         }
       };
     }
+
     this.onDisableChange = onDisableChange;
     this.changeChecked = onChangeChecked;
     this._isDisabled = true;
@@ -147,12 +153,14 @@ export class MenuItem {
       name: label,
       disabled: is_disabled,
       callback: () => { this.contextMenuCallback(self); },
-      ...(sub_ctx_item && Object.keys(sub_ctx_item).length > 0) && { items: sub_ctx_item }
+      ...(
+        sub_ctx_item && Object.keys(sub_ctx_item).length > 0
+      ) && {items: sub_ctx_item}
     };
   }
 
   checkAndSetDisabled(node, item, forceDisable) {
-    if(!_.isUndefined(forceDisable)) {
+    if (!_.isUndefined(forceDisable)) {
       this._isDisabled = forceDisable;
     } else {
       this._isDisabled = this.disabled(node, item);
@@ -194,7 +202,9 @@ export class MenuItem {
       return true;
     }
     if (this.module && _.isFunction(this.module[this.enable])) {
-      return !(this.module[this.enable]).apply(this.module, [node, item, this.data]);
+      return !(this.module[this.enable]).apply(
+        this.module, [node, item, this.data]
+      );
     }
 
     return false;

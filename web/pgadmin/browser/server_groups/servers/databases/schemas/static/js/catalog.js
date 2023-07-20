@@ -24,7 +24,7 @@ define('pgadmin.node.catalog', [
       label: gettext('Catalog'),
       hasSQL:  true,
       hasDepends: true,
-      Init: function() {
+      init: function() {
         /* Avoid mulitple registration of menus */
         if (this.initialized)
           return;
