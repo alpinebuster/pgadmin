@@ -218,86 +218,86 @@ export default function CloudWizard({
     let isError = (cloudProvider == '');
 
     switch(cloudProvider) {
-      case CLOUD_PROVIDERS.AWS:
-        switch (currentStep) {
-          case 0:
-            setCloudSelection(CLOUD_PROVIDERS.AWS);
-            break;
-          case 1:
-            isError = validateCloudStep1(cloudDBCred);
-            break;
-          case 2:
-            break;
-          case 3:
-            isError = validateCloudStep2(cloudInstanceDetails, hostIP);
-            break;
-          case 4:
-            isError = validateCloudStep3(cloudDBDetails, nodeInfo);
-            break;
-          default:
-            break;
-        }
+    case CLOUD_PROVIDERS.AWS:
+      switch (currentStep) {
+      case 0:
+        setCloudSelection(CLOUD_PROVIDERS.AWS);
         break;
-      case CLOUD_PROVIDERS.BIGANIMAL:
-        switch (currentStep) {
-          case 0:
-            setCloudSelection(CLOUD_PROVIDERS.BIGANIMAL);
-            break;
-          case 1:
-            isError = !verificationIntiated;
-            break;
-          case 2:
-            isError = validateBigAnimalStep2(bigAnimalClusterTypeData);
-            break;
-          case 3:
-            isError = validateBigAnimalStep3(bigAnimalInstanceData);
-            break;
-          case 4:
-            isError = validateBigAnimalStep4(bigAnimalDatabaseData, nodeInfo);
-            break;
-          default:
-            break;
-        }
+      case 1:
+        isError = validateCloudStep1(cloudDBCred);
         break;
-      case CLOUD_PROVIDERS.AZURE:
-        switch (currentStep) {
-          case 0:
-            setCloudSelection(CLOUD_PROVIDERS.AZURE);
-            break;
-          case 1:
-            isError = !verificationIntiated;
-            break;
-          case 2:
-            break;
-          case 3:
-            isError = validateAzureStep2(azureInstanceData);
-            break;
-          case 4:
-            isError = validateAzureStep3(azureDatabaseData, nodeInfo);
-            break;
-          default:
-            break;
-        }
+      case 2:
         break;
-      case CLOUD_PROVIDERS.GOOGLE:
-        switch (currentStep) {
-          case 0:
-            setCloudSelection(CLOUD_PROVIDERS.GOOGLE);
-            break;
-          case 1:
-            isError = !verificationIntiated;
-            break;
-          case 2:
-            break;
-          case 3:
-            isError = validateGoogleStep2(googleInstanceData);
-            break;
-          case 4:
-            isError = validateGoogleStep3(googleDatabaseData, nodeInfo);
-            break;
-          default:
-            break;
-        }
+      case 3:
+        isError = validateCloudStep2(cloudInstanceDetails, hostIP);
+        break;
+      case 4:
+        isError = validateCloudStep3(cloudDBDetails, nodeInfo);
+        break;
+      default:
+        break;
+      }
+      break;
+    case CLOUD_PROVIDERS.BIGANIMAL:
+      switch (currentStep) {
+      case 0:
+        setCloudSelection(CLOUD_PROVIDERS.BIGANIMAL);
+        break;
+      case 1:
+        isError = !verificationIntiated;
+        break;
+      case 2:
+        isError = validateBigAnimalStep2(bigAnimalClusterTypeData);
+        break;
+      case 3:
+        isError = validateBigAnimalStep3(bigAnimalInstanceData);
+        break;
+      case 4:
+        isError = validateBigAnimalStep4(bigAnimalDatabaseData, nodeInfo);
+        break;
+      default:
+        break;
+      }
+      break;
+    case CLOUD_PROVIDERS.AZURE:
+      switch (currentStep) {
+      case 0:
+        setCloudSelection(CLOUD_PROVIDERS.AZURE);
+        break;
+      case 1:
+        isError = !verificationIntiated;
+        break;
+      case 2:
+        break;
+      case 3:
+        isError = validateAzureStep2(azureInstanceData);
+        break;
+      case 4:
+        isError = validateAzureStep3(azureDatabaseData, nodeInfo);
+        break;
+      default:
+        break;
+      }
+      break;
+    case CLOUD_PROVIDERS.GOOGLE:
+      switch (currentStep) {
+      case 0:
+        setCloudSelection(CLOUD_PROVIDERS.GOOGLE);
+        break;
+      case 1:
+        isError = !verificationIntiated;
+        break;
+      case 2:
+        break;
+      case 3:
+        isError = validateGoogleStep2(googleInstanceData);
+        break;
+      case 4:
+        isError = validateGoogleStep3(googleDatabaseData, nodeInfo);
+        break;
+      default:
+        break;
+      }
     }
     return isError;
   };

@@ -16,7 +16,11 @@ function manageTreeEvents(event, eventName, item) {
   let pgBrowser = pgAdmin.Browser;
 
   // Events for preferences tree.
-  if (node_metadata.parent && node_metadata.parent.includes('/preferences') && pgBrowser.ptree.tree.type == 'preferences') {
+  if (
+    node_metadata.parent &&
+    node_metadata.parent.includes('/preferences') &&
+    pgBrowser.ptree.tree.type == 'preferences'
+  ) {
     try {
       pgBrowser.Events.trigger(
         EV_PREF_TREE_ + eventName, event, item, d
@@ -25,7 +29,7 @@ function manageTreeEvents(event, eventName, item) {
       console.warn(e.stack || e);
       return false;
     }
-  } else if(eventName == 'hovered') {
+  } else if (eventName == 'hovered') {
     /* Raise tree events for the nodes */
     try {
       pgBrowser.Events.trigger(
@@ -46,10 +50,18 @@ function manageTreeEvents(event, eventName, item) {
       if (eventName == 'dragstart') {
         pgBrowser.tree.handleDraggable(event, item);
       }
-      if (eventName == 'added' || eventName == 'beforeopen' || eventName == 'loaded') {
-        pgBrowser.tree.addNewNode(item.getMetadata('data').id, item.getMetadata('data'), item, item.parent.path);
+      if (
+        eventName == 'added' ||
+        eventName == 'beforeopen' ||
+        eventName == 'loaded'
+      ) {
+        pgBrowser.tree.addNewNode(
+          item.getMetadata('data').id,
+          item.getMetadata('data'),
+          item, item.parent.path
+        );
       }
-      if(eventName == 'copied') {
+      if (eventName == 'copied') {
         pgBrowser.tree.copyHandler?.(item.getMetadata('data'), item);
       }
       if (_.isObject(node.callbacks) &&
@@ -71,6 +83,7 @@ function manageTreeEvents(event, eventName, item) {
       }
     }
   }
+
   return true;
 }
 
@@ -81,13 +94,16 @@ export class Tree {
     this.tree.onTreeEvents(manageTreeEvents);
 
     this.rootNode = manageTree.tempTree;
-    this.Nodes = pgBrowser ? pgBrowser.Nodes : pgAdmin.Browser.Nodes;
+    this.Nodes = pgBrowser
+      ? pgBrowser.Nodes
+      : pgAdmin.Browser.Nodes;
 
     this.draggableTypes = {};
   }
 
   async refresh(item) {
-    //  Set _children to null as empty array not reload the children nodes on refresh.
+    // Set _children to null as empty array
+    // not reload the children nodes on refresh.
     if(item.children?.length == 0) {
       item._children = null;
     }
@@ -229,7 +245,11 @@ export class Tree {
 
   wasLoad(item) {
     if (item && item.type === FileType.Directory) {
-      return item.isExpanded && item.children != null && item.children.length > 0;
+      return (
+        item.isExpanded &&
+        item.children != null &&
+        item.children.length > 0
+      );
     }
     return true;
   }
@@ -240,7 +260,10 @@ export class Tree {
 
   first(item) {
     const model = this.tree.getModel();
-    if ((item === undefined || item === null) && model.root.children !== null) {
+    if (
+      (item === undefined || item === null) &&
+      model.root.children !== null
+    ) {
       return model.root.children[0];
     }
 
@@ -290,7 +313,10 @@ export class Tree {
 
   siblings(item) {
     if (this.hasParent(item)) {
-      let _siblings = this.parent(item).children.filter((_item) => _item.path !== item.path);
+      let _siblings = this.parent(item).children.filter(
+        (_item) => _item.path !== item.path
+      );
+
       if (typeof (_siblings) !== 'object') return [_siblings];
       else return _siblings;
     }
@@ -316,11 +342,17 @@ export class Tree {
   }
 
   itemData(item) {
-    return (item !== undefined && item !== null && item.getMetadata('data') !== undefined) ? item._metadata.data : [];
+    return (
+      item !== undefined &&
+      item !== null &&
+      item.getMetadata('data') !== undefined
+    ) ? item._metadata.data : [];
   }
 
   getData(item) {
-    return (item !== undefined && item.getMetadata('data') !== undefined) ? item._metadata.data : [];
+    return (item !== undefined && item.getMetadata('data') !== undefined)
+      ? item._metadata.data
+      : [];
   }
 
   isRootNode(item) {
@@ -348,12 +380,17 @@ export class Tree {
     if (path == null || !Array.isArray(path)) {
       return Promise.reject();
     }
-    const basepath = '/browser/' + path.slice(0, path.length-1).join('/') + '/';
+    const basepath =
+      '/browser/' + path.slice(0, path.length - 1).join('/') + '/';
     path = '/browser/' + path.join('/');
 
     let onCorrectPath = function (matchPath) {
-      return (matchPath !== undefined && path !== undefined
-        && (basepath.startsWith(`${matchPath}/`) || path === matchPath));
+      return (
+        matchPath !== undefined && path !== undefined && (
+          basepath.startsWith(`${matchPath}/`) ||
+          path === matchPath
+        )
+      );
     };
 
     return (
@@ -365,7 +402,10 @@ export class Tree {
           /* No point in checking the children if
           * the path for currentNode itself is not matching
           */
-          if (currentNode.path !== undefined && !onCorrectPath(currentNode.path)) {
+          if (
+            currentNode.path !== undefined &&
+            !onCorrectPath(currentNode.path)
+          ) {
             reject(null);
           } else if (currentNode.path === path) {
             resolve(currentNode);
@@ -432,7 +472,12 @@ export class Tree {
 
   createOrUpdateNode(id, data, parent, domNode) {
     let oldNodePath = id;
-    if (parent !== null && parent !== undefined && parent.path !== undefined && parent.path != '/browser') {
+    if (
+      parent !== null &&
+      parent !== undefined &&
+      parent.path !== undefined &&
+      parent.path != '/browser'
+    ) {
       oldNodePath = parent.path + '/' + id;
     }
     const oldNode = this.findNode(oldNodePath);
@@ -462,7 +507,8 @@ export class Tree {
     let currentTreeNode = treeNode;
     let path = [];
     while (currentTreeNode !== null && currentTreeNode !== undefined) {
-      if (currentTreeNode.path !== '/browser') path.unshift(currentTreeNode.path);
+      if (currentTreeNode.path !== '/browser')
+        path.unshift(currentTreeNode.path);
       if (this.hasParent(currentTreeNode)) {
         currentTreeNode = this.parent(currentTreeNode);
       } else {
@@ -476,17 +522,29 @@ export class Tree {
     let idx = 0;
     let node_cnt = 0;
     let result = {};
+
     if (identifier === undefined) return;
-    let item = TreeNode.prototype.isPrototypeOf(identifier) ? identifier : this.findNode(identifier.path);
+
+    let item = TreeNode.prototype.isPrototypeOf(identifier)
+      ? identifier
+      : this.findNode(identifier.path);
+
     if (item === undefined) return;
+
     do {
       const currentNodeData = item.getData();
-      if (currentNodeData._type in this.Nodes && this.Nodes[currentNodeData._type].hasId) {
+      if (
+        currentNodeData._type in this.Nodes &&
+        this.Nodes[currentNodeData._type].hasId
+      ) {
         const nodeType = mapType(currentNodeData._type, node_cnt);
         if (result[nodeType] === undefined) {
-          result[nodeType] = _.extend({}, currentNodeData, {
-            'priority': idx,
-          });
+          result[nodeType] = _.extend(
+            {},
+            currentNodeData, {
+              'priority': idx,
+            }
+          );
           idx -= 1;
         }
       }
@@ -535,7 +593,9 @@ export class Tree {
        * overrides the dragstart event set using element.on('dragstart')
        * This will avoid conflict.
        */
-      let dropDetails = dropDetailsFunc(data, item, this.getTreeNodeHierarchy(item));
+      let dropDetails = dropDetailsFunc(
+        data, item, this.getTreeNodeHierarchy(item)
+      );
 
       if (typeof dropDetails == 'string') {
         dropDetails = {

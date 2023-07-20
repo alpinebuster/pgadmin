@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import React, { useContext, useEffect, useRef, useState }  from 'react';
-import QueryToolDataGrid, { GRID_ROW_SELECT_KEY } from '../QueryToolDataGrid';
-import {CONNECTION_STATUS, PANELS, QUERY_TOOL_EVENTS} from '../QueryToolConstants';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import moment from 'moment';
+import { makeStyles } from '@material-ui/styles';
+import { Box } from '@material-ui/core';
+
 import url_for from 'sources/url_for';
-import getApiInstance, { parseApiError } from '../../../../../../static/js/api_instance';
-import { QueryToolContext, QueryToolEventsContext } from '../QueryToolComponent';
 import gettext from 'sources/gettext';
 import Loader from 'sources/components/Loader';
-import { Box } from '@material-ui/core';
+
 import { ResultSetToolbar } from './ResultSetToolbar';
 import { LayoutHelper } from '../../../../../../static/js/helpers/Layout';
 import { GeometryViewer } from './GeometryViewer';
@@ -16,11 +16,13 @@ import Notifier from '../../../../../../static/js/helpers/Notifier';
 import { QuerySources } from './QueryHistory';
 import { getBrowser } from '../../../../../../static/js/utils';
 import CopyData from '../QueryToolDataGrid/CopyData';
-import moment from 'moment';
 import ConfirmSaveContent from '../../../../../../static/js/dialogs/ConfirmSaveContent';
-import { makeStyles } from '@material-ui/styles';
 import EmptyPanelMessage from '../../../../../../static/js/components/EmptyPanelMessage';
 import { GraphVisualiser } from './GraphVisualiser';
+import getApiInstance, { parseApiError } from '../../../../../../static/js/api_instance';
+import { QueryToolContext, QueryToolEventsContext } from '../QueryToolComponent';
+import QueryToolDataGrid, { GRID_ROW_SELECT_KEY } from '../QueryToolDataGrid';
+import {CONNECTION_STATUS, PANELS, QUERY_TOOL_EVENTS} from '../QueryToolConstants';
 
 export class ResultSetUtils {
   constructor(api, transId, isQueryTool=true) {

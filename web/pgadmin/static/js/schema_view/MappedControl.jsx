@@ -45,137 +45,137 @@ function MappedFormControlBase({
 
   /* The mapping uses Form* components as it comes with labels */
   switch (type) {
-    case 'int':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className} inputRef={inputRef}
-          {...props} type='int'
-        />
-      );
-    case 'numeric':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className} inputRef={inputRef}
-          {...props} type='numeric'
-        />
-      );
-    case 'tel':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className} inputRef={inputRef}
-          {...props} type='tel'
-        />
-      );
-    case 'text':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className}
-          inputRef={inputRef}
-          {...props}
-        />
-      );
-    case 'multiline':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className}
-          inputRef={inputRef} controlProps={{multiline: true}}
-          {...props}
-        />
-      );
-    case 'password':
-      return (
-        <FormInputText
-          name={name} value={value} onChange={onTextChange}
-          className={className} type='password'
-          inputRef={inputRef}
-          {...props}
-        />
-      );
-    case 'select':
-      return (
-        <FormInputSelect
-          name={name} value={value} onChange={onTextChange}
-          className={className} inputRef={inputRef}
-          {...props}
-        />
-      );
-    case 'select-refresh':
-      return (
-        <SelectRefresh
-          name={name} value={value} onChange={onTextChange}
-          className={className}
-          {...props}
-        />
-      );
-    case 'switch':
-      return (
-        <FormInputSwitch
-          name={name} value={value}
-          onChange={(e) => onTextChange(e.target.checked, e.target.name)}
-          className={className}
-          {...props}
-        />
-      );
-    case 'checkbox':
-      return (
-        <FormInputCheckbox
-          name={name} value={value}
-          onChange={(e) => onTextChange(e.target.checked, e.target.name)}
-          className={className}
-          {...props}
-        />
-      );
-    case 'toggle':
-      return <FormInputToggle name={name} value={value}
-        onChange={onTextChange} className={className} inputRef={inputRef}
-        {...props} />;
-    case 'color':
-      return (
-        <FormInputColor
-          name={name} value={value} onChange={onTextChange}
-          className={className} {...props}
-        />
-      );
-    case 'file':
-      return (
-        <FormInputFileSelect
-          name={name} value={value} onChange={onTextChange}
-          className={className} inputRef={inputRef}
-          {...props}
-        />
-      );
-    case 'sql':
-      return (
-        <FormInputSQL
-          name={name} value={value} onChange={onSqlChange}
-          className={className} noLabel={noLabel}
-          inputRef={inputRef} {...props}
-        />
-      );
-    case 'note':
-      return <FormNote className={className} {...props} />;
-    case 'datetimepicker':
-      return (
-        <FormInputDateTimePicker
-          name={name} value={value} onChange={onTextChange}
-          className={className} {...props}
-        />
-      );
-    case 'keyboardShortcut':
-      return <FormInputKeyboardShortcut name={name} value={value} onChange={onTextChange} {...props}/>;
-    case 'threshold':
-      return <FormInputQueryThreshold name={name} value={value} onChange={onTextChange} {...props}/>;
-    case 'theme':
-      return <FormInputSelectThemes name={name} value={value} onChange={onTextChange} {...props}/>;
-    case 'button':
-      return <FormButton name={name} value={value} className={className} onClick={onClick}  {...props} />;
-    default:
-      return <PlainString value={value} {...props} />;
+  case 'int':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className} inputRef={inputRef}
+        {...props} type='int'
+      />
+    );
+  case 'numeric':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className} inputRef={inputRef}
+        {...props} type='numeric'
+      />
+    );
+  case 'tel':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className} inputRef={inputRef}
+        {...props} type='tel'
+      />
+    );
+  case 'text':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className}
+        inputRef={inputRef}
+        {...props}
+      />
+    );
+  case 'multiline':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className}
+        inputRef={inputRef} controlProps={{multiline: true}}
+        {...props}
+      />
+    );
+  case 'password':
+    return (
+      <FormInputText
+        name={name} value={value} onChange={onTextChange}
+        className={className} type='password'
+        inputRef={inputRef}
+        {...props}
+      />
+    );
+  case 'select':
+    return (
+      <FormInputSelect
+        name={name} value={value} onChange={onTextChange}
+        className={className} inputRef={inputRef}
+        {...props}
+      />
+    );
+  case 'select-refresh':
+    return (
+      <SelectRefresh
+        name={name} value={value} onChange={onTextChange}
+        className={className}
+        {...props}
+      />
+    );
+  case 'switch':
+    return (
+      <FormInputSwitch
+        name={name} value={value}
+        onChange={(e) => onTextChange(e.target.checked, e.target.name)}
+        className={className}
+        {...props}
+      />
+    );
+  case 'checkbox':
+    return (
+      <FormInputCheckbox
+        name={name} value={value}
+        onChange={(e) => onTextChange(e.target.checked, e.target.name)}
+        className={className}
+        {...props}
+      />
+    );
+  case 'toggle':
+    return <FormInputToggle name={name} value={value}
+      onChange={onTextChange} className={className} inputRef={inputRef}
+      {...props} />;
+  case 'color':
+    return (
+      <FormInputColor
+        name={name} value={value} onChange={onTextChange}
+        className={className} {...props}
+      />
+    );
+  case 'file':
+    return (
+      <FormInputFileSelect
+        name={name} value={value} onChange={onTextChange}
+        className={className} inputRef={inputRef}
+        {...props}
+      />
+    );
+  case 'sql':
+    return (
+      <FormInputSQL
+        name={name} value={value} onChange={onSqlChange}
+        className={className} noLabel={noLabel}
+        inputRef={inputRef} {...props}
+      />
+    );
+  case 'note':
+    return <FormNote className={className} {...props} />;
+  case 'datetimepicker':
+    return (
+      <FormInputDateTimePicker
+        name={name} value={value} onChange={onTextChange}
+        className={className} {...props}
+      />
+    );
+  case 'keyboardShortcut':
+    return <FormInputKeyboardShortcut name={name} value={value} onChange={onTextChange} {...props}/>;
+  case 'threshold':
+    return <FormInputQueryThreshold name={name} value={value} onChange={onTextChange} {...props}/>;
+  case 'theme':
+    return <FormInputSelectThemes name={name} value={value} onChange={onTextChange} {...props}/>;
+  case 'button':
+    return <FormButton name={name} value={value} className={className} onClick={onClick}  {...props} />;
+  default:
+    return <PlainString value={value} {...props} />;
   }
 }
 
@@ -238,44 +238,44 @@ function MappedCellControlBase({
 
   /* The mapping does not need Form* components as labels are not needed for grid cells */
   switch(cell) {
-    case 'int':
-      return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='int'/>;
-    case 'numeric':
-      return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='numeric'/>;
-    case 'text':
-      return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props}/>;
-    case 'password':
-      return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='password'/>;
-    case 'select':
-      return (
-        <InputSelect
-          name={name} value={value}
-          onChange={onTextChange}
-          optionsLoaded={optionsLoadedRerender}
-          inputRef={inputRef}
-          {...props}
-        />
-      );
-    case 'switch':
-      return <InputSwitch name={name} value={value}
-        onChange={(e)=>onTextChange(e.target.checked, e.target.name)} {...props} />;
-    case 'checkbox':
-      return <InputCheckbox name={name} value={value}
-        onChange={(e)=>onTextChange(e.target.checked, e.target.name)} {...props} />;
-    case 'privilege':
-      return <Privilege name={name} value={value} onChange={onTextChange} {...props}/>;
-    case 'datetimepicker':
-      return <InputDateTimePicker name={name} value={value} onChange={onTextChange} {...props}/>;
-    case 'sql':
-      return <InputSQL name={name} value={value} onChange={onSqlChange} {...props} />;
-    case 'file':
-      return <InputFileSelect name={name} value={value} onChange={onTextChange} inputRef={props.inputRef} {...props} />;
-    case 'keyCode':
-      return <InputText name={name} value={value} onChange={onTextChange} {...props} type='text' maxlength={1} />;
-    case 'radio':
-      return <InputRadio name={name} value={value} onChange={onRadioChange} disabled={props.disabled} {...props} />;
-    default:
-      return <PlainString value={value} {...props} />;
+  case 'int':
+    return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='int'/>;
+  case 'numeric':
+    return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='numeric'/>;
+  case 'text':
+    return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props}/>;
+  case 'password':
+    return <InputText name={name} value={value} onChange={onTextChange} ref={inputRef} {...props} type='password'/>;
+  case 'select':
+    return (
+      <InputSelect
+        name={name} value={value}
+        onChange={onTextChange}
+        optionsLoaded={optionsLoadedRerender}
+        inputRef={inputRef}
+        {...props}
+      />
+    );
+  case 'switch':
+    return <InputSwitch name={name} value={value}
+      onChange={(e)=>onTextChange(e.target.checked, e.target.name)} {...props} />;
+  case 'checkbox':
+    return <InputCheckbox name={name} value={value}
+      onChange={(e)=>onTextChange(e.target.checked, e.target.name)} {...props} />;
+  case 'privilege':
+    return <Privilege name={name} value={value} onChange={onTextChange} {...props}/>;
+  case 'datetimepicker':
+    return <InputDateTimePicker name={name} value={value} onChange={onTextChange} {...props}/>;
+  case 'sql':
+    return <InputSQL name={name} value={value} onChange={onSqlChange} {...props} />;
+  case 'file':
+    return <InputFileSelect name={name} value={value} onChange={onTextChange} inputRef={props.inputRef} {...props} />;
+  case 'keyCode':
+    return <InputText name={name} value={value} onChange={onTextChange} {...props} type='text' maxlength={1} />;
+  case 'radio':
+    return <InputRadio name={name} value={value} onChange={onRadioChange} disabled={props.disabled} {...props} />;
+  default:
+    return <PlainString value={value} {...props} />;
   }
 }
 

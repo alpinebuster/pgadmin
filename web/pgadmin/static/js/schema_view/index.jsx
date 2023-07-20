@@ -416,56 +416,56 @@ const sessDataReducer = (state, action)=>{
   data.__deferred__ = data.__deferred__ || [];
 
   switch(action.type) {
-    case SCHEMA_STATE_ACTIONS.INIT:
-      data = action.payload;
-      break;
-    case SCHEMA_STATE_ACTIONS.BULK_UPDATE:
-      rows = (_.get(data, action.path)||[]);
-      rows.forEach((row)=> {
-        row[action.id] = false;
-      });
-      _.set(data, action.path, rows);
-      break;
-    case SCHEMA_STATE_ACTIONS.SET_VALUE:
-      _.set(data, action.path, action.value);
-      /* If there is any dep listeners get the changes */
-      data = getDepChange(action.path, data, state, action);
-      deferredList = getDeferredDepChange(action.path, data, state, action);
-      data.__deferred__ = deferredList || [];
-      break;
-    case SCHEMA_STATE_ACTIONS.ADD_ROW:
-      /* Create id to identify a row uniquely, usefull when getting diff */
-      cid = _.uniqueId('c');
-      action.value['cid'] = cid;
-      if (action.addOnTop) {
-        rows = [].concat(action.value).concat(_.get(data, action.path)||[]);
-      } else {
-        rows = (_.get(data, action.path)||[]).concat(action.value);
-      }
-      _.set(data, action.path, rows);
-      /* If there is any dep listeners get the changes */
-      data = getDepChange(action.path, data, state, action);
-      break;
-    case SCHEMA_STATE_ACTIONS.DELETE_ROW:
-      rows = _.get(data, action.path)||[];
-      rows.splice(action.value, 1);
-      _.set(data, action.path, rows);
-      /* If there is any dep listeners get the changes */
-      data = getDepChange(action.path, data, state, action);
-      break;
-    case SCHEMA_STATE_ACTIONS.MOVE_ROW:
-      rows = _.get(data, action.path)||[];
-      var row = rows[action.oldIndex];
-      rows.splice(action.oldIndex, 1);
-      rows.splice(action.newIndex, 0, row);
-      _.set(data, action.path, rows);
-      break;
-    case SCHEMA_STATE_ACTIONS.CLEAR_DEFERRED_QUEUE:
-      data.__deferred__ = [];
-      break;
-    case SCHEMA_STATE_ACTIONS.DEFERRED_DEPCHANGE:
-      data = getDepChange(action.path, data, state, action);
-      break;
+  case SCHEMA_STATE_ACTIONS.INIT:
+    data = action.payload;
+    break;
+  case SCHEMA_STATE_ACTIONS.BULK_UPDATE:
+    rows = (_.get(data, action.path)||[]);
+    rows.forEach((row)=> {
+      row[action.id] = false;
+    });
+    _.set(data, action.path, rows);
+    break;
+  case SCHEMA_STATE_ACTIONS.SET_VALUE:
+    _.set(data, action.path, action.value);
+    /* If there is any dep listeners get the changes */
+    data = getDepChange(action.path, data, state, action);
+    deferredList = getDeferredDepChange(action.path, data, state, action);
+    data.__deferred__ = deferredList || [];
+    break;
+  case SCHEMA_STATE_ACTIONS.ADD_ROW:
+    /* Create id to identify a row uniquely, usefull when getting diff */
+    cid = _.uniqueId('c');
+    action.value['cid'] = cid;
+    if (action.addOnTop) {
+      rows = [].concat(action.value).concat(_.get(data, action.path)||[]);
+    } else {
+      rows = (_.get(data, action.path)||[]).concat(action.value);
+    }
+    _.set(data, action.path, rows);
+    /* If there is any dep listeners get the changes */
+    data = getDepChange(action.path, data, state, action);
+    break;
+  case SCHEMA_STATE_ACTIONS.DELETE_ROW:
+    rows = _.get(data, action.path)||[];
+    rows.splice(action.value, 1);
+    _.set(data, action.path, rows);
+    /* If there is any dep listeners get the changes */
+    data = getDepChange(action.path, data, state, action);
+    break;
+  case SCHEMA_STATE_ACTIONS.MOVE_ROW:
+    rows = _.get(data, action.path)||[];
+    var row = rows[action.oldIndex];
+    rows.splice(action.oldIndex, 1);
+    rows.splice(action.newIndex, 0, row);
+    _.set(data, action.path, rows);
+    break;
+  case SCHEMA_STATE_ACTIONS.CLEAR_DEFERRED_QUEUE:
+    data.__deferred__ = [];
+    break;
+  case SCHEMA_STATE_ACTIONS.DEFERRED_DEPCHANGE:
+    data = getDepChange(action.path, data, state, action);
+    break;
   }
 
   return data;

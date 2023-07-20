@@ -40,7 +40,11 @@ module.exports = {
       'plugins': [
         '@typescript-eslint',
       ],
-      'extends': ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:@typescript-eslint/eslint-recommended'],
+      'extends': [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/eslint-recommended'
+      ],
       'parser': '@typescript-eslint/parser',
       'rules': {
         '@typescript-eslint/no-explicit-any': ['off'],
