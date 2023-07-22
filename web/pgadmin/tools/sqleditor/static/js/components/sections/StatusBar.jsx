@@ -1,14 +1,14 @@
-
 import React, { useEffect, useState, useContext }  from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Box } from '@material-ui/core';
 import clsx from 'clsx';
 import _ from 'lodash';
+
+import gettext from 'sources/gettext';
+
 import { QUERY_TOOL_EVENTS } from '../QueryToolConstants';
 import { useStopwatch } from '../../../../../../static/js/custom_hooks';
 import { QueryToolEventsContext } from '../QueryToolComponent';
-import gettext from 'sources/gettext';
-
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -43,7 +43,12 @@ export function StatusBar() {
     updated: 0,
     deleted: 0,
   });
-  const {seconds, minutes, hours, msec, start:startTimer, pause:pauseTimer, reset:resetTimer} = useStopwatch({});
+  const {
+    seconds, minutes, hours, msec,
+    start: startTimer,
+    pause: pauseTimer,
+    reset: resetTimer
+  } = useStopwatch({});
 
   useEffect(()=>{
     eventBus.registerListener(QUERY_TOOL_EVENTS.CURSOR_ACTIVITY, (newPos)=>{

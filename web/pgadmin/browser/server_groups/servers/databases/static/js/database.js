@@ -21,7 +21,6 @@ define('pgadmin.node.database', [
   'sources/pgadmin', 'pgadmin.browser.utils',
   'pgadmin.authenticate.kerberos', 'pgadmin.browser.collection',
 ], function(gettext, url_for, $, pgAdmin, pgBrowser, Kerberos) {
-
   function canDeleteWithForce(itemNodeData, item) {
     let treeData = pgBrowser.tree.getTreeNodeHierarchy(item),
       server = treeData['server'],

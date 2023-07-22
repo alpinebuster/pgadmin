@@ -1,7 +1,6 @@
 define('pgadmin.browser.messages', [
   'sources/gettext', 'sources/pgadmin'
 ], function(gettext, pgAdmin) {
-
   let pgBrowser = pgAdmin.Browser = pgAdmin.Browser || {};
 
   if (pgBrowser.messages)
@@ -34,9 +33,9 @@ define('pgadmin.browser.messages', [
     'LOADING_FAILED': gettext("Failed to retrieve data from the server.")
   };
 
-{% for key in current_app.messages.keys() %}
-  messages['{{ key }}'] = '{{ current_app.messages[key] }}';
-{% endfor %}
+  {% for key in current_app.messages.keys() %}
+    messages['{{ key }}'] = '{{ current_app.messages[key] }}';
+  {% endfor %}
 
   return pgBrowser.messages;
 });

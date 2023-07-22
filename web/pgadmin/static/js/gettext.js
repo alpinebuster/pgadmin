@@ -1,5 +1,4 @@
 define(['translations'], function (translations) {
-
   /***
    * This method behaves as a drop-in replacement for flask translation rendering.
    * It uses the same translation file under the hood and uses flask to determine the language.
@@ -9,7 +8,6 @@ define(['translations'], function (translations) {
    * @param {String} text
    */
   return function gettext(text) {
-
     let rawTranslation = translations[text] ? translations[text] : text;
 
     if(arguments.length == 1) {

@@ -28,9 +28,13 @@ _.extend(pgBrowser, {
       'dashboard', wcDocker.DOCK.RIGHT, browserPanel
     );
     docker.addPanel(
-      'properties', wcDocker.DOCK.STACKED, dashboardPanel, {
-      tabOrientation: wcDocker.TAB.TOP,
-    });
+      'properties',
+      wcDocker.DOCK.STACKED,
+      dashboardPanel,
+      {
+        tabOrientation: wcDocker.TAB.TOP,
+      }
+    );
     docker.addPanel('sql', wcDocker.DOCK.STACKED, dashboardPanel);
     docker.addPanel(
       'statistics', wcDocker.DOCK.STACKED, dashboardPanel
@@ -135,7 +139,7 @@ _.extend(pgBrowser, {
 
     if(menu_items) {
       _.each(menu_items, function(menu_item) {
-        if(menu_item.name != ('mnu_lock_'+op)) {
+        if(menu_item.name != ('mnu_lock_' + op)) {
           menu_item.change_checked(false);
         } else {
           menu_item.change_checked(true);

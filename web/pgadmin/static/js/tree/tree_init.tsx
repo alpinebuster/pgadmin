@@ -160,7 +160,7 @@ function BrowserTree(props) {
           contextPos && setContextPos(null);
         }}
       />
-      
+
       <PgMenu
         anchorPoint={{
           x: contextPos?.x,

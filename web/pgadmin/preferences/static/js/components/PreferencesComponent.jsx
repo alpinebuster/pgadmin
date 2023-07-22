@@ -587,7 +587,6 @@ export default function PreferencesComponent({ ...props }) {
     if (_data.length > 0) {
       save(_data, data);
     }
-
   }
 
   function checkRefreshRequired(pref, requires_refresh) {

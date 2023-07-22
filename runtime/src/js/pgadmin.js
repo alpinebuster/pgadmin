@@ -14,7 +14,12 @@ let pgAdminMainScreen = null;
 let serverPort = 5050;
 let appStartTime = (new Date()).getTime();
 
-let docsURLSubStrings = ['www.enterprisedb.com', 'www.postgresql.org', 'www.pgadmin.org', 'help/help'];
+let docsURLSubStrings = [
+  'www.enterprisedb.com',
+  'www.postgresql.org',
+  'www.pgadmin.org',
+  'help/help'
+];
 
 // Paths to the rest of the app
 let pythonPath = misc.getPythonPath();

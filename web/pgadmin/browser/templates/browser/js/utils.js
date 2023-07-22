@@ -1,29 +1,60 @@
 {% macro A_MENU_ITEM(key, item) -%}
 {
   name: "{{ item.name }}",
-  {% if item.module %}module: {{ item.module }},
-  {% endif %}{% if item.url %}url: "{{ item.url }}",
-  {% endif %}{% if item.target %}target: "{{ item.target }}",
-  {% endif %}{% if item.callback %}callback: "{{ item.callback }}",
-  {% endif %}{% if item.category %}category: "{{ item.category }}",
-  {% endif %}{% if item.icon %}icon: "{{ item.icon }}",
-  {% endif %}{% if item.data %}data: {{ item.data }},
-  {% endif %}label: "{{ item.label }}", applies: ["{{ key.lower() }}"],
+
+  {% if item.module %}
+    module: {{ item.module }},
+  {% endif %}
+
+  {% if item.url %}
+    url: "{{ item.url }}",
+  {% endif %}
+
+  {% if item.target %}
+    target: "{{ item.target }}",
+  {% endif %}
+
+  {% if item.callback %}
+    callback: "{{ item.callback }}",
+  {% endif %}
+
+  {% if item.category %}
+    category: "{{ item.category }}",
+  {% endif %}
+
+  {% if item.icon %}
+    icon: "{{ item.icon }}",
+  {% endif %}
+
+  {% if item.data %}
+    data: {{ item.data }},
+  {% endif %}
+
+  label: "{{ item.label }}",
+  applies: ["{{ key.lower() }}"],
   priority: {{ item.priority }},
   enable: "{{ item.enable }}",
-  {% if item.checked is defined %}checked: {% if (item.checked or item.name == 'mnu_lock_'+current_ui_lock) %}true{% else %}false{% endif %},
+
+  {% if item.checked is defined %}
+    checked: {% if (item.checked or item.name == 'mnu_lock_'+current_ui_lock) %}true{% else %}false{% endif %},
   {% endif %}
-  {% if item.below is defined %}below: {% if item.below %}true{% else %}false{% endif %},
+
+  {% if item.below is defined %}
+    below: {% if item.below %}true{% else %}false{% endif %},
   {% endif %}
-  {% if item.menu_items %}menu_items: {{MENU_ITEMS(key, item.menu_items)}}
+
+  {% if item.menu_items %}
+    menu_items: {{MENU_ITEMS(key, item.menu_items)}}
   {% endif %}
 }
 {%- endmacro %}
 
 {% macro MENU_ITEMS(key, items) -%}
 [
-  {% for item in items %}{% if loop.index != 1 %}, {% endif %}
-    {{ A_MENU_ITEM(key, item) }}{% set hasMenus = True %}{% endfor %}
+  {% for item in items %}
+    {% if loop.index != 1 %}, {% endif %}
+    {{ A_MENU_ITEM(key, item) }}{% set hasMenus = True %}
+  {% endfor %}
 ]
 {%- endmacro %}
 
@@ -163,6 +194,6 @@ define('pgadmin.browser.utils', [
     },
     {% endif %}
   };
-  
+
   return pgBrowser;
 });

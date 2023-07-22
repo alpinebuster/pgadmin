@@ -172,13 +172,13 @@ export function getNodeListById(
       if (filter(r)) {
         let l = (
           _.isFunction(nodeObj['node_label'])
-          ? (nodeObj['node_label']).apply(nodeObj, [r])
-          : r.label
+            ? (nodeObj['node_label']).apply(nodeObj, [r])
+            : r.label
         );
         let image = (
           _.isFunction(nodeObj['node_image'])
-          ? (nodeObj['node_image']).apply(nodeObj, [r])
-          : (nodeObj['node_image'] || ('icon-' + nodeObj.type))
+            ? (nodeObj['node_image']).apply(nodeObj, [r])
+            : (nodeObj['node_image'] || ('icon-' + nodeObj.type))
         );
 
         res.push({
@@ -212,13 +212,13 @@ export function getNodeListByName(
       if (filter(r)) {
         let l = (
           _.isFunction(nodeObj['node_label'])
-          ? (nodeObj['node_label']).apply(nodeObj, [r])
-          : r.label
+            ? (nodeObj['node_label']).apply(nodeObj, [r])
+            : r.label
         );
         let image = (
           _.isFunction(nodeObj['node_image'])
-          ? (nodeObj['node_image']).apply(nodeObj, [r])
-          : (nodeObj['node_image'] || ('icon-' + nodeObj.type))
+            ? (nodeObj['node_image']).apply(nodeObj, [r])
+            : (nodeObj['node_image'] || ('icon-' + nodeObj.type))
         );
 
         res.push({

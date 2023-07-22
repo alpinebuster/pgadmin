@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
 export default class EventBus {
-  constructor() {
+  constructor () {
     this._eventListeners = [];
   }
 
-  registerListener(event, callback, once=false) {
+  registerListener (event, callback, once=false) {
     this._eventListeners = this._eventListeners || [];
     this._eventListeners.push({
       event: event,
@@ -14,15 +14,15 @@ export default class EventBus {
     });
   }
 
-  on(...args) {
+  on (...args) {
     this.registerListener(...args);
   }
 
-  once(...args) {
+  once (...args) {
     this.registerListener(...args, true);
   }
 
-  deregisterListener(event, callback) {
+  deregisterListener (event, callback) {
     if(callback) {
       this._eventListeners = this._eventListeners.filter((e) => {
         if(e.event === event) {
@@ -37,11 +37,11 @@ export default class EventBus {
     }
   }
 
-  off(...args) {
+  off (...args) {
     this.deregisterListener(...args);
   }
 
-  fireEvent(event, ...args) {
+  fireEvent (event, ...args) {
     let self = this;
 
     Promise.resolve(0).then(() => {
@@ -50,12 +50,12 @@ export default class EventBus {
         (e) => e.event == event
       );
 
-      if(allListeners) {
-        for(const listener of allListeners) {
+      if (allListeners) {
+        for (const listener of allListeners) {
           Promise.resolve(0).then(() => {
             listener.callback(...args);
-            
-            if(listener.fired == 'pending') {
+
+            if (listener.fired == 'pending') {
               self.deregisterListener(event, listener.callback);
             }
           });
@@ -64,7 +64,7 @@ export default class EventBus {
     });
   }
 
-  trigger(...args) {
+  trigger (...args) {
     this.fireEvent(...args);
   }
 }
