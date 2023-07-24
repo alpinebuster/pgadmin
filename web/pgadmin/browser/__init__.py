@@ -836,14 +836,15 @@ def reset_master_password():
 
 
 @blueprint.route(
-    "/master_password", endpoint="set_master_password", methods=["POST"]
+    "/master_password",
+    endpoint="set_master_password",
+    methods=["POST"]
 )
 def set_master_password():
     """
     Set the master password and store in the memory
     This password will be used to encrypt/decrypt saved server passwords
     """
-
     data = None
 
     if request.form:
