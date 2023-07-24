@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     ...theme.mixins.panelBorder.bottom,
     backgroundColor: theme.otherVars.headerBg,
+    alignItems: 'center',
   },
   gridHeaderText: {
     padding: theme.spacing(0.5, 1),
@@ -102,6 +103,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tableContentWidth: {
     width: 'calc(100% - 3px)',
+  },
+  tableBody: {
+    alignItems: 'center',
   },
   btnCell: {
     padding: theme.spacing(0.5, 0),
@@ -289,7 +293,7 @@ function DataTableRow({
   return useMemo(()=>
     <>
       <div {...row.getRowProps()} ref={rowRef} data-handler-id={handlerId}
-        className={isHovered ? classes.tableRowHovered : null}
+        className={isHovered ? classes.tableRowHovered : classes.tableBody}
       >
         {row.cells.map((cell, ci) => {
           let classNames = [classes.tableCell];
