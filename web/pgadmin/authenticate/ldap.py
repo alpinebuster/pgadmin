@@ -11,7 +11,7 @@ from flask_babel import gettext
 from urllib.parse import urlparse
 
 from .internal import BaseAuthentication
-from pgadmin.model import User, ServerGroup, db, Role
+from pgadmin.model import User
 from flask import current_app
 from pgadmin.tools.user_management import create_user
 from pgadmin.utils.constants import LDAP

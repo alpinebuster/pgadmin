@@ -384,7 +384,6 @@ class ServerGroupView(NodeView):
         nodes = []
         if gid is None:
             if config.SERVER_MODE:
-
                 groups = self.get_all_server_groups()
             else:
                 groups = ServerGroup.query.filter_by(user_id=current_user.id)

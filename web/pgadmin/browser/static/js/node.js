@@ -18,9 +18,12 @@ import { removePanelView } from './panel_view';
 import {getNodeView, removeNodeView} from './node_view';
 
 define('pgadmin.browser.node', [
-  'sources/gettext', 'sources/pgadmin',
-  'sources/browser/generate_url', 'sources/utils',
-  'pgadmin.browser.utils', 'pgadmin.browser.events',
+  'sources/gettext',
+  'sources/pgadmin',
+  'sources/browser/generate_url',
+  'sources/utils',
+  'pgadmin.browser.utils',
+  'pgadmin.browser.events'
 ], function(
   gettext, pgAdmin, generateUrl, commonUtils
 ) {

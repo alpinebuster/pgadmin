@@ -17,9 +17,13 @@ import { showServerPassword } from '../../../../../../static/js/dialogs/index';
 import getApiInstance, { parseApiError } from '../../../../../../static/js/api_instance';
 
 define('pgadmin.node.database', [
-  'sources/gettext', 'sources/url_for', 'jquery',
-  'sources/pgadmin', 'pgadmin.browser.utils',
-  'pgadmin.authenticate.kerberos', 'pgadmin.browser.collection',
+  'sources/gettext',
+  'sources/url_for',
+  'jquery',
+  'sources/pgadmin',
+  'pgadmin.browser.utils',
+  'pgadmin.authenticate.kerberos',
+  'pgadmin.browser.collection',
 ], function(gettext, url_for, $, pgAdmin, pgBrowser, Kerberos) {
   function canDeleteWithForce(itemNodeData, item) {
     let treeData = pgBrowser.tree.getTreeNodeHierarchy(item),
