@@ -66,9 +66,12 @@ export class ManageTreeNodes {
     const nodeData = {parent: _parent, children: [], data: _data};
 
     const tmpParentNode = this.findNode(_parent);
-    const treeNode = new TreeNode(_data.id, _data, {}, tmpParentNode, nodeData, _data.type);
+    const treeNode = new TreeNode(
+      _data.id, _data, {}, tmpParentNode, nodeData, _data.type
+    );
 
-    if (tmpParentNode !== null && tmpParentNode !== undefined) tmpParentNode.children.push(treeNode);
+    if (tmpParentNode !== null && tmpParentNode !== undefined)
+      tmpParentNode.children.push(treeNode);
 
     res(treeNode);
   });
