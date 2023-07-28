@@ -136,6 +136,7 @@ export class ManageTreeNodes {
       const _pathl = Path.join(_path, _node.id);
       await self.addNode(temp_tree_path, _pathl, _node);
     }
+
     if (node.children.length > 0) return node.children;
     else {
       if (node.data && node.data._type == 'server' && node.data.connected) {
@@ -242,7 +243,7 @@ export class TreeNode {
 
     return this.ancestorNode(condition) !== null;
   }
-  
+
   anyParent(condition) {
     return this.ancestorNode(condition) !== null;
   }
