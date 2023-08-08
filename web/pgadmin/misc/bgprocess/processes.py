@@ -8,7 +8,7 @@ import csv
 import os
 import sys
 import psutil
-from abc import ABCMeta, abstractproperty, abstractmethod
+from abc import ABCMeta, abstractmethod
 from datetime import datetime, timedelta
 from pickle import dumps, loads
 from subprocess import Popen, PIPE
