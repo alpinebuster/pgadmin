@@ -7,11 +7,15 @@ readme = "README.md"
 
 [[tool.poetry.source]]
 name = "tsinghua"
+# https://pypi.doubanio.com/simple/
+# https://mirrors.163.com/pypi/simple/
+# https://mirrors.aliyun.com/pypi/simple/
+# https://pypi.tuna.tsinghua.edu.cn/simple/
 url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
-priority = "explicit"
+priority = "default"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 flask = "==2.2.*"
 flask-gravatar = "==0.*"
 flask-login = "==0.*"
