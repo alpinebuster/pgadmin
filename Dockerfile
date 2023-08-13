@@ -27,11 +27,11 @@ RUN apk add --no-cache \
 # as various other files we don't want
 COPY web /pgadmin/web
 RUN rm -rf /pgadmin/web/*.log \
-           /pgadmin/web/config_*.py \
-           /pgadmin/web/node_modules \
-           /pgadmin/web/regression \
-           `find /pgadmin/web -type d -name tests` \
-           `find /pgadmin/web -type f -name .DS_Store`
+    /pgadmin/web/config_*.py \
+    /pgadmin/web/node_modules \
+    /pgadmin/web/regression \
+    `find /pgadmin/web -type d -name tests` \
+    `find /pgadmin/web -type f -name .DS_Store`
 
 WORKDIR /pgadmin/web
 
@@ -41,13 +41,13 @@ RUN export CPPFLAGS="-DPNG_ARM_NEON_OPT=0" && \
     yarn install && \
     yarn run bundle && \
     rm -rf node_modules \
-           yarn.lock \
-           package.json \
-           .[^.]* \
-           babel.cfg \
-           webpack.* \
-           karma.conf.js \
-           ./pgadmin/static/js/generated/.cache
+        yarn.lock \
+        package.json \
+        .[^.]* \
+        babel.cfg \
+        webpack.* \
+        karma.conf.js \
+        ./pgadmin/static/js/generated/.cache
 
 #########################################################################
 # Next, create the base environment for Python
@@ -57,7 +57,7 @@ FROM alpine:latest AS env-builder
 
 # Install dependencies
 COPY requirements.txt /
-RUN     apk add --no-cache \
+RUN apk add --no-cache \
         make \
         python3 \
         py3-pip && \
