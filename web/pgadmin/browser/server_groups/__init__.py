@@ -408,7 +408,8 @@ class ServerGroupView(NodeView):
                 )
 
             nodes = self.blueprint.generate_browser_node(
-                "%d" % (group.id), None,
+                "%d" % (group.id),
+                None,
                 group.name,
                 get_icon_css_class(group.id, group.user_id),
                 True,
