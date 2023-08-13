@@ -75,6 +75,7 @@ function onBeforeUnload(e) {
   e.preventDefault();
   e.returnValue = 'prevent';
 }
+
 export default function QueryToolComponent({
   params, pgWindow, pgAdmin, selectedNodeInfo, panel, eventBusObj
 }) {

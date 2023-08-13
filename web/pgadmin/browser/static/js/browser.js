@@ -369,8 +369,7 @@ define('pgadmin.browser', [
             isPrivate: panel.isPrivate,
             url: panel.content,
           });
-        }
-        else {
+        } else {
           pgBrowser.panels[panel.name] = new pgBrowser.Panel({
             name: panel.name,
             title: panel.title,
@@ -431,8 +430,7 @@ define('pgadmin.browser', [
             category: 'create',
           })];
         }
-      }
-      else {
+      } else {
         let category = {
           'common': []
         };
@@ -834,8 +832,7 @@ define('pgadmin.browser', [
                     gettext('Quick Search'),
                     (closeModal) => {
                       return <Search closeModal={closeModal}/>;
-                    },
-                    {
+                    }, {
                       isFullScreen: false,
                       isResizeable: false,
                       showFullScreen: false,
@@ -1392,7 +1389,6 @@ define('pgadmin.browser', [
 
           }
           errorOut();
-
         }.bind(ctx),
         findNewParent = function(_d) {
           let findParent = function() {
