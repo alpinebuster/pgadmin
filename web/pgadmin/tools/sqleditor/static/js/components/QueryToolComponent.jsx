@@ -186,8 +186,7 @@ export default function QueryToolComponent({
                   cached: undefined
                 }),
               ],
-            },
-            {
+            }, {
               size: 75,
               tabs: [
                 LayoutHelper.getPanel({
@@ -204,8 +203,7 @@ export default function QueryToolComponent({
               ]
             }
           ]
-        },
-        {
+        }, {
           mode: 'horizontal',
           children: [
             {

@@ -16,7 +16,7 @@
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// This can be used to network with other containers or the host.
-	"forwardPorts": [5050, 5432],
+	"forwardPorts": [5052, 5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "npm install -g yarn && yarn global add tyarn && poetry install",

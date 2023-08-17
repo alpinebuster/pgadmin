@@ -2,7 +2,7 @@
 
 # Fixup the passwd file, in case we're on OpenShift
 if ! whoami > /dev/null 2>&1; then
-  if [ "$(id -u)" -ne 5050 ]; then
+  if [ "$(id -u)" -ne 5052 ]; then
     if [ -w /etc/passwd ]; then
       echo "${USER_NAME:-pgadminr}:x:$(id -u):0:${USER_NAME:-pgadminr} user:${HOME}:/sbin/nologin" >> /etc/passwd
     fi

@@ -129,7 +129,7 @@ DEFAULT_SERVER = '127.0.0.1'
 
 # The default port on which the app server will listen if not set in the
 # environment by the runtime
-DEFAULT_SERVER_PORT = 5050
+DEFAULT_SERVER_PORT = 5052
 
 # This param is used to override the default web server information about
 # the web technology and the frameworks being used in the application
@@ -224,7 +224,7 @@ SEND_FILE_MAX_AGE_DEFAULT = 31556952
 # This will be added to static urls as url parameter with value as
 # APP_VERSION_INT for cache busting on version upgrade. If the value is set as
 # None or empty string then it will not be added.
-# eg - http:localhost:5050/pgadmin.css?intver=3.13
+# eg - http:localhost:5052/pgadmin.css?intver=3.13
 APP_VERSION_PARAM = 'ver'
 
 # Add the internal version param to below extensions only
