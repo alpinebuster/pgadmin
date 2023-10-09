@@ -14,7 +14,7 @@ define('pgadmin.node.column', [
         node: 'column',
         label: gettext('Columns'),
         type: 'coll-column',
-        columns: ['name', 'atttypid', 'description'],
+        columns: ['name', 'cltype', 'is_pk','attnotnull', 'description'],
         canDrop: SchemaChildTreeNode.isTreeItemOfChildOfSchema,
         canDropCascade: false,
       });
@@ -22,7 +22,9 @@ define('pgadmin.node.column', [
 
   if (!pgBrowser.Nodes['column']) {
     pgBrowser.Nodes['column'] = pgBrowser.Node.extend({
-      parent_type: ['table', 'view', 'mview'],
+      // Foreign table is added in parent_type to support triggers on
+      // foreign table where we need column information.
+      parent_type: ['table', 'view', 'mview', 'foreign_table'],
       collection_type: ['coll-table', 'coll-view', 'coll-mview'],
       type: 'column',
       label: gettext('Column'),

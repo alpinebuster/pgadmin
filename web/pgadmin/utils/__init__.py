@@ -8,7 +8,8 @@ from operator import attrgetter
 from flask import Blueprint, current_app, url_for
 from flask_babel import gettext
 from flask_security import current_user, login_required
-from flask_security.utils import get_post_login_redirect
+from flask_security.utils import get_post_login_redirect, \
+    get_post_logout_redirect
 from threading import Lock
 
 from .paths import get_storage_directory
@@ -343,6 +344,40 @@ def get_server(sid):
     return server
 
 
+def get_binary_path_versions(binary_path: str) -> dict:
+    ret = {}
+    binary_path = os.path.abspath(
+        replace_binary_path(binary_path)
+    )
+
+    for utility in UTILITIES_ARRAY:
+        ret[utility] = None
+        full_path = os.path.join(binary_path,
+                                 (utility if os.name != 'nt' else
+                                  (utility + '.exe')))
+
+        try:
+            # if path doesn't exist raise exception
+            if not os.path.isdir(binary_path):
+                current_app.logger.warning('Invalid binary path.')
+                raise Exception()
+            # Get the output of the '--version' command
+            cmd = subprocess.run(
+                [full_path, '--version'],
+                shell=False,
+                capture_output=True,
+                text=True
+            )
+            if cmd.returncode == 0:
+                ret[utility] = cmd.stdout.split(") ", 1)[1].strip()
+            else:
+                raise Exception()
+        except Exception as _:
+            continue
+
+    return ret
+
+
 def set_binary_path(binary_path, bin_paths, server_type,
                     version_number=None, set_as_default=False):
     """
@@ -350,28 +385,15 @@ def set_binary_path(binary_path, bin_paths, server_type,
     default binary path.
     """
     path_with_dir = binary_path if "$DIR" in binary_path else None
+    binary_versions = get_binary_path_versions(binary_path)
 
-    # Check if "$DIR" present in binary path
-    binary_path = replace_binary_path(binary_path)
-
-    for utility in UTILITIES_ARRAY:
-        full_path = os.path.abspath(
-            os.path.join(binary_path, (utility if os.name != 'nt' else
-                                       (utility + '.exe'))))
-
+    for utility, version in binary_versions.items():
+        version_number = version if version_number is None else version_number
+        # version will be None if binary not present
+        version_number = version_number or ''
+        if version_number.find('.'):
+            version_number = version_number.split('.', 1)[0]
         try:
-            # if version_number is provided then no need to fetch it.
-            if version_number is None:
-                # Get the output of the '--version' command
-                version_string = \
-                    subprocess.getoutput('"{0}" --version'.format(full_path))
-
-                # Get the version number by splitting the result string
-                version_number = \
-                    version_string.split(") ", 1)[1].split('.', 1)[0]
-            elif version_number.find('.'):
-                version_number = version_number.split('.', 1)[0]
-
             # Get the paths array based on server type
             if 'pg_bin_paths' in bin_paths or 'as_bin_paths' in bin_paths:
                 paths_array = bin_paths['pg_bin_paths']
@@ -891,3 +913,16 @@ def get_safe_post_login_redirect():
             return url
 
     return url_for('browser.index')
+
+
+def get_safe_post_logout_redirect():
+    allow_list = [
+        url_for('security.login')
+    ]
+    if "SCRIPT_NAME" in os.environ and os.environ["SCRIPT_NAME"]:
+        allow_list.append(os.environ["SCRIPT_NAME"])
+    url = get_post_logout_redirect()
+    for item in allow_list:
+        if url.startswith(item):
+            return url
+    return url_for('security.login')

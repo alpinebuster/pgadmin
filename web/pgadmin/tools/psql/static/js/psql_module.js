@@ -20,7 +20,7 @@ import {
 } from 'tools/sqleditor/static/js/sqleditor_title';
 
 export function setPanelTitle(psqlToolPanel, panelTitle) {
-  psqlToolPanel.title('<span title="'+panelTitle+'">'+panelTitle+'</span>');
+  psqlToolPanel.title('<span title="'+_.escape(panelTitle)+'">'+_.escape(panelTitle)+'</span>');
 }
 
 let wcDocker = window.wcDocker;
@@ -113,7 +113,7 @@ export function initialize(
       enable(gettext('PSQL Tool'), isEnabled);
       return isEnabled;
     },
-    psql_tool: function(data, treeIdentifier, gen=false) {
+    psql_tool: function(data, treeIdentifier) {
       const serverInformation = retrieveAncestorOfTypeServer(pgBrowser, treeIdentifier, gettext('PSQL Error'));
       if (!hasBinariesConfiguration(pgBrowser, serverInformation)) {
         return;
@@ -151,8 +151,7 @@ export function initialize(
       let tab_title_placeholder = pgBrowser.get_preferences_for_module('browser').psql_tab_title_placeholder;
       panelTitle = generateTitle(tab_title_placeholder, title_data);
 
-      const [panelUrl, panelCloseUrl, db_label] = this.getPanelUrls(transId, panelTitle, parentData, gen);
-
+      const [panelUrl, panelCloseUrl, db_label] = this.getPanelUrls(transId, parentData);
       const escapedTitle = _.escape(panelTitle);
       let psqlToolForm = `
         <form id="psqlToolForm" action="${panelUrl}" method="post">
@@ -178,7 +177,7 @@ export function initialize(
         registerDetachEvent(psqlToolPanel);
 
         // Set panel title and icon
-        setPanelTitle(psqlToolPanel, escapedTitle);
+        setPanelTitle(psqlToolPanel, _.unescape(panelTitle));
         psqlToolPanel.icon('fas fa-terminal psql-tab-style');
         psqlToolPanel.focus();
 
@@ -213,7 +212,7 @@ export function initialize(
       }
 
     },
-    getPanelUrls: function(transId, panelTitle, pData) {
+    getPanelUrls: function(transId, pData) {
       let openUrl = url_for('psql.panel', {
         trans_id: transId,
       });
@@ -225,10 +224,9 @@ export function initialize(
         +`&did=${pData.database._id}`
         +`&server_type=${pData.server.server_type}`
         + `&theme=${theme}`;
-      let db_label = '';
+
       if(pData.database && pData.database._id) {
-        db_label = _.escape(pData.database._label.replace('\\', '\\\\'));
-        openUrl += `&db=${db_label}`;
+        openUrl += `&db=${encodeURIComponent(pData.database._label)}`;
       } else {
         openUrl += `&db=${''}`;
       }
@@ -236,7 +234,7 @@ export function initialize(
       let closeUrl = url_for('psql.close', {
         trans_id: transId,
       });
-      return [openUrl, closeUrl, db_label];
+      return [openUrl, closeUrl, _.escape(pData.database._label)];
     },
     psql_terminal: function() {
       // theme colors

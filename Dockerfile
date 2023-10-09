@@ -105,26 +105,15 @@ RUN rm -rf /pgadmin/docs/en_US/_build/html/_static/*.png
 # Create additional builders to get all of the PostgreSQL utilities
 #########################################################################
 
-FROM postgres:10-alpine AS pg10-builder
-FROM postgres:11-alpine AS pg11-builder
 FROM postgres:12-alpine AS pg12-builder
 FROM postgres:13-alpine AS pg13-builder
 FROM postgres:14-alpine AS pg14-builder
 FROM postgres:15-alpine AS pg15-builder
+FROM postgres:16-alpine AS pg16-builder
 
 FROM alpine:latest AS tool-builder
 
 # Copy the PG binaries
-COPY --from=pg10-builder /usr/local/bin/pg_dump /usr/local/pgsql/pgsql-10/
-COPY --from=pg10-builder /usr/local/bin/pg_dumpall /usr/local/pgsql/pgsql-10/
-COPY --from=pg10-builder /usr/local/bin/pg_restore /usr/local/pgsql/pgsql-10/
-COPY --from=pg10-builder /usr/local/bin/psql /usr/local/pgsql/pgsql-10/
-
-COPY --from=pg11-builder /usr/local/bin/pg_dump /usr/local/pgsql/pgsql-11/
-COPY --from=pg11-builder /usr/local/bin/pg_dumpall /usr/local/pgsql/pgsql-11/
-COPY --from=pg11-builder /usr/local/bin/pg_restore /usr/local/pgsql/pgsql-11/
-COPY --from=pg11-builder /usr/local/bin/psql /usr/local/pgsql/pgsql-11/
-
 COPY --from=pg12-builder /usr/local/bin/pg_dump /usr/local/pgsql/pgsql-12/
 COPY --from=pg12-builder /usr/local/bin/pg_dumpall /usr/local/pgsql/pgsql-12/
 COPY --from=pg12-builder /usr/local/bin/pg_restore /usr/local/pgsql/pgsql-12/
@@ -145,6 +134,11 @@ COPY --from=pg15-builder /usr/local/bin/pg_dumpall /usr/local/pgsql/pgsql-15/
 COPY --from=pg15-builder /usr/local/bin/pg_restore /usr/local/pgsql/pgsql-15/
 COPY --from=pg15-builder /usr/local/bin/psql /usr/local/pgsql/pgsql-15/
 
+COPY --from=pg16-builder /usr/local/bin/pg_dump /usr/local/pgsql/pgsql-16/
+COPY --from=pg16-builder /usr/local/bin/pg_dumpall /usr/local/pgsql/pgsql-16/
+COPY --from=pg16-builder /usr/local/bin/pg_restore /usr/local/pgsql/pgsql-16/
+COPY --from=pg16-builder /usr/local/bin/psql /usr/local/pgsql/pgsql-16/
+
 #########################################################################
 # Assemble everything into the final container.
 #########################################################################
@@ -156,9 +150,14 @@ COPY --from=env-builder /venv /venv
 
 # Copy in the tools
 COPY --from=tool-builder /usr/local/pgsql /usr/local/
-COPY --from=pg15-builder /usr/local/lib/libpq.so.5.15 /usr/lib/
-RUN ln -s libpq.so.5.15 /usr/lib/libpq.so.5 && \
-    ln -s libpq.so.5.15 /usr/lib/libpq.so
+COPY --from=pg16-builder /usr/local/lib/libpq.so.5.16 /usr/lib/
+COPY --from=pg16-builder /usr/lib/libzstd.so.1.5.5 /usr/lib/
+COPY --from=pg16-builder /usr/lib/liblz4.so.1.9.4 /usr/lib/
+
+RUN ln -s libpq.so.5.16 /usr/lib/libpq.so.5 && \
+    ln -s libpq.so.5.16 /usr/lib/libpq.so && \
+    ln -s libzstd.so.1.5.5 /usr/lib/libzstd.so.1 && \
+    ln -s liblz4.so.1.9.4 /usr/lib/liblz4.so.1
 
 WORKDIR /pgadmin
 ENV PYTHONPATH=/pgadmin
@@ -186,7 +185,7 @@ RUN apk add \
         libedit \
         libldap \
         libcap && \
-    /venv/bin/python3 -m pip install --no-cache-dir gunicorn && \
+    /venv/bin/python3 -m pip install --no-cache-dir gunicorn==20.1.0 && \
     find / -type d -name '__pycache__' -exec rm -rf {} + && \
     useradd -r -u 5052 -g root -s /sbin/nologin pgadmin && \
     mkdir -p /var/lib/pgadmin && \

@@ -82,10 +82,6 @@ export class ResultSetUtils {
     return msg;
   }
 
-  static isCursorInitialised(httpMessage) {
-    return httpMessage.data.data.status === 'NotInitialised';
-  }
-
   static isQueryFinished(httpMessage) {
     return httpMessage.data.data.status === 'Success';
   }
@@ -276,7 +272,7 @@ export class ResultSetUtils {
     });
   }
 
-  handlePollError(error) {
+  handlePollError(error, explainObject, flags) {
     this.eventBus.fireEvent(QUERY_TOOL_EVENTS.EXECUTION_END);
     this.eventBus.fireEvent(QUERY_TOOL_EVENTS.FOCUS_PANEL, PANELS.MESSAGES);
     this.eventBus.fireEvent(QUERY_TOOL_EVENTS.SET_CONNECTION_STATUS, CONNECTION_STATUS.TRANSACTION_STATUS_INERROR);
@@ -290,10 +286,15 @@ export class ResultSetUtils {
       query_source: this.historyQuerySource,
       is_pgadmin_query: false,
     });
-    this.eventBus.fireEvent(QUERY_TOOL_EVENTS.HANDLE_API_ERROR, error);
+    this.eventBus.fireEvent(QUERY_TOOL_EVENTS.HANDLE_API_ERROR, error, {
+      connectionLostCallback: ()=>{
+        this.eventBus.fireEvent(QUERY_TOOL_EVENTS.EXECUTION_START, this.query, explainObject, flags.external, true);
+      },
+      checkTransaction: true,
+    });
   }
 
-  async pollForResult(onResultsAvailable, onExplain, onPollError) {
+  async pollForResult(onResultsAvailable, onExplain, onPollError, explainObject, flags) {
     try {
       let httpMessage = await this.poll();
       let msg = '';
@@ -301,9 +302,7 @@ export class ResultSetUtils {
         this.eventBus.fireEvent(QUERY_TOOL_EVENTS.PUSH_NOTICE, httpMessage.data.data.notifies);
       }
 
-      if (ResultSetUtils.isCursorInitialised(httpMessage)) {
-        return Promise.resolve(this.pollForResult(onResultsAvailable, onExplain, onPollError));
-      } else if (ResultSetUtils.isQueryFinished(httpMessage)) {
+      if (ResultSetUtils.isQueryFinished(httpMessage)) {
         this.setEndTime(new Date());
         msg = this.queryFinished(httpMessage, onResultsAvailable, onExplain);
       } else if (ResultSetUtils.isQueryStillRunning(httpMessage)) {
@@ -311,7 +310,7 @@ export class ResultSetUtils {
         if(httpMessage.data.data.result) {
           this.eventBus.fireEvent(QUERY_TOOL_EVENTS.SET_MESSAGE, httpMessage.data.data.result, true);
         }
-        return Promise.resolve(this.pollForResult(onResultsAvailable, onExplain, onPollError));
+        return Promise.resolve(this.pollForResult(onResultsAvailable, onExplain, onPollError, explainObject, flags));
       } else if (ResultSetUtils.isConnectionToServerLostWhilePolling(httpMessage)) {
         this.setEndTime(new Date());
         msg = httpMessage.data.data.result;
@@ -342,7 +341,7 @@ export class ResultSetUtils {
       }
     } catch (error) {
       onPollError();
-      this.handlePollError(error);
+      this.handlePollError(error, explainObject, flags);
     }
   }
 
@@ -697,7 +696,7 @@ function dataChangeReducer(state, action) {
     action.remove = action.remove || [];
     dataChange.added = _.pickBy(dataChange.added, (_v, k)=>(action.remove.indexOf(k) == -1));
     dataChange.added_index = _.pickBy(dataChange.added_index, (v)=>(action.remove.indexOf(v) == -1));
-    count = _.max(Object.keys(dataChange.added_index))||0;
+    count = _.max(Object.keys(dataChange.added_index).map(k=>+k))||0;
     Object.keys(action.add).forEach((k)=>{
       dataChange.added_index[++count] = k;
     });
@@ -824,12 +823,14 @@ export function ResultSet() {
         ()=>{
           setColumns([]);
           setRows([]);
-        }
+        },
+        explainObject,
+        {isQueryTool: queryToolCtx.params.is_query_tool, external: external, reconnect: reconnect}
       );
     };
 
     const executeAndPoll = async ()=>{
-      yesCallback();
+      await yesCallback();
       pollCallback();
     };
 

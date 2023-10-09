@@ -1,4 +1,4 @@
 export const maintenanceSupportedNodes = [
-  'database', 'table', 'primary_key',
-  'unique_constraint', 'index', 'partition',
+  'database', 'schema', 'table', 'primary_key',
+  'unique_constraint', 'index', 'partition', 'mview'
 ];

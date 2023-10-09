@@ -2,6 +2,7 @@
 
 import json
 import os
+import copy
 import functools
 import operator
 
@@ -19,6 +20,8 @@ from config import PG_DEFAULT_DRIVER
 from pgadmin.model import Server, SharedServer
 from pgadmin.misc.bgprocess import escape_dquotes_process_arg
 from pgadmin.utils.constants import MIMETYPE_APP_JS
+from pgadmin.tools.grant_wizard import _get_rows_for_type, \
+    get_node_sql_with_type, properties, get_data
 
 # set template path for sql scripts
 MODULE_NAME = 'backup'
@@ -48,7 +51,8 @@ class BackupModule(PgAdminModule):
             list: URL endpoints for backup module
         """
         return ['backup.create_server_job', 'backup.create_object_job',
-                'backup.utility_exists']
+                'backup.utility_exists', 'backup.objects',
+                'backup.schema_objects']
 
 
 # Create blueprint for BackupModule class
@@ -220,8 +224,6 @@ def _get_args_params_values(data, conn, backup_obj_type, backup_file, server,
     if backup_obj_type == 'globals':
         args.append('--globals-only')
 
-    set_param('verbose', '--verbose')
-    set_param('dqoute', '--quote-all-identifiers')
     set_value('role', '--role')
 
     if backup_obj_type == 'objects' and data.get('format', None):
@@ -232,41 +234,92 @@ def _get_args_params_values(data, conn, backup_obj_type, backup_file, server,
             'directory': 'd'
         }[data['format']])])
 
-        set_param('blobs', '--blobs', data['format'] in ['custom', 'tar'])
-        set_value('ratio', '--compress', None,
-                  ['custom', 'plain', 'directory'])
-
-    set_param('only_data', '--data-only',
-              data.get('only_data', None))
-    set_param('disable_trigger', '--disable-triggers',
-              data.get('only_data', None) and
-              data.get('format', '') == 'plain')
-
-    set_param('only_schema', '--schema-only',
-              data.get('only_schema', None) and
-              not data.get('only_data', None))
-
-    set_param('dns_owner', '--no-owner')
-    set_param('include_create_database', '--create')
-    set_param('include_drop_database', '--clean')
-    set_param('pre_data', '--section=pre-data')
-    set_param('data', '--section=data')
-    set_param('post_data', '--section=post-data')
-    set_param('dns_privilege', '--no-privileges')
-    set_param('dns_tablespace', '--no-tablespaces')
-    set_param('dns_unlogged_tbl_data', '--no-unlogged-table-data')
-    set_param('use_insert_commands', '--inserts')
-    set_param('use_column_inserts', '--column-inserts')
-    set_param('disable_quoting', '--disable-dollar-quoting')
-    set_param('with_oids', '--oids')
-    set_param('use_set_session_auth', '--use-set-session-authorization')
-
-    set_param('no_comments', '--no-comments', manager.version >= 110000)
-    set_param('load_via_partition_root', '--load-via-partition-root',
-              manager.version >= 110000)
+        # --blobs is deprecated from v16
+        if manager.version >= 160000:
+            set_param('blobs', '--large-objects',
+                      data['format'] in ['custom', 'tar'])
+        else:
+            set_param('blobs', '--blobs', data['format'] in ['custom', 'tar'])
+        set_value('ratio', '--compress')
 
     set_value('encoding', '--encoding')
     set_value('no_of_jobs', '--jobs')
+
+    # Data options
+    set_param('only_data', '--data-only',
+              data.get('only_data', None))
+    set_param('only_schema', '--schema-only',
+              data.get('only_schema', None) and
+              not data.get('only_data', None))
+    set_param('only_tablespaces', '--tablespaces-only',
+              data.get('only_tablespaces', None))
+    set_param('only_roles', '--roles-only',
+              data.get('only_roles', None))
+
+    # Sections
+    set_param('pre_data', '--section=pre-data')
+    set_param('data', '--section=data')
+    set_param('post_data', '--section=post-data')
+
+    # Do not Save
+    set_param('dns_owner', '--no-owner')
+    set_param('dns_privilege', '--no-privileges')
+    set_param('dns_tablespace', '--no-tablespaces')
+    set_param('dns_unlogged_tbl_data', '--no-unlogged-table-data')
+    set_param('dns_comments', '--no-comments', manager.version >= 110000)
+    set_param('dns_publications', '--no-publications',
+              manager.version >= 110000)
+    set_param('dns_subscriptions', '--no-subscriptions',
+              manager.version >= 110000)
+    set_param('dns_security_labels', '--no-security-labels',
+              manager.version >= 110000)
+    set_param('dns_toast_compression', '--no-toast-compression',
+              manager.version >= 140000)
+    set_param('dns_table_access_method', '--no-table-access-method',
+              manager.version >= 150000)
+    set_param('dns_no_role_passwords', '--no-role-passwords')
+
+    # Query Options
+    set_param('use_insert_commands', '--inserts')
+    set_value('max_rows_per_insert', '--rows-per-insert', None,
+              manager.version >= 120000)
+    set_param('on_conflict_do_nothing', '--on-conflict-do-nothing',
+              manager.version >= 120000)
+    set_param('include_create_database', '--create')
+    set_param('include_drop_database', '--clean')
+    set_param('if_exists', '--if-exists')
+
+    # Table options
+    set_param('use_column_inserts', '--column-inserts')
+    set_param('load_via_partition_root', '--load-via-partition-root',
+              manager.version >= 110000)
+    set_param('with_oids', '--oids')
+    set_param('enable_row_security', '--enable-row-security')
+    set_value('exclude_table_data', '--exclude-table-data')
+    set_value('table_and_children', '--table-and-children', None,
+              manager.version >= 160000)
+    set_value('exclude_table_and_children', '--exclude-table-and-children',
+              None, manager.version >= 160000)
+    set_value('exclude_table_data_and_children',
+              '--exclude-table-data-and-children', None,
+              manager.version >= 160000)
+
+    # Disable options
+    set_param('disable_trigger', '--disable-triggers',
+              data.get('only_data', None) and
+              data.get('format', '') == 'plain')
+    set_param('disable_quoting', '--disable-dollar-quoting')
+
+    # Misc Options
+    set_param('verbose', '--verbose')
+    set_param('dqoute', '--quote-all-identifiers')
+    set_param('use_set_session_auth', '--use-set-session-authorization')
+    set_value('exclude_schema', '--exclude-schema')
+    set_value('extra_float_digits', '--extra-float-digits', None,
+              manager.version >= 120000)
+    set_value('lock_wait_timeout', '--lock-wait-timeout')
+    set_value('exclude_database', '--exclude-database', None,
+              manager.version >= 160000)
 
     args.extend(
         functools.reduce(operator.iconcat, map(
@@ -284,6 +337,23 @@ def _get_args_params_values(data, conn, backup_obj_type, backup_file, server,
             data.get('tables', [])), []
         )
     )
+
+    if 'objects' in data:
+        selected_objects = data.get('objects', {})
+        for _key in selected_objects:
+            param = 'schema' if _key == 'schema' else 'table'
+            args.extend(
+                functools.reduce(operator.iconcat, map(
+                    lambda s: [f'--{param}',
+                               r'{0}.{1}'.format(
+                                   driver.qtIdent(conn, s['schema']).replace(
+                                       '"', '\"'),
+                                   driver.qtIdent(conn, s['name']).replace(
+                                       '"', '\"')) if type(
+                                   s) is dict else driver.qtIdent(
+                                   conn, s).replace('"', '\"')],
+                    selected_objects[_key] or []), [])
+            )
 
     return args
 
@@ -368,7 +438,7 @@ def create_backup_objects_job(sid):
                     *args,
                     database=data['database']
                 ),
-                cmd=utility, args=escaped_args
+                cmd=utility, args=escaped_args, manager_obj=manager
             )
         else:
             p = BatchProcess(
@@ -378,20 +448,10 @@ def create_backup_objects_job(sid):
                     server.id, bfile,
                     *args
                 ),
-                cmd=utility, args=escaped_args
+                cmd=utility, args=escaped_args, manager_obj=manager
             )
 
-        manager.export_password_env(p.id)
-        # Check for connection timeout and if it is greater than 0 then
-        # set the environment variable PGCONNECT_TIMEOUT.
-        timeout = manager.get_connection_param_value('connect_timeout')
-        if timeout and int(timeout) > 0:
-            env = dict()
-            env['PGCONNECT_TIMEOUT'] = str(timeout)
-            p.set_env_variables(server, env=env)
-        else:
-            p.set_env_variables(server)
-
+        p.set_env_variables(server)
         p.start()
         jid = p.id
     except Exception as e:
@@ -445,3 +505,124 @@ def check_utility_exists(sid, backup_obj_type):
         )
 
     return make_json_response(success=1)
+
+
+@blueprint.route(
+    '/objects/<int:sid>/<int:did>', endpoint='objects'
+)
+@blueprint.route(
+    '/objects/<int:sid>/<int:did>/<int:scid>', endpoint='schema_objects'
+)
+@login_required
+def objects(sid, did, scid=None):
+    """
+    This function returns backup objects
+
+    Args:
+        sid: Server ID
+        did: database ID
+        scid: schema ID
+    Returns:
+        list of objects
+    """
+    from pgadmin.tools.schema_diff.node_registry import SchemaDiffRegistry
+    server = get_server(sid)
+
+    if server is None:
+        return make_json_response(
+            success=0,
+            errormsg=_("Could not find the specified server.")
+        )
+
+    from pgadmin.utils.driver import get_driver
+    from flask_babel import gettext
+    from pgadmin.utils.ajax import precondition_required
+
+    server_info = {}
+    server_info['manager'] = get_driver(PG_DEFAULT_DRIVER) \
+        .connection_manager(sid)
+    server_info['conn'] = server_info['manager'].connection(
+        did=did)
+    # If DB not connected then return error to browser
+    if not server_info['conn'].connected():
+        return precondition_required(
+            gettext("Connection to the server has been lost.")
+        )
+
+    # Set template path for sql scripts
+    server_info['server_type'] = server_info['manager'].server_type
+    server_info['version'] = server_info['manager'].version
+    if server_info['server_type'] == 'pg':
+        server_info['template_path'] = 'grant_wizard/pg/#{0}#'.format(
+            server_info['version'])
+    elif server_info['server_type'] == 'ppas':
+        server_info['template_path'] = 'grant_wizard/ppas/#{0}#'.format(
+            server_info['version'])
+
+    res, msg = get_data(sid, did, scid, 'schema' if scid else 'database',
+                        server_info)
+
+    tree_data = {
+        'table': [],
+        'view': [],
+        'materialized view': [],
+        'foreign table': [],
+        'sequence': []
+    }
+
+    schema_group = {}
+
+    for data in res:
+        obj_type = data['object_type'].lower()
+        if obj_type in ['table', 'view', 'materialized view', 'foreign table',
+                        'sequence']:
+
+            if data['nspname'] not in schema_group:
+                schema_group[data['nspname']] = {
+                    'id': data['nspname'],
+                    'name': data['nspname'],
+                    'icon': 'icon-schema',
+                    'children': copy.deepcopy(tree_data),
+                    'is_schema': True,
+                }
+            icon_data = {
+                'materialized view': 'icon-mview',
+                'foreign table': 'icon-foreign_table'
+            }
+            icon = icon_data[obj_type] if obj_type in icon_data \
+                else data['icon']
+            schema_group[data['nspname']]['children'][obj_type].append({
+                'id': f'{data["nspname"]}_{data["name"]}',
+                'name': data['name'],
+                'icon': icon,
+                'schema': data['nspname'],
+                'type': obj_type,
+                '_name': '{0}.{1}'.format(data['nspname'], data['name'])
+            })
+
+    schema_group = [dt for k, dt in schema_group.items()]
+    for ch in schema_group:
+        children = []
+        for obj_type, data in ch['children'].items():
+            if data:
+                icon_data = {
+                    'materialized view': 'icon-coll-mview',
+                    'foreign table': 'icon-coll-foreign_table'
+                }
+                icon = icon_data[obj_type] if obj_type in icon_data \
+                    else f'icon-coll-{obj_type.lower()}',
+                children.append({
+                    'id': f'{ch["id"]}_{obj_type}',
+                    'name': f'{obj_type.title()}s',
+                    'icon': icon,
+                    'children': data,
+                    'type': obj_type,
+                    'is_collection': True,
+                })
+
+        ch['children'] = children
+
+    return make_json_response(
+        data=schema_group,
+        success=200
+    )

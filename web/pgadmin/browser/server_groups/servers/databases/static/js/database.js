@@ -343,6 +343,10 @@ define('pgadmin.node.database', [
           cacheLevel: 'server',
         });
 
+        let icu_locale = ()=>getNodeAjaxOptions('get_icu_locale', this, treeNodeInfo, itemNodeData, {
+          cacheLevel: 'server',
+        });
+
         return new DatabaseSchema(
           ()=>getNodeVariableSchema(this, treeNodeInfo, itemNodeData, false, true),
           (privileges)=>getNodePrivilegeRoleSchema(this, treeNodeInfo, itemNodeData, privileges),
@@ -371,6 +375,7 @@ define('pgadmin.node.database', [
               }),
             datcollate: c_types,
             datctype: c_types,
+            daticulocale: icu_locale,
           },
           {
             datowner: pgBrowser.serverInfo[treeNodeInfo.server._id].user.name,

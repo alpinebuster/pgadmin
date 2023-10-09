@@ -244,6 +244,8 @@ def _get_identical_and_different_list(intersect_keys, source_dict, target_dict,
     group_name = kwargs['group_name']
     target_schema = kwargs.get('target_schema')
     ignore_whitespaces = kwargs.get('ignore_whitespaces')
+    ignore_grants = kwargs.get('ignore_grants', False)
+
     for key in intersect_keys:
         source_object_id, target_object_id = \
             get_source_target_oid(source_dict, target_dict, key)
@@ -290,7 +292,10 @@ def _get_identical_and_different_list(intersect_keys, source_dict, target_dict,
                     ignore_keys=temp_ignore_keys,
                     difference={}
                 )
-                parse_acl(dict1[key], dict2[key], diff_dict)
+
+                # No need to parse acl if ignore_grants is set to True.
+                if not ignore_grants:
+                    parse_acl(dict1[key], dict2[key], diff_dict)
 
                 temp_src_params['tid'] = source_object_id
                 temp_tgt_params['tid'] = target_object_id
@@ -315,9 +320,12 @@ def _get_identical_and_different_list(intersect_keys, source_dict, target_dict,
                 temp_tgt_params = copy.deepcopy(target_params)
                 diff_dict = directory_diff(
                     dict1[key], dict2[key],
-                    ignore_keys=view_object.keys_to_ignore, difference={}
+                    ignore_keys=ignore_keys, difference={}
                 )
-                parse_acl(dict1[key], dict2[key], diff_dict)
+
+                # No need to parse acl if ignore_grants is set to True.
+                if not ignore_grants:
+                    parse_acl(dict1[key], dict2[key], diff_dict)
 
                 temp_src_params['oid'] = source_object_id
                 temp_tgt_params['oid'] = target_object_id
@@ -378,6 +386,8 @@ def compare_dictionaries(**kwargs):
     source_schema_name = kwargs.get('source_schema_name')
     ignore_owner = kwargs.get('ignore_owner')
     ignore_whitespaces = kwargs.get('ignore_whitespaces')
+    ignore_tablespace = kwargs.get('ignore_tablespace')
+    ignore_grants = kwargs.get('ignore_grants')
 
     dict1 = copy.deepcopy(source_dict)
     dict2 = copy.deepcopy(target_dict)
@@ -412,9 +422,21 @@ def compare_dictionaries(**kwargs):
     # ignore keys.
     if ignore_owner:
         owner_keys = ['owner', 'eventowner', 'funcowner', 'fdwowner',
-                      'fsrvowner', 'lanowner', 'relowner', 'relacl', 'acl',
-                      'seqowner', 'typeowner']
+                      'fsrvowner', 'lanowner', 'relowner', 'seqowner',
+                      'typeowner']
         ignore_keys = ignore_keys + owner_keys
+
+    # if ignore_tablespace is True then add all the possible tablespace keys
+    # to the ignore keys.
+    if ignore_tablespace:
+        tablespace_keys = ['spcname', 'spcoid']
+        ignore_keys = ignore_keys + tablespace_keys
+
+    # if ignore_grants is True then add all the possible grants keys
+    # to the ignore keys.
+    if ignore_grants:
+        grant_keys = ['relacl', 'acl', 'datacl', 'fdwacl', 'lanacl', 'fsrvacl']
+        ignore_keys = ignore_keys + grant_keys
 
     # Compare the values of duplicates keys.
     other_param = {
@@ -425,7 +447,8 @@ def compare_dictionaries(**kwargs):
         "target_params": target_params,
         "group_name": group_name,
         "target_schema": target_schema,
-        "ignore_whitespaces": ignore_whitespaces
+        "ignore_whitespaces": ignore_whitespaces,
+        "ignore_grants": ignore_grants
     }
 
     identical, different = _get_identical_and_different_list(
@@ -477,11 +500,12 @@ def are_dictionaries_identical(source_dict, target_dict, ignore_keys,
     """
     src_keys = set(source_dict.keys())
     tar_keys = set(target_dict.keys())
+    igr_keys = set(ignore_keys)
 
     # Keys that are available in source and missing in target.
-    src_only = src_keys - tar_keys
+    src_only = (src_keys - igr_keys) - tar_keys
     # Keys that are available in target and missing in source.
-    tar_only = tar_keys - src_keys
+    tar_only = (tar_keys - igr_keys) - src_keys
 
     # If number of keys are different in source and target then
     # return False
@@ -581,11 +605,12 @@ def directory_diff(source_dict, target_dict, ignore_keys=[], difference=None):
     difference = {} if difference is None else difference
     src_keys = set(source_dict.keys())
     tar_keys = set(target_dict.keys())
+    igr_keys = set(ignore_keys)
 
     # Keys that are available in source and missing in target.
-    src_only = src_keys - tar_keys
+    src_only = (src_keys - igr_keys) - tar_keys
     # Keys that are available in target and missing in source.
-    tar_only = tar_keys - src_keys
+    tar_only = (tar_keys - igr_keys) - src_keys
 
     for key in source_dict.keys():
         added = []

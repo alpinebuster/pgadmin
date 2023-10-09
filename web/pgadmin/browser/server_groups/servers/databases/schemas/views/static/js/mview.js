@@ -1,5 +1,5 @@
 import MViewSchema from './mview.ui';
-import { getNodeListByName } from '../../../../../../../static/js/node_ajax';
+import { getNodeListByName, getNodeAjaxOptions } from '../../../../../../../static/js/node_ajax';
 import { getNodePrivilegeRoleSchema } from '../../../../../static/js/privilege.ui';
 import { getNodeVacuumSettingsSchema } from '../../../../../static/js/vacuum.ui';
 import Notify from '../../../../../../../../static/js/helpers/Notifier';
@@ -31,6 +31,7 @@ define('pgadmin.node.mview', [
         type: 'coll-mview',
         columns: ['name', 'owner', 'comment'],
         hasStatistics: true,
+        statsPrettifyFields: [gettext('Total Size')],
         canDrop: schemaChildTreeNode.isTreeItemOfChildOfSchema,
         canDropCascade: schemaChildTreeNode.isTreeItemOfChildOfSchema,
       });
@@ -57,6 +58,9 @@ define('pgadmin.node.mview', [
       hasSQL: true,
       hasDepends: true,
       hasStatistics: true,
+      statsPrettifyFields: [gettext('Total Size'), gettext('Indexes size'), gettext('Table size'),
+        gettext('TOAST table size'), gettext('Tuple length'),
+        gettext('Dead tuple length'), gettext('Free space')],
       hasScriptTypes: ['create', 'select'],
       collection_type: 'coll-mview',
       width: pgBrowser.stdW.md + 'px',
@@ -131,6 +135,7 @@ define('pgadmin.node.mview', [
             spcname: ()=>getNodeListByName('tablespace', treeNodeInfo, itemNodeData, {}, (m)=> {
               return (m.label != 'pg_global');
             }),
+            table_amname_list: ()=>getNodeAjaxOptions('get_access_methods', this, treeNodeInfo, itemNodeData),
             nodeInfo: treeNodeInfo,
           },
           {

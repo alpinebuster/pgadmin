@@ -12,7 +12,6 @@ describe('PasswordResetPage', ()=>{
   /* https://material-ui.com/guides/testing/#api */
   beforeAll(()=>{
     mount = createMount();
-    // spyOn(Notify, 'alert');
   });
 
   afterAll(() => {

@@ -47,6 +47,7 @@ import { showFileManager } from '../helpers/showFileManager';
 import { withColorPicker } from '../helpers/withColorPicker';
 import { useWindowSize } from '../custom_hooks';
 import CodeMirror from './CodeMirror';
+import PgTreeView from '../PgTreeView';
 
 const useStyles = makeStyles((theme) => ({
   formRoot: {
@@ -127,21 +128,32 @@ FormIcon.propTypes = {
 };
 
 /* Wrapper on any form component to add label, error indicator and help message */
-export function FormInput({
-  children, error, className, label, helpMessage, required, testcid
-}) {
+export function FormInput({ children, error, className, label, helpMessage, required, testcid, withContainer=true, labelGridBasis=3, controlGridBasis=9 }) {
   const classes = useStyles();
   const cid = testcid || _.uniqueId('c');
   const helpid = `h${cid}`;
-
+  if(!withContainer) {
+    return (
+      <>
+        <Grid item lg={labelGridBasis} md={labelGridBasis} sm={12} xs={12}>
+          <InputLabel htmlFor={cid} className={clsx(classes.formLabel, error ? classes.formLabelError : null)} required={required}>
+            {label}
+            <FormIcon type={MESSAGE_TYPE.ERROR} style={{ marginLeft: 'auto', visibility: error ? 'unset' : 'hidden' }} />
+          </InputLabel>
+        </Grid>
+        <Grid item lg={controlGridBasis} md={controlGridBasis} sm={12} xs={12}>
+          <FormControl error={Boolean(error)} fullWidth>
+            {React.cloneElement(children, { cid, helpid })}
+          </FormControl>
+          <FormHelperText id={helpid} variant="outlined">{HTMLReactParse(helpMessage || '')}</FormHelperText>
+        </Grid>
+      </>
+    );
+  }
   return (
     <Grid container spacing={0} className={className}>
-      <Grid item lg={3} md={3} sm={3} xs={12}>
-        <InputLabel
-          htmlFor={cid}
-          className={clsx(classes.formLabel, error ? classes.formLabelError : null)}
-          required={required}
-        >
+      <Grid item lg={labelGridBasis} md={labelGridBasis} sm={12} xs={12}>
+        <InputLabel htmlFor={cid} className={clsx(classes.formLabel, error ? classes.formLabelError : null)} required={required}>
           {label}
           <FormIcon
             type={MESSAGE_TYPE.ERROR}
@@ -149,7 +161,7 @@ export function FormInput({
           />
         </InputLabel>
       </Grid>
-      <Grid item lg={9} md={9} sm={9} xs={12}>
+      <Grid item lg={controlGridBasis} md={controlGridBasis} sm={12} xs={12}>
         <FormControl error={Boolean(error)} fullWidth>
           {React.cloneElement(children, { cid, helpid })}
         </FormControl>
@@ -168,6 +180,9 @@ FormInput.propTypes = {
   helpMessage: PropTypes.string,
   required: PropTypes.bool,
   testcid: PropTypes.any,
+  withContainer: PropTypes.bool,
+  labelGridBasis: PropTypes.number,
+  controlGridBasis: PropTypes.number,
 };
 
 export function InputSQL({
@@ -548,10 +563,10 @@ InputSwitch.propTypes = {
   controlProps: PropTypes.object,
 };
 
-export function FormInputSwitch({ hasError, required, label, className, helpMessage, testcid, ...props }) {
-
+export function FormInputSwitch({ hasError, required, label, className, helpMessage, testcid, withContainer, controlGridBasis, ...props }) {
   return (
-    <FormInput required={required} label={label} error={hasError} className={className} helpMessage={helpMessage} testcid={testcid}>
+    <FormInput required={required} label={label} error={hasError} className={className}
+      helpMessage={helpMessage} testcid={testcid} withContainer={withContainer} controlGridBasis={controlGridBasis}>
       <InputSwitch {...props} />
     </FormInput>
   );
@@ -563,6 +578,8 @@ FormInputSwitch.propTypes = {
   className: CustomPropTypes.className,
   helpMessage: PropTypes.string,
   testcid: PropTypes.string,
+  withContainer: PropTypes.bool,
+  controlGridBasis: PropTypes.number,
 };
 
 export function InputCheckbox({
@@ -1176,7 +1193,7 @@ FormInputColor.propTypes = {
   className: CustomPropTypes.className,
   label: PropTypes.string,
   helpMessage: PropTypes.string,
-  testcid: PropTypes.string,
+  testcid: PropTypes.string
 };
 
 export function PlainString({ controlProps, value }) {
@@ -1422,4 +1439,15 @@ FormButton.propTypes = {
   onClick: PropTypes.func,
   disabled: PropTypes.bool,
   btnName: PropTypes.string
+};
+
+export function InputTree({hasCheckbox, treeData, onChange, ...props}){
+  return <PgTreeView data={treeData} hasCheckbox={hasCheckbox} selectionChange={onChange} {...props}></PgTreeView>;
+}
+
+InputTree.propTypes = {
+  hasCheckbox: PropTypes.bool,
+  treeData: PropTypes.array,
+  onChange: PropTypes.func,
+  selectionChange: PropTypes.func,
 };

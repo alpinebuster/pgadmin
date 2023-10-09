@@ -86,6 +86,10 @@ describe('TableSchema', ()=>{
       like_indexes: false,
       like_storage: false,
       like_comments: false,
+      like_compression: false,
+      like_generated: false,
+      like_identity: false,
+      like_statistics: false
     });
   });
 

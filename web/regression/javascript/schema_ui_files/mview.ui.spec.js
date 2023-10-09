@@ -31,6 +31,7 @@ describe('MaterializedViewSchema', ()=>{
   /* https://material-ui.com/guides/testing/#api */
   beforeAll(()=>{
     mount = createMount();
+    spyOn(schemaObj, 'getServerVersion').and.returnValue(100000);
   });
 
   afterAll(() => {
@@ -59,7 +60,7 @@ describe('MaterializedViewSchema', ()=>{
 
     state.definition = null;
     schemaObj.validate(state, setError);
-    expect(setError).toHaveBeenCalledWith('definition', 'Please enter view definition.');
+    expect(setError).toHaveBeenCalledWith('definition', 'Please enter view code.');
 
     state.definition = 'SELECT 1;';
     schemaObj.validate(state, setError);

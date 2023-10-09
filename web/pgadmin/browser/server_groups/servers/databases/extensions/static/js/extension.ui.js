@@ -11,6 +11,7 @@ export default class ExtensionsSchema extends BaseUISchema {
       schema: '',
       relocatable: false,
       is_sys_obj: false,
+      cascade: false,
       comment: null,
     });
     fieldOptions = {
@@ -77,6 +78,10 @@ export default class ExtensionsSchema extends BaseUISchema {
             });
           }
         }
+      },
+      {
+        id: 'cascade', label: gettext('Cascade?'),
+        type: 'switch', mode: ['create'],
       },
       {
         id: 'oid', label: gettext('OID'), type: 'text',

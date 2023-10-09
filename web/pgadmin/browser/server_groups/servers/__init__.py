@@ -403,14 +403,14 @@ class ServerModule(sg.ServerGroupPluginModule):
         """
         shared_server = SharedServer.query.filter_by(
             name=server.name, user_id=current_user.id,
-            servergroup_id=gid, osid=server.id).first()
+            servergroup_id=int(gid), osid=server.id).first()
 
         if shared_server is None:
-            ServerModule.create_shared_server(server, gid)
+            ServerModule.create_shared_server(server, int(gid))
 
             shared_server = SharedServer.query.filter_by(
                 name=server.name, user_id=current_user.id,
-                servergroup_id=gid, osid=server.id).first()
+                servergroup_id=int(gid), osid=server.id).first()
 
         return shared_server
 
@@ -859,7 +859,8 @@ class ServerNode(PGChildNodeView):
 
         try:
             if len(old_server_name) and old_server_name != server.name and \
-                    not config.DISABLED_LOCAL_PASSWORD_STORAGE:
+                    not config.DISABLED_LOCAL_PASSWORD_STORAGE and \
+                    server.save_password:
                 # If server name is changed then update keyring with
                 # new server name
                 password = keyring.get_password(

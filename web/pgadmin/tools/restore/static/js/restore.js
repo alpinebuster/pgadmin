@@ -75,7 +75,6 @@ define('tools.restore', [
         ()=>getRestoreSectionSchema({selectedNodeType: itemNodeData._type}),
         ()=>getRestoreTypeObjSchema({selectedNodeType: itemNodeData._type}),
         ()=>getRestoreSaveOptSchema({nodeInfo: treeNodeInfo}),
-        ()=>getRestoreQueryOptionSchema({selectedNodeType: itemNodeData._type, nodeInfo: treeNodeInfo}),
         ()=>getRestoreDisableOptionSchema({nodeInfo: treeNodeInfo}),
         ()=>getRestoreMiscellaneousSchema({nodeInfo: treeNodeInfo}),
         {

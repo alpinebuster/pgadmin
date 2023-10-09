@@ -4,8 +4,6 @@ import sys
 if sys.version_info < (3, 4):
     raise Exception('This application must be run under Python 3.4 or later.')
 
-os.environ['SCRIPT_NAME'] = '/pgadmin'
-
 import builtins
 
 root = os.path.dirname(os.path.realpath(__file__))

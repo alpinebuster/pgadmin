@@ -670,8 +670,6 @@ define('pgadmin.node.server', [
             // Check the database server against supported version.
             checkSupportedVersion(_data.version, res.info);
 
-            // obj.trigger('connected', obj, _item, _data);
-
             // Generate the event that server is connected
             pgBrowser.Events.trigger(
               EV_SERVER_CONNECTED, _data._id, _item, _data

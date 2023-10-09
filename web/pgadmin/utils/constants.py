@@ -65,9 +65,6 @@ SUPPORTED_AUTH_SOURCES = [
 
 BINARY_PATHS = {
     "as_bin_paths": [
-        {"version": "100000", "next_major_version": "110000",
-         "serverType": gettext("EDB Advanced Server 10"), "binaryPath": None,
-         "isDefault": False},
         {"version": "110000", "next_major_version": "120000",
          "serverType": gettext("EDB Advanced Server 11"), "binaryPath": None,
          "isDefault": False},
@@ -85,12 +82,6 @@ BINARY_PATHS = {
          "isDefault": False}
     ],
     "pg_bin_paths": [
-        {"version": "100000", "next_major_version": "110000",
-         "serverType": gettext("PostgreSQL 10"), "binaryPath": None,
-         "isDefault": False},
-        {"version": "110000", "next_major_version": "120000",
-         "serverType": gettext("PostgreSQL 11"), "binaryPath": None,
-         "isDefault": False},
         {"version": "120000", "next_major_version": "130000",
          "serverType": gettext("PostgreSQL 12"), "binaryPath": None,
          "isDefault": False},
@@ -102,6 +93,9 @@ BINARY_PATHS = {
          "isDefault": False},
         {"version": "150000", "next_major_version": "160000",
          "serverType": gettext("PostgreSQL 15"), "binaryPath": None,
+         "isDefault": False},
+        {"version": "160000", "next_major_version": "170000",
+         "serverType": gettext("PostgreSQL 16"), "binaryPath": None,
          "isDefault": False}
     ]
 }

@@ -248,8 +248,6 @@ export function SchemaDiffCompare({ params }) {
       }
 
     }
-
-
   };
 
   const triggerSelectSchema = ({ selectedSC, diff_type }) => {
@@ -264,7 +262,18 @@ export function SchemaDiffCompare({ params }) {
   const triggerCompareDiff = async ({ sourceData, targetData, compareParams, filterParams }) => {
     setGridData([]);
     setIsInit(false);
-    if (JSON.stringify(sourceData) === JSON.stringify(targetData)) {
+
+    let raiseSelectionError = false;
+    if (!_.isUndefined(sourceData.scid) && !_.isNull(sourceData.scid) &&
+        !_.isUndefined(targetData.scid) && !_.isNull(targetData.scid)) {
+      if (sourceData.sid === targetData.sid  && sourceData.did === targetData.did && sourceData.scid === targetData.scid) {
+        raiseSelectionError = true;
+      }
+    } else if (sourceData.sid === targetData.sid  && sourceData.did === targetData.did) {
+      raiseSelectionError = true;
+    }
+
+    if (raiseSelectionError) {
       Notifier.alert(gettext('Selection Error'),
         gettext('Please select the different source and target.'));
     } else {
@@ -277,6 +286,8 @@ export function SchemaDiffCompare({ params }) {
         'target_did': targetData['did'],
         'ignore_owner': compareParams['ignoreOwner'],
         'ignore_whitespaces': compareParams['ignoreWhitespaces'],
+        'ignore_tablespace': compareParams['ignoreTablespace'],
+        'ignore_grants': compareParams['ignoreGrants'],
       };
       let socketEndpoint = 'compare_database';
       if (sourceData['scid'] != null && targetData['scid'] != null) {
@@ -291,7 +302,7 @@ export function SchemaDiffCompare({ params }) {
         socket = await openSocket('/schema_diff');
         socket.on('compare_status', res=>{
           let msg = res.compare_msg;
-          msg = msg + gettext(` (this may take a few minutes)... ${res.diff_percentage} %`);
+          msg = msg + gettext(` (this may take a few minutes)... ${Math.round(res.diff_percentage)} %`);
           setLoaderText(msg);
         });
         resData = await socketApiGet(socket, socketEndpoint, url_params);

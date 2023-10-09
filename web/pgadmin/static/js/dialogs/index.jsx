@@ -362,13 +362,14 @@ export function showChangeUserPassword(url) {
                   'new_password_confirm': data.confirmPassword,
                   'csrf_token': data.csrf_token
                 };
-
                 api({
                   method: 'POST',
                   url: url,
                   data: formData,
                 }).then((res)=>{
-                  resolve(res);
+                  resolve(res.data.info);
+                  onClose();
+                  Notify.success(res.data.info);
                 }).catch((err)=>{
                   reject(err);
                 });

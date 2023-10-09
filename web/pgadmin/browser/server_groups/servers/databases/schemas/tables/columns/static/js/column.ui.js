@@ -73,16 +73,17 @@ export default class ColumnSchema extends BaseUISchema {
     }
 
     if(this.nodeInfo &&  ('schema' in this.nodeInfo)) {
-      // We will disable control if it's system columns
-      // inheritedfrom check is useful when we use this schema in table node
-      // inheritedfrom has value then we should disable it
-      if(!_.isUndefined(state.inheritedfrom)) {
-        return true;
-      }
-
       if(this.isNew(state)) {
         return false;
       }
+
+      // We will disable control if it's system columns
+      // inheritedfrom check is useful when we use this schema in table node
+      // inheritedfrom has value then we should disable it
+      if (!isEmptyString(state.inheritedfrom)){
+        return true;
+      }
+
       // ie: it's position is less than 1
       return !(!_.isUndefined(state.attnum) && state.attnum > 0);
     }
@@ -332,6 +333,23 @@ export default class ColumnSchema extends BaseUISchema {
     },{
       id: 'max_val_attprecision', skipChange: true, visible: false, type: '',
     },{
+      id: 'attcompression', label: gettext('Compression'),
+      group: gettext('Definition'), type: 'select', deps: ['cltype'],
+      controlProps: { placeholder: gettext('Select compression'), allowClear: false},
+      options: [
+        {label: 'PGLZ', value: 'pglz'},
+        {label: 'LZ4', value: 'lz4'}
+      ],
+      disabled: function(state) {
+        return !obj.attlenRange(state);
+      },
+      depChange: (state)=>{
+        if(!obj.attlenRange(state)) {
+          return { attcompression: '' };
+        }
+      },
+      min_version: 140000,
+    }, {
       id: 'collspcname', label: gettext('Collation'), cell: 'select',
       type: 'select', group: gettext('Definition'),
       deps: ['cltype'], options: this.collspcnameOptions,

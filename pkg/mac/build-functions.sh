@@ -41,7 +41,11 @@ _build_runtime() {
     # YARN END
 
     # WGET:
-    NW_VERSION=$(yarn info nw | grep latest | awk -F "'" '{ print $2}')
+    # Comment out the below line as the latest version having some
+    # problem https://github.com/nwjs/nw.js/issues/7964, so for the time being
+    # hardcoded the version to 0.77.0
+    # NW_VERSION=$(yarn info nw | grep latest | awk -F "'" '{ print $2}')
+    NW_VERSION="0.77.0"
 
     pushd "${BUILD_ROOT}" > /dev/null || exit
         while true;do
@@ -293,10 +297,11 @@ _complete_bundle() {
     # copy the web directory to the bundle as it is required by runtime
     cp -r "${SOURCE_DIR}/web" "${BUNDLE_DIR}/Contents/Resources/"
     cd "${BUNDLE_DIR}/Contents/Resources/web" || exit
-    rm -f pgadmin.db config_local.*
-    rm -rf karma.conf.js package.json node_modules/ regression/ tools/ pgadmin/static/js/generated/.cache
+    rm -f pgadmin4.db config_local.*
+    rm -rf karma.conf.js package.json .yarn* yarn* .editorconfig .eslint* node_modules/ regression/ tools/ pgadmin/static/js/generated/.cache
     find . -name "tests" -type d -print0 | xargs -0 rm -rf
     find . -name "feature_tests" -type d -print0 | xargs -0 rm -rf
+    find . -name "__pycache__" -type d -print0 | xargs -0 rm -rf
     find . -name ".DS_Store" -print0 | xargs -0 rm -f
 
     {
@@ -318,6 +323,11 @@ _complete_bundle() {
     # Update permissions to make sure all users can access installed pgadmin.
     chmod -R og=u "${BUNDLE_DIR}"
     chmod -R og-w "${BUNDLE_DIR}"
+}
+
+_generate_sbom() {
+   echo "Generating SBOM..."
+   syft "${BUNDLE_DIR}/Contents/" -o cyclonedx-json > "${BUNDLE_DIR}/Contents/sbom.json"
 }
 
 _codesign_binaries() {

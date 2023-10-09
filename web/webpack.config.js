@@ -498,7 +498,7 @@ module.exports = [{
   optimization: {
     minimizer: PRODUCTION ? [
       new TerserPlugin({
-        parallel: true,
+        parallel: false,
         extractComments: true,
         terserOptions: {
           compress: true,
@@ -512,7 +512,6 @@ module.exports = [{
             plugins: [
               ['mozjpeg', { progressive: true }],
               ['optipng', { optimizationLevel: 7 }],
-              ['pngquant', {quality: [0.75, .9], speed: 3}],
             ],
           },
         },

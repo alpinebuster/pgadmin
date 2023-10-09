@@ -94,6 +94,7 @@ export default function QueryToolComponent({
     connection_status_msg: '',
     params: {
       ...params,
+      title: _.unescape(params.title),
       is_query_tool: params.is_query_tool == 'true' ? true : false,
       node_name: retrieveNodeName(selectedNodeInfo),
     },
@@ -107,12 +108,8 @@ export default function QueryToolComponent({
       fgcolor: params.fgcolor,
       bgcolor: params.bgcolor,
       conn_title: getTitle(
-        pgAdmin, null, selectedNodeInfo, true,
-        _.unescape(params.server_name),
-        _.unescape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
-        _.unescape(params.role) || _.unescape(params.user),
-        params.is_query_tool == 'true' ? true : false
-      ),
+        pgAdmin, null, selectedNodeInfo, true, _.unescape(params.server_name), _.escape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
+        _.unescape(params.role) || _.unescape(params.user), params.is_query_tool == 'true' ? true : false),
       server_name: _.unescape(params.server_name),
       database_name: _.unescape(params.database_name) || getDatabaseLabel(selectedNodeInfo),
       is_selected: true,
@@ -699,6 +696,7 @@ export default function QueryToolComponent({
       database: {
         _id: selectedConn.did,
         label: selectedConn.database_name,
+        _label: selectedConn.database_name,
       },
     };
 

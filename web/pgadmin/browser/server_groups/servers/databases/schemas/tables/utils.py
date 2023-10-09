@@ -917,6 +917,8 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
                 part_data['partition_scheme'] = row['partition_scheme']
                 part_data['description'] = row['description']
                 part_data['relowner'] = row['relowner']
+                part_data['default_amname'] = data.get('default_amname')
+                part_data['amname'] = row.get('amname')
 
                 self.update_autovacuum_properties(row)
 
@@ -1813,7 +1815,8 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
                 'values_to': range_to,
                 'is_default': is_default,
                 'is_sub_partitioned': row['is_sub_partitioned'],
-                'sub_partition_scheme': row['sub_partition_scheme']
+                'sub_partition_scheme': row['sub_partition_scheme'],
+                'amname': row['amname']
             })
         elif data['partition_type'] == 'list':
             if row['partition_value'] == 'DEFAULT':
@@ -1831,7 +1834,8 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
                 'values_in': range_in,
                 'is_default': is_default,
                 'is_sub_partitioned': row['is_sub_partitioned'],
-                'sub_partition_scheme': row['sub_partition_scheme']
+                'sub_partition_scheme': row['sub_partition_scheme'],
+                'amname': row['amname']
             })
         else:
             range_part = row['partition_value'].split(
@@ -1847,7 +1851,8 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
                 'values_modulus': range_modulus,
                 'values_remainder': range_remainder,
                 'is_sub_partitioned': row['is_sub_partitioned'],
-                'sub_partition_scheme': row['sub_partition_scheme']
+                'sub_partition_scheme': row['sub_partition_scheme'],
+                'amname': row['amname']
             })
 
     def get_partitions_sql(self, partitions, schema_diff=False):
@@ -1863,6 +1868,7 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
             part_data = dict()
             part_data['partitioned_table_name'] = partitions['name']
             part_data['parent_schema'] = partitions['schema']
+            part_data['amname'] = row.get('amname')
 
             if 'is_attach' in row and row['is_attach']:
                 schema_name, table_name = \
@@ -2190,3 +2196,23 @@ class BaseTableView(PGChildNodeView, BasePartitionTable, VacuumSettings):
                 res['toast_autovacuum_freeze_max_age'],
                 res['toast_autovacuum_freeze_table_age']]) or \
                 res['toast_autovacuum_enabled'] in ('t', 'f')
+
+    def get_access_methods(self):
+        """
+        This function returns the access methods for table
+        """
+
+        res = []
+        sql = render_template("/".join([self.table_template_path,
+                                        'get_access_methods.sql']))
+
+        status, rest = self.conn.execute_2darray(sql)
+        if not status:
+            return internal_server_error(errormsg=rest)
+
+        for row in rest['rows']:
+            res.append(
+                {'label': row['amname'], 'value': row['amname']}
+            )
+
+        return res

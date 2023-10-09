@@ -15,7 +15,10 @@ export default function LoginPage({
   ...props
 }) {
   const [form, setForm] = useState(({email: '', password: '', language: userLanguage}));
-  const showLoginForm = authSources?.includes('internal');
+
+  // Hide login form if auth source is only oauth2 and/or kerberos. #5386
+  const showLoginForm = !((authSources?.includes('oauth2') || authSources?.includes('kerberos')) && authSources?.length == 1 || (authSources?.includes('oauth2') 
+  && authSources?.includes('kerberos')) && authSources?.length == 2);
 
   const onTextChange = (n, val)=>{
     setForm((prev)=>({...prev, [n]: val}));
@@ -49,7 +52,7 @@ export default function LoginPage({
               <a style={{color: 'inherit'}} href={forgotPassUrl}>{gettext('Forgotten your password?')}</a>
             </Box>
             <InputSelectNonSearch name="language" options={langOptions} value={form.language} onChange={(v)=>onTextChange('language', v.target.value)} />
-            <SecurityButton name="internal_button" value="Login">{gettext('Login')}</SecurityButton>
+            <SecurityButton name="internal_button" value="Login" disabled={!(form.email && form.password)}>{gettext('Login')}</SecurityButton>
           </>
           }
           {authSources?.includes?.(authSourcesEnum.OAUTH2) &&
