@@ -15,14 +15,14 @@ import {getGCD, getEpoch} from 'sources/utils';
 import {ChartContainer} from '../Dashboard';
 import { Grid } from '@material-ui/core';
 import { DATA_POINT_SIZE } from 'sources/chartjs';
-import StreamingChart from '../../../../static/js/components/PgChart/StreamingChart';
+import StreamingChart from '../../../../static/js/components/pg_chart/StreamingChart';
 import {useInterval, usePrevious} from 'sources/custom_hooks';
 import axios from 'axios';
 import { BarChart, PieChart } from '../../../../static/js/chartjs';
 import { getStatsUrl, transformData, X_AXIS_LENGTH } from './utility.js';
 import { toPrettySize } from '../../../../static/js/utils';
 import clsx from 'clsx';
-import { commonTableStyles } from '../../../../static/js/Theme';
+import { commonTableStyles } from '../../../../static/js/theme';
 
 const useStyles = makeStyles((theme) => ({
   container: {
