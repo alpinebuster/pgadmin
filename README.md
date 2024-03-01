@@ -57,7 +57,7 @@ simple - adapt as required for your distribution:
    the name of the environment; that can be changed as desired:
 
    ```bash
-   python -m .env ./.env
+   python -m venv ./.env
    ```
 
 2. Now activate the virtual environment:
@@ -185,7 +185,7 @@ can be used:
 ```bash
 cd $PGADMIN_SRC\web
 yarn install
-yarn run bundle
+yarn bundle:watch
 ```
 
 # Setting up postgresql via docker
